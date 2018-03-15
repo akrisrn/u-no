@@ -1,6 +1,5 @@
 body {
     font-size: 16px;
-    font-family: 'Source Code Pro', "Lucida Grande", Lucida Sans Unicode, Hiragino Sans GB, WenQuanYi Micro Hei, Verdana, Aril, sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -117,9 +116,4 @@ a:hover {
         width: 100%;
         margin: 0;
     }
-}
-
-@font-face{
-    font-family: 'Source Code Pro';
-    src: url(../font/SourceCodePro-Regular.ttf) format('truetype');
 }

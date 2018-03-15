@@ -6,9 +6,14 @@ uno_static_dir_name = "static"
 
 uno_site_name = ""
 uno_version = ""
+
 uno_favicon_img = ""
 uno_to_top_img = ""
 uno_background_img = ""
+
+uno_font_file = ""
+uno_font_type = ""
+uno_font_name = ""
 
 uno_index_show_text = ""
 uno_sidebar_show_text = ""
@@ -27,5 +32,6 @@ uno_articles_dir_name = ""
 uno_uploads_dir_name = ""
 uno_sha1_file_name = ""
 uno_reindex_url_name = ""
+
 uno_ignore_file_list = [uno_sha1_file_name]
 uno_ignore_dir_list = []

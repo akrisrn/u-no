@@ -10,9 +10,16 @@
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/pace-theme-flash.min.css') | version }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') | version }}">
     <link rel="shortcut icon" href="{{ get_static_file_url(favicon_img) | version }}">
+    <style>
+    @font-face{
+        font-family: '{{ font_name }}';
+        src: url({{ get_static_file_url(font_file) | version }}) format('{{ font_type }}');
+    }
+    </style>
 {% endblock %}
 </head>
-<body style="background: url({{ get_static_file_url(background_img) | version }});">
+<body style="background: url({{ get_static_file_url(background_img) | version }});
+             font-family: {{ font_name }}, sans-serif;">
 <div id="header">
     <a href="{{ url_for('index') }}">{{ site_name }}</a>
 </div>
