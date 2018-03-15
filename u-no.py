@@ -28,8 +28,9 @@ app.jinja_env.globals["markdown_toc_text"] = uno_markdown_toc_text
 
 app.jinja_env.globals["index_cover_img"] = uno_index_cover_img
 app.jinja_env.globals["index_cover_height"] = uno_index_cover_height
-app.jinja_env.globals["sidebar_cover_img"] = uno_sidebar_cover_img
+app.jinja_env.globals["sidebar_cover_a_img"] = uno_sidebar_cover_a_img
 app.jinja_env.globals["sidebar_cover_b_img"] = uno_sidebar_cover_b_img
+app.jinja_env.globals["sidebar_cover_c_img"] = uno_sidebar_cover_c_img
 app.jinja_env.globals["sidebar_cover_height"] = uno_sidebar_cover_height
 app.jinja_env.globals["error_cover_img"] = uno_error_cover_img
 app.jinja_env.globals["error_cover_height"] = uno_error_cover_height
