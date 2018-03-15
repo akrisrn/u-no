@@ -1,4 +1,6 @@
+import logging
 import re
+from logging import FileHandler, Formatter
 
 from flask import Flask, render_template, send_from_directory, abort
 
@@ -89,4 +91,9 @@ def favicon():
 
 
 if __name__ == '__main__':
+    handler = FileHandler(uno_log_file_name, encoding='UTF-8')
+    handler.setLevel(logging.DEBUG)
+    formatter = Formatter('%(asctime)s丨%(levelname)s丨%(filename)s丨%(funcName)s丨%(lineno)s丨%(message)s')
+    handler.setFormatter(formatter)
+    app.logger.addHandler(handler)
     app.run(host=uno_host, port=uno_port, debug=uno_debug)
