@@ -6,7 +6,7 @@ from flask import Flask, render_template, send_from_directory, abort
 
 from util import *
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=uno_static_dir_name)
 app.jinja_env.auto_reload = True
 app.jinja_env.filters['version'] = version
 app.jinja_env.globals["site_name"] = uno_site_name

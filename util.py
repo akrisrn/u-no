@@ -39,7 +39,7 @@ def get_static_dir_abspath():
 
 
 def get_static_file_url(filename):
-    return url_for(uno_static_dir_name, filename=filename)
+    return url_for("static", filename=filename)
 
 
 def version(url):
