@@ -1,0 +1,15 @@
+{% extends "frame.html" %}
+{% block title %}
+    {{ name }}
+{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/github-markdown.min.css') }}">
+{% endblock %}
+{% block content %}
+    <h1>{{ name }}</h1>
+    <hr>
+    <div class="markdown-body">
+        {{ content | safe }}
+    </div>
+{% endblock %}
