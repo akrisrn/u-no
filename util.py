@@ -1,7 +1,6 @@
 import hashlib
 import os
 import platform
-from datetime import datetime
 
 from flask import url_for
 from markdown import markdown
@@ -20,6 +19,8 @@ def md(text):
 
 
 def sha1_digest(file):
+    if os.path.isdir(file) or not os.path.exists(file):
+        return ""
     with open(file, 'rb') as file:
         content = file.read()
     return hashlib.sha1(content).hexdigest()
@@ -30,25 +31,21 @@ def get_root_abspath():
 
 
 def get_articles_dir_abspath():
-    return os.path.join(get_root_abspath(), articles_dir_name)
+    return os.path.join(get_root_abspath(), uno_articles_dir_name)
 
 
 def get_static_dir_abspath():
-    return os.path.join(get_root_abspath(), static_dir_name)
+    return os.path.join(get_root_abspath(), uno_static_dir_name)
 
 
 def get_static_file_url(filename):
-    return url_for(static_dir_name, filename=filename)
+    return url_for(uno_static_dir_name, filename=filename)
 
 
 def version(url):
-    ver = sha1_digest(os.path.join(get_root_abspath(), url[1:]))
+    ver = uno_version if uno_version and not uno_debug else sha1_digest(os.path.join(get_root_abspath(), url[1:]))
     return "%s?v=%s" % (url, ver)
 
 
-def now_year():
-    return datetime.now().strftime('%Y')
-
-
 def get_sync_cmd():
-    return "cd %s %s git pull" % (articles_dir_name, "&" if platform.system() == "Windows" else ";")
+    return "cd %s %s git pull" % (uno_articles_dir_name, "&" if platform.system() == "Windows" else ";")

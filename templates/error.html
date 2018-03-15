@@ -1,9 +1,11 @@
 {% extends "frame.html" %}
 {% block title %}
-    There's nothing here
+    {{ error_show }}
 {% endblock %}
 {% block content %}
-    <h1>There's nothing here.</h1>
+    <h1>{{ error_show | safe }}</h1>
     <hr>
-    <div id="error-cover"></div>
+    <div style="height: {{ error_cover_height }}px;
+                background: url({{ get_static_file_url(error_cover) | version }}) no-repeat center;">
+    </div>
 {% endblock %}

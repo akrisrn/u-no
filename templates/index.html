@@ -4,8 +4,10 @@
 {% endblock %}
 {% block content %}
     <div class="center">
-        <h1>That's what {{ site_name }}</h1>
+        <h1>{{ index_show | safe }}</h1>
     </div>
     <hr>
-    <div id="index-cover"></div>
+    <div style="height: {{ index_cover_height }}px;
+                background: url({{ get_static_file_url(index_cover) | version }}) no-repeat center;">
+    </div>
 {% endblock %}

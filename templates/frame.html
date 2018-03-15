@@ -1,4 +1,3 @@
-{% set site_name = "U-NO-U.NO" %}
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -6,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
-    <script type="text/javascript" src="{{ get_static_file_url('js/pace.min.js') }}"></script>
-    <script type="text/javascript" src="{{ get_static_file_url('js/pace.on.js') }}"></script>
-    <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/pace-theme-flash.min.css') }}">
+    <script type="text/javascript" src="{{ get_static_file_url('js/pace.min.js') | version }}"></script>
+    <script type="text/javascript" src="{{ get_static_file_url('js/pace.on.js') | version }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/pace-theme-flash.min.css') | version }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') | version }}">
 {% endblock %}
 </head>
@@ -22,19 +21,21 @@
     {% endblock %}
     </div>
     <div id="sidebar">
-        <div id="sidebar-cover"></div>
+        <div style="height: {{ sidebar_cover_height }}px;
+                    background: url({{ get_static_file_url(sidebar_cover) | version }}) no-repeat center;">
+        </div>
         <div class="center">
-            <h4>Author: @Akr</h4>
+            <h4>{{ sidebar_show | safe }}</h4>
         </div>
         <hr>
         <div class="center">
-            <h5>Copyright © 2014-{{ now_year() }}<br>{{ site_name }} All rights reserved.</h5>
+            <h5>{{ copyright_show | safe }}</h5>
         </div>
     </div>
 </div>
 <div id="to-top">
-    <img src="{{ get_static_file_url('img/to-top.jpg') }}">
+    <img src="{{ get_static_file_url('img/to-top.jpg') | version }}">
 </div>
-<script type="text/javascript" src="{{ get_static_file_url('js/to-top.js') }}"></script>
+<script type="text/javascript" src="{{ get_static_file_url('js/to-top.js') | version }}"></script>
 </body>
 </html>
