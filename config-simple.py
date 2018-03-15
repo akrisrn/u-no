@@ -11,6 +11,7 @@ uno_favicon = ""
 uno_index_show = ""
 uno_sidebar_show = ""
 uno_error_show = ""
+uno_error_title_show = ""
 uno_copyright_show = ""
 
 uno_index_cover = ""

@@ -14,6 +14,7 @@ app.jinja_env.globals["favicon"] = uno_favicon
 app.jinja_env.globals["index_show"] = uno_index_show
 app.jinja_env.globals["sidebar_show"] = uno_sidebar_show
 app.jinja_env.globals["error_show"] = uno_error_show
+app.jinja_env.globals["error_title_show"] = uno_error_title_show
 app.jinja_env.globals["copyright_show"] = uno_copyright_show
 app.jinja_env.globals["index_cover"] = uno_index_cover
 app.jinja_env.globals["index_cover_height"] = uno_index_cover_height
