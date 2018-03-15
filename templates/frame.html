@@ -12,7 +12,7 @@
     <link rel="shortcut icon" href="{{ get_static_file_url(favicon_img) | version }}">
 {% endblock %}
 </head>
-<body>
+<body style="background: url({{ get_static_file_url(background_img) | version }});">
 <div id="header">
     <a href="{{ url_for('index') }}">{{ site_name }}</a>
 </div>
