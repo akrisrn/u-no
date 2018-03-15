@@ -65,7 +65,7 @@ def article(dir_name, file_sha1):
 @app.route('/%s' % reindex_url_name)
 def reindex():
     with os.popen(get_sync_cmd()) as p:
-        app.logger.info(p.read())
+        app.logger.info(p.read().rstrip("\n"))
     articles_dir_abspath = get_articles_dir_abspath()
     sha1_data = ""
     for root, dirs, files in os.walk(articles_dir_abspath):
