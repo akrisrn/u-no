@@ -21,6 +21,7 @@ app.jinja_env.globals["sidebar_show_text"] = uno_sidebar_show_text
 app.jinja_env.globals["error_show_text"] = uno_error_show_text
 app.jinja_env.globals["error_title_show_text"] = uno_error_title_show_text
 app.jinja_env.globals["copyright_show_text"] = uno_copyright_show_text
+app.jinja_env.globals["markdown_toc_text"] = uno_markdown_toc_text
 app.jinja_env.globals["index_cover_img"] = uno_index_cover_img
 app.jinja_env.globals["index_cover_height"] = uno_index_cover_height
 app.jinja_env.globals["sidebar_cover_img"] = uno_sidebar_cover_img

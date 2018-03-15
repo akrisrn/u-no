@@ -2,10 +2,6 @@
 {% block title %}
     {{ name }}
 {% endblock %}
-{% block head %}
-    {{ super() }}
-    <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/github-markdown.min.css') | version }}">
-{% endblock %}
 {% block content %}
     <h1>{{ name }}</h1>
     <hr>

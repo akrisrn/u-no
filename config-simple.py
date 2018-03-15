@@ -20,6 +20,7 @@ uno_sidebar_show_text = ""
 uno_error_show_text = ""
 uno_error_title_show_text = ""
 uno_copyright_show_text = ""
+uno_markdown_toc_text = ""
 
 uno_index_cover_img = ""
 uno_index_cover_height = ""

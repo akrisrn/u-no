@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-{% block head %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{% endblock %}</title>
-    <script type="text/javascript" src="{{ get_static_file_url('js/pace.min.js') | version }}"></script>
-    <script type="text/javascript" src="{{ get_static_file_url('js/pace.on.js') | version }}"></script>
-    <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/pace-theme-flash.min.css') | version }}">
-    <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') | version }}">
-    <link rel="shortcut icon" href="{{ get_static_file_url(favicon_img) | version }}">
-    <style>
-    @font-face{
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="{{ get_static_file_url(favicon_img) | version }}">
+<title>{% block title %}{% endblock %}</title>
+<script type="text/javascript" src="{{ get_static_file_url('js/pace.min.js') | version }}"></script>
+<script type="text/javascript" src="{{ get_static_file_url('js/pace.on.js') | version }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/pace-theme-flash.min.css') | version }}">
+<link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') | version }}">
+<link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/github-markdown.min.css') | version }}">
+<!--suppress CssUnusedSymbol -->
+<style>
+    @font-face {
         font-family: '{{ font_name }}';
         src: url({{ get_static_file_url(font_file) | version }}) format('{{ font_type }}');
     }
-    </style>
-{% endblock %}
+
+    body {
+        background: url({{ get_static_file_url(background_img) | version }});
+        font-family: {{ font_name }}, sans-serif;
+    }
+
+    .markdown-body .toc:before {
+        content: "{{ markdown_toc_text }}";
+    }
+</style>
 </head>
-<body style="background: url({{ get_static_file_url(background_img) | version }});
-             font-family: {{ font_name }}, sans-serif;">
+<body>
 <div id="header">
     <a href="{{ url_for('index') }}">{{ site_name }}</a>
 </div>
