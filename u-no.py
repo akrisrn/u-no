@@ -64,7 +64,7 @@ def article(dir_name, file_sha1):
 def reindex():
     with os.popen(get_sync_cmd()) as p:
         for line in p.readlines():
-            print(line, end="")
+            app.logger.info(line)
     articles_dir_abspath = get_articles_dir_abspath()
     sha1_data = ""
     for root, dirs, files in os.walk(articles_dir_abspath):
