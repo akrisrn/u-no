@@ -6,6 +6,7 @@ uno_static_dir_name = "static"
 
 uno_site_name = ""
 uno_version = ""
+uno_favicon = ""
 
 uno_index_show = ""
 uno_sidebar_show = ""

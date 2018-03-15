@@ -10,6 +10,7 @@ app = Flask(__name__, static_folder=uno_static_dir_name)
 app.jinja_env.auto_reload = True
 app.jinja_env.filters['version'] = version
 app.jinja_env.globals["site_name"] = uno_site_name
+app.jinja_env.globals["favicon"] = uno_favicon
 app.jinja_env.globals["index_show"] = uno_index_show
 app.jinja_env.globals["sidebar_show"] = uno_sidebar_show
 app.jinja_env.globals["error_show"] = uno_error_show
