@@ -6,6 +6,6 @@
     <h1>{{ error_show_text | safe }}</h1>
     <hr>
     <div style="height: {{ error_cover_height }}px;
-                background: url({{ get_static_file_url(error_cover_img) | version }}) no-repeat center;">
+                background: url({{ get_static_file_url(error_cover_img) }}) no-repeat center;">
     </div>
 {% endblock %}

@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="{{ get_static_file_url(favicon_img) | version }}">
+<link rel="shortcut icon" href="{{ get_static_file_url(favicon_img) }}">
 <title>{% block title %}{% endblock %}</title>
 <script type="text/javascript" src="{{ get_bower_file_url('PACE/pace.min.js') }}"></script>
-<script type="text/javascript" src="{{ get_static_file_url('js/pace.on.js') | version }}"></script>
+<script type="text/javascript" src="{{ get_static_file_url('js/pace.on.js') }}"></script>
 <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('PACE/themes/blue/pace-theme-flash.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('github-markdown-css/github-markdown.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') | version }}">
+<link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') }}">
 <!--suppress CssUnusedSymbol -->
 <style>
     @font-face {
         font-family: '{{ font_name }}';
-        src: url({{ get_static_file_url(font_file) | version }}) format('{{ font_type }}');
+        src: url({{ get_static_file_url(font_file) }}) format('{{ font_type }}');
     }
 
     body {
-        background: url({{ get_static_file_url(background_img) | version }});
+        background: url({{ get_static_file_url(background_img) }});
         font-family: {{ font_name }}, sans-serif;
     }
 
@@ -28,7 +28,7 @@
 
     #sidebar-cover {
         height: {{ sidebar_cover_height }}px;
-        background: url({{ get_static_file_url(sidebar_cover_img) | version }}) no-repeat center;
+        background: url({{ get_static_file_url(sidebar_cover_img) }}) no-repeat center;
         transition: all 0.1s;
         -moz-transition: all 0.1s;
         -webkit-transition: all 0.1s;
@@ -36,7 +36,7 @@
     }
 
     #sidebar-cover:hover {
-        background: url({{ get_static_file_url(sidebar_cover_b_img) | version }}) no-repeat center;
+        background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
     }
 </style>
 </head>
@@ -61,8 +61,8 @@
     </div>
 </div>
 <div id="to-top">
-    <img src="{{ get_static_file_url(to_top_img) | version }}">
+    <img src="{{ get_static_file_url(to_top_img) }}">
 </div>
-<script type="text/javascript" src="{{ get_static_file_url('js/to-top.js') | version }}"></script>
+<script type="text/javascript" src="{{ get_static_file_url('js/to-top.js') }}"></script>
 </body>
 </html>
