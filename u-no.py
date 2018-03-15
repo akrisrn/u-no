@@ -36,6 +36,7 @@ app.jinja_env.globals["error_cover_img"] = uno_error_cover_img
 app.jinja_env.globals["error_cover_height"] = uno_error_cover_height
 
 app.jinja_env.globals.update(get_static_file_url=get_static_file_url)
+app.jinja_env.globals.update(get_bower_file_url=get_bower_file_url)
 
 
 @app.errorhandler(404)

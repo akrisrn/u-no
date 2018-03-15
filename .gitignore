@@ -176,5 +176,6 @@ venv.bak/
 
 config.py
 articles
+static/bower_components
 static/img
 static/font

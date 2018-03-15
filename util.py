@@ -42,6 +42,10 @@ def get_static_file_url(filename):
     return url_for("static", filename=filename)
 
 
+def get_bower_file_url(filename):
+    return url_for("static", filename="bower_components/%s" % filename)
+
+
 def version(url):
     ver = uno_version if uno_version and not uno_debug else sha1_digest(os.path.join(get_root_abspath(), url[1:]))
     return "%s?v=%s" % (url, ver)

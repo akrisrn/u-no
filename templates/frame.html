@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="{{ get_static_file_url(favicon_img) | version }}">
 <title>{% block title %}{% endblock %}</title>
-<script type="text/javascript" src="{{ get_static_file_url('js/pace.min.js') | version }}"></script>
+<script type="text/javascript" src="{{ get_bower_file_url('PACE/pace.min.js') }}"></script>
 <script type="text/javascript" src="{{ get_static_file_url('js/pace.on.js') | version }}"></script>
-<link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/pace-theme-flash.min.css') | version }}">
+<link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('PACE/themes/blue/pace-theme-flash.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('github-markdown-css/github-markdown.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') | version }}">
-<link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/github-markdown.min.css') | version }}">
 <!--suppress CssUnusedSymbol -->
 <style>
     @font-face {

@@ -1,0 +1,22 @@
+{
+  "name": "u-no",
+  "homepage": "https://github.com/akrisrn/u-no",
+  "authors": [
+    "AkrISrn <shairkarine@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "PACE": "pace#^1.0.2",
+    "github-markdown-css": "^2.10.0"
+  }
+}
