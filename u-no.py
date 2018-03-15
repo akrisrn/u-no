@@ -60,7 +60,7 @@ def article(dir_name, file_sha1):
         return send_from_directory(file_dir, file)
 
 
-@app.route('/reindex')
+@app.route('/%s' % reindex_url_name)
 def reindex():
     articles_dir_abspath = get_articles_dir_abspath()
     sha1_data = ""
@@ -87,4 +87,4 @@ def favicon():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host=uno_host, port=uno_port, debug=uno_debug)
