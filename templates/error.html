@@ -1,11 +1,11 @@
 {% extends "frame.html" %}
 {% block title %}
-    {{ error_title_show }}
+    {{ error_title_show_text }}
 {% endblock %}
 {% block content %}
-    <h1>{{ error_show | safe }}</h1>
+    <h1>{{ error_show_text | safe }}</h1>
     <hr>
     <div style="height: {{ error_cover_height }}px;
-                background: url({{ get_static_file_url(error_cover) | version }}) no-repeat center;">
+                background: url({{ get_static_file_url(error_cover_img) | version }}) no-repeat center;">
     </div>
 {% endblock %}

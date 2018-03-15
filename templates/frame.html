@@ -9,7 +9,7 @@
     <script type="text/javascript" src="{{ get_static_file_url('js/pace.on.js') | version }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/pace-theme-flash.min.css') | version }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') | version }}">
-    <link rel="shortcut icon" href="{{ get_static_file_url(favicon) | version }}">
+    <link rel="shortcut icon" href="{{ get_static_file_url(favicon_img) | version }}">
 {% endblock %}
 </head>
 <body>
@@ -23,14 +23,14 @@
     </div>
     <div id="sidebar">
         <div style="height: {{ sidebar_cover_height }}px;
-                    background: url({{ get_static_file_url(sidebar_cover) | version }}) no-repeat center;">
+                    background: url({{ get_static_file_url(sidebar_cover_img) | version }}) no-repeat center;">
         </div>
         <div class="center">
-            <h4>{{ sidebar_show | safe }}</h4>
+            <h4>{{ sidebar_show_text | safe }}</h4>
         </div>
         <hr>
         <div class="center">
-            <h5>{{ copyright_show | safe }}</h5>
+            <h5>{{ copyright_show_text | safe }}</h5>
         </div>
     </div>
 </div>
