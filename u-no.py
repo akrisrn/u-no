@@ -9,25 +9,31 @@ from util import *
 app = Flask(__name__, static_folder=uno_static_dir_name)
 app.jinja_env.auto_reload = True
 app.jinja_env.filters['version'] = version
+
 app.jinja_env.globals["site_name"] = uno_site_name
+
 app.jinja_env.globals["favicon_img"] = uno_favicon_img
 app.jinja_env.globals["to_top_img"] = uno_to_top_img
+app.jinja_env.globals["background_img"] = uno_background_img
+
 app.jinja_env.globals["font_file"] = uno_font_file
 app.jinja_env.globals["font_type"] = uno_font_type
 app.jinja_env.globals["font_name"] = uno_font_name
-app.jinja_env.globals["background_img"] = uno_background_img
+
 app.jinja_env.globals["index_show_text"] = uno_index_show_text
 app.jinja_env.globals["sidebar_show_text"] = uno_sidebar_show_text
 app.jinja_env.globals["error_show_text"] = uno_error_show_text
 app.jinja_env.globals["error_title_show_text"] = uno_error_title_show_text
 app.jinja_env.globals["copyright_show_text"] = uno_copyright_show_text
 app.jinja_env.globals["markdown_toc_text"] = uno_markdown_toc_text
+
 app.jinja_env.globals["index_cover_img"] = uno_index_cover_img
 app.jinja_env.globals["index_cover_height"] = uno_index_cover_height
 app.jinja_env.globals["sidebar_cover_img"] = uno_sidebar_cover_img
 app.jinja_env.globals["sidebar_cover_height"] = uno_sidebar_cover_height
 app.jinja_env.globals["error_cover_img"] = uno_error_cover_img
 app.jinja_env.globals["error_cover_height"] = uno_error_cover_height
+
 app.jinja_env.globals.update(get_static_file_url=get_static_file_url)
 
 
