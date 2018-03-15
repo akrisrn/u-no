@@ -1,4 +1,4 @@
-var obj = document.getElementById("goTopBtn");
+var obj = document.getElementById("to-top");
 
 function getScrollTop() {
   return document.documentElement.scrollTop + document.body.scrollTop;

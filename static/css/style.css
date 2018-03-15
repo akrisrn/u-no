@@ -93,7 +93,7 @@ a:hover {
     background: url(../img/forest.png) no-repeat center;
 }
 
-#goTopBtn {
+#to-top {
     opacity: 0;
     position: fixed;
     width: 30px;
