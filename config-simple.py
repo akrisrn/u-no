@@ -7,6 +7,7 @@ uno_static_dir_name = "static"
 uno_site_name = ""
 uno_version = ""
 uno_favicon_img = ""
+uno_to_top_img = ""
 
 uno_index_show_text = ""
 uno_sidebar_show_text = ""
