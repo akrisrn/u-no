@@ -95,11 +95,6 @@ def reindex():
     abort(404)
 
 
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(get_static_dir_abspath(), "favicon.ico")
-
-
 if __name__ == '__main__':
     handler = FileHandler(uno_log_file_name, encoding='UTF-8')
     handler.setLevel(logging.DEBUG)
