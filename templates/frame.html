@@ -25,6 +25,19 @@
     .markdown-body .toc:before {
         content: "{{ markdown_toc_text }}";
     }
+
+    #sidebar-cover {
+        height: {{ sidebar_cover_height }}px;
+        background: url({{ get_static_file_url(sidebar_cover_img) | version }}) no-repeat center;
+        transition: all 0.1s;
+        -moz-transition: all 0.1s;
+        -webkit-transition: all 0.1s;
+        -o-transition: all 0.1s
+    }
+
+    #sidebar-cover:hover {
+        background: url({{ get_static_file_url(sidebar_cover_b_img) | version }}) no-repeat center;
+    }
 </style>
 </head>
 <body>
@@ -37,9 +50,7 @@
     {% endblock %}
     </div>
     <div id="sidebar">
-        <div style="height: {{ sidebar_cover_height }}px;
-                    background: url({{ get_static_file_url(sidebar_cover_img) | version }}) no-repeat center;">
-        </div>
+        <div id="sidebar-cover"></div>
         <div class="center">
             <h4>{{ sidebar_show_text | safe }}</h4>
         </div>
