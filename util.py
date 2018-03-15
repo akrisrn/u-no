@@ -1,5 +1,6 @@
 import hashlib
 import os
+import platform
 from datetime import datetime
 
 from flask import url_for
@@ -47,3 +48,7 @@ def version(url):
 
 def now_year():
     return datetime.now().strftime('%Y')
+
+
+def get_sync_cmd():
+    return "cd %s %s git pull" % (articles_dir_name, "&" if platform.system() == "Windows" else ";")
