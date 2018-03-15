@@ -176,3 +176,4 @@ venv.bak/
 
 config.py
 articles
+static/img
