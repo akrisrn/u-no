@@ -2,7 +2,6 @@ uno_host = "127.0.0.1"
 uno_port = 5000
 uno_debug = False
 uno_maintenance = False
-uno_log_file_name = "uno.log"
 uno_static_dir_name = "static"
 
 uno_site_name = ""

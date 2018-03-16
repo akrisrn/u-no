@@ -123,11 +123,7 @@ def catch_all(path):
     return render_template('maintenance.html')
 
 
+app.register_blueprint(main if uno_maintenance else uno)
+
 if __name__ == '__main__':
-    handler = FileHandler(uno_log_file_name, encoding='UTF-8')
-    handler.setLevel(logging.DEBUG)
-    formatter = Formatter('%(asctime)s|%(levelname)s|%(filename)s|%(funcName)s|%(lineno)s|%(message)s')
-    handler.setFormatter(formatter)
-    app.logger.addHandler(handler)
-    app.register_blueprint(main if uno_maintenance else uno)
     app.run(host=uno_host, port=uno_port, debug=uno_debug)
