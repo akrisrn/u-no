@@ -2,11 +2,20 @@
 {% block title %}
     {{ site_name }}
 {% endblock %}
+{% block extra_style %}
+    div.center {
+        padding: 30px 50px
+    }
+
+    #content {
+        padding: 0
+    }
+{% endblock %}
 {% block content %}
     <div class="center">
         <h1>{{ index_show_text | safe }}</h1>
+        <hr>
     </div>
-    <hr>
     <div style="height: {{ index_cover_height }}px;
                 background: url({{ get_static_file_url(index_cover_img) }}) no-repeat center;">
     </div>

@@ -77,6 +77,8 @@
         99% {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
         100% {background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;}
     }
+    {% block extra_style %}
+    {% endblock %}
 </style>
 </head>
 <body>

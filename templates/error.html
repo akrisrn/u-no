@@ -2,10 +2,17 @@
 {% block title %}
     {{ error_title_show_text }}
 {% endblock %}
+{% block extra_style %}
+    #content {
+        padding: 0
+    }
+{% endblock %}
 {% block content %}
-    <h1>{{ error_show_text | safe }}</h1>
-    <hr>
-    {{ error }}
+    <div style="padding: 30px 50px">
+        <h1>{{ error_show_text | safe }}</h1>
+        <hr>
+        {{ error }}
+    </div>
     <div style="height: {{ error_cover_height }}px;
                 background: url({{ get_static_file_url(error_cover_img) }}) no-repeat center;">
     </div>
