@@ -126,7 +126,7 @@ def catch_all(path):
 if __name__ == '__main__':
     handler = FileHandler(uno_log_file_name, encoding='UTF-8')
     handler.setLevel(logging.DEBUG)
-    formatter = Formatter('%(asctime)s丨%(levelname)s丨%(filename)s丨%(funcName)s丨%(lineno)s丨%(message)s')
+    formatter = Formatter('%(asctime)s|%(levelname)s|%(filename)s|%(funcName)s|%(lineno)s|%(message)s')
     handler.setFormatter(formatter)
     app.logger.addHandler(handler)
     app.register_blueprint(main if uno_maintenance else uno)
