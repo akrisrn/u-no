@@ -46,7 +46,7 @@ app.jinja_env.globals.update(get_bower_file_url=get_bower_file_url)
 @app.errorhandler(404)
 @app.errorhandler(500)
 def error_page(error):
-    return render_template('error.html', error=error), 404
+    return render_template('error.html', error=error), error.code
 
 
 @uno.route('/')
