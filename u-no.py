@@ -2,9 +2,12 @@ import logging
 import re
 from logging import FileHandler, Formatter
 
-from flask import Flask, render_template, send_from_directory, abort
+from flask import Flask, render_template, send_from_directory, abort, Blueprint
 
 from util import *
+
+uno = Blueprint("uno", __name__)
+main = Blueprint("main", __name__)
 
 app = Flask(__name__, static_folder=uno_static_dir_name)
 app.jinja_env.auto_reload = True
@@ -46,12 +49,12 @@ def error_page(error):
     return render_template('error.html', error=error), 404
 
 
-@app.route('/')
+@uno.route('/')
 def index():
     return render_template('index.html')
 
 
-@app.route('/%s' % uno_sha1_file_name)
+@uno.route('/%s' % uno_sha1_file_name)
 def sha1_file_page():
     with open(os.path.join(get_articles_dir_abspath(), uno_sha1_file_name), encoding='utf-8') as sha1_file:
         sha1_data = sha1_file.read()
@@ -68,7 +71,7 @@ def sha1_file_page():
     return render_template('article.html', name=uno_sha1_file_name, content=sha1_data)
 
 
-@app.route('/<any("%s", "%s"):dir_name>/<file_sha1>' % (uno_articles_dir_name, uno_uploads_dir_name))
+@uno.route('/<any("%s", "%s"):dir_name>/<file_sha1>' % (uno_articles_dir_name, uno_uploads_dir_name))
 def article(dir_name, file_sha1):
     if len(file_sha1) != 40 or not file_sha1.isalnum():
         abort(404)
@@ -90,7 +93,7 @@ def article(dir_name, file_sha1):
         return send_from_directory(file_dir, file)
 
 
-@app.route('/%s' % uno_reindex_url_name)
+@uno.route('/%s' % uno_reindex_url_name)
 def reindex():
     with os.popen(get_sync_cmd()) as p:
         app.logger.info(p.read().rstrip())
@@ -113,10 +116,18 @@ def reindex():
     abort(404)
 
 
+# noinspection PyUnusedLocal
+@main.route('/', defaults={'path': ''})
+@main.route('/<path:path>')
+def catch_all(path):
+    return render_template('maintenance.html')
+
+
 if __name__ == '__main__':
     handler = FileHandler(uno_log_file_name, encoding='UTF-8')
     handler.setLevel(logging.DEBUG)
     formatter = Formatter('%(asctime)s丨%(levelname)s丨%(filename)s丨%(funcName)s丨%(lineno)s丨%(message)s')
     handler.setFormatter(formatter)
     app.logger.addHandler(handler)
+    app.register_blueprint(main if uno_maintenance else uno)
     app.run(host=uno_host, port=uno_port, debug=uno_debug)
