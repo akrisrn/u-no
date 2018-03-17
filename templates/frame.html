@@ -22,6 +22,14 @@
         content: "{{ markdown_toc_text }}";
     }
 
+    #preload-01 {
+        background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat -9999px -9999px;;
+    }
+
+    #preload-02 {
+        background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat -9999px -9999px;;
+    }
+
     #sidebar-cover {
         height: {{ sidebar_cover_height }}px;
         background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;
@@ -87,6 +95,8 @@
     {% endblock %}
     </div>
     <div id="sidebar">
+        <div id="preload-01"></div>
+        <div id="preload-02"></div>
         <div id="sidebar-cover"></div>
         <div class="center">
             <h4>{{ sidebar_show_text | safe }}</h4>
