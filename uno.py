@@ -110,7 +110,7 @@ def reindex():
             tags_append = ""
             if dir_name != uno_uploads_dir_name:
                 tags_append = "--"
-                tags = ["[%s](/tags/%s)" % (tag, sha1_digest_str(tag)) for tag in get_tags(file_abspath)]
+                tags = ["[%s](/%s/%s)" % (t, uno_tags_url_name, sha1_digest_str(t)) for t in get_tags(file_abspath)]
                 tags_append += ", ".join(tags)
             sha1_data += "- [%s](/%s/%s)%s\n" % (file_path, dir_name, sha1_digest_file(file_abspath), tags_append)
     with open(os.path.join(articles_dir_abspath, uno_sha1_file_name), 'w', encoding='utf-8') as sha1_file:
