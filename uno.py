@@ -95,7 +95,7 @@ def article(dir_name, file_sha1):
 
 
 @uno.route('/%s/<tag_sha1>' % uno_tags_url_name)
-def tag(tag_sha1):
+def tag_page(tag_sha1):
     if not check_sha1(tag_sha1):
         abort(404)
     sha1_data = get_sha1_data()
@@ -122,6 +122,7 @@ def reindex():
         path = path[1:] if path.startswith(os.path.sep) else path
         if path.split(os.path.sep)[0] in uno_ignore_dir_list:
             continue
+        tags_sha1_dict = {}
         for file in files:
             if file in uno_ignore_file_list:
                 continue
@@ -131,7 +132,14 @@ def reindex():
             tags_append = ""
             if dir_name != uno_uploads_dir_name:
                 tags_append = "--"
-                tags = ["[%s](/%s/%s)" % (t, uno_tags_url_name, sha1_digest_str(t)) for t in get_tags(file_abspath)]
+                tags = []
+                for tag in get_tags(file_abspath):
+                    if tag not in tags_sha1_dict.keys():
+                        tag_sha1 = sha1_digest_str(tag)
+                        tags_sha1_dict[tag] = tag_sha1
+                    else:
+                        tag_sha1 = tags_sha1_dict[tag]
+                    tags.append("[%s](/%s/%s)" % (tag, uno_tags_url_name, tag_sha1))
                 tags_append += ", ".join(tags)
             sha1_data += "- [%s](/%s/%s)%s\n" % (file_path, dir_name, sha1_digest_file(file_abspath), tags_append)
     with open(os.path.join(articles_dir_abspath, uno_sha1_file_name), 'w', encoding='utf-8') as sha1_file:
