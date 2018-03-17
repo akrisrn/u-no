@@ -51,5 +51,5 @@ def version(url):
     return "%s?v=%s" % (url, ver)
 
 
-def get_sync_cmd():
-    return "cd %s %s git pull" % (uno_articles_dir_name, "&" if platform.system() == "Windows" else ";")
+def get_pull_cmd(dir_abspath):
+    return "cd %s %s git pull" % (dir_abspath, "&" if platform.system() == "Windows" else ";")

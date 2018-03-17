@@ -1,6 +1,4 @@
-import logging
 import re
-from logging import FileHandler, Formatter
 
 from flask import Flask, render_template, send_from_directory, abort, Blueprint
 
@@ -95,7 +93,7 @@ def article(dir_name, file_sha1):
 
 @uno.route('/%s' % uno_reindex_url_name)
 def reindex():
-    with os.popen(get_sync_cmd()) as p:
+    with os.popen(get_pull_cmd(get_articles_dir_abspath())) as p:
         app.logger.info(p.read().rstrip())
     articles_dir_abspath = get_articles_dir_abspath()
     sha1_data = ""
@@ -113,6 +111,13 @@ def reindex():
             sha1_data += "- [%s](/%s/%s)\n" % (file_path, dir_name, sha1_digest(file_abspath))
     with open(os.path.join(articles_dir_abspath, uno_sha1_file_name), 'w', encoding='utf-8') as sha1_file:
         sha1_file.write(sha1_data)
+    abort(404)
+
+
+@uno.route('/%s' % uno_update_url_name)
+def update():
+    with os.popen(get_pull_cmd(get_root_abspath())) as p:
+        app.logger.info(p.read().rstrip())
     abort(404)
 
 
