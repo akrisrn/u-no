@@ -55,8 +55,7 @@ def index():
 
 @uno.route('/%s' % uno_sha1_file_name)
 def sha1_file_page():
-    with open(os.path.join(get_articles_dir_abspath(), uno_sha1_file_name), encoding='utf-8') as sha1_file:
-        sha1_data = sha1_file.read()
+    sha1_data = get_sha1_data()
     new_sha1_data = ""
     another_sha1_data = ""
     for data in sha1_data.split("\n"):
@@ -72,15 +71,13 @@ def sha1_file_page():
 
 @uno.route('/<any("%s", "%s"):dir_name>/<file_sha1>' % (uno_articles_dir_name, uno_uploads_dir_name))
 def article(dir_name, file_sha1):
-    if len(file_sha1) != 40 or not file_sha1.isalnum():
+    if not check_sha1(file_sha1):
         abort(404)
-    articles_dir_abspath = get_articles_dir_abspath()
-    with open(os.path.join(articles_dir_abspath, uno_sha1_file_name), encoding='utf-8') as sha1_file:
-        sha1_data = sha1_file.read()
-    group = re.search('- \[(.*?)\]\(/%s/%s\)(.*?)\n' % (dir_name, file_sha1), sha1_data)
+    group = re.search('- \[(.*?)\]\(/%s/%s\)(.*?)\n' % (dir_name, file_sha1), get_sha1_data())
     if not group:
         abort(404)
     file_path = group.group(1)
+    articles_dir_abspath = get_articles_dir_abspath()
     if dir_name == uno_articles_dir_name:
         with open(os.path.join(articles_dir_abspath, file_path), encoding='utf-8') as file:
             file_data = file.read()
@@ -95,6 +92,23 @@ def article(dir_name, file_sha1):
     else:
         file_dir, file = os.path.split(os.path.join(articles_dir_abspath, file_path))
         return send_from_directory(file_dir, file)
+
+
+@uno.route('/%s/<tag_sha1>' % uno_tags_url_name)
+def tag(tag_sha1):
+    if not check_sha1(tag_sha1):
+        abort(404)
+    sha1_data = get_sha1_data()
+    group = re.search('--.*\[(.*?)\]\(/%s/%s\)' % (uno_tags_url_name, tag_sha1), sha1_data)
+    if not group:
+        abort(404)
+    tag_name = group.group(1)
+    new_sha1_data = ""
+    for data in sha1_data.split("\n"):
+        if data.find("[%s]" % tag_name) != -1:
+            new_sha1_data += data.split("--")[0] + "\n"
+    sha1_data = md(new_sha1_data)
+    return render_template('article.html', name="Tag: %s" % tag_name, content=sha1_data, show_tags=False)
 
 
 @uno.route('/%s' % uno_reindex_url_name)

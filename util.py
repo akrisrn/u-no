@@ -39,6 +39,18 @@ def sha1_digest_str(string, random=True):
     return hashlib.sha1(string.encode("utf-8") + os.urandom(24) if random else "").hexdigest()
 
 
+def check_sha1(sha1):
+    if len(sha1) != 40 or not sha1.isalnum():
+        return False
+    return True
+
+
+def get_sha1_data():
+    with open(os.path.join(get_articles_dir_abspath(), uno_sha1_file_name), encoding='utf-8') as sha1_file:
+        sha1_data = sha1_file.read()
+    return sha1_data
+
+
 def get_root_abspath():
     return os.path.dirname(os.path.abspath(__file__)).split('util')[0]
 
