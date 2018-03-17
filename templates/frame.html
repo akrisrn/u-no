@@ -18,9 +18,18 @@
         src: url({{ get_static_file_url(font_file) }}) format('{{ font_type }}');
     }
 
+    @font-face {
+        font-family: '{{ font_b_name }}';
+        src: url({{ get_static_file_url(font_b_file) }}) format('{{ font_b_type }}');
+    }
+
     body {
         background: url({{ get_static_file_url(background_img) }});
         font-family: {{ font_name }}, sans-serif;
+    }
+
+    .markdown-body {
+        font-family: {{ font_b_name }}, sans-serif;
     }
 
     .markdown-body .toc:before {
