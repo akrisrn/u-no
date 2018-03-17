@@ -27,10 +27,10 @@ def md(text):
     ])
 
 
-def sha1_digest(file):
-    if os.path.isdir(file) or not os.path.exists(file):
+def sha1_digest(file_abspath):
+    if os.path.isdir(file_abspath) or not os.path.exists(file_abspath):
         return ""
-    with open(file, 'rb') as file:
+    with open(file_abspath, 'rb') as file:
         content = file.read()
     return hashlib.sha1(content).hexdigest()
 
@@ -69,14 +69,18 @@ def get_update_cmd():
     return get_os_cmd_sep().join([get_reindex_cmd(get_root_abspath()), restart_cmd])
 
 
-def render_tags(content):
+def get_tags(article_abspath):
+    with open(article_abspath, encoding='utf-8') as article:
+        content = article.read()
+    return render_tags(content, False)
+
+
+def render_tags(content, clear_content=True):
     group = re.search("<<\s*Tag\((.*?)\)\s*>>", content)
     if not group:
-        return content, [uno_default_tag]
+        return (content, [uno_default_tag]) if clear_content else [uno_default_tag]
     tags = group.group(1)
     tags = re.sub("(\s|\"|\')", "", tags).split(",")
     if len(tags) == 1 and not tags[0]:
         tags = [uno_default_tag]
-    content = re.sub("(<<\s*Tag\(.*?\)\s*>>)", "", content)
-    return content, tags
-
+    return (re.sub("(<<\s*Tag\(.*?\)\s*>>)", "", content), tags) if clear_content else tags

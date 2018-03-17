@@ -7,11 +7,13 @@
     <hr>
     <div class="markdown-body">
         {{ content | safe }}
+    {% if show_tags %}
         <hr>
         <div class="button-group">
         {% for tag in tags %}
             <a href="#" class="button">{{ tag }}</a>
         {% endfor %}
         </div>
+    {% endif %}
     </div>
 {% endblock %}

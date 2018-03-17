@@ -64,7 +64,7 @@ def sha1_file_page():
             new_sha1_data += data + "\n"
     new_sha1_data += "---\n" + another_sha1_data
     sha1_data = md(new_sha1_data)
-    return render_template('article.html', name=uno_sha1_file_name, content=sha1_data)
+    return render_template('article.html', name=uno_sha1_file_name, content=sha1_data, show_tags=False)
 
 
 @uno.route('/<any("%s", "%s"):dir_name>/<file_sha1>' % (uno_articles_dir_name, uno_uploads_dir_name))
@@ -74,7 +74,7 @@ def article(dir_name, file_sha1):
     articles_dir_abspath = get_articles_dir_abspath()
     with open(os.path.join(articles_dir_abspath, uno_sha1_file_name), encoding='utf-8') as sha1_file:
         sha1_data = sha1_file.read()
-    group = re.search('- \[(.*?)\]\(/%s/%s\)\n' % (dir_name, file_sha1), sha1_data)
+    group = re.search('- \[(.*?)\]\(/%s/%s\).*?\n' % (dir_name, file_sha1), sha1_data)
     if not group:
         abort(404)
     file_path = group.group(1)
@@ -84,7 +84,7 @@ def article(dir_name, file_sha1):
         file_path = file_path.replace("\\", "/")
         file_data, tags = render_tags(file_data.replace("\r\n", "\n"))
         file_data = md(file_data)
-        return render_template('article.html', name=file_path, content=file_data, tags=tags)
+        return render_template('article.html', name=file_path, content=file_data, tags=tags, show_tags=True)
     else:
         file_dir, file = os.path.split(os.path.join(articles_dir_abspath, file_path))
         return send_from_directory(file_dir, file)
@@ -107,7 +107,11 @@ def reindex():
             file_abspath = os.path.join(root, file)
             file_path = os.path.join(path, file)
             dir_name = uno_uploads_dir_name if path.startswith(uno_uploads_dir_name) else uno_articles_dir_name
-            sha1_data += "- [%s](/%s/%s)\n" % (file_path, dir_name, sha1_digest(file_abspath))
+            tags_append = ""
+            if dir_name != uno_uploads_dir_name:
+                tags_append = "--"
+                tags_append += ", ".join(["[%s](/tags/%s)" % (tag, tag) for tag in get_tags(file_abspath)])
+            sha1_data += "- [%s](/%s/%s)%s\n" % (file_path, dir_name, sha1_digest(file_abspath), tags_append)
     with open(os.path.join(articles_dir_abspath, uno_sha1_file_name), 'w', encoding='utf-8') as sha1_file:
         sha1_file.write(sha1_data)
     abort(404)
