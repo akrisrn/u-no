@@ -82,7 +82,7 @@ def article(dir_name, file_sha1):
         with open(os.path.join(articles_dir_abspath, file_path), encoding='utf-8') as file:
             file_data = file.read()
         file_path = file_path.replace("\\", "/")
-        file_data = md(re.sub("(\r|<<.*?>>)", "", file_data))
+        file_data = md(re.sub("(\r|<<.*?>>|\s?/\*[\s\S]*\*/s?)", "", file_data))
         tags = []
         md_tags = group.group(2)[2:].split(", ")
         for md_tag in md_tags:
