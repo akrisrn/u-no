@@ -36,6 +36,7 @@ uno_uploads_dir_name = ""
 uno_sha1_file_name = ""
 uno_reindex_url_name = ""
 uno_update_url_name = ""
+uno_update_service_name = ""
 
 uno_ignore_file_list = [uno_sha1_file_name]
 uno_ignore_dir_list = []

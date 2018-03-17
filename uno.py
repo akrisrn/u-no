@@ -93,7 +93,7 @@ def article(dir_name, file_sha1):
 
 @uno.route('/%s' % uno_reindex_url_name)
 def reindex():
-    with os.popen(get_pull_cmd(get_articles_dir_abspath())) as p:
+    with os.popen(get_reindex_cmd()) as p:
         app.logger.info(p.read().rstrip())
     articles_dir_abspath = get_articles_dir_abspath()
     sha1_data = ""
@@ -116,7 +116,7 @@ def reindex():
 
 @uno.route('/%s' % uno_update_url_name)
 def update():
-    with os.popen(get_pull_cmd(get_root_abspath())) as p:
+    with os.popen(get_update_cmd()) as p:
         app.logger.info(p.read().rstrip())
     abort(404)
 

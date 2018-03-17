@@ -9,6 +9,14 @@ from pymdownx import extra, mark, caret
 from config import *
 
 
+def is_windows():
+    return True if platform.system() == "Windows" else False
+
+
+def get_os_cmd_sep():
+    return "&" if is_windows() else ";"
+
+
 def md(text):
     return markdown(text, extensions=[
         extra.ExtraExtension(),
@@ -51,5 +59,10 @@ def version(url):
     return "%s?v=%s" % (url, ver)
 
 
-def get_pull_cmd(dir_abspath):
-    return "cd %s %s git pull" % (dir_abspath, "&" if platform.system() == "Windows" else ";")
+def get_reindex_cmd(dir_abspath=get_articles_dir_abspath()):
+    return get_os_cmd_sep().join(["cd %s" % dir_abspath, "git pull"])
+
+
+def get_update_cmd():
+    restart_cmd = "" if is_windows() else "systemctl restart %s" % uno_update_service_name
+    return get_os_cmd_sep().join([get_reindex_cmd(get_root_abspath()), restart_cmd])
