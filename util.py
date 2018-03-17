@@ -35,8 +35,8 @@ def sha1_digest_file(file_abspath):
     return hashlib.sha1(content).hexdigest()
 
 
-def sha1_digest_str(string):
-    return hashlib.sha1(string.encode("utf-8")).hexdigest()
+def sha1_digest_str(string, random=True):
+    return hashlib.sha1(string.encode("utf-8") + os.urandom(24) if random else "").hexdigest()
 
 
 def get_root_abspath():
