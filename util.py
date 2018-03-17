@@ -63,8 +63,10 @@ def get_static_dir_abspath():
     return os.path.join(get_root_abspath(), uno_static_dir_name)
 
 
-def get_static_file_url(filename):
-    return version(url_for("static", filename=filename))
+def get_static_file_url(filename, have_version=True):
+    if have_version:
+        return version(url_for("static", filename=filename))
+    return url_for("static", filename=filename)
 
 
 def get_bower_file_url(filename):

@@ -15,12 +15,12 @@
 <style>
     @font-face {
         font-family: '{{ font_name }}';
-        src: url({{ get_static_file_url(font_file) }}) format('{{ font_type }}');
+        src: url({{ get_static_file_url(font_file, False) }}) format('{{ font_type }}');
     }
 
     @font-face {
         font-family: '{{ font_b_name }}';
-        src: url({{ get_static_file_url(font_b_file) }}) format('{{ font_b_type }}');
+        src: url({{ get_static_file_url(font_b_file, False) }}) format('{{ font_b_type }}');
     }
 
     body {
