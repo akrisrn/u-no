@@ -1,6 +1,7 @@
 import hashlib
 import os
 import platform
+import re
 
 from flask import url_for
 from markdown import markdown
@@ -66,3 +67,16 @@ def get_reindex_cmd(dir_abspath=get_articles_dir_abspath()):
 def get_update_cmd():
     restart_cmd = "" if is_windows() else "systemctl restart %s" % uno_update_service_name
     return get_os_cmd_sep().join([get_reindex_cmd(get_root_abspath()), restart_cmd])
+
+
+def render_tags(content):
+    group = re.search("<<\s*Tag\((.*?)\)\s*>>", content)
+    if not group:
+        return content, [uno_default_tag]
+    tags = group.group(1)
+    tags = re.sub("(\s|\"|\')", "", tags).split(",")
+    if len(tags) == 1 and not tags[0]:
+        tags = [uno_default_tag]
+    content = re.sub("(<<\s*Tag\(.*?\)\s*>>)", "", content)
+    return content, tags
+

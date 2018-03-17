@@ -1,5 +1,3 @@
-import re
-
 from flask import Flask, render_template, send_from_directory, abort, Blueprint
 
 from util import *
@@ -84,8 +82,9 @@ def article(dir_name, file_sha1):
         with open(os.path.join(articles_dir_abspath, file_path), encoding='utf-8') as file:
             file_data = file.read()
         file_path = file_path.replace("\\", "/")
-        file_data = md(file_data.replace("\r\n", "\n"))
-        return render_template('article.html', name=file_path, content=file_data)
+        file_data, tags = render_tags(file_data.replace("\r\n", "\n"))
+        file_data = md(file_data)
+        return render_template('article.html', name=file_path, content=file_data, tags=tags)
     else:
         file_dir, file = os.path.split(os.path.join(articles_dir_abspath, file_path))
         return send_from_directory(file_dir, file)
