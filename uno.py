@@ -74,7 +74,7 @@ def article(dir_name, file_sha1):
     articles_dir_abspath = get_articles_dir_abspath()
     with open(os.path.join(articles_dir_abspath, uno_sha1_file_name), encoding='utf-8') as sha1_file:
         sha1_data = sha1_file.read()
-    group = re.search('- \[(.*?)\]\(/%s/%s\).*?\n' % (dir_name, file_sha1), sha1_data)
+    group = re.search('- \[(.*?)\]\(/%s/%s\)(.*?)\n' % (dir_name, file_sha1), sha1_data)
     if not group:
         abort(404)
     file_path = group.group(1)
@@ -82,8 +82,12 @@ def article(dir_name, file_sha1):
         with open(os.path.join(articles_dir_abspath, file_path), encoding='utf-8') as file:
             file_data = file.read()
         file_path = file_path.replace("\\", "/")
-        file_data, tags = render_tags(file_data.replace("\r\n", "\n"))
-        file_data = md(file_data)
+        file_data = md(re.sub("(\r|<<.*?>>)", "", file_data))
+        tags = []
+        md_tags = group.group(2)[2:].split(", ")
+        for md_tag in md_tags:
+            group = re.search("\[(.*?)\]\((.*?)\)", md_tag)
+            tags.append([group.group(1), group.group(2)])
         return render_template('article.html', name=file_path, content=file_data, tags=tags, show_tags=True)
     else:
         file_dir, file = os.path.split(os.path.join(articles_dir_abspath, file_path))

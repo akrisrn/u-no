@@ -76,15 +76,11 @@ def get_update_cmd():
 def get_tags(article_abspath):
     with open(article_abspath, encoding='utf-8') as article:
         content = article.read()
-    return render_tags(content, False)
-
-
-def render_tags(content, clear_content=True):
     group = re.search("<<\s*Tag\((.*?)\)\s*>>", content)
     if not group:
-        return (content, [uno_default_tag]) if clear_content else [uno_default_tag]
+        return [uno_default_tag]
     tags = group.group(1)
     tags = re.sub("(\s|\"|\')", "", tags).split(",")
     if len(tags) == 1 and not tags[0]:
         tags = [uno_default_tag]
-    return (re.sub("(<<\s*Tag\(.*?\)\s*>>)", "", content), tags) if clear_content else tags
+    return tags

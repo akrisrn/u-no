@@ -11,7 +11,7 @@
         <hr>
         <div class="button-group">
         {% for tag in tags %}
-            <a href="#" class="button">{{ tag }}</a>
+            <a href="{{ tag[1] }}" class="button">{{ tag[0] }}</a>
         {% endfor %}
         </div>
     {% endif %}
