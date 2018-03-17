@@ -14,10 +14,6 @@ app.jinja_env.globals["favicon_img"] = uno_favicon_img
 app.jinja_env.globals["to_top_img"] = uno_to_top_img
 app.jinja_env.globals["background_img"] = uno_background_img
 
-app.jinja_env.globals["font_file"] = uno_font_file
-app.jinja_env.globals["font_type"] = uno_font_type
-app.jinja_env.globals["font_name"] = uno_font_name
-
 app.jinja_env.globals["index_show_text"] = uno_index_show_text
 app.jinja_env.globals["sidebar_show_text"] = uno_sidebar_show_text
 app.jinja_env.globals["error_show_text"] = uno_error_show_text

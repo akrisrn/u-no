@@ -11,10 +11,6 @@ uno_favicon_img = ""
 uno_to_top_img = ""
 uno_background_img = ""
 
-uno_font_file = ""
-uno_font_type = ""
-uno_font_name = ""
-
 uno_index_show_text = ""
 uno_sidebar_show_text = ""
 uno_error_show_text = ""

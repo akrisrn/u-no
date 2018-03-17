@@ -11,16 +11,11 @@
 <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('github-markdown-css/github-markdown.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('css3-github-buttons/gh-buttons.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') }}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
 <!--suppress CssUnusedSymbol -->
 <style>
-    @font-face {
-        font-family: '{{ font_name }}';
-        src: url({{ get_static_file_url(font_file, False) }}) format('{{ font_type }}');
-    }
-
     body {
         background: url({{ get_static_file_url(background_img) }});
-        font-family: {{ font_name }}, sans-serif;
     }
 
     .markdown-body .toc:before {
