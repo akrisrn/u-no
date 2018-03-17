@@ -27,12 +27,16 @@ def md(text):
     ])
 
 
-def sha1_digest(file_abspath):
+def sha1_digest_file(file_abspath):
     if os.path.isdir(file_abspath) or not os.path.exists(file_abspath):
         return ""
     with open(file_abspath, 'rb') as file:
         content = file.read()
     return hashlib.sha1(content).hexdigest()
+
+
+def sha1_digest_str(string):
+    return hashlib.sha1(string.encode("utf-8")).hexdigest()
 
 
 def get_root_abspath():
@@ -56,7 +60,7 @@ def get_bower_file_url(filename):
 
 
 def version(url):
-    ver = uno_version if uno_version and not uno_debug else sha1_digest(os.path.join(get_root_abspath(), url[1:]))
+    ver = uno_version if uno_version and not uno_debug else sha1_digest_file(os.path.join(get_root_abspath(), url[1:]))
     return "%s?v=%s" % (url, ver)
 
 
