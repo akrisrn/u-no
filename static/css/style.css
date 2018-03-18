@@ -7,11 +7,11 @@ body {
 }
 
 pre code.hljs {
-  display: block;
+    display: block;
 }
 
 code.hljs {
-  display: inline;
+    display: inline;
 }
 
 #header {

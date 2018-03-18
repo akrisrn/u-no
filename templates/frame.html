@@ -1,102 +1,159 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="{{ get_static_file_url(favicon_img) }}">
-<title>{% block title %}{% endblock %}</title>
-<script type="text/javascript" src="{{ get_bower_file_url('jquery/dist/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ get_bower_file_url('PACE/pace.min.js') }}"></script>
-<script type="text/javascript" src="{{ get_static_file_url('js/pace.on.js') }}"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
-<script type="text/javascript" src="{{ get_bower_file_url('highlightjs/highlight.pack.min.js') }}"></script>
-<!--suppress JSUnresolvedVariable -->
-<script>
-    $(document).ready(function() {
-        $('code').each(function(i, block) {
-            hljs.highlightBlock(block);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ get_static_file_url(favicon_img) }}">
+    <title>{% block title %}{% endblock %}</title>
+    <script type="text/javascript" src="{{ get_bower_file_url('jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ get_bower_file_url('PACE/pace.min.js') }}"></script>
+    <script type="text/javascript" src="{{ get_static_file_url('js/pace.on.js') }}"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+    <script type="text/javascript" src="{{ get_bower_file_url('highlightjs/highlight.pack.min.js') }}"></script>
+    <!--suppress JSUnresolvedVariable -->
+    <script>
+        $(document).ready(function () {
+            $('code').each(function (i, block) {
+                hljs.highlightBlock(block);
+            });
         });
-    });
-</script>
-<link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('PACE/themes/blue/pace-theme-flash.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('github-markdown-css/github-markdown.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('css3-github-buttons/gh-buttons.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('highlightjs/styles/vs.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/markdown.css') }}">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
-<!--suppress CssUnusedSymbol -->
-<style>
-    body {
-        background: url({{ get_static_file_url(background_img) }});
-    }
+    </script>
+    <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('PACE/themes/blue/pace-theme-flash.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('github-markdown-css/github-markdown.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('css3-github-buttons/gh-buttons.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('highlightjs/styles/vs.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/markdown.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+    <!--suppress CssUnusedSymbol -->
+    <style>
+        body {
+            background: url({{ get_static_file_url(background_img) }});
+        }
 
-    .markdown-body .toc:before {
-        content: "{{ markdown_toc_text }}";
-    }
+        .markdown-body .toc:before {
+            content: "{{ markdown_toc_text }}";
+        }
 
-    #preload-01 {
-        background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat -9999px -9999px;;
-    }
+        #preload-01 {
+            background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat -9999px -9999px;;
+        }
 
-    #preload-02 {
-        background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat -9999px -9999px;;
-    }
+        #preload-02 {
+            background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat -9999px -9999px;;
+        }
 
-    #sidebar-cover {
-        height: {{ sidebar_cover_height }}px;
-        background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;
-    }
+        #sidebar-cover {
+            height: {{ sidebar_cover_height }}px;
+            background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;
+        }
 
-    #sidebar-cover:hover {
-        animation: nya 7s 10s steps(1, start);
-        -moz-animation: nya 7s 10s steps(1, start);
-        -webkit-animation: nya 7s 10s steps(1, start);
-        -o-animation: nya 7s 10s steps(1, start);
-    }
+        #sidebar-cover:hover {
+            animation: nya 7s 10s steps(1, start);
+            -moz-animation: nya 7s 10s steps(1, start);
+            -webkit-animation: nya 7s 10s steps(1, start);
+            -o-animation: nya 7s 10s steps(1, start);
+        }
 
-    @keyframes nya  {
-        40%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        42%  {background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;}
-        44%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        46%  {background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;}
-        48%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        99%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        100% {background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;}
-    }
+        @keyframes nya {
+            40% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            42% {
+                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+            }
+            44% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            46% {
+                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+            }
+            48% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            99% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            100% {
+                background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;
+            }
+        }
 
-    @-moz-keyframes nya  {
-        40%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        42%  {background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;}
-        44%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        46%  {background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;}
-        48%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        99%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        100% {background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;}
-    }
+        @-moz-keyframes nya {
+            40% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            42% {
+                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+            }
+            44% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            46% {
+                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+            }
+            48% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            99% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            100% {
+                background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;
+            }
+        }
 
-    @-webkit-keyframes nya  {
-        40%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        42%  {background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;}
-        44%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        46%  {background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;}
-        48%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        99%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        100% {background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;}
-    }
+        @-webkit-keyframes nya {
+            40% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            42% {
+                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+            }
+            44% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            46% {
+                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+            }
+            48% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            99% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            100% {
+                background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;
+            }
+        }
 
-    @-o-keyframes nya  {
-        40%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        42%  {background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;}
-        44%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        46%  {background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;}
-        48%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        99%  {background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;}
-        100% {background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;}
-    }
-    {% block extra_style %}
-    {% endblock %}
-</style>
+        @-o-keyframes nya {
+            40% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            42% {
+                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+            }
+            44% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            46% {
+                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+            }
+            48% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            99% {
+                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+            }
+            100% {
+                background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;
+            }
+        }
+
+        {% block extra_style %}
+        {% endblock %}
+    </style>
 </head>
 <body>
 <div id="header">
@@ -104,8 +161,8 @@
 </div>
 <div id="body">
     <div id="content">
-    {% block content %}
-    {% endblock %}
+        {% block content %}
+        {% endblock %}
     </div>
     <div id="sidebar">
         <div id="preload-01"></div>
