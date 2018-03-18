@@ -19,6 +19,7 @@ def get_os_cmd_sep():
 
 
 def md(text):
+    text = re.sub("(\r|<<.*?>>|\s?/\*[\s\S]*\*/s?)", "", text)
     if len(re.findall("#+\s+.*", text)) >= 3:
         text = "[TOC]\n\n" + text
     return markdown(text, extensions=[
