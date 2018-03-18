@@ -44,13 +44,6 @@ def md(text):
     ]
 
     extension_config = {
-        "pymdownx.magiclink": {
-            "repo_url_shortener": True,
-            "repo_url_shorthand": True,
-            "provider": "github",
-            "user": "facelessuser",
-            "repo": "pymdown-extensions"
-        },
         "pymdownx.emoji": {
             "emoji_index": pymdownx.emoji.gemoji,
             "emoji_generator": pymdownx.emoji.to_png,
@@ -70,8 +63,8 @@ def md(text):
             "nbsp": True
         },
         "pymdownx.highlight": {
+            "css_class": "",
             "use_pygments": False,
-            "guess_lang": True,
         }
     }
     return markdown(text, extensions, extension_config)
