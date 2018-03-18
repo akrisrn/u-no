@@ -3,7 +3,10 @@ body {
     font-size: 16px;
     margin: 0;
     padding: 0;
-    font-family: 'Source Code Pro', monospace;
+}
+
+body, .markdown-body {
+    font-family: 'Source Code Pro', SimSun, sans-serif;
 }
 
 #header {
@@ -100,7 +103,6 @@ body {
 }
 
 .markdown-body {
-    font-family: 'Source Code Pro', SimSun, sans-serif;
     margin-top: 20px;
     margin-bottom: 30px;
 }
