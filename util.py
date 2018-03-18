@@ -3,9 +3,9 @@ import os
 import platform
 import re
 
+import pymdownx.emoji
 from flask import url_for
 from markdown import markdown
-from pymdownx import extra, mark, caret
 
 from config import *
 
@@ -18,16 +18,63 @@ def get_os_cmd_sep():
     return "&" if is_windows() else ";"
 
 
+# noinspection SpellCheckingInspection
 def md(text):
     text = re.sub("(\r|<<.*?>>|\s?/\*[\s\S]*\*/s?)", "", text)
     if len(re.findall("#+\s+.*", text)) >= 3:
         text = "[TOC]\n\n" + text
-    return markdown(text, extensions=[
-        extra.ExtraExtension(),
-        mark.makeExtension(),
-        caret.makeExtension(),
-        'markdown.extensions.toc'
-    ])
+
+    extensions = [
+        'pymdownx.arithmatex',
+        'pymdownx.betterem',
+        'pymdownx.caret',
+        'pymdownx.critic',
+        'pymdownx.details',
+        'pymdownx.emoji',
+        'pymdownx.escapeall',
+        'pymdownx.extrarawhtml',
+        'pymdownx.highlight',
+        'pymdownx.inlinehilite',
+        'markdown.extensions.footnotes',
+        'markdown.extensions.attr_list',
+        'markdown.extensions.def_list',
+        'markdown.extensions.tables',
+        'markdown.extensions.abbr',
+        'markdown.extensions.toc',
+    ]
+
+    extension_config = {
+        "pymdownx.magiclink": {
+            "repo_url_shortener": True,
+            "repo_url_shorthand": True,
+            "provider": "github",
+            "user": "facelessuser",
+            "repo": "pymdown-extensions"
+        },
+        "pymdownx.emoji": {
+            "emoji_index": pymdownx.emoji.gemoji,
+            "emoji_generator": pymdownx.emoji.to_png,
+            "alt": "short",
+            "options": {
+                "attributes": {
+                    "align": "absmiddle",
+                    "height": "20px",
+                    "width": "20px"
+                },
+                "image_path": "https://assets-cdn.github.com/images/icons/emoji/unicode/",
+                "non_standard_image_path": "https://assets-cdn.github.com/images/icons/emoji/"
+            }
+        },
+        "pymdownx.escapeall": {
+            "hardbreak": True,
+            "nbsp": True
+        },
+        "pymdownx.highlight": {
+            "use_pygments": False,
+            "guess_lang": True,
+        }
+    }
+    return markdown(text, extensions, extension_config)
 
 
 def sha1_digest_file(file_abspath):

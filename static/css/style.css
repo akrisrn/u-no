@@ -3,10 +3,15 @@ body {
     font-size: 16px;
     margin: 0;
     padding: 0;
+    font-family: 'Source Code Pro', SimSun, sans-serif;
 }
 
-body, .markdown-body {
-    font-family: 'Source Code Pro', SimSun, sans-serif;
+pre code.hljs {
+  display: block;
+}
+
+code.hljs {
+  display: inline;
 }
 
 #header {
@@ -100,19 +105,6 @@ body, .markdown-body {
     -moz-transition: opacity 0.5s;
     -webkit-transition: opacity 0.5s;
     -o-transition: opacity 0.5s;
-}
-
-.markdown-body {
-    margin-top: 20px;
-    margin-bottom: 30px;
-}
-
-.markdown-body .toc:before {
-    color: #4078c0;
-}
-
-.markdown-body a:hover {
-    text-decoration: none;
 }
 
 .center {
