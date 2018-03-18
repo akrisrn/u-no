@@ -13,8 +13,6 @@ uno_background_img = ""
 
 uno_index_show_text = ""
 uno_sidebar_show_text = ""
-uno_error_show_text = ""
-uno_error_title_show_text = ""
 uno_copyright_show_text = ""
 uno_markdown_toc_text = ""
 

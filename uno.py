@@ -16,8 +16,6 @@ app.jinja_env.globals["background_img"] = uno_background_img
 
 app.jinja_env.globals["index_show_text"] = uno_index_show_text
 app.jinja_env.globals["sidebar_show_text"] = uno_sidebar_show_text
-app.jinja_env.globals["error_show_text"] = uno_error_show_text
-app.jinja_env.globals["error_title_show_text"] = uno_error_title_show_text
 app.jinja_env.globals["copyright_show_text"] = uno_copyright_show_text
 app.jinja_env.globals["markdown_toc_text"] = uno_markdown_toc_text
 
@@ -38,7 +36,9 @@ app.jinja_env.globals.update(get_bower_file_url=get_bower_file_url)
 @app.errorhandler(404)
 @app.errorhandler(500)
 def error_page(error):
-    return render_template('error.html', error=error), error.code
+    name = "%d %s" % (error.code, error.name)
+    content = error.description
+    return render_template('error.html', name=name, content=content), error.code
 
 
 @uno.route('/')
