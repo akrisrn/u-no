@@ -75,13 +75,14 @@ def article(dir_name, file_sha1):
         with open(os.path.join(articles_dir_abspath, file_path), encoding='utf-8') as file:
             file_data = file.read()
         file_path = file_path.replace("\\", "/")
-        file_data = md(file_data)
+        content = md(file_data)
+        name = os.path.splitext(file_path)[0]
         tags = []
         md_tags = group.group(2)[2:].split(", ")
         for md_tag in md_tags:
             group = re.search("\[(.*?)\]\((.*?)\)", md_tag)
             tags.append([group.group(1), group.group(2)])
-        return render_template('article.html', name=file_path, content=file_data, tags=tags, show_tags=True)
+        return render_template('article.html', name=name, content=content, tags=tags, show_tags=True)
     else:
         file_dir, file = os.path.split(os.path.join(articles_dir_abspath, file_path))
         return send_from_directory(file_dir, file)
