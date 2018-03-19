@@ -56,7 +56,7 @@ def sha1_file_page():
 def article(dir_name, file_sha1):
     if not check_sha1(file_sha1):
         abort(404)
-    group = re.search('\[(.*?)\]\(/%s/%s\)\s\|\s(.*?)\n' % (dir_name, file_sha1), get_sha1_data())
+    group = re.search('\[(.*?)\]\(/%s/%s\)(.*?)\n' % (dir_name, file_sha1), get_sha1_data())
     if not group:
         abort(404)
     file_path = group.group(1)
@@ -68,7 +68,7 @@ def article(dir_name, file_sha1):
         content = md(file_data)
         name = os.path.splitext(file_path)[0]
         tags = []
-        md_tags = group.group(2).split(" | ")
+        md_tags = group.group(2)[3:].split(" | ")
         for md_tag in md_tags:
             group = re.search("\[(.*?)\]\(.*?\)", md_tag)
             tags.append(group.group(1))
