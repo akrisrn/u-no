@@ -98,3 +98,7 @@
     })();
 
 }());
+
+$(function () {
+    $("#content").find("> div > table").tablesorter();
+});
