@@ -134,7 +134,7 @@ def reindex():
                     max_tag_num = len(tags)
             file_sha1_data = sha1_digest_file(file_abspath)
             if file_path in uno_fixed_file_list:
-                group = re.search("- \[%s\]\(/%s/(.*?)\)" % (file_path, dir_name), get_sha1_data())
+                group = re.search("\[%s\]\(/%s/(.*?)\)" % (file_path, dir_name), get_sha1_data())
                 if group:
                     file_sha1_data = group.group(1)
             first = "[%s](/%s/%s)" % (file_path, dir_name, file_sha1_data)
