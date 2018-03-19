@@ -10,9 +10,9 @@
         {% if show_tags %}
             <hr>
             <div class="button-group">
-                <button class="button primary danger icon favorite">TAGS</button>
+                <button class="button primary icon tag" style="width: 30px">&nbsp;</button>
                 {% for tag in tags %}
-                    <a href="{{ tag[1] }}" class="button">{{ tag[0] }}</a>
+                    <button class="button">{{ tag }}</button>
                 {% endfor %}
             </div>
         {% endif %}

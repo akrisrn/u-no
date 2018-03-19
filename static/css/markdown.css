@@ -11,10 +11,6 @@
     color: #4078c0;
 }
 
-.markdown-body a:hover {
-    text-decoration: none;
-}
-
 /* Critic Markup Start */
 .markdown-body .critic {
     font-family: inherit;
