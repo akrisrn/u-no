@@ -23,7 +23,6 @@ def md(text):
     text = re.sub("(\r|<<.*?>>)", "", text)
     if len(re.findall("#+\s+.*", text)) >= 3:
         text = "[TOC]\n\n" + text
-
     extensions = [
         'pymdownx.arithmatex',
         'pymdownx.betterem',
@@ -51,7 +50,6 @@ def md(text):
         'markdown.extensions.abbr',
         'markdown.extensions.toc',
     ]
-
     extension_config = {
         "pymdownx.emoji": {
             "emoji_index": pymdownx.emoji.gemoji,
