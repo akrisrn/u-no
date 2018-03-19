@@ -153,3 +153,9 @@ def get_tags(article_abspath):
     if len(tags) == 1 and not tags[0]:
         tags = [uno_default_tag]
     return tags
+
+
+def get_sha1_data_table_header(tag_num):
+    table_header = " | ".join(["Title", " | ".join(["Tag-%d" % (i + 1) for i in range(tag_num)])]) + "\n"
+    table_format = " | ".join(["-"] * (tag_num + 1)) + "\n"
+    return table_header + table_format

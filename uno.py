@@ -36,9 +36,7 @@ app.jinja_env.globals.update(get_bower_file_url=get_bower_file_url)
 @app.errorhandler(404)
 @app.errorhandler(500)
 def error_page(error):
-    name = "%d %s" % (error.code, error.name)
-    content = error.description
-    return render_template('error.html', name=name, content=content), error.code
+    return render_template('error.html', name="%d %s" % (error.code, error.name), content=error.description), error.code
 
 
 @uno.route('/')
@@ -48,17 +46,7 @@ def index():
 
 @uno.route('/%s' % uno_sha1_file_name)
 def sha1_file_page():
-    sha1_data = get_sha1_data()
-    new_sha1_data = ""
-    another_sha1_data = ""
-    for data in sha1_data.split("\n"):
-        data = data.replace("\\", "/")
-        if data.startswith("- [%s" % uno_uploads_dir_name):
-            another_sha1_data += data + "\n"
-        else:
-            new_sha1_data += data + "\n"
-    new_sha1_data += "---\n" + another_sha1_data
-    sha1_data = md(new_sha1_data)
+    sha1_data = md(get_sha1_data().replace("\\", "/"))
     return render_template('article.html', name=uno_sha1_file_name, content=sha1_data, show_tags=False, no_sidebar=True)
 
 
@@ -66,7 +54,7 @@ def sha1_file_page():
 def article(dir_name, file_sha1):
     if not check_sha1(file_sha1):
         abort(404)
-    group = re.search('- \[(.*?)\]\(/%s/%s\)(.*?)\n' % (dir_name, file_sha1), get_sha1_data())
+    group = re.search('\[(.*?)\]\(/%s/%s\)\s\|\s(.*?)\n' % (dir_name, file_sha1), get_sha1_data())
     if not group:
         abort(404)
     file_path = group.group(1)
@@ -78,7 +66,7 @@ def article(dir_name, file_sha1):
         content = md(file_data)
         name = os.path.splitext(file_path)[0]
         tags = []
-        md_tags = group.group(2)[2:].split(", ")
+        md_tags = group.group(2).split(" | ")
         for md_tag in md_tags:
             group = re.search("\[(.*?)\]\(.*?\)", md_tag)
             tags.append(group.group(1))
@@ -93,16 +81,21 @@ def tag_page(tag_sha1):
     if not check_sha1(tag_sha1):
         abort(404)
     sha1_data = get_sha1_data()
-    group = re.search('--.*\[(.*?)\]\(/%s/%s\)' % (uno_tags_url_name, tag_sha1), sha1_data)
+    group = re.search('\s\|\s.*\[(.*?)\]\(/%s/%s\)' % (uno_tags_url_name, tag_sha1), sha1_data)
     if not group:
         abort(404)
     tag_name = group.group(1)
     new_sha1_data = ""
+    max_tag_num = 0
     for data in sha1_data.split("\n"):
         if data.find("[%s]" % tag_name) != -1:
-            new_sha1_data += data.split("--")[0] + "\n"
-    sha1_data = md(new_sha1_data)
-    return render_template('article.html', name="Tag: %s" % tag_name, content=sha1_data, show_tags=False)
+            new_sha1_data += data + "\n"
+            tag_num = len(data.split(" | ")) - 1
+            if tag_num > max_tag_num:
+                max_tag_num = tag_num
+    sha1_data = md(get_sha1_data_table_header(max_tag_num) + new_sha1_data)
+    return render_template('article.html', name="Tag: %s" % tag_name, content=sha1_data, show_tags=False,
+                           no_sidebar=True)
 
 
 @uno.route('/%s' % uno_reindex_url_name)
@@ -111,21 +104,23 @@ def reindex():
         app.logger.info(p.read().rstrip())
     articles_dir_abspath = get_articles_dir_abspath()
     sha1_data = ""
+    max_tag_num = 0
     for root, dirs, files in os.walk(articles_dir_abspath):
         path = root.split(uno_articles_dir_name)[1]
         path = path[1:] if path.startswith(os.path.sep) else path
         if path.split(os.path.sep)[0] in uno_ignore_dir_list:
             continue
         tags_sha1_dict = {}
+        dir_name = uno_uploads_dir_name if path.startswith(uno_uploads_dir_name) else uno_articles_dir_name
+        if dir_name == uno_uploads_dir_name:
+            sha1_data += "\n---\n\n"
         for file in files:
             if file in uno_ignore_file_list:
                 continue
             file_abspath = os.path.join(root, file)
             file_path = os.path.join(path, file)
-            dir_name = uno_uploads_dir_name if path.startswith(uno_uploads_dir_name) else uno_articles_dir_name
             tags_append = ""
             if dir_name != uno_uploads_dir_name:
-                tags_append = "--"
                 tags = []
                 for tag in get_tags(file_abspath):
                     if tag not in tags_sha1_dict.keys():
@@ -134,13 +129,19 @@ def reindex():
                     else:
                         tag_sha1 = tags_sha1_dict[tag]
                     tags.append("[%s](/%s/%s)" % (tag, uno_tags_url_name, tag_sha1))
-                tags_append += ", ".join(tags)
+                tags_append = " | ".join(tags)
+                if len(tags) > max_tag_num:
+                    max_tag_num = len(tags)
             file_sha1_data = sha1_digest_file(file_abspath)
             if file_path in uno_fixed_file_list:
                 group = re.search("- \[%s\]\(/%s/(.*?)\)" % (file_path, dir_name), get_sha1_data())
                 if group:
                     file_sha1_data = group.group(1)
-            sha1_data += "- [%s](/%s/%s)%s\n" % (file_path, dir_name, file_sha1_data, tags_append)
+            first = "[%s](/%s/%s)" % (file_path, dir_name, file_sha1_data)
+            if dir_name == uno_uploads_dir_name:
+                first = "- " + first
+            sha1_data += (" | ".join([first, tags_append]) if tags_append else first) + "\n"
+    sha1_data = get_sha1_data_table_header(max_tag_num) + sha1_data
     with open(os.path.join(articles_dir_abspath, uno_sha1_file_name), 'w', encoding='utf-8') as sha1_file:
         sha1_file.write(sha1_data)
     abort(404)
