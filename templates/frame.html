@@ -5,23 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ get_static_file_url(favicon_img) }}">
     <title>{% block title %}{% endblock %}</title>
-    <script type="text/javascript" src="{{ get_bower_file_url('jquery/dist/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ get_bower_file_url('PACE/pace.min.js') }}"></script>
     <script type="text/javascript" src="{{ get_static_file_url('js/pace.on.js') }}"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
-    <script type="text/javascript" src="{{ get_bower_file_url('highlightjs/highlight.pack.min.js') }}"></script>
-    <!--suppress JSUnresolvedVariable -->
-    <script>
-        $(document).ready(function () {
-            $('code').each(function (i, block) {
-                hljs.highlightBlock(block);
-            });
-        });
-    </script>
     <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('PACE/themes/blue/pace-theme-flash.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('github-markdown-css/github-markdown.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('css3-github-buttons/gh-buttons.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('highlightjs/styles/vs.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/markdown.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">

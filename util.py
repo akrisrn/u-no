@@ -20,7 +20,7 @@ def get_os_cmd_sep():
 
 # noinspection SpellCheckingInspection
 def md(text):
-    text = re.sub("(\r|<<.*?>>|\s?/\*[\s\S]*\*/s?)", "", text)
+    text = re.sub("(\r|<<.*?>>)", "", text)
     if len(re.findall("#+\s+.*", text)) >= 3:
         text = "[TOC]\n\n" + text
 
@@ -35,6 +35,15 @@ def md(text):
         'pymdownx.extrarawhtml',
         'pymdownx.highlight',
         'pymdownx.inlinehilite',
+        'pymdownx.keys',
+        'pymdownx.magiclink',
+        'pymdownx.mark',
+        'pymdownx.progressbar',
+        'pymdownx.smartsymbols',
+        'pymdownx.striphtml',
+        'pymdownx.superfences',
+        'pymdownx.tasklist',
+        'pymdownx.tilde',
         'markdown.extensions.footnotes',
         'markdown.extensions.attr_list',
         'markdown.extensions.def_list',
@@ -63,8 +72,13 @@ def md(text):
             "nbsp": True
         },
         "pymdownx.highlight": {
-            "css_class": "",
-            "use_pygments": False,
+            "noclasses": True,
+            "pygments_style": "friendly"
+        },
+        "pymdownx.magiclink": {
+            "repo_url_shortener": True,
+            "repo_url_shorthand": True,
+            "social_url_shorthand": True,
         }
     }
     return markdown(text, extensions, extension_config)

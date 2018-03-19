@@ -6,14 +6,6 @@ body {
     font-family: 'Source Code Pro', SimSun, sans-serif;
 }
 
-pre code.hljs {
-    display: block;
-}
-
-code.hljs {
-    display: inline;
-}
-
 #header {
     position: fixed;
     z-index: 10;
