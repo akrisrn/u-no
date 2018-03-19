@@ -1,4 +1,4 @@
-from threading import Thread
+import time
 
 from flask import Flask, render_template, send_from_directory, abort, Blueprint
 
@@ -100,7 +100,10 @@ def tag_page(tag_sha1):
                            no_sidebar=True)
 
 
-def reindex_th():
+reindex_thread_limit = []
+
+
+def reindex_thread():
     app.logger.info(os.popen(get_reindex_cmd()).read().rstrip())
     articles_dir_abspath = get_articles_dir_abspath()
     sha1_data = ""
@@ -144,17 +147,26 @@ def reindex_th():
     sha1_data = get_sha1_data_table_header(max_tag_num) + sha1_data
     with open(os.path.join(articles_dir_abspath, uno_sha1_file_name), 'w', encoding='utf-8') as sha1_file:
         sha1_file.write(sha1_data)
+    time.sleep(uno_reindex_limit_time)
 
 
 @uno.route('/%s' % uno_reindex_url_name)
 def reindex():
-    Thread(target=reindex_th).start()
+    handle_thread(reindex_thread_limit, reindex_thread)
     abort(404)
+
+
+update_thread_limit = []
+
+
+def update_thread():
+    app.logger.info(os.popen(get_update_cmd()).read().rstrip())
+    time.sleep(uno_update_limit_time)
 
 
 @uno.route('/%s' % uno_update_url_name)
 def update():
-    Thread(target=lambda: app.logger.info(os.popen(get_update_cmd()).read().rstrip())).start()
+    handle_thread(update_thread_limit, update_thread)
     abort(404)
 
 

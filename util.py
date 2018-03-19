@@ -2,6 +2,7 @@ import hashlib
 import os
 import platform
 import re
+from threading import Thread
 
 import pymdownx.emoji
 from flask import url_for
@@ -159,3 +160,11 @@ def get_sha1_data_table_header(tag_num):
     table_header = " | ".join(["Title", " | ".join(["Tag-%d" % (i + 1) for i in range(tag_num)])]) + "\n"
     table_format = " | ".join(["-"] * (tag_num + 1)) + "\n"
     return table_header + table_format
+
+
+def handle_thread(thread_limit_list, target):
+    if thread_limit_list and not thread_limit_list[0].is_alive():
+        thread_limit_list.clear()
+    if not thread_limit_list:
+        thread_limit_list.append(Thread(target=target))
+        thread_limit_list[0].start()
