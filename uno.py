@@ -100,8 +100,7 @@ def tag_page(tag_sha1):
                            no_sidebar=True)
 
 
-@uno.route('/%s' % uno_reindex_url_name)
-def reindex():
+def reindex_th():
     app.logger.info(os.popen(get_reindex_cmd()).read().rstrip())
     articles_dir_abspath = get_articles_dir_abspath()
     sha1_data = ""
@@ -145,6 +144,11 @@ def reindex():
     sha1_data = get_sha1_data_table_header(max_tag_num) + sha1_data
     with open(os.path.join(articles_dir_abspath, uno_sha1_file_name), 'w', encoding='utf-8') as sha1_file:
         sha1_file.write(sha1_data)
+
+
+@uno.route('/%s' % uno_reindex_url_name)
+def reindex():
+    Thread(target=reindex_th).start()
     abort(404)
 
 
