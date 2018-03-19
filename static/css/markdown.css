@@ -1,7 +1,10 @@
 .markdown-body {
-    font-family: 'Source Code Pro', SimSun, sans-serif;
     margin-top: 20px;
     margin-bottom: 30px;
+}
+
+.markdown-body, .markdown-body code, .markdown-body pre {
+    font-family: 'Source Code Pro', SimSun, sans-serif;
 }
 
 .markdown-body .toc:before {
@@ -189,4 +192,16 @@
 
 .progress-0plus .progress-bar {
     background-color: #f50057;
+}
+
+table.highlighttable td {
+    padding: 0;
+}
+
+#content > div > table > tbody > tr > td.code > div {
+    margin-bottom: 0;
+}
+
+#content > div > table > tbody > tr > td > div > pre {
+    margin-bottom: 0;
 }
