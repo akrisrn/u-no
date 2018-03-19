@@ -35,5 +35,6 @@ uno_update_service_name = ""
 
 uno_ignore_file_list = [uno_sha1_file_name]
 uno_ignore_dir_list = []
+uno_fixed_file_list = []
 
 uno_default_tag = ""

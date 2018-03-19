@@ -135,7 +135,12 @@ def reindex():
                         tag_sha1 = tags_sha1_dict[tag]
                     tags.append("[%s](/%s/%s)" % (tag, uno_tags_url_name, tag_sha1))
                 tags_append += ", ".join(tags)
-            sha1_data += "- [%s](/%s/%s)%s\n" % (file_path, dir_name, sha1_digest_file(file_abspath), tags_append)
+            file_sha1_data = sha1_digest_file(file_abspath)
+            if file_path in uno_fixed_file_list:
+                group = re.search("- \[%s\]\(/%s/(.*?)\)" % (file_path, dir_name), get_sha1_data())
+                if group:
+                    file_sha1_data = group.group(1)
+            sha1_data += "- [%s](/%s/%s)%s\n" % (file_path, dir_name, file_sha1_data, tags_append)
     with open(os.path.join(articles_dir_abspath, uno_sha1_file_name), 'w', encoding='utf-8') as sha1_file:
         sha1_file.write(sha1_data)
     abort(404)
