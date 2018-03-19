@@ -47,6 +47,7 @@
 
 .markdown-body ins.critic {
     text-decoration: underline;
+    padding: 0;
     border-color: #00bb00;
     background: #ddffdd;
 }
@@ -129,8 +130,14 @@
     padding: .02em;
 }
 
+#content > div > del > ul, #content > div > ins.critic.block > ul {
+    margin-bottom: 0;
+
+}
+
 /* Critic Markup End */
 
+/* ProgressBar Start */
 .progress-label {
     position: absolute;
     text-align: center;
@@ -194,6 +201,9 @@
     background-color: #f50057;
 }
 
+/* ProgressBar End */
+
+/*Highlight Start*/
 table.highlighttable td {
     background-color: #f6f8fa;
     padding: 0;
@@ -206,3 +216,5 @@ table.highlighttable td {
 #content > div > table > tbody > tr > td > div > pre {
     margin-bottom: 0;
 }
+
+/*Highlight End*/
