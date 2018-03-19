@@ -153,6 +153,16 @@
             }
         }
 
+        {% if no_sidebar is not defined %}
+            {% set no_sidebar = False %}
+        {% endif %}
+
+        {% if no_sidebar %}
+            #content {
+                width: 100%;
+            }
+        {% endif %}
+
         {% block extra_style %}
         {% endblock %}
     </style>
@@ -166,18 +176,20 @@
         {% block content %}
         {% endblock %}
     </div>
-    <div id="sidebar">
-        <div id="preload-01"></div>
-        <div id="preload-02"></div>
-        <div id="sidebar-cover"></div>
-        <div class="center">
-            <h4>{{ sidebar_show_text | safe }}</h4>
+    {% if not no_sidebar %}
+        <div id="sidebar">
+            <div id="preload-01"></div>
+            <div id="preload-02"></div>
+            <div id="sidebar-cover"></div>
+            <div class="center">
+                <h4>{{ sidebar_show_text | safe }}</h4>
+            </div>
+            <hr>
+            <div class="center">
+                <h5>{{ copyright_show_text | safe }}</h5>
+            </div>
         </div>
-        <hr>
-        <div class="center">
-            <h5>{{ copyright_show_text | safe }}</h5>
-        </div>
-    </div>
+    {% endif %}
 </div>
 <div id="to-top">
     <img src="{{ get_static_file_url(to_top_img) }}">
