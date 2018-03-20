@@ -100,5 +100,5 @@
 }());
 
 $(function () {
-    $("#content").find("> div > table").tablesorter();
+    $("#content").find("> div > table").tablesorter({sortList: [[0, 0]]});
 });

@@ -1,9 +1,9 @@
 {% extends "frame.html" %}
 {% block title %}
-    {{ name }}
+    {{ name.upper() }}
 {% endblock %}
 {% block content %}
-    <h1>{{ name }}</h1>
+    <h1>{{ name.upper() }}</h1>
     <hr>
     <div class="markdown-body">
         {{ content | safe }}
