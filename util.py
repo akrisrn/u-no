@@ -24,12 +24,13 @@ def md(text):
     text = re.sub("(\r|<<.*?>>)", "", text)
     if len(re.findall("#+\s+.*", text)) >= 3:
         text = "[TOC]\n\n" + text
-    for group in re.finditer("\[(.*?)\]\(\)", text):
-        file_name = group.group(1)
+    for group in re.finditer("\[(.*?)\]\((.*?)\)\+", text):
+        description = group.group(1)
+        file_name = group.group(2)
         group = re.search("\[%s\]\((.*?)\)" % file_name, get_sha1_data())
         if group:
-            new_name = os.path.splitext(file_name)[0] if not file_name.startswith(uno_uploads_dir_name) else file_name
-            text = re.sub("\[%s\]\(\)" % file_name, "[%s](%s)" % (new_name, group.group(1)), text)
+            file_url = group.group(1)
+            text = re.sub("\[%s\]\(%s\)\+" % (description, file_name), "[%s](%s)" % (description, file_url), text)
     extensions = [
         'pymdownx.arithmatex',
         'pymdownx.betterem',
