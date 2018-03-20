@@ -48,8 +48,8 @@ def index():
 
 @uno.route('/%s' % uno_sha1_file_name)
 def sha1_file_page():
-    sha1_data = md(get_sha1_data().replace("\\", "/"))
-    return render_template('article.html', name=uno_sha1_file_name, content=sha1_data, show_tags=False, no_sidebar=True)
+    return render_template('article.html', name=uno_sha1_file_name, content=md(get_sha1_data()), show_tags=False,
+                           no_sidebar=True)
 
 
 @uno.route('/<any("%s", "%s"):dir_name>/<file_sha1>' % (uno_articles_dir_name, uno_uploads_dir_name))
@@ -64,7 +64,6 @@ def article(dir_name, file_sha1):
     if dir_name == uno_articles_dir_name:
         with open(os.path.join(articles_dir_abspath, file_path), encoding='utf-8') as file:
             file_data = file.read()
-        file_path = file_path.replace("\\", "/")
         content = md(file_data)
         name = os.path.splitext(file_path)[0]
         tags = []
@@ -135,6 +134,7 @@ def reindex_thread():
                 tags_append = " | ".join(tags)
                 if len(tags) > max_tag_num:
                     max_tag_num = len(tags)
+            file_path = file_path.replace("\\", "/")
             file_sha1_data = sha1_digest_file(file_abspath)
             if file_path in uno_fixed_file_list:
                 group = re.search("\[%s\]\(/%s/(.*?)\)" % (file_path, dir_name), get_sha1_data())
