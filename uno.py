@@ -61,8 +61,11 @@ def article(dir_name, file_sha1):
         abort(404)
     file_path = group.group(1)
     articles_dir_abspath = get_articles_dir_abspath()
+    file_abspath = os.path.join(articles_dir_abspath, file_path)
+    if not os.path.exists(file_abspath):
+        abort(404)
     if dir_name == uno_articles_dir_name:
-        with open(os.path.join(articles_dir_abspath, file_path), encoding='utf-8') as file:
+        with open(file_abspath, encoding='utf-8') as file:
             file_data = file.read()
         content = md(file_data)
         name = re.sub(uno_strip_prefix, "", os.path.splitext(file_path)[0])
@@ -73,7 +76,7 @@ def article(dir_name, file_sha1):
             tags.append(group.group(1))
         return render_template('article.html', name=name, content=content, tags=tags, show_tags=True)
     else:
-        file_dir, file = os.path.split(os.path.join(articles_dir_abspath, file_path))
+        file_dir, file = os.path.split(file_abspath)
         return send_from_directory(file_dir, file)
 
 
