@@ -120,7 +120,7 @@ def reindex_thread():
             if file in uno_ignore_file_list:
                 continue
             file_abspath = os.path.join(root, file)
-            file_path = os.path.join(path, file)
+            file_path = "/".join([path, file])
             tags_append = ""
             if dir_name != uno_uploads_dir_name:
                 tags = []
@@ -134,7 +134,6 @@ def reindex_thread():
                 tags_append = " | ".join(tags)
                 if len(tags) > max_tag_num:
                     max_tag_num = len(tags)
-            file_path = file_path.replace("\\", "/")
             file_sha1_data = sha1_digest_file(file_abspath)
             if file_path in uno_fixed_file_list:
                 group = re.search("\[%s\]\(/%s/(.*?)\)" % (file_path, dir_name), get_sha1_data())
