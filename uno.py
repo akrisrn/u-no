@@ -115,7 +115,7 @@ def reindex_thread():
         tags_sha1_dict = {}
         dir_name = uno_uploads_dir_name if path.startswith(uno_uploads_dir_name) else uno_articles_dir_name
         if dir_name == uno_uploads_dir_name:
-            sha1_data += "\n---\n\n"
+            sha1_data += "\n---\n| Title\n| -\n"
         for file in files:
             if file in uno_ignore_file_list:
                 continue
@@ -141,7 +141,7 @@ def reindex_thread():
                     file_sha1_data = group.group(1)
             first = "[%s](/%s/%s)" % (file_path, dir_name, file_sha1_data)
             if dir_name == uno_uploads_dir_name:
-                first = "- " + first
+                first = "| " + first
             sha1_data += (" | ".join([first, tags_append]) if tags_append else first) + "\n"
     sha1_data = get_sha1_data_table_header(max_tag_num) + sha1_data
     with open(os.path.join(articles_dir_abspath, uno_sha1_file_name), 'w', encoding='utf-8') as sha1_file:
