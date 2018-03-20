@@ -65,7 +65,7 @@ def article(dir_name, file_sha1):
         with open(os.path.join(articles_dir_abspath, file_path), encoding='utf-8') as file:
             file_data = file.read()
         content = md(file_data)
-        name = os.path.splitext(file_path)[0]
+        name = re.sub(uno_strip_prefix, "", os.path.splitext(file_path)[0])
         tags = []
         md_tags = group.group(2)[3:].split(" | ")
         for md_tag in md_tags:
