@@ -26,11 +26,11 @@ def md(text):
         text = "[TOC]\n\n" + text
     for group in re.finditer("\[(.*?)\]\((.*?)\)\+", text):
         description = group.group(1)
-        file_name = group.group(2)
-        group = re.search("\[%s\]\((.*?)\)" % file_name, get_sha1_data())
+        file_path = group.group(2)
+        group = re.search("\[%s\]\((.*?)\)" % file_path, get_sha1_data())
         if group:
             file_url = group.group(1)
-            text = re.sub("\[%s\]\(%s\)\+" % (description, file_name), "[%s](%s)" % (description, file_url), text)
+            text = re.sub("\[%s\]\(%s\)\+" % (description, file_path), "[%s](%s)" % (description, file_url), text)
     extensions = [
         'pymdownx.arithmatex',
         'pymdownx.betterem',
