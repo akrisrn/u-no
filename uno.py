@@ -120,7 +120,7 @@ def reindex_thread():
             if file in uno_ignore_file_list:
                 continue
             file_abspath = os.path.join(root, file)
-            file_path = "/".join([path, file])
+            file_path = os.path.join(path, file).replace("\\", "/")
             tags_append = ""
             if dir_name != uno_uploads_dir_name:
                 tags = []
