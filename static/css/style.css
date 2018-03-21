@@ -84,6 +84,12 @@ body {
     box-sizing: content-box;
 }
 
+#date {
+    text-align: right;
+    margin-top: -10px;
+    margin-bottom: -10px
+}
+
 #to-top {
     opacity: 0;
     position: fixed;

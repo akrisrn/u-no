@@ -69,12 +69,10 @@ def article(dir_name, file_sha1):
             file_data = file.read()
         content = md(file_data)
         name = re.sub(uno_strip_prefix, "", os.path.splitext(file_path)[0])
-        tags = []
-        md_tags = group.group(2)[3:].split(" | ")
-        for md_tag in md_tags:
-            group = re.search("\[(.*?)\]\(.*?\)", md_tag)
-            tags.append(group.group(1))
-        return render_template('article.html', name=name, content=content, tags=tags, show_tags=True)
+        date_tags = group.group(2).split(" | ")[1:]
+        date = date_tags[0]
+        tags = [re.search("\[(.*?)\]\(.*?\)", tag).group(1) for tag in date_tags[1:]]
+        return render_template('article.html', name=name, content=content, date=date, tags=tags, show_tags=True)
     else:
         file_dir, file = os.path.split(file_abspath)
         return send_from_directory(file_dir, file)
@@ -124,10 +122,12 @@ def reindex_thread():
                 continue
             file_abspath = os.path.join(root, file)
             file_path = os.path.join(path, file).replace("\\", "/")
-            tags_append = ""
+            tags_date_append = ""
             if dir_name != uno_uploads_dir_name:
+                with open(file_abspath, encoding='utf-8') as article_data:
+                    content = article_data.read()
                 tags = []
-                for tag in get_tags(file_abspath):
+                for tag in get_tags(content):
                     if tag not in tags_sha1_dict.keys():
                         tag_sha1 = sha1_digest_str(tag)
                         tags_sha1_dict[tag] = tag_sha1
@@ -137,6 +137,8 @@ def reindex_thread():
                 tags_append = " | ".join(tags)
                 if len(tags) > max_tag_num:
                     max_tag_num = len(tags)
+                date_append = get_date(content)
+                tags_date_append = " | ".join([date_append, tags_append])
             file_sha1_data = sha1_digest_file(file_abspath)
             if file_path in uno_fixed_file_list:
                 group = re.search("\[%s\]\(/%s/(.*?)\)" % (file_path, dir_name), get_sha1_data())
@@ -145,7 +147,7 @@ def reindex_thread():
             first = "[%s](/%s/%s)" % (file_path, dir_name, file_sha1_data)
             if dir_name == uno_uploads_dir_name:
                 first = "| " + first
-            sha1_data += (" | ".join([first, tags_append]) if tags_append else first) + "\n"
+            sha1_data += (" | ".join([first, tags_date_append]) if tags_date_append else first) + "\n"
     sha1_data = get_sha1_data_table_header(max_tag_num) + sha1_data
     with open(os.path.join(articles_dir_abspath, uno_sha1_file_name), 'w', encoding='utf-8') as sha1_file:
         sha1_file.write(sha1_data)

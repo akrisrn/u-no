@@ -2,6 +2,7 @@ import hashlib
 import os
 import platform
 import re
+from datetime import datetime
 from threading import Thread
 
 import pymdownx.emoji
@@ -150,9 +151,7 @@ def get_update_cmd():
     return get_os_cmd_sep().join([get_reindex_cmd(get_root_abspath()), restart_cmd])
 
 
-def get_tags(article_abspath):
-    with open(article_abspath, encoding='utf-8') as article:
-        content = article.read()
+def get_tags(content):
     group = re.search("<<\s*Tag\((.*?)\)\s*>>", content)
     if not group:
         return [uno_default_tag]
@@ -163,9 +162,21 @@ def get_tags(article_abspath):
     return tags
 
 
+def get_date(content):
+    group = re.search("<<\s*Date\([\"\'](.*?)[\"\']\)\s*>>", content)
+    if not group:
+        return ""
+    date = group.group(1)
+    try:
+        date = datetime.strptime(date, "%y-%m-%d").strftime("%Y.%m.%d")
+    except ValueError:
+        return ""
+    return date
+
+
 def get_sha1_data_table_header(tag_num):
-    table_header = " | ".join(["Title", " | ".join(["Tag-%d" % (i + 1) for i in range(tag_num)])]) + "\n"
-    table_format = " | ".join(["-"] * (tag_num + 1)) + "\n"
+    table_header = " | ".join(["Title", "Date", " | ".join(["Tag-%d" % (i + 1) for i in range(tag_num)])]) + "\n"
+    table_format = " | ".join(["-"] * (tag_num + 2)) + "\n"
     return table_header + table_format
 
 
