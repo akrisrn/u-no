@@ -1,6 +1,6 @@
 import time
 
-from flask import Flask, render_template, send_from_directory, abort, Blueprint
+from flask import Flask, render_template, send_from_directory, abort, Blueprint, request
 
 from util import *
 
@@ -48,7 +48,14 @@ def index():
 
 @uno.route('/%s' % uno_sha1_file_name)
 def sha1_file_page():
-    content = md(split_pref(get_sha1_data()))
+    search = [request.args.get('n', '').strip(),
+              request.args.get('t', '').strip(),
+              request.args.get('d', '').strip()]
+    search_rule = [re.compile("\[.*?%s.*?\]\(/(?!%s)" % (search[0], uno_tags_url_name), re.I),
+                   re.compile("\[.*?%s.*?\]\(/(?=%s)" % (search[1], uno_tags_url_name), re.I),
+                   re.compile("\|\s%s.*?\s\|" % search[2], re.I)]
+    rules = [search_rule[i] for i in range(len(search)) if search[i]]
+    content = md(split_pref(content_filter(get_sha1_data(), rules)))
     return render_template('article.html', name=uno_sha1_file_name, content=content, show_tags=False, no_sidebar=True)
 
 

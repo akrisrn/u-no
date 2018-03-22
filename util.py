@@ -34,9 +34,8 @@ def md(text):
             text = re.sub("\[%s\]\(%s\)\+" % (description, file_path), "[%s](%s)" % (description, file_url), text)
     line_number = 1
     for group in re.finditer("\|\s*(:?-:?|1\.)\s*(.*)", text):
-        signal = group.group(1)
         append = group.group(2)
-        if signal.strip(":") == "-":
+        if group.group(1).strip(":") == "-":
             line_number = 1
         else:
             text = re.sub("\|\s*1\.\s*%s" % append.replace("|", "\|"), "| %d %s" % (line_number, append), text, 1)
@@ -223,3 +222,30 @@ def split_pref(content):
         line_num += 1
     new_content += "\n---" + uploads_block if uploads_block else ""
     return new_content
+
+
+def content_filter(content, rules):
+    if not rules:
+        return content
+    new_content = ""
+    max_tag_num = 0
+    for line in content.split("\n"):
+        is_find = True
+        for rule in rules:
+            if not re.search(rule, line):
+                is_find = False
+                break
+        if is_find:
+            new_content += line + "\n"
+            tag_num = len(line.split(" | ")) - 2
+            if tag_num > max_tag_num:
+                max_tag_num = tag_num
+    return get_sha1_data_table_header(max_tag_num) + new_content
+
+
+def escape_regexp_char(regexp_str):
+    special_char = ["\\", "$", "(", ")", "*", "+", ".", "[", "]", "?", "^", "{", "}", "|"]
+    for char in special_char:
+        if regexp_str.find(char) != -1:
+            regexp_str = regexp_str.replace(char, "\\%s" % char)
+    return regexp_str
