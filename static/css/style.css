@@ -1,12 +1,12 @@
+*, .button {
+    font-family: 'Source Code Pro', SimSun, sans-serif;
+}
+
 body {
     color: #24292e;
     font-size: 16px;
     margin: 0;
     padding: 0;
-}
-
-body, .button {
-    font-family: 'Source Code Pro', SimSun, sans-serif;
 }
 
 #header {

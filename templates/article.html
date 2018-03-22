@@ -2,10 +2,61 @@
 {% block title %}
     {{ name }}
 {% endblock %}
+{% if have_search is not defined %}
+    {% set have_search = False %}
+{% endif %}
+{% block extra_style %}
+    {% if have_search %}
+        #nameS, #tagS, #dateS {
+        height: 22px;
+        width: 100px;
+        padding-left: 5px;
+        padding-right: 5px;
+        }
+    {% endif %}
+{% endblock %}
 {% block content %}
     <h1>{{ name }}</h1>
     <div id="date">{{ date }}</div>
     <hr>
+    {% if have_search %}
+        <input id="nameS" placeholder="Search Name" onkeydown="if(event.keyCode===13){search.click()}">
+        <input id="tagS" placeholder="Search Tag" onkeydown="if(event.keyCode===13){search.click()}">
+        <input id="dateS" placeholder="Search Date" onkeydown="if(event.keyCode===13){search.click()}">
+        <button id="search" class="button icon search">Search</button>
+        <script>
+            $(document).ready(function () {
+                function GetRequest() {
+                    var url = location.search;
+                    var request = {};
+                    if (url.indexOf("?") !== -1) {
+                        var str = url.substr(1);
+                        var strList = str.split("&");
+                        for (var i = 0; i < strList.length; i++) {
+                            request[strList[i].split("=")[0]] = decodeURI(strList[i].split("=")[1]);
+                        }
+                    }
+                    return request;
+                }
+
+                var name = $("#nameS");
+                var tag = $("#tagS");
+                var date = $("#dateS");
+
+                var request = GetRequest();
+                name.val(request["n"]);
+                tag.val(request["t"]);
+                date.val(request["d"]);
+
+                $("#search").click(function () {
+                    var nameVal = $.trim(name.val());
+                    var tagVal = $.trim(tag.val());
+                    var dateVal = $.trim(date.val());
+                    window.location.href = window.location.pathname + "?n=" + nameVal + "&t=" + tagVal + "&d=" + dateVal;
+                })
+            })
+        </script>
+    {% endif %}
     <div class="markdown-body">
         {{ content | safe }}
         {% if show_tags %}

@@ -56,7 +56,8 @@ def sha1_file_page():
                    re.compile(regexp_join("\|\s%s.*?\s\|", search[2]), re.I)]
     rules = [search_rule[i] for i in range(len(search)) if search[i]]
     content = md(split_pref(content_filter(get_sha1_data(), rules)))
-    return render_template('article.html', name=uno_sha1_file_name, content=content, show_tags=False, no_sidebar=True)
+    return render_template('article.html', name=uno_sha1_file_name, content=content, show_tags=False, no_sidebar=True,
+                           have_search=True)
 
 
 @uno.route('/<any("%s", "%s"):dir_name>/<file_sha1>' % (uno_articles_dir_name, uno_uploads_dir_name))
