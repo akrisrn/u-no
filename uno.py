@@ -94,37 +94,41 @@ def reindex_thread():
     sha1_data = ""
     max_tag_num = 0
     for root, dirs, files in os.walk(articles_dir_abspath):
-        path = root.split(uno_articles_dir_name)[1]
-        path = path[1:] if path.startswith(os.path.sep) else path
-        if path.split(os.path.sep)[0] in uno_ignore_dir_list:
+        path = root.split(uno_articles_dir_name)[-1].lstrip(os.path.sep).replace("\\", "/")
+        if path.split("/")[0] in [*uno_ignore_dir_list, uno_uploads_dir_name]:
             continue
-        dir_name = uno_uploads_dir_name if path.startswith(uno_uploads_dir_name) else uno_articles_dir_name
-        if dir_name == uno_uploads_dir_name:
-            sha1_data += "\n---\n| Title\n| -\n"
         for file in files:
-            if file in uno_ignore_file_list:
+            file_path = "/".join([path, file]).lstrip("/")
+            if file_path in uno_ignore_file_list:
                 continue
-            file_abspath = os.path.join(root, file)
-            file_path = os.path.join(path, file).replace("\\", "/")
-            tags_date_append = ""
-            if dir_name != uno_uploads_dir_name:
-                with open(file_abspath, encoding='utf-8') as article_data:
-                    content = article_data.read()
-                tags = ["[%s](/%s?t=%s)" % (tag, uno_sha1_file_name, tag) for tag in get_tags(content)]
-                tags_append = " | ".join(tags)
-                if len(tags) > max_tag_num:
-                    max_tag_num = len(tags)
-                date_append = get_date(content)
-                tags_date_append = " | ".join([date_append, tags_append])
-            file_sha1_data = sha1_digest_file(file_abspath)
+            with open(os.path.join(root, file), encoding='utf-8') as article_data:
+                content = article_data.read()
+            tags = ["[%s](/%s?t=%s)" % (tag, uno_sha1_file_name, tag) for tag in get_tags(content)]
+            max_tag_num = max(len(tags), max_tag_num)
+            tags_date_append = " | ".join([get_date(content), " | ".join(tags)])
+            file_sha1_data = sha1_digest_content(content)
             if file_path in uno_fixed_file_list:
-                group = re.search(regexp_join("\[%s\]\(/%s/(.*?)\)", file_path, dir_name), get_sha1_data())
+                group = re.search(regexp_join("\[%s\]\(/%s/(.*?)\)", file_path, uno_articles_dir_name), get_sha1_data())
                 if group:
                     file_sha1_data = group.group(1)
-            first = "[%s](/%s/%s)" % (file_path, dir_name, file_sha1_data)
-            if dir_name == uno_uploads_dir_name:
-                first = "| " + first
-            sha1_data += (" | ".join([first, tags_date_append]) if tags_date_append else first) + "\n"
+            first = "[%s](/%s/%s)" % (file_path, uno_articles_dir_name, file_sha1_data)
+            sha1_data += " | ".join([first, tags_date_append]) + "\n"
+    sha1_data += "\n---\n| Name\n| -\n"
+    for root, dirs, files in os.walk(get_uploads_dir_abspath()):
+        path = root.split(uno_uploads_dir_name)[-1].lstrip(os.path.sep).replace("\\", "/")
+        if "/".join([uno_uploads_dir_name, path.split("/")[0]]).rstrip("/") in uno_ignore_dir_list:
+            continue
+        path = "/".join([uno_uploads_dir_name, path]).rstrip("/")
+        for file in files:
+            file_path = "/".join([path, file]).lstrip("/")
+            if file_path in uno_ignore_file_list:
+                continue
+            file_sha1_data = sha1_digest_file(os.path.join(root, file))
+            if file_path in uno_fixed_file_list:
+                group = re.search(regexp_join("\[%s\]\(/%s/(.*?)\)", file_path, uno_uploads_dir_name), get_sha1_data())
+                if group:
+                    file_sha1_data = group.group(1)
+            sha1_data += "| [%s](/%s/%s)" % (file_path, uno_uploads_dir_name, file_sha1_data) + "\n"
     sha1_data = get_sha1_data_table_header(max_tag_num) + sha1_data
     with open(os.path.join(articles_dir_abspath, uno_sha1_file_name), 'w', encoding='utf-8') as sha1_file:
         sha1_file.write(sha1_data)

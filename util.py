@@ -107,8 +107,8 @@ def sha1_digest_file(file_abspath):
     return hashlib.sha1(content).hexdigest()
 
 
-def sha1_digest_str(string, random=True):
-    return hashlib.sha1(string.encode("utf-8") + os.urandom(24) if random else "").hexdigest()
+def sha1_digest_content(content):
+    return hashlib.sha1(content.encode("utf-8")).hexdigest()
 
 
 def check_sha1(sha1):
@@ -129,6 +129,10 @@ def get_root_abspath():
 
 def get_articles_dir_abspath():
     return os.path.join(get_root_abspath(), uno_articles_dir_name)
+
+
+def get_uploads_dir_abspath():
+    return os.path.join(get_root_abspath(), uno_articles_dir_name, uno_uploads_dir_name)
 
 
 def get_static_dir_abspath():
@@ -237,9 +241,7 @@ def content_filter(content, rules):
                 break
         if is_find:
             new_content += line + "\n"
-            tag_num = len(line.split(" | ")) - 2
-            if tag_num > max_tag_num:
-                max_tag_num = tag_num
+            max_tag_num = max(len(line.split(" | ")) - 2, max_tag_num)
     return get_sha1_data_table_header(max_tag_num) + new_content
 
 
