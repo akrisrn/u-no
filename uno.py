@@ -48,8 +48,8 @@ def index():
 
 @uno.route('/%s' % uno_sha1_file_name)
 def sha1_file_page():
-    return render_template('article.html', name=uno_sha1_file_name, content=md(get_sha1_data()), show_tags=False,
-                           no_sidebar=True)
+    content = md(split_pref(get_sha1_data()))
+    return render_template('article.html', name=uno_sha1_file_name, content=content, show_tags=False, no_sidebar=True)
 
 
 @uno.route('/<any("%s", "%s"):dir_name>/<file_sha1>' % (uno_articles_dir_name, uno_uploads_dir_name))
@@ -95,9 +95,8 @@ def tag_page(tag_sha1):
             tag_num = len(data.split(" | ")) - 1
             if tag_num > max_tag_num:
                 max_tag_num = tag_num
-    sha1_data = md(get_sha1_data_table_header(max_tag_num - 1) + new_sha1_data)
-    return render_template('article.html', name="Tag: %s" % tag_name, content=sha1_data, show_tags=False,
-                           no_sidebar=True)
+    content = md(split_pref(get_sha1_data_table_header(max_tag_num - 1) + new_sha1_data))
+    return render_template('article.html', name="Tag: %s" % tag_name, content=content, show_tags=False, no_sidebar=True)
 
 
 reindex_thread_limit = []

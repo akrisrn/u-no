@@ -186,3 +186,31 @@ def handle_thread(thread_limit_list, target):
     if not thread_limit_list:
         thread_limit_list.append(Thread(target=target))
         thread_limit_list[0].start()
+
+
+def split_pref(content):
+    new_content = ""
+    line_num = 1
+    if content.find("---") != -1:
+        blocks = content.split("---")
+        article_block = blocks[0]
+        uploads_block = blocks[1]
+    else:
+        article_block = content
+        uploads_block = ""
+    for data in article_block.split("\n"):
+        if line_num == 1:
+            new_content += "No. | " + data + "\n"
+        elif line_num == 2:
+            new_content += "- | " + data + "\n"
+        else:
+            group = re.search("\[(%s)(.*?)\]" % uno_strip_prefix, data)
+            if group:
+                rep = "%s | [%s]" % (group.group(1).strip("-"), os.path.splitext(group.group(2))[0])
+                new_content += re.sub("\[%s.*?\]" % uno_strip_prefix, rep, data) + "\n"
+            else:
+                if data:
+                    new_content += " | " + data + "\n"
+        line_num += 1
+    new_content += "\n---" + uploads_block if uploads_block else ""
+    return new_content
