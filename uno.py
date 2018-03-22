@@ -51,8 +51,8 @@ def sha1_file_page():
     search = [request.args.get('n', '').strip(),
               request.args.get('t', '').strip(),
               request.args.get('d', '').strip()]
-    search_rule = [re.compile("\[.*?%s.*?\]\(/(?!%s)" % (search[0], uno_tags_url_name), re.I),
-                   re.compile("\[.*?%s.*?\]\(/(?=%s)" % (search[1], uno_tags_url_name), re.I),
+    search_rule = [re.compile("\[.*?%s.*?\]\(/(?!%s)" % (search[0], uno_sha1_file_name), re.I),
+                   re.compile("\[.*?%s.*?\]\(/(?=%s)" % (search[1], uno_sha1_file_name), re.I),
                    re.compile("\|\s%s.*?\s\|" % search[2], re.I)]
     rules = [search_rule[i] for i in range(len(search)) if search[i]]
     content = md(split_pref(content_filter(get_sha1_data(), rules)))
@@ -85,27 +85,6 @@ def article(dir_name, file_sha1):
         return send_from_directory(file_dir, file)
 
 
-@uno.route('/%s/<tag_sha1>' % uno_tags_url_name)
-def tag_page(tag_sha1):
-    if not check_sha1(tag_sha1):
-        abort(404)
-    sha1_data = get_sha1_data()
-    group = re.search('\s\|\s.*\[(.*?)\]\(/%s/%s\)' % (uno_tags_url_name, tag_sha1), sha1_data)
-    if not group:
-        abort(404)
-    tag_name = group.group(1)
-    new_sha1_data = ""
-    max_tag_num = 0
-    for data in sha1_data.split("\n"):
-        if data.find("[%s]" % tag_name) != -1:
-            new_sha1_data += data + "\n"
-            tag_num = len(data.split(" | ")) - 1
-            if tag_num > max_tag_num:
-                max_tag_num = tag_num
-    content = md(split_pref(get_sha1_data_table_header(max_tag_num - 1) + new_sha1_data))
-    return render_template('article.html', name="Tag: %s" % tag_name, content=content, show_tags=False, no_sidebar=True)
-
-
 reindex_thread_limit = []
 
 
@@ -119,7 +98,6 @@ def reindex_thread():
         path = path[1:] if path.startswith(os.path.sep) else path
         if path.split(os.path.sep)[0] in uno_ignore_dir_list:
             continue
-        tags_sha1_dict = {}
         dir_name = uno_uploads_dir_name if path.startswith(uno_uploads_dir_name) else uno_articles_dir_name
         if dir_name == uno_uploads_dir_name:
             sha1_data += "\n---\n| Title\n| -\n"
@@ -132,14 +110,7 @@ def reindex_thread():
             if dir_name != uno_uploads_dir_name:
                 with open(file_abspath, encoding='utf-8') as article_data:
                     content = article_data.read()
-                tags = []
-                for tag in get_tags(content):
-                    if tag not in tags_sha1_dict.keys():
-                        tag_sha1 = sha1_digest_str(tag)
-                        tags_sha1_dict[tag] = tag_sha1
-                    else:
-                        tag_sha1 = tags_sha1_dict[tag]
-                    tags.append("[%s](/%s/%s)" % (tag, uno_tags_url_name, tag_sha1))
+                tags = ["[%s](/%s?t=%s)" % (tag, uno_sha1_file_name, tag) for tag in get_tags(content)]
                 tags_append = " | ".join(tags)
                 if len(tags) > max_tag_num:
                     max_tag_num = len(tags)
