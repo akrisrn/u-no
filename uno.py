@@ -51,9 +51,9 @@ def sha1_file_page():
     search = [request.args.get('n', '').strip(),
               request.args.get('t', '').strip(),
               request.args.get('d', '').strip()]
-    search_rule = [re.compile("\[.*?%s.*?\]\(/(?!%s)" % (search[0], uno_sha1_file_name), re.I),
-                   re.compile("\[.*?%s.*?\]\(/(?=%s)" % (search[1], uno_sha1_file_name), re.I),
-                   re.compile("\|\s%s.*?\s\|" % search[2], re.I)]
+    search_rule = [re.compile(regexp_join("\[.*?%s.*?\]\(/(?!%s)", search[0], uno_sha1_file_name), re.I),
+                   re.compile(regexp_join("\[.*?%s.*?\]\(/(?=%s)", search[1], uno_sha1_file_name), re.I),
+                   re.compile(regexp_join("\|\s%s.*?\s\|", search[2]), re.I)]
     rules = [search_rule[i] for i in range(len(search)) if search[i]]
     content = md(split_pref(content_filter(get_sha1_data(), rules)))
     return render_template('article.html', name=uno_sha1_file_name, content=content, show_tags=False, no_sidebar=True)
@@ -63,7 +63,7 @@ def sha1_file_page():
 def article(dir_name, file_sha1):
     if not check_sha1(file_sha1):
         abort(404)
-    group = re.search('\[(.*?)\]\(/%s/%s\)(.*?)\n' % (dir_name, file_sha1), get_sha1_data())
+    group = re.search(regexp_join('\[(.*?)\]\(/%s/%s\)(.*?)\n', dir_name, file_sha1), get_sha1_data())
     if not group:
         abort(404)
     file_path = group.group(1)
@@ -118,7 +118,7 @@ def reindex_thread():
                 tags_date_append = " | ".join([date_append, tags_append])
             file_sha1_data = sha1_digest_file(file_abspath)
             if file_path in uno_fixed_file_list:
-                group = re.search("\[%s\]\(/%s/(.*?)\)" % (file_path, dir_name), get_sha1_data())
+                group = re.search(regexp_join("\[%s\]\(/%s/(.*?)\)", file_path, dir_name), get_sha1_data())
                 if group:
                     file_sha1_data = group.group(1)
             first = "[%s](/%s/%s)" % (file_path, dir_name, file_sha1_data)

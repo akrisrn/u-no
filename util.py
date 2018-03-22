@@ -26,20 +26,20 @@ def md(text):
     if len(re.findall("#+\s+.*", text)) >= 3:
         text = "[TOC]\n\n" + text
     for group in re.finditer("\[(.*?)\]\((.*?)\)\+", text):
-        description = group.group(1)
+        des = group.group(1)
         file_path = group.group(2)
-        group = re.search("\[%s\]\((.*?)\)" % file_path, get_sha1_data())
+        group = re.search(regexp_join("\[%s\]\((.*?)\)", file_path), get_sha1_data())
         if group:
             file_url = group.group(1)
-            text = re.sub("\[%s\]\(%s\)\+" % (description, file_path), "[%s](%s)" % (description, file_url), text)
-    line_number = 1
+            text = re.sub(regexp_join("\[%s\]\(%s\)\+", des, file_path), "[%s](%s)" % (des, file_url), text)
+    num = 1
     for group in re.finditer("\|\s*(:?-:?|1\.)\s*(.*)", text):
         append = group.group(2)
         if group.group(1).strip(":") == "-":
-            line_number = 1
+            num = 1
         else:
-            text = re.sub("\|\s*1\.\s*%s" % append.replace("|", "\|"), "| %d %s" % (line_number, append), text, 1)
-            line_number += 1
+            text = re.sub(regexp_join("\|\s*1\.\s*%s", append), "| %d %s" % (num, append), text, 1)
+            num += 1
     extensions = [
         'pymdownx.arithmatex',
         'pymdownx.betterem',
@@ -243,9 +243,11 @@ def content_filter(content, rules):
     return get_sha1_data_table_header(max_tag_num) + new_content
 
 
-def escape_regexp_char(regexp_str):
+def regexp_join(regexp_str, *args):
+    args = list(args)
     special_char = ["\\", "$", "(", ")", "*", "+", ".", "[", "]", "?", "^", "{", "}", "|"]
-    for char in special_char:
-        if regexp_str.find(char) != -1:
-            regexp_str = regexp_str.replace(char, "\\%s" % char)
-    return regexp_str
+    for i in range(len(args)):
+        for char in special_char:
+            if args[i].find(char) != -1:
+                args[i] = args[i].replace(char, "\\%s" % char)
+    return regexp_str % tuple(args)
