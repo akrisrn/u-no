@@ -95,7 +95,7 @@ def reindex_thread():
     max_tag_num = 0
     for root, dirs, files in os.walk(articles_dir_abspath):
         path = root.split(uno_articles_dir_name)[-1].lstrip(os.path.sep).replace("\\", "/")
-        if path.split("/")[0] in [*uno_ignore_dir_list, uno_uploads_dir_name]:
+        if path.split("/")[0] in uno_ignore_dir_list + [uno_uploads_dir_name]:
             continue
         for file in files:
             file_path = "/".join([path, file]).lstrip("/")
