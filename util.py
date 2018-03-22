@@ -32,6 +32,15 @@ def md(text):
         if group:
             file_url = group.group(1)
             text = re.sub("\[%s\]\(%s\)\+" % (description, file_path), "[%s](%s)" % (description, file_url), text)
+    line_number = 1
+    for group in re.finditer("\|\s*(:?-:?|1\.)\s*(.*)", text):
+        signal = group.group(1)
+        append = group.group(2)
+        if signal.strip(":") == "-":
+            line_number = 1
+        else:
+            text = re.sub("\|\s*1\.\s*%s" % append.replace("|", "\|"), "| %d %s" % (line_number, append), text, 1)
+            line_number += 1
     extensions = [
         'pymdownx.arithmatex',
         'pymdownx.betterem',
