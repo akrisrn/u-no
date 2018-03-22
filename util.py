@@ -184,7 +184,7 @@ def get_date(content):
 
 
 def get_sha1_data_table_header(tag_num):
-    table_header = " | ".join(["Title", "Date", " | ".join(["Tag-%d" % (i + 1) for i in range(tag_num)])]) + "\n"
+    table_header = " | ".join(["Name", "Date", " | ".join(["Tag-%d" % (i + 1) for i in range(tag_num)])]) + "\n"
     table_format = " | ".join(["-"] * (tag_num + 2)) + "\n"
     return table_header + table_format
 
