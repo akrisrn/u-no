@@ -124,9 +124,13 @@ def check_sha1(sha1):
 
 
 def get_sha1_data():
-    with open(os.path.join(get_articles_dir_abspath(), uno_sha1_file_name), encoding='utf-8') as sha1_file:
-        sha1_data = sha1_file.read()
-    return sha1_data
+    sha1_file_path = os.path.join(get_articles_dir_abspath(), uno_sha1_file_name)
+    if os.path.exists(sha1_file_path):
+        with open(sha1_file_path, encoding='utf-8') as sha1_file:
+            sha1_data = sha1_file.read()
+        return sha1_data
+    else:
+        return None
 
 
 def get_root_abspath():

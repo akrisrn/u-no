@@ -67,7 +67,7 @@ def sha1_file_page():
                    re.compile(regexp_join("\|\s%s.*?\s\|", search[2]), re.I)]
     rules = [search_rule[i] for i in range(len(search)) if search[i]]
     content = md(split_pref(content_filter(get_sha1_data(), rules)))
-    return render_template('article.html', name=uno_sha1_file_name, content=content, show_tags=False, no_sidebar=True,
+    return render_template('article.html', name="Index", content=content, show_tags=False, no_sidebar=True,
                            have_search=True)
 
 
@@ -113,6 +113,7 @@ def reindex_thread():
     app.logger.info(os.popen(get_reindex_cmd()).read().rstrip())
     articles_dir_abspath = get_articles_dir_abspath()
     sha1_data = ""
+    old_sha1_data = get_sha1_data()
     max_tag_num = 0
     for root, dirs, files in os.walk(articles_dir_abspath):
         path = root.split(uno_articles_dir_name)[-1].lstrip(os.path.sep).replace("\\", "/")
@@ -128,8 +129,8 @@ def reindex_thread():
             max_tag_num = max(len(tags), max_tag_num)
             tags_date_append = " | ".join([get_date(content), " | ".join(tags)])
             file_sha1_data = sha1_digest_content(content)
-            if file_path in uno_fixed_file_list:
-                group = re.search(regexp_join("\[%s\]\(/%s/(.*?)\)", file_path, uno_articles_dir_name), get_sha1_data())
+            if file_path in uno_fixed_file_list and old_sha1_data:
+                group = re.search(regexp_join("\[%s\]\(/%s/(.*?)\)", file_path, uno_articles_dir_name), old_sha1_data)
                 if group:
                     file_sha1_data = group.group(1)
             first = "[%s](/%s/%s)" % (file_path, uno_articles_dir_name, file_sha1_data)
