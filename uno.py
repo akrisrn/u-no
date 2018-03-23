@@ -149,8 +149,8 @@ def reindex_thread():
             if file_path in uno_ignore_file_list:
                 continue
             file_sha1_data = sha1_digest_file(os.path.join(root, file))
-            if file_path in uno_fixed_file_list:
-                group = re.search(regexp_join("\[%s\]\(/%s/(.*?)\)", file_path, uno_uploads_dir_name), get_sha1_data())
+            if file_path in uno_fixed_file_list and old_sha1_data:
+                group = re.search(regexp_join("\[%s\]\(/%s/(.*?)\)", file_path, uno_uploads_dir_name), old_sha1_data)
                 if group:
                     file_sha1_data = group.group(1)
             sha1_data += "| [%s](/%s/%s)" % (file_path, uno_uploads_dir_name, file_sha1_data) + "\n"
