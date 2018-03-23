@@ -20,6 +20,13 @@ def get_os_cmd_sep():
     return "&" if is_windows() else ";"
 
 
+def get_url_from_file_path(file_path):
+    group = re.search(regexp_join("\[%s\]\((.*?)\)", file_path), get_sha1_data())
+    if group:
+        return group.group(1)
+    return ""
+
+
 # noinspection SpellCheckingInspection
 def md(text):
     text = re.sub("(\r|<<.*?>>)", "", text)
@@ -28,10 +35,9 @@ def md(text):
     for group in re.finditer("\[(.*?)\]\((.*?)\)\+", text):
         des = group.group(1)
         file_path = group.group(2)
-        group = re.search(regexp_join("\[%s\]\((.*?)\)", file_path), get_sha1_data())
-        if group:
-            file_url = group.group(1)
-            text = re.sub(regexp_join("\[%s\]\(%s\)\+", des, file_path), "[%s](%s)" % (des, file_url), text)
+        url = get_url_from_file_path(file_path)
+        if url:
+            text = re.sub(regexp_join("\[%s\]\(%s\)\+", des, file_path), "[%s](%s)" % (des, url), text)
     num = 1
     for group in re.finditer("\|\s*(:?-:?|1\.)\s*(.*)", text):
         append = group.group(2)
@@ -163,27 +169,59 @@ def get_update_cmd():
     return get_os_cmd_sep().join([get_reindex_cmd(get_root_abspath()), restart_cmd])
 
 
+def clear_text(text):
+    return re.sub("(\s|\"|\')", "", text)
+
+
+def get_flag_regexp(flag):
+    return re.compile(regexp_join("<<\s*%s\((.*?)\)\s*>>", flag), re.I)
+
+
 def get_tags(content):
-    group = re.search("<<\s*Tag\((.*?)\)\s*>>", content)
+    default_tag = [uno_default_tag]
+    group = re.search(get_flag_regexp("tag"), content)
     if not group:
-        return [uno_default_tag]
-    tags = group.group(1)
-    tags = re.sub("(\s|\"|\')", "", tags).split(",")
-    if len(tags) == 1 and not tags[0]:
-        tags = [uno_default_tag]
+        return default_tag
+    tags = [tag for tag in clear_text(group.group(1)).split(",") if tag]
+    if not tags:
+        return default_tag
     return tags
 
 
 def get_date(content):
-    group = re.search("<<\s*Date\([\"\'](.*?)[\"\']\)\s*>>", content)
+    group = re.search(get_flag_regexp("date"), content)
     if not group:
         return ""
-    date = group.group(1)
+    date = str(clear_text(group.group(1)).split(",")[0])
     try:
         date = datetime.strptime(date, "%y-%m-%d").strftime("%Y.%m.%d")
     except ValueError:
         return ""
     return date
+
+
+def get_no_sidebar(content):
+    group = re.search(get_flag_regexp("nosidebar"), content)
+    if not group:
+        return False
+    return True
+
+
+def get_custom_css(content, custom_type="css"):
+    group = re.search(get_flag_regexp(custom_type), content)
+    if not group:
+        return []
+    css_urls = []
+    for css_path in clear_text(group.group(1)).split(","):
+        if css_path:
+            css_url = get_url_from_file_path(css_path)
+            if css_url:
+                css_urls.append(css_url)
+    return css_urls
+
+
+def get_custom_js(content):
+    return get_custom_css(content, "js")
 
 
 def get_sha1_data_table_header(tag_num):

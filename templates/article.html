@@ -5,6 +5,16 @@
 {% if have_search is not defined %}
     {% set have_search = False %}
 {% endif %}
+{% block extra_js_link %}
+    {% for js_url in js_urls %}
+        <script type="text/javascript" src="{{ js_url }}"></script>
+    {% endfor %}
+{% endblock %}
+{% block extra_css_link %}
+    {% for css_url in css_urls %}
+        <link rel="stylesheet" type="text/css" href="{{ css_url }}">
+    {% endfor %}
+{% endblock %}
 {% block extra_style %}
     {% if have_search %}
         #nameS, #tagS, #dateS {
@@ -62,7 +72,7 @@
         {% if show_tags %}
             <hr>
             <div class="button-group">
-                <button class="button primary icon tag" style="width: 30px">&nbsp;</button>
+                <button class="button primary icon tag" style="width: 30px">-</button>
                 {% for tag in tags %}
                     <button class="button">{{ tag }}</button>
                 {% endfor %}

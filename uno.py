@@ -75,12 +75,16 @@ def article(dir_name, file_sha1):
     if dir_name == uno_articles_dir_name:
         with open(file_abspath, encoding='utf-8') as file:
             file_data = file.read()
+        no_sidebar = get_no_sidebar(file_data)
+        css_urls = get_custom_css(file_data)
+        js_urls = get_custom_js(file_data)
         content = md(file_data)
         name = re.sub(uno_strip_prefix, "", os.path.splitext(file_path)[0])
         date_tags = group.group(2).split(" | ")[1:]
         date = date_tags[0]
         tags = [re.search("\[(.*?)\]\(.*?\)", tag).group(1) for tag in date_tags[1:]]
-        return render_template('article.html', name=name, content=content, date=date, tags=tags, show_tags=True)
+        return render_template('article.html', name=name, content=content, date=date, tags=tags, show_tags=True,
+                               css_urls=css_urls, js_urls=js_urls, no_sidebar=no_sidebar)
     else:
         file_dir, file = os.path.split(file_abspath)
         return send_from_directory(file_dir, file)
@@ -102,8 +106,8 @@ def reindex_thread():
             file_path = "/".join([path, file]).lstrip("/")
             if file_path in uno_ignore_file_list:
                 continue
-            with open(os.path.join(root, file), encoding='utf-8') as article_data:
-                content = article_data.read()
+            with open(os.path.join(root, file), encoding='utf-8') as file_data:
+                content = file_data.read()
             tags = ["[%s](/%s?t=%s)" % (tag, uno_sha1_file_name, tag) for tag in get_tags(content)]
             max_tag_num = max(len(tags), max_tag_num)
             tags_date_append = " | ".join([get_date(content), " | ".join(tags)])

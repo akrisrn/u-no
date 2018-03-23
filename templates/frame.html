@@ -18,11 +18,15 @@
             src="{{ get_bower_file_url('tablesorter/dist/js/jquery.tablesorter.min.js') }}"></script>
     <script type="text/javascript" src="{{ get_static_file_url('js/pace.on.js') }}"></script>
     <script type="text/javascript" src="{{ get_static_file_url('js/markdown.js') }}"></script>
+    {% block extra_css_link %}
+    {% endblock %}
     <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('PACE/themes/blue/pace-theme-flash.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('github-markdown-css/github-markdown.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('css3-github-buttons/gh-buttons.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/markdown.css') }}">
+    {% block extra_js_link %}
+    {% endblock %}
     <!--suppress CssUnusedSymbol -->
     <style>
         @font-face {
