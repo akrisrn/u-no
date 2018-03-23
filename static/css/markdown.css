@@ -12,6 +12,10 @@
     color: #0366d6;
 }
 
+.markdown-body .star {
+    font-size: x-small;
+}
+
 /* Critic Markup Start */
 .markdown-body .critic {
     font-family: inherit;

@@ -46,6 +46,10 @@ def md(text):
         else:
             text = re.sub(regexp_join("\|\s*1\.\s*%s", append), "| %d %s" % (num, append), text, 1)
             num += 1
+    rate_match_dict = {group.group(): group.group(1) for group in re.finditer("\*\[([0-9]|10)\]", text)}
+    for match in rate_match_dict.keys():
+        rate = int(rate_match_dict[match]) / 2
+        text = re.sub(regexp_join("%s", match), '<div class="star" data-score="%f"></div>' % rate, text)
     extensions = [
         'pymdownx.arithmatex',
         'pymdownx.betterem',
