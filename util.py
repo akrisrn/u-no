@@ -268,6 +268,8 @@ def content_filter(content, rules):
     max_tag_num = 0
     if rules:
         for line in content.split("\n"):
+            if line == "---":
+                new_content += "\n---\n| Name\n| -\n"
             is_find = True
             for rule in rules:
                 if not re.search(rule, line):

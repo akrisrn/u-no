@@ -61,7 +61,8 @@ def sha1_file_page():
               request.args.get('t', '').strip(),
               request.args.get('d', '').strip()]
     search_rule = [re.compile(regexp_join("\[.*?%s.*?\]\(/(?!%s)", search[0], uno_sha1_file_name), re.I),
-                   re.compile(regexp_join("\[.*?%s.*?\]\(/(?=%s)", search[1], uno_sha1_file_name), re.I),
+                   # fixme: 搜索一些英文字母或数字会查询不准，估计是匹配到了hash里面
+                   re.compile(regexp_join("\s\|\s.*\[.*?%s.*?\]\(/(?=%s)", search[1], uno_sha1_file_name), re.I),
                    re.compile(regexp_join("\|\s%s.*?\s\|", search[2]), re.I)]
     rules = [search_rule[i] for i in range(len(search)) if search[i]]
     content, max_tag_num = content_filter(get_sha1_data(), rules)
