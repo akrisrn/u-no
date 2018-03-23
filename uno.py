@@ -64,7 +64,8 @@ def sha1_file_page():
                    re.compile(regexp_join("\[.*?%s.*?\]\(/(?=%s)", search[1], uno_sha1_file_name), re.I),
                    re.compile(regexp_join("\|\s%s.*?\s\|", search[2]), re.I)]
     rules = [search_rule[i] for i in range(len(search)) if search[i]]
-    content = md(split_pref(content_filter(get_sha1_data(), rules)))
+    content, max_tag_num = content_filter(get_sha1_data(), rules)
+    content = md(get_sha1_data_table_header(max_tag_num) + split_pref(content))
     return render_template('article.html', name="Index", content=content, show_tags=False, no_sidebar=True,
                            have_search=True)
 
@@ -115,7 +116,7 @@ reindex_thread_limit = []
 def reindex_thread():
     app.logger.info(os.popen(get_reindex_cmd()).read().rstrip())
     articles_dir_abspath = get_articles_dir_abspath()
-    sha1_data = ""
+    sha1_data = "\n"
     old_sha1_data = get_sha1_data()
     max_tag_num = 0
     for root, dirs, files in os.walk(articles_dir_abspath):
@@ -154,7 +155,6 @@ def reindex_thread():
                 if group:
                     file_sha1_data = group.group(1)
             sha1_data += "| [%s](/%s/%s)" % (file_path, uno_uploads_dir_name, file_sha1_data) + "\n"
-    sha1_data = get_sha1_data_table_header(max_tag_num) + sha1_data
     with open(os.path.join(articles_dir_abspath, uno_sha1_file_name), 'w', encoding='utf-8') as sha1_file:
         sha1_file.write(sha1_data)
     time.sleep(uno_reindex_limit_time)

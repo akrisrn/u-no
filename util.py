@@ -32,19 +32,19 @@ def md(text):
     text = re.sub("(\r|<<.*?>>)", "", text)
     if len(re.findall("#+\s+.*", text)) >= 3:
         text = "[TOC]\n\n" + text
-    for group in re.finditer("\[(.*?)\]\((.*?)\)\+", text):
-        des = group.group(1)
-        file_path = group.group(2)
+    url_match_dict = {group.group(): [group.group(1), group.group(2)]
+                      for group in re.finditer("\[(.*?)\]\((.*?)\)\+", text)}
+    for match in url_match_dict:
+        file_path = url_match_dict[match][1]
         url = get_url_from_file_path(file_path)
         if url:
-            text = re.sub(regexp_join("\[%s\]\(%s\)\+", des, file_path), "[%s](%s)" % (des, url), text)
+            text = re.sub(regexp_join("%s", match), "[%s](%s)" % (url_match_dict[match][0], url), text)
     num = 1
     for group in re.finditer("\|\s*(:?-:?|1\.)\s*(.*)", text):
-        append = group.group(2)
         if group.group(1).strip(":") == "-":
             num = 1
         else:
-            text = re.sub(regexp_join("\|\s*1\.\s*%s", append), "| %d %s" % (num, append), text, 1)
+            text = re.sub(regexp_join("%s", group.group()), "| %d %s" % (num, group.group(2)), text, 1)
             num += 1
     rate_match_dict = {group.group(): group.group(1) for group in re.finditer("\*\[([0-9]|10)\]", text)}
     for match in rate_match_dict.keys():
@@ -230,8 +230,8 @@ def get_custom_js(content):
 
 
 def get_sha1_data_table_header(tag_num):
-    table_header = " | ".join(["Name", "Date", " | ".join(["Tag-%d" % (i + 1) for i in range(tag_num)])]) + "\n"
-    table_format = " | ".join(["-"] * (tag_num + 2)) + "\n"
+    table_header = " | ".join(["No.", "Name", "Date", " | ".join(["Tag-%d" % (i + 1) for i in range(tag_num)])]) + "\n"
+    table_format = " | ".join(["-"] * (tag_num + 3))
     return table_header + table_format
 
 
@@ -244,8 +244,7 @@ def handle_thread(thread_limit_list, target):
 
 
 def split_pref(content):
-    new_content = ""
-    line_num = 1
+    new_content = "\n"
     if content.find("---") != -1:
         blocks = content.split("---")
         article_block = blocks[0]
@@ -254,38 +253,33 @@ def split_pref(content):
         article_block = content
         uploads_block = ""
     for data in article_block.split("\n"):
-        if line_num == 1:
-            new_content += "No. | " + data + "\n"
-        elif line_num == 2:
-            new_content += "- | " + data + "\n"
+        group = re.search("\[(%s)(.*?)\]" % uno_strip_prefix, data)
+        if group:
+            replace = "%s | [%s]" % (group.group(1).strip("-"), os.path.splitext(group.group(2))[0])
+            new_content += re.sub(regexp_join("%s", group.group()), replace, data) + "\n"
         else:
-            group = re.search("\[(%s)(.*?)\]" % uno_strip_prefix, data)
-            if group:
-                rep = "%s | [%s]" % (group.group(1).strip("-"), os.path.splitext(group.group(2))[0])
-                new_content += re.sub("\[%s.*?\]" % uno_strip_prefix, rep, data) + "\n"
-            else:
-                if data:
-                    new_content += " | " + data + "\n"
-        line_num += 1
-    new_content += "\n---" + uploads_block if uploads_block else ""
+            new_content += (" | " + data + "\n") if data else ""
+    new_content += ("\n---" + uploads_block) if uploads_block else ""
     return new_content
 
 
 def content_filter(content, rules):
-    if not rules:
-        return content
-    new_content = ""
+    new_content = "\n"
     max_tag_num = 0
-    for line in content.split("\n"):
-        is_find = True
-        for rule in rules:
-            if not re.search(rule, line):
-                is_find = False
-                break
-        if is_find:
-            new_content += line + "\n"
+    if rules:
+        for line in content.split("\n"):
+            is_find = True
+            for rule in rules:
+                if not re.search(rule, line):
+                    is_find = False
+                    break
+            if is_find:
+                new_content += line + "\n"
+                max_tag_num = max(len(line.split(" | ")) - 2, max_tag_num)
+    else:
+        for line in content.split("\n"):
             max_tag_num = max(len(line.split(" | ")) - 2, max_tag_num)
-    return get_sha1_data_table_header(max_tag_num) + new_content
+    return new_content if rules else content, max_tag_num
 
 
 def regexp_join(regexp_str, *args):
@@ -308,8 +302,7 @@ def update_config_fixed_file_list(file_path, is_add, var=uno_fixed_file_list, na
     config_path = os.path.join(get_root_abspath(), "config.py")
     with open(config_path, encoding="utf-8") as config_file:
         config_data = config_file.read()
-    config_data = re.sub("%s\s*=\s*\[.*?\]" % name,
-                         "%s = %s" % (name, var), config_data)
+    config_data = re.sub("%s\s*=\s*\[.*?\]" % name, "%s = %s" % (name, var), config_data)
     with open(config_path, "w", encoding="utf-8") as config_file:
         config_file.write(config_data)
 
