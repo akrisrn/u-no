@@ -36,7 +36,9 @@ uno_update_limit_time = 60 * 10
 
 uno_ignore_file_list = [uno_sha1_file_name]
 uno_ignore_dir_list = []
+
 uno_fixed_file_list = []
+uno_make_file_url_fixed_arg = ""
 
 uno_strip_prefix = ""
 

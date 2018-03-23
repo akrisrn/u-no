@@ -288,3 +288,19 @@ def regexp_join(regexp_str, *args):
             if args[i].find(char) != -1:
                 args[i] = args[i].replace(char, "\\%s" % char)
     return regexp_str % tuple(args)
+
+
+def update_config_fixed_file_list(file_path, is_add):
+    if is_add is True and file_path not in uno_fixed_file_list:
+        uno_fixed_file_list.append(file_path)
+    elif is_add is False and file_path in uno_fixed_file_list:
+        uno_fixed_file_list.remove(file_path)
+    else:
+        return None
+    config_path = os.path.join(get_root_abspath(), "config.py")
+    with open(config_path, encoding="utf-8") as config_file:
+        config_data = config_file.read()
+    config_data = re.sub("uno_fixed_file_list\s*=\s*\[.*?\]",
+                         "uno_fixed_file_list = %s" % uno_fixed_file_list, config_data)
+    with open(config_path, "w", encoding="utf-8") as config_file:
+        config_file.write(config_data)

@@ -83,6 +83,11 @@ def article(dir_name, file_sha1):
     file_abspath = os.path.join(articles_dir_abspath, file_path)
     if not os.path.exists(file_abspath):
         abort(404)
+    make_file_url_fixed_arg = request.args.get(uno_make_file_url_fixed_arg, "").strip()
+    if make_file_url_fixed_arg == "1":
+        update_config_fixed_file_list(file_path, True)
+    elif make_file_url_fixed_arg == "0":
+        update_config_fixed_file_list(file_path, False)
     if dir_name == uno_articles_dir_name:
         with open(file_abspath, encoding='utf-8') as file:
             file_data = file.read()
