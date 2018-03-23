@@ -33,7 +33,8 @@ body {
 }
 
 #header a:hover {
-    color: dimgrey;
+    color: grey;
+    text-decoration: none;
 }
 
 #body {
@@ -110,6 +111,18 @@ body {
 
 .center {
     text-align: center;
+}
+
+.date {
+    float: right;
+    display: inline;
+    color: grey;
+}
+
+.tag {
+    display: inline;
+    color: grey;
+    font-size: small
 }
 
 @media screen and (max-width: 1220px) {

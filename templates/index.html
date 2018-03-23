@@ -3,16 +3,55 @@
     {{ site_name }}
 {% endblock %}
 {% block extra_style %}
-    #content {
-    padding: 0
+    {% if not fixed_files %}
+        #content {
+        padding: 0
+        }
+
+        #content .center {
+        padding: 30px 50px 0 50px
+        }
+    {% endif %}
+
+    .markdown-body ul {
+    list-style-type: circle
+    }
+
+    .markdown-body a {
+    color: #24292e;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s
+    }
+
+    .markdown-body a:hover {
+    text-decoration: none;
+    color: grey;
     }
 {% endblock %}
 {% block content %}
-    <div class="center" style="padding: 30px 50px 0 50px">
+    <div class="center">
         <h1>{{ index_show_text | safe }}</h1>
         <hr>
     </div>
-    <div style="height: {{ index_cover_height }}px;
-            background: url({{ get_static_file_url(index_cover_img) }}) no-repeat center;">
-    </div>
+    {% if not fixed_files %}
+        <div style="height: {{ index_cover_height }}px;
+                background: url({{ get_static_file_url(index_cover_img) }}) no-repeat center;">
+        </div>
+    {% else %}
+        <div class="markdown-body">
+            <ul>
+                {% for fixed_file in fixed_files %}
+                    <li>
+                        <a href="{{ fixed_file[1] }}">{{ fixed_file[0] }}</a>
+                        {% for tag in fixed_file[3] %}
+                            <div class="tag">{{ tag }}</div>
+                        {% endfor %}
+                        <div class="date">{{ fixed_file[2] }}</div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 {% endblock %}
