@@ -44,17 +44,21 @@
             content: "{{ markdown_toc_text }}";
         }
 
+        {% set sidebar_cover_a_url = get_static_file_url(sidebar_cover_a_img) %}
+        {% set sidebar_cover_b_url = get_static_file_url(sidebar_cover_b_img) %}
+        {% set sidebar_cover_c_url = get_static_file_url(sidebar_cover_c_img) %}
+
         #preload-01 {
-            background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat -9999px -9999px;;
+            background: url({{ sidebar_cover_c_url }}) no-repeat -9999px -9999px;;
         }
 
         #preload-02 {
-            background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat -9999px -9999px;;
+            background: url({{ sidebar_cover_b_url }}) no-repeat -9999px -9999px;;
         }
 
         #sidebar-cover {
             height: {{ sidebar_cover_height }}px;
-            background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;
+            background: url({{ sidebar_cover_a_url }}) no-repeat center;
         }
 
         #sidebar-cover:hover {
@@ -66,97 +70,97 @@
 
         @keyframes nya {
             40% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             42% {
-                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_c_url }}) no-repeat center;
             }
             44% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             46% {
-                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_c_url }}) no-repeat center;
             }
             48% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             99% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             100% {
-                background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_a_url }}) no-repeat center;
             }
         }
 
         @-moz-keyframes nya {
             40% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             42% {
-                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_c_url }}) no-repeat center;
             }
             44% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             46% {
-                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_c_url }}) no-repeat center;
             }
             48% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             99% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             100% {
-                background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_a_url }}) no-repeat center;
             }
         }
 
         @-webkit-keyframes nya {
             40% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             42% {
-                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_c_url }}) no-repeat center;
             }
             44% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             46% {
-                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_c_url }}) no-repeat center;
             }
             48% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             99% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             100% {
-                background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_a_url }}) no-repeat center;
             }
         }
 
         @-o-keyframes nya {
             40% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             42% {
-                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_c_url }}) no-repeat center;
             }
             44% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             46% {
-                background: url({{ get_static_file_url(sidebar_cover_c_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_c_url }}) no-repeat center;
             }
             48% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             99% {
-                background: url({{ get_static_file_url(sidebar_cover_b_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_b_url }}) no-repeat center;
             }
             100% {
-                background: url({{ get_static_file_url(sidebar_cover_a_img) }}) no-repeat center;
+                background: url({{ sidebar_cover_a_url }}) no-repeat center;
             }
         }
 
