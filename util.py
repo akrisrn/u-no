@@ -145,8 +145,8 @@ def get_articles_dir_abspath():
     return os.path.join(get_root_abspath(), uno_articles_dir_name)
 
 
-def get_uploads_dir_abspath():
-    return os.path.join(get_root_abspath(), uno_articles_dir_name, uno_uploads_dir_name)
+def get_attachments_dir_abspath():
+    return os.path.join(get_root_abspath(), uno_articles_dir_name, uno_attachments_dir_name)
 
 
 def get_static_dir_abspath():
@@ -248,10 +248,10 @@ def split_pref(content):
     if content.find("---") != -1:
         blocks = content.split("---")
         article_block = blocks[0]
-        uploads_block = blocks[1]
+        attachments_block = blocks[1]
     else:
         article_block = content
-        uploads_block = ""
+        attachments_block = ""
     for data in article_block.split("\n"):
         group = re.search("\[(%s)(.*?)\]" % uno_strip_prefix, data)
         if group:
@@ -259,7 +259,7 @@ def split_pref(content):
             new_content += re.sub(regexp_join("%s", group.group()), replace, data) + "\n"
         else:
             new_content += (" | " + data + "\n") if data else ""
-    new_content += ("\n---" + uploads_block) if uploads_block else ""
+    new_content += ("\n---" + attachments_block) if attachments_block else ""
     return new_content
 
 
