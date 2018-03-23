@@ -35,6 +35,7 @@ uno_reindex_limit_time = 60 * 10
 uno_update_limit_time = 60 * 10
 
 uno_ignore_file_list = [uno_sha1_file_name]
+uno_make_file_ignore_arg = ""
 uno_ignore_dir_list = []
 
 uno_fixed_file_list = []

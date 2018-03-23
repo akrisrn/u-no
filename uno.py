@@ -34,9 +34,7 @@ app.jinja_env.globals.update(get_static_file_url=get_static_file_url)
 app.jinja_env.globals.update(get_bower_file_url=get_bower_file_url)
 
 
-@app.errorhandler(403)
 @app.errorhandler(404)
-@app.errorhandler(500)
 def error_page(error):
     return render_template('error.html', name="%d %s" % (error.code, error.name), content=error.description), error.code
 
@@ -88,6 +86,11 @@ def article(dir_name, file_sha1):
         update_config_fixed_file_list(file_path, True)
     elif make_file_url_fixed_arg == "0":
         update_config_fixed_file_list(file_path, False)
+    make_file_ignore_arg = request.args.get(uno_make_file_ignore_arg, "").strip()
+    if make_file_ignore_arg == "1":
+        update_config_ignore_file_list(file_path)
+        handle_thread(reindex_thread_limit, reindex_thread)
+        abort(404)
     if dir_name == uno_articles_dir_name:
         with open(file_abspath, encoding='utf-8') as file:
             file_data = file.read()
