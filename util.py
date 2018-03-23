@@ -201,10 +201,7 @@ def get_date(content):
 
 
 def get_no_sidebar(content):
-    group = re.search(get_flag_regexp("nosidebar"), content)
-    if not group:
-        return False
-    return True
+    return re.search(get_flag_regexp("nosidebar"), content)
 
 
 def get_custom_css(content, custom_type="css"):
