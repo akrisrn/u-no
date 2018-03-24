@@ -65,20 +65,23 @@ def index():
 # 索引页，通过索引文件名访问，展示索引文件内容，可通过url参数搜索
 @uno.route('/%s' % uno_sha1_file_name)
 def sha1_file_page():
-    search = [request.args.get('n', '').strip(),  # 搜索文件名
-              request.args.get('t', '').strip(),  # 搜索标签名
-              request.args.get('d', '').strip()]  # 搜索日期
-    # 以上三种搜索的正则表达式，部分匹配，忽略大小写
-    search_rule = [re.compile(regexp_join("\[.*?%s.*?\]\(/(?!%s)", search[0], uno_sha1_file_name), re.I),
-                   # fixme: 搜索一些英文字母或数字会查询不准，估计是匹配到了hash里面
-                   re.compile(regexp_join("\s\|\s.*\[.*?%s.*?\]\(/(?=%s)", search[1], uno_sha1_file_name), re.I),
-                   re.compile(regexp_join("\|\s%s.*?\s\|", search[2]), re.I)]
-    # 生成搜索参数不为空的正则规则列表
-    rules = [search_rule[i] for i in range(len(search)) if search[i]]
-    # 传递给内容过滤器筛选，拿到过滤后内容和内容的最大标签数量
-    content, max_tag_num = content_filter(get_sha1_data(), rules)
-    # 根据最大标签数量生成md表格头部，加上切割分离前缀后的内容，进行markdown渲染
-    content = md(get_sha1_data_table_header(max_tag_num) + split_pref(content))
+    content = ""
+    sha1_data = get_sha1_data()
+    if sha1_data:
+        search = [request.args.get('n', '').strip(),  # 搜索文件名
+                  request.args.get('t', '').strip(),  # 搜索标签名
+                  request.args.get('d', '').strip()]  # 搜索日期
+        # 以上三种搜索的正则表达式，部分匹配，忽略大小写
+        search_rule = [re.compile(regexp_join("\[.*?%s.*?\]\(/(?!%s)", search[0], uno_sha1_file_name), re.I),
+                       # fixme: 搜索一些英文字母或数字会查询不准，估计是匹配到了hash里面
+                       re.compile(regexp_join("\s\|\s.*\[.*?%s.*?\]\(/(?=%s)", search[1], uno_sha1_file_name), re.I),
+                       re.compile(regexp_join("\|\s%s.*?\s\|", search[2]), re.I)]
+        # 生成搜索参数不为空的正则规则列表
+        rules = [search_rule[i] for i in range(len(search)) if search[i]]
+        # 传递给内容过滤器筛选，拿到过滤后内容和内容的最大标签数量
+        content, max_tag_num = content_filter(sha1_data, rules)
+        # 根据最大标签数量生成md表格头部，加上切割分离前缀后的内容，进行markdown渲染
+        content = md(get_sha1_data_table_header(max_tag_num) + split_pref(content))
     return render_template('article.html', name="Index", content=content, show_tags=False, no_sidebar=True,
                            have_search=True)
 
@@ -98,14 +101,6 @@ def article(dir_name, file_sha1):
     file_abspath = os.path.join(get_articles_dir_abspath(), file_path)
     if not os.path.exists(file_abspath):
         abort(404)
-    # 识别把文件加入/移除固定列表的url参数
-    make_file_url_fixed_arg = request.args.get(uno_make_file_url_fixed_arg, "").strip()
-    if make_file_url_fixed_arg == "1":
-        # 加入固定列表
-        update_config_fixed_file_list(file_path, True)
-    elif make_file_url_fixed_arg == "0":
-        # 从固定列表移除
-        update_config_fixed_file_list(file_path, False)
     # 识别把文件加入忽略列表的url参数
     make_file_ignore_arg = request.args.get(uno_make_file_ignore_arg, "").strip()
     if make_file_ignore_arg == "1":
@@ -117,11 +112,19 @@ def article(dir_name, file_sha1):
     if dir_name == uno_articles_dir_name:
         with open(file_abspath, encoding='utf-8') as file:
             file_data = file.read()
-        # 识别文章中的隐藏侧边栏flag
-        no_sidebar = get_no_sidebar(file_data)
-        # 识别文章中的自定义css文件flag，获取自定义css文件url列表
+        # 识别文章中的固定链接标识
+        fixed = get_fixed_flag(file_data)
+        if fixed:
+            # 加入固定列表
+            update_config_fixed_file_list(file_path, True)
+        else:
+            # 从固定列表移除
+            update_config_fixed_file_list(file_path, False)
+        # 识别文章中的隐藏侧边栏标识
+        no_sidebar = get_no_sidebar_flag(file_data)
+        # 识别文章中的自定义css文件，获取自定义css文件url列表
         css_urls = get_custom_css(file_data)
-        # 识别文章中的自定义js文件flag，获取自定义js文件url列表
+        # 识别文章中的自定义js文件，获取自定义js文件url列表
         js_urls = get_custom_js(file_data)
         # markdown渲染
         content = md(file_data)
@@ -134,6 +137,14 @@ def article(dir_name, file_sha1):
         return render_template('article.html', name=name, content=content, date=date, tags=tags, show_tags=True,
                                css_urls=css_urls, js_urls=js_urls, no_sidebar=no_sidebar)
     else:
+        # 识别把文件加入/移除固定列表的url参数
+        make_file_url_fixed_arg = request.args.get(uno_make_file_url_fixed_arg, "").strip()
+        if make_file_url_fixed_arg == "1":
+            # 加入固定列表
+            update_config_fixed_file_list(file_path, True)
+        elif make_file_url_fixed_arg == "0":
+            # 从固定列表移除
+            update_config_fixed_file_list(file_path, False)
         # 定向到源文件
         file_dir, file = os.path.split(file_abspath)
         return send_from_directory(file_dir, file)
@@ -167,11 +178,11 @@ def reindex_thread():
             with open(os.path.join(root, file), encoding='utf-8') as file_data:
                 content = file_data.read()
             # 从文件内容获取标签并生成标签列表
-            tags = ["[%s](/%s?t=%s)" % (tag, uno_sha1_file_name, tag) for tag in get_tags(content)]
+            tags = ["[%s](/%s?t=%s)" % (tag, uno_sha1_file_name, tag) for tag in get_tags_flag(content)]
             # 判断最大标签数量
             max_tag_num = max(len(tags), max_tag_num)
             # 组成标签和日期附加字符串
-            tags_date_append = " | ".join([get_date(content), " | ".join(tags)])
+            tags_date_append = " | ".join([get_date_flag(content), " | ".join(tags)])
             # 计算文件哈希
             file_sha1_data = sha1_digest_content(content)
             # 判断固定列表里的文件使用旧哈希

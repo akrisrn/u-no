@@ -230,7 +230,7 @@ def get_flag_regexp(flag):
 
 
 # 获取文章里标记的标签列表，语法匹配<<tag()>>，如果没有则返回默认标签
-def get_tags(content):
+def get_tags_flag(content):
     default_tag = [uno_default_tag]
     group = re.search(get_flag_regexp("tag"), content)
     if not group:
@@ -243,7 +243,7 @@ def get_tags(content):
 
 
 # 获取文章里标记的日期，语法匹配<<date(%y-%m-%d)>>，如果没有则返回空
-def get_date(content):
+def get_date_flag(content):
     group = re.search(get_flag_regexp("date"), content)
     if not group:
         return ""
@@ -256,9 +256,14 @@ def get_date(content):
     return date
 
 
-# 获取文章里标记的关闭侧边栏，语法匹配<<nosidebar()>>
-def get_no_sidebar(content):
+# 获取文章里标记的关闭侧边栏标识，语法匹配<<nosidebar()>>
+def get_no_sidebar_flag(content):
     return re.search(get_flag_regexp("nosidebar"), content)
+
+
+# 获取文章里标记的固定链接标识，语法匹配<<fixed()>>
+def get_fixed_flag(content):
+    return re.search(get_flag_regexp("fixed"), content)
 
 
 # 获取文章里标记的自定义css文件列表，语法匹配<<css()>>，如果没有则返回空
