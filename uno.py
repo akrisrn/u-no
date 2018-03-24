@@ -185,16 +185,15 @@ def reindex_thread():
             max_tag_num = max(len(tags), max_tag_num)
             # 组成标签和日期附加字符串
             tags_date_append = " | ".join([get_date_flag(content), " | ".join(tags)])
-            # 计算文件哈希
-            file_sha1_data = sha1_digest_content(content)
             # 识别文章中的固定链接标识，来判断如何更新固定列表
             update_config_fixed_file_list(file_path, get_fixed_flag(content))
-            # 判断固定列表里的文件使用旧哈希
+            # 判断在固定列表里的文件使用旧哈希，否则重新计算哈希
             if file_path in uno_fixed_file_list and old_sha1_data:
                 # 从旧索引中取出文件旧哈希
                 group = re.search(regexp_join("\[%s\]\(/%s/(.*?)\)", file_path, uno_articles_dir_name), old_sha1_data)
-                if group:
-                    file_sha1_data = group.group(1)
+                file_sha1_data = group.group(1) if group else sha1_digest_content(content)
+            else:
+                file_sha1_data = sha1_digest_content(content)
             # 组成一条索引数据
             first = "[%s](/%s/%s)" % (file_path, uno_articles_dir_name, file_sha1_data)
             sha1_data += " | ".join([first, tags_date_append]) + "\n"
@@ -215,14 +214,13 @@ def reindex_thread():
             # 排除忽略文件
             if file_path in uno_ignore_file_list:
                 continue
-            # 计算文件哈希
-            file_sha1_data = sha1_digest_file(os.path.join(root, file))
-            # 判断固定列表里的文件使用旧哈希
+            # 判断在固定列表里的文件使用旧哈希，否则重新计算哈希
             if file_path in uno_fixed_file_list and old_sha1_data:
                 group = re.search(regexp_join("\[%s\]\(/%s/(.*?)\)", file_path, uno_attachments_dir_name),
                                   old_sha1_data)
-                if group:
-                    file_sha1_data = group.group(1)
+                file_sha1_data = group.group(1) if group else sha1_digest_file(os.path.join(root, file))
+            else:
+                file_sha1_data = sha1_digest_file(os.path.join(root, file))
             # 组成一条索引数据
             sha1_data += "| [%s](/%s/%s)" % (file_path, uno_attachments_dir_name, file_sha1_data) + "\n"
     # 写入索引文件
