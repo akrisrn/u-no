@@ -105,29 +105,21 @@ def article(dir_name, file_sha1):
     make_file_ignore_arg = request.args.get(uno_make_file_ignore_arg, "").strip()
     if make_file_ignore_arg == "1":
         # 加入忽略列表
-        update_config_ignore_file_list(file_path)
+        update_config_ignore_file_list(file_path, True)
         # 重建索引线程处理
         handle_thread(reindex_thread_limit, reindex_thread)
         abort(404)
     if dir_name == uno_articles_dir_name:
-        with open(file_abspath, encoding='utf-8') as file:
-            file_data = file.read()
-        # 识别文章中的固定链接标识
-        fixed = get_fixed_flag(file_data)
-        if fixed:
-            # 加入固定列表
-            update_config_fixed_file_list(file_path, True)
-        else:
-            # 从固定列表移除
-            update_config_fixed_file_list(file_path, False)
+        with open(file_abspath, encoding='utf-8') as file_data:
+            content = file_data.read()
         # 识别文章中的隐藏侧边栏标识
-        no_sidebar = get_no_sidebar_flag(file_data)
+        no_sidebar = get_no_sidebar_flag(content)
         # 识别文章中的自定义css文件，获取自定义css文件url列表
-        css_urls = get_custom_css(file_data)
+        css_urls = get_custom_css(content)
         # 识别文章中的自定义js文件，获取自定义js文件url列表
-        js_urls = get_custom_js(file_data)
+        js_urls = get_custom_js(content)
         # markdown渲染
-        content = md(file_data)
+        content = md(content)
         # 去前缀和后缀
         name = re.sub(uno_strip_prefix, "", os.path.splitext(file_path)[0])
         date_tags = group.group(2).split(" | ")[1:]
@@ -172,11 +164,21 @@ def reindex_thread():
         for file in files:
             # 组成文件路径
             file_path = "/".join([path, file]).lstrip("/")
+            # 忽略无法以unicode编码的文件
+            try:
+                with open(os.path.join(root, file), encoding='utf-8') as file_data:
+                    content = file_data.read()
+            except UnicodeDecodeError:
+                continue
+            # 识别文章中的忽略文件标识，来判断如何更新忽略列表
+            if get_ignore_flag(content):
+                update_config_ignore_file_list(file_path, True)
+            # 识别文章中的取消忽略文件标识，来判断如何更新忽略列表
+            if get_unignore_flag(content):
+                update_config_ignore_file_list(file_path, False)
             # 排除忽略文件
             if file_path in uno_ignore_file_list:
                 continue
-            with open(os.path.join(root, file), encoding='utf-8') as file_data:
-                content = file_data.read()
             # 从文件内容获取标签并生成标签列表
             tags = ["[%s](/%s?t=%s)" % (tag, uno_sha1_file_name, tag) for tag in get_tags_flag(content)]
             # 判断最大标签数量
@@ -185,6 +187,8 @@ def reindex_thread():
             tags_date_append = " | ".join([get_date_flag(content), " | ".join(tags)])
             # 计算文件哈希
             file_sha1_data = sha1_digest_content(content)
+            # 识别文章中的固定链接标识，来判断如何更新固定列表
+            update_config_fixed_file_list(file_path, get_fixed_flag(content))
             # 判断固定列表里的文件使用旧哈希
             if file_path in uno_fixed_file_list and old_sha1_data:
                 # 从旧索引中取出文件旧哈希

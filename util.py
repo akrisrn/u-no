@@ -266,6 +266,16 @@ def get_fixed_flag(content):
     return re.search(get_flag_regexp("fixed"), content)
 
 
+# 获取文章里标记的忽略文件标识，语法匹配<<ignore()>>
+def get_ignore_flag(content):
+    return re.search(get_flag_regexp("ignore"), content)
+
+
+# 获取文章里标记的取消忽略文件标识，语法匹配<<unignore()>>
+def get_unignore_flag(content):
+    return re.search(get_flag_regexp("unignore"), content)
+
+
 # 获取文章里标记的自定义css文件列表，语法匹配<<css()>>，如果没有则返回空
 def get_custom_css(content, custom_type="css"):
     group = re.search(get_flag_regexp(custom_type), content)
@@ -372,9 +382,9 @@ def regexp_join(regexp_str, *args):
 # 更新配置文件中的固定文件列表
 def update_config_fixed_file_list(file_path, is_add, var=uno_fixed_file_list, name="uno_fixed_file_list"):
     # 判断是添加还是移除
-    if is_add is True and file_path not in var:
+    if is_add and file_path not in var:
         var.append(file_path)
-    elif is_add is False and file_path in var:
+    elif not is_add and file_path in var:
         var.remove(file_path)
     else:
         return None
@@ -390,5 +400,5 @@ def update_config_fixed_file_list(file_path, is_add, var=uno_fixed_file_list, na
 
 
 # 更新配置文件中的忽略文件列表
-def update_config_ignore_file_list(file_path):
-    update_config_fixed_file_list(file_path, True, uno_ignore_file_list, "uno_ignore_file_list")
+def update_config_ignore_file_list(file_path, is_add):
+    update_config_fixed_file_list(file_path, is_add, uno_ignore_file_list, "uno_ignore_file_list")
