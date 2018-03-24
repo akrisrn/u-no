@@ -35,7 +35,6 @@ pip install -r requirements.txt
 
 ```
 pip install uwsgi
-
 ```
 
 #### systemd
