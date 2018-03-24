@@ -43,20 +43,22 @@ def error_page(error):
 @uno.route('/')
 def index():
     fixed_files = []
-    for file_path in uno_fixed_file_list:
-        # 从索引文件中取出文件信息
-        group = re.search(regexp_join("\[%s\]\((/%s/.*?)\)(.*?)\n", file_path, uno_articles_dir_name), get_sha1_data())
-        if group:
-            # 去前缀和后缀
-            file_name = re.sub(uno_strip_prefix, "", os.path.splitext(file_path)[0])
-            file_url = group.group(1)
-            date_tags = group.group(2).split(" | ")[1:]
-            date = date_tags[0]
-            # 生成标签名列表(不含链接)
-            tags = [re.search("\[(.*?)\]\(.*?\)", tag).group(1) for tag in date_tags[1:]]
-            fixed_files.append([file_name, file_url, date, tags])
-    # 根据时间倒叙排序
-    fixed_files.sort(key=lambda o: o[2], reverse=True)
+    sha1_data = get_sha1_data()
+    if sha1_data:
+        for file_path in uno_fixed_file_list:
+            # 从索引文件中取出文件信息
+            group = re.search(regexp_join("\[%s\]\((/%s/.*?)\)(.*?)\n", file_path, uno_articles_dir_name), sha1_data)
+            if group:
+                # 去前缀和后缀
+                file_name = re.sub(uno_strip_prefix, "", os.path.splitext(file_path)[0])
+                file_url = group.group(1)
+                date_tags = group.group(2).split(" | ")[1:]
+                date = date_tags[0]
+                # 生成标签名列表(不含链接)
+                tags = [re.search("\[(.*?)\]\(.*?\)", tag).group(1) for tag in date_tags[1:]]
+                fixed_files.append([file_name, file_url, date, tags])
+        # 根据时间倒叙排序
+        fixed_files.sort(key=lambda o: o[2], reverse=True)
     return render_template('index.html', fixed_files=fixed_files)
 
 
