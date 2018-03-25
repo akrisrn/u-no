@@ -44,13 +44,13 @@
             <ul>
                 {% for fixed_article in fixed_articles %}
                     <li>
-                        <a href="{{ fixed_article[json_url_name] }}">
-                            {{ fixed_article[json_title_name].split(".")[0] }}
+                        <a href="{{ fixed_article[index_url_name] }}">
+                            {{ fixed_article[index_title_name].split(".")[0] }}
                         </a>
-                        {% for tag in fixed_article[json_tags_name] %}
+                        {% for tag in fixed_article[index_tags_name] %}
                             <div class="tag">{{ tag }}</div>
                         {% endfor %}
-                        <div class="date">{{ fixed_article[json_date_name] }}</div>
+                        <div class="date">{{ fixed_article[index_date_name] }}</div>
                     </li>
                 {% endfor %}
             </ul>

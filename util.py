@@ -12,12 +12,13 @@ from markdown import markdown
 
 from config import *
 
-json_id_name = "id"
-json_title_name = "title"
-json_url_name = "url"
-json_date_name = "date"
-json_tags_name = "tags"
-json_fixed_name = "fixed"
+# 组成索引的JSON数据所用的键名
+index_id_key = "id"
+index_title_key = "title"
+index_url_key = "url"
+index_date_key = "date"
+index_tags_key = "tags"
+index_fixed_key = "fixed"
 
 
 # 判断操作系统是否是Windows
@@ -30,7 +31,7 @@ def get_os_cmd_sep():
     return "&" if is_windows() else ";"
 
 
-# 根据相对路径从索引文件中取出项目
+# 根据相对路径从索引文件中取出对应项目
 def get_item_by_path(path):
     for block in get_index_data():
         if path in block:
@@ -38,12 +39,12 @@ def get_item_by_path(path):
     return {}
 
 
-# 根据url从索引文件中取出项目
+# 根据url从索引文件中取出对应项目
 def get_item_by_url(url):
     for block in get_index_data():
         for item_path in block:
             item = block[item_path]
-            if item[json_url_name] == url:
+            if item[index_url_key] == url:
                 return item, item_path
     return {}, ""
 
@@ -63,9 +64,9 @@ def render(text):
     for match in url_match_dict:
         file_path = url_match_dict[match][1]
         # 根据文件相对路径从索引文件中取出url
-        url = get_item_by_path(file_path)[json_url_name]
-        if url:
-            text = re.sub(regexp_join("%s", match), "[%s](%s)" % (url_match_dict[match][0], url), text)
+        item = get_item_by_path(file_path)
+        if item:
+            text = re.sub(regexp_join("%s", match), "[%s](%s)" % (url_match_dict[match][0], item[index_url_key]), text)
     # 匹配md表格语法中| 1. |部分为自增序列
     num = 1
     for group in re.finditer("\|\s*(:?-:?|1\.)\s*(.*)", text):
@@ -261,7 +262,7 @@ def get_no_sidebar_flag(content):
     return re.search(get_flag_regexp("nosidebar"), content)
 
 
-# 获取文章里标记的固定链接标识，语法匹配<<fixed()>>
+# 获取文章里标记的固定索引标识，语法匹配<<fixed()>>
 def get_fixed_flag(content):
     return re.search(get_flag_regexp("fixed"), content)
 
@@ -285,9 +286,9 @@ def get_custom_css(content, custom_type="css"):
     for css_path in clear_text(group.group(1)).split(","):
         if css_path:
             # 根据css文件相对路径从索引文件中取出url
-            css_url = get_item_by_path(css_path)[json_url_name]
-            if css_url:
-                css_urls.append(css_url)
+            item = get_item_by_path(css_path)
+            if item:
+                css_urls.append(item[index_url_key])
     return css_urls
 
 
@@ -307,7 +308,7 @@ def handle_thread(thread_limit_list, target):
         thread_limit_list[0].start()
 
 
-# 用于搜索的数据过滤器，接受一组索引位置，以AND模式运行，同时会计算内容的最大标签数
+# 用于搜索索引的过滤器，接受一组索引键名和搜索项的列表，以AND模式运行，同时计算出文章的最大标签数
 def index_data_filter(searches):
     articles = []
     attachments = []
@@ -316,38 +317,51 @@ def index_data_filter(searches):
     if index_data:
         articles_block = index_data[0]
         attachments_block = index_data[1]
+        # 先处理文章块
         for article_path in articles_block:
             article = articles_block[article_path]
             is_find = True
             for index, search in searches:
+                # 根据搜索内容组成正则表达式，忽略大小写
                 pattern = re.compile(regexp_join(".*%s.*", search), re.I)
-                if index == json_tags_name:
+                # 如果搜索的是标签则遍历所有标签进行匹配
+                if index == index_tags_key:
                     is_tag_find = False
+                    # 有一个匹配则视为找到标签，结束循环
                     for tag in article[index]:
                         if re.search(pattern, tag):
                             is_tag_find = True
                             break
+                    # 如果标签都没匹配则视为没找到对应文章，结束循环
                     if not is_tag_find:
                         is_find = False
                         break
                 else:
+                    # 如果没匹配则视为没找到对应文章，结束循环
                     if not re.search(pattern, article[index]):
                         is_find = False
                         break
+            # 如果找到则把文章加入列表
             if is_find:
-                max_tag_num = max(max_tag_num, len(article[json_tags_name]))
+                # 计算最大标签数量
+                max_tag_num = max(max_tag_num, len(article[index_tags_key]))
                 articles.append(article)
+        # 处理附件块
         for attachment_path in attachments_block:
             attachment = attachments_block[attachment_path]
             is_find = True
             for index, search in searches:
-                if index in (json_date_name, json_tags_name):
+                # 如果搜索的有日期或标签则视为没找到对应附件，结束循环
+                if index in (index_date_key, index_tags_key):
                     is_find = False
                     break
+                # 根据搜索内容组成正则表达式，忽略大小写
                 pattern = re.compile(regexp_join(".*%s.*", search), re.I)
+                # 如果没匹配则视为没找到对应附件，结束循环
                 if not re.search(pattern, attachment[index]):
                     is_find = False
                     break
+            # 如果找到则把附件加入列表
             if is_find:
                 attachments.append(attachment)
     return [articles, attachments], max_tag_num
@@ -368,13 +382,11 @@ def regexp_join(regexp_str, *args):
 
 # 更新配置文件中的忽略文件列表
 def update_config_ignore_file_list(file_path, is_add):
-    name = "uno_ignore_file_list"
-    var = uno_ignore_file_list
     # 判断是添加还是移除
-    if is_add and file_path not in var:
-        var.append(file_path)
-    elif not is_add and file_path in var:
-        var.remove(file_path)
+    if is_add and file_path not in uno_ignore_file_list:
+        uno_ignore_file_list.append(file_path)
+    elif not is_add and file_path in uno_ignore_file_list:
+        uno_ignore_file_list.remove(file_path)
     else:
         return None
     # 读取配置文件数据
@@ -382,20 +394,25 @@ def update_config_ignore_file_list(file_path, is_add):
     with open(config_abspath, encoding="utf-8") as config_file:
         config_data = config_file.read()
     # 用新列表替换旧列表
-    config_data = re.sub("%s\s*=\s*\[.*?\]" % name, "%s = %s" % (name, var), config_data)
+    replace = "%s = %s" % ("uno_ignore_file_list", uno_ignore_file_list)
+    config_data = re.sub("%s\s*=\s*\[.*?\]" % "uno_ignore_file_list", replace, config_data)
     # 重新写入配置文件
     with open(config_abspath, "w", encoding="utf-8") as config_file:
         config_file.write(config_data)
 
 
+# 获取固定索引的文章列表
 def get_fixed_articles():
     fixed_articles = []
     index_data = get_index_data()
     if index_data:
-        articles = index_data[0]
-        for article_path in articles:
-            article = articles[article_path]
-            if article[json_fixed_name]:
+        articles_block = index_data[0]
+        # 遍历文章块
+        for article_path in articles_block:
+            article = articles_block[article_path]
+            # 把固定索引的文章加入列表
+            if article[index_fixed_key]:
                 fixed_articles.append(article)
-        fixed_articles.sort(key=lambda o: o[json_date_name], reverse=True)
+        # 按照时间倒叙进行排序
+        fixed_articles.sort(key=lambda o: o[index_date_key], reverse=True)
     return fixed_articles
