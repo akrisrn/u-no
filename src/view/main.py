@@ -90,7 +90,7 @@ reindex_thread_limit = []
 # 重建索引线程函数
 def reindex_thread():
     # 执行重建索引命令
-    os.popen(get_reindex_cmd())
+    os.popen(get_reindex_cmd()).close()
     articles_dir_abspath = get_articles_dir_abspath()
     articles_block = {}
     attachments_block = {}
@@ -179,7 +179,7 @@ update_thread_limit = []
 # 更新程序线程函数
 def update_thread():
     # 执行更新程序命令
-    os.popen(get_update_cmd())
+    os.popen(get_update_cmd()).close()
     # 冷却
     time.sleep(uno_update_limit_time)
 
