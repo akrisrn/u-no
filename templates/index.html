@@ -1,57 +1,118 @@
 {% extends "frame.html" %}
 {% block title %}
-    {{ site_name }}
+    {{ name }}
 {% endblock %}
 {% block extra_style %}
-    {% if not fixed_files %}
-        #content {
-        padding: 0
-        }
-
-        #content .center {
-        padding: 30px 50px 0 50px
-        }
-    {% endif %}
-
-    .markdown-body ul {
-    list-style-type: circle
+    #idS, #titleS, #tagS, #dateS {
+    height: 22px;
+    width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
     }
-
-    .markdown-body a {
-    color: #24292e;
-    transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -o-transition: all 0.5s
-    }
-
-    .markdown-body a:hover {
-    text-decoration: none;
-    color: grey;
+    #search {
+    margin-right: -20px
     }
 {% endblock %}
 {% block content %}
-    <div class="center">
-        <h1>{{ index_show_text | safe }}</h1>
-        <hr>
-    </div>
-    {% if not fixed_files %}
-        <div style="height: {{ index_cover_height }}px;
-                background: url({{ get_static_file_url(index_cover_img) }}) no-repeat center;">
-        </div>
-    {% else %}
-        <div class="markdown-body">
-            <ul>
-                {% for fixed_file in fixed_files %}
-                    <li>
-                        <a href="{{ fixed_file[1] }}">{{ fixed_file[0] }}</a>
-                        {% for tag in fixed_file[3] %}
-                            <div class="tag">{{ tag }}</div>
-                        {% endfor %}
-                        <div class="date">{{ fixed_file[2] }}</div>
-                    </li>
+    <h1>{{ name }}</h1>
+    <hr>
+    <input id="idS" placeholder="Search ID" onkeydown="if(event.keyCode===13){search.click()}">
+    <input id="titleS" placeholder="Search Title" onkeydown="if(event.keyCode===13){search.click()}">
+    <input id="tagS" placeholder="Search Tag" onkeydown="if(event.keyCode===13){search.click()}">
+    <input id="dateS" placeholder="Search Date" onkeydown="if(event.keyCode===13){search.click()}">
+    <button id="search" class="button icon search">Search</button>
+    <button id="clear" class="button icon trash">Clear</button>
+    <script>
+        $(document).ready(function () {
+            function GetRequest() {
+                var url = location.search;
+                var request = {};
+                if (url.indexOf("?") !== -1) {
+                    var str = url.substr(1);
+                    var strList = str.split("&");
+                    for (var i = 0; i < strList.length; i++) {
+                        request[strList[i].split("=")[0]] = decodeURI(strList[i].split("=")[1]);
+                    }
+                }
+                return request;
+            }
+
+            var id = $("#idS");
+            var title = $("#titleS");
+            var tag = $("#tagS");
+            var date = $("#dateS");
+
+            var request = GetRequest();
+            id.val(request["i"]);
+            title.val(request["n"]);
+            tag.val(request["t"]);
+            date.val(request["d"]);
+
+            $("#search").click(function () {
+                var idVal = $.trim(id.val());
+                var nameVal = $.trim(title.val());
+                var tagVal = $.trim(tag.val());
+                var dateVal = $.trim(date.val());
+                window.location.href = window.location.pathname +
+                    "?i=" + idVal + "&n=" + nameVal + "&t=" + tagVal + "&d=" + dateVal;
+            });
+
+            $("#clear").click(function () {
+                id.val("");
+                title.val("");
+                tag.val("");
+                date.val("");
+            })
+        })
+    </script>
+    <div class="markdown-body">
+        {% set articles = data[0] %}
+        {% set attachments = data[1] %}
+        <table>
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Title</th>
+                <th>Date</th>
+                {% for i in range(max_tag_num) %}
+                    <th>Tag-{{ i + 1 }}</th>
                 {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
-{% endblock %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article[json_id_name] }}</td>
+                    <td><a href="{{ article[json_url_name] }}">{{ article[json_title_name] }}</a></td>
+                    <td>{{ article[json_date_name] }}</td>
+                    {% for tag in article[json_tags_name] %}
+                        <td><a href="{{ article[json_tags_name][tag] }}">{{ tag }}</a></td>
+                    {% endfor %}
+                    {% set remain = max_tag_num - article[json_tags_name]|length %}
+                    {% if remain > 0 %}
+                        {% for i in range(remain) %}
+                            <td></td>
+                        {% endfor %}
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <table>
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Title</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for attachment in attachments %}
+                <tr>
+                    <td>{{ attachment[json_id_name] }}</td>
+                    <td><a href="{{ attachment[json_url_name] }}">{{ attachment[json_title_name] }}</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}`

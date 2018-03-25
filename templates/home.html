@@ -1,0 +1,59 @@
+{% extends "frame.html" %}
+{% block title %}
+    {{ site_name }}
+{% endblock %}
+{% block extra_style %}
+    {% if not fixed_articles %}
+        #content {
+        padding: 0
+        }
+
+        #content .center {
+        padding: 30px 50px 0 50px
+        }
+    {% endif %}
+
+    .markdown-body ul {
+    list-style-type: circle
+    }
+
+    .markdown-body a {
+    color: #24292e;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s
+    }
+
+    .markdown-body a:hover {
+    text-decoration: none;
+    color: grey;
+    }
+{% endblock %}
+{% block content %}
+    <div class="center">
+        <h1>{{ index_show_text | safe }}</h1>
+        <hr>
+    </div>
+    {% if not fixed_articles %}
+        <div style="height: {{ index_cover_height }}px;
+                background: url({{ get_static_file_url(index_cover_img) }}) no-repeat center;">
+        </div>
+    {% else %}
+        <div class="markdown-body">
+            <ul>
+                {% for fixed_article in fixed_articles %}
+                    <li>
+                        <a href="{{ fixed_article[json_url_name] }}">
+                            {{ fixed_article[json_title_name].split(".")[0] }}
+                        </a>
+                        {% for tag in fixed_article[json_tags_name] %}
+                            <div class="tag">{{ tag }}</div>
+                        {% endfor %}
+                        <div class="date">{{ fixed_article[json_date_name] }}</div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,6 +1,6 @@
 {% extends "frame.html" %}
 {% block title %}
-    {{ name }}
+    {{ title }}
 {% endblock %}
 {% block extra_style %}
     #content {
@@ -9,9 +9,9 @@
 {% endblock %}
 {% block content %}
     <div style="padding: 30px 50px 0 50px">
-        <h1>{{ name }}</h1>
+        <h1>{{ title }}</h1>
         <hr>
-        {{ content }}
+        {{ data }}
     </div>
     <div style="height: {{ error_cover_height }}px;
             background: url({{ get_static_file_url(error_cover_img) }}) no-repeat center;">

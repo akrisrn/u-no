@@ -52,7 +52,7 @@ uno_articles_dir_name = ""
 # 文章目录下附件目录名字
 uno_attachments_dir_name = ""
 # 索引文件名
-uno_sha1_file_name = ""
+uno_index_file_name = ""
 # 重建索引的URL名
 uno_reindex_url_name = ""
 # 更新程序的URL名
@@ -65,16 +65,11 @@ uno_reindex_limit_time = 60 * 10
 uno_update_limit_time = 60 * 10
 
 # 忽略索引的文件名列表
-uno_ignore_file_list = [uno_sha1_file_name]
+uno_ignore_file_list = [uno_index_file_name]
 # 把文件加入忽略列表的URL参数名
 uno_make_file_ignore_arg = ""
 # 忽略索引的目录名
 uno_ignore_dir_list = [".git"]
-
-# 固定索引的文件名列表
-uno_fixed_file_list = []
-# 把文件加入固定列表的URL参数名
-uno_make_file_url_fixed_arg = ""
 
 # 文件名展示时剔除的前缀（可正则）
 uno_strip_prefix = ""

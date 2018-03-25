@@ -1,4 +1,5 @@
 import hashlib
+import json
 import os
 import platform
 import re
@@ -11,6 +12,13 @@ from markdown import markdown
 
 from config import *
 
+json_id_name = "id"
+json_title_name = "title"
+json_url_name = "url"
+json_date_name = "date"
+json_tags_name = "tags"
+json_fixed_name = "fixed"
+
 
 # 判断操作系统是否是Windows
 def is_windows():
@@ -22,17 +30,27 @@ def get_os_cmd_sep():
     return "&" if is_windows() else ";"
 
 
-# 根据文件相对路径从索引文件中取出url
-def get_url_from_file_path(file_path):
-    group = re.search(regexp_join("\[%s\]\((.*?)\)", file_path), get_sha1_data())
-    if group:
-        return group.group(1)
-    return ""
+# 根据相对路径从索引文件中取出项目
+def get_item_by_path(path):
+    for block in get_index_data():
+        if path in block:
+            return block[path]
+    return {}
+
+
+# 根据url从索引文件中取出项目
+def get_item_by_url(url):
+    for block in get_index_data():
+        for item_path in block:
+            item = block[item_path]
+            if item[json_url_name] == url:
+                return item, item_path
+    return {}, ""
 
 
 # noinspection SpellCheckingInspection
 # markdown渲染
-def md(text):
+def render(text):
     # 剔除\r和被<<>>包围的内容
     text = re.sub("(\r|<<.*?>>)", "", text)
     # 如果标题数量在三个及三个以上，自动在开头加上目录
@@ -45,7 +63,7 @@ def md(text):
     for match in url_match_dict:
         file_path = url_match_dict[match][1]
         # 根据文件相对路径从索引文件中取出url
-        url = get_url_from_file_path(file_path)
+        url = get_item_by_path(file_path)[json_url_name]
         if url:
             text = re.sub(regexp_join("%s", match), "[%s](%s)" % (url_match_dict[match][0], url), text)
     # 匹配md表格语法中| 1. |部分为自增序列
@@ -130,39 +148,30 @@ def md(text):
 
 
 # 根据文件绝对路径计算哈希
-def sha1_digest_file(file_abspath):
+def compute_digest_by_abspath(abspath):
     # 判断文件是否存在
-    if os.path.isdir(file_abspath) or not os.path.exists(file_abspath):
-        return ""
-    with open(file_abspath, 'rb') as file:
-        content = file.read()
-    return hashlib.sha1(content).hexdigest()
+    if os.path.isdir(abspath) or not os.path.exists(abspath):
+        raise Exception("No such file")
+    with open(abspath, 'rb') as file:
+        data = file.read()
+    return hashlib.sha1(data).hexdigest()
 
 
 # 根据文件内容计算哈希
-def sha1_digest_content(content):
-    return hashlib.sha1(content.encode("utf-8")).hexdigest()
-
-
-# 判断哈希格式
-def check_sha1(sha1):
-    # 40位且由字母数字组成
-    if len(sha1) != 40 or not sha1.isalnum():
-        return False
-    return True
+def compute_digest_by_data(data):
+    return hashlib.sha1(data.encode("utf-8")).hexdigest()
 
 
 # 获取索引文件数据
-def get_sha1_data():
+def get_index_data():
     # 组成索引文件绝对路径
-    sha1_file_path = os.path.join(get_articles_dir_abspath(), uno_sha1_file_name)
+    index_file_path = os.path.join(get_articles_dir_abspath(), uno_index_file_name)
     # 判断是否存在
-    if os.path.exists(sha1_file_path):
-        with open(sha1_file_path, encoding='utf-8') as sha1_file:
-            sha1_data = sha1_file.read()
-        return sha1_data
-    else:
-        return None
+    if os.path.exists(index_file_path):
+        with open(index_file_path, encoding='utf-8') as index_file:
+            index_data = index_file.read()
+        return json.loads(index_data)
+    return []
 
 
 # 获取根目录绝对路径
@@ -174,16 +183,6 @@ def get_root_abspath():
 # 获取文章目录绝对路径
 def get_articles_dir_abspath():
     return os.path.join(get_root_abspath(), uno_articles_dir_name)
-
-
-# 获取附件目录绝对路径
-def get_attachments_dir_abspath():
-    return os.path.join(get_root_abspath(), uno_articles_dir_name, uno_attachments_dir_name)
-
-
-# 获取静态目录绝对路径
-def get_static_dir_abspath():
-    return os.path.join(get_root_abspath(), uno_static_dir_name)
 
 
 # 获取静态文件url
@@ -202,7 +201,8 @@ def get_bower_file_url(filename):
 # 获取版本号
 def get_version(url):
     # 在调试模式和没有配置版本号的情况下计算文件哈希作为版本号
-    ver = uno_version if uno_version and not uno_debug else sha1_digest_file(os.path.join(get_root_abspath(), url[1:]))
+    file_abspath = os.path.join(get_root_abspath(), url[1:])
+    ver = uno_version if uno_version and not uno_debug else compute_digest_by_abspath(file_abspath)
     return "%s?v=%s" % (url, ver)
 
 
@@ -285,7 +285,7 @@ def get_custom_css(content, custom_type="css"):
     for css_path in clear_text(group.group(1)).split(","):
         if css_path:
             # 根据css文件相对路径从索引文件中取出url
-            css_url = get_url_from_file_path(css_path)
+            css_url = get_item_by_path(css_path)[json_url_name]
             if css_url:
                 css_urls.append(css_url)
     return css_urls
@@ -294,13 +294,6 @@ def get_custom_css(content, custom_type="css"):
 # 获取文章里标记的自定义js文件列表，语法匹配<<js()>>，如果没有则返回空
 def get_custom_js(content):
     return get_custom_css(content, "js")
-
-
-# 根据传入的标签数量生成md语法的表格头部
-def get_sha1_data_table_header(tag_num):
-    table_header = " | ".join(["No.", "Name", "Date", " | ".join(["Tag-%d" % (i + 1) for i in range(tag_num)])]) + "\n"
-    table_format = " | ".join(["-"] * (tag_num + 3))
-    return table_header + table_format
 
 
 # 处理线程，在限制列表下只能同时运行一个线程任务
@@ -314,56 +307,50 @@ def handle_thread(thread_limit_list, target):
         thread_limit_list[0].start()
 
 
-# 切割提取出文件前缀组成索引文件表格的第一列
-def split_pref(content):
-    new_content = "\n"
-    # 根据水平线分离出文章块和附件块，如果没有水平线则附件块为空
-    if content.find("---") != -1:
-        blocks = content.split("---")
-        article_block = blocks[0]
-        attachments_block = blocks[1]
-    else:
-        article_block = content
-        attachments_block = ""
-    for data in article_block.split("\n"):
-        # 匹配包含前缀的行
-        group = re.search("\[(%s)(.*?)\]" % uno_strip_prefix, data)
-        if group:
-            # 提取出前缀
-            replace = "%s | [%s]" % (group.group(1).strip("-"), os.path.splitext(group.group(2))[0])
-            new_content += re.sub(regexp_join("%s", group.group()), replace, data) + "\n"
-        else:
-            new_content += (" | " + data + "\n") if data else ""
-    # 重新组合文章块和附件块
-    new_content += ("\n---" + attachments_block) if attachments_block else ""
-    return new_content
-
-
-# 用于搜索的内容过滤器，接受一组正则规则列表，以AND模式运行，同时会计算内容的最大标签数
-def content_filter(content, rules):
-    new_content = "\n"
+# 用于搜索的数据过滤器，接受一组索引位置，以AND模式运行，同时会计算内容的最大标签数
+def index_data_filter(searches):
+    articles = []
+    attachments = []
     max_tag_num = 0
-    # 如果没有规则列表则只计算最大标签数
-    if rules:
-        for line in content.split("\n"):
-            # 匹配到水平线时还原附件块的表头和与文章块的分隔
-            if line == "---":
-                new_content += "\n---\n| Name\n| -\n"
+    index_data = get_index_data()
+    if index_data:
+        articles_block = index_data[0]
+        attachments_block = index_data[1]
+        for article_path in articles_block:
+            article = articles_block[article_path]
             is_find = True
-            for rule in rules:
-                # 只要一个规则没匹配就跳出
-                if not re.search(rule, line):
+            for index, search in searches:
+                pattern = re.compile(regexp_join(".*%s.*", search), re.I)
+                if index == json_tags_name:
+                    is_tag_find = False
+                    for tag in article[index]:
+                        if re.search(pattern, tag):
+                            is_tag_find = True
+                            break
+                    if not is_tag_find:
+                        is_find = False
+                        break
+                else:
+                    if not re.search(pattern, article[index]):
+                        is_find = False
+                        break
+            if is_find:
+                max_tag_num = max(max_tag_num, len(article[json_tags_name]))
+                articles.append(article)
+        for attachment_path in attachments_block:
+            attachment = attachments_block[attachment_path]
+            is_find = True
+            for index, search in searches:
+                if index in (json_date_name, json_tags_name):
+                    is_find = False
+                    break
+                pattern = re.compile(regexp_join(".*%s.*", search), re.I)
+                if not re.search(pattern, attachment[index]):
                     is_find = False
                     break
             if is_find:
-                new_content += line + "\n"
-                # 计算最大标签数
-                max_tag_num = max(len(line.split(" | ")) - 2, max_tag_num)
-    else:
-        for line in content.split("\n"):
-            # 计算最大标签数
-            max_tag_num = max(len(line.split(" | ")) - 2, max_tag_num)
-    return new_content if rules else content, max_tag_num
+                attachments.append(attachment)
+    return [articles, attachments], max_tag_num
 
 
 # 把字符串拼接参数转义后组进正则表达式
@@ -379,8 +366,10 @@ def regexp_join(regexp_str, *args):
     return regexp_str % tuple(args)
 
 
-# 更新配置文件中的固定文件列表
-def update_config_fixed_file_list(file_path, is_add, var=uno_fixed_file_list, name="uno_fixed_file_list"):
+# 更新配置文件中的忽略文件列表
+def update_config_ignore_file_list(file_path, is_add):
+    name = "uno_ignore_file_list"
+    var = uno_ignore_file_list
     # 判断是添加还是移除
     if is_add and file_path not in var:
         var.append(file_path)
@@ -399,6 +388,14 @@ def update_config_fixed_file_list(file_path, is_add, var=uno_fixed_file_list, na
         config_file.write(config_data)
 
 
-# 更新配置文件中的忽略文件列表
-def update_config_ignore_file_list(file_path, is_add):
-    update_config_fixed_file_list(file_path, is_add, uno_ignore_file_list, "uno_ignore_file_list")
+def get_fixed_articles():
+    fixed_articles = []
+    index_data = get_index_data()
+    if index_data:
+        articles = index_data[0]
+        for article_path in articles:
+            article = articles[article_path]
+            if article[json_fixed_name]:
+                fixed_articles.append(article)
+        fixed_articles.sort(key=lambda o: o[json_date_name], reverse=True)
+    return fixed_articles
