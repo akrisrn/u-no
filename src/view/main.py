@@ -12,7 +12,7 @@ from src.flag import get_fixed_flag, get_date_flag, get_tags_flag, get_unignore_
     get_custom_js_flag, get_custom_css_flag, get_no_sidebar_flag
 from src.index import index_url_key, index_title_key, index_id_key, index_fixed_key, index_tags_key, index_date_key, \
     get_item_by_path, get_item_by_url, index_data_filter, get_fixed_articles
-from src.markdown import render
+from src.md import render
 from src.util import handle_thread, get_update_cmd, compute_digest_by_abspath, compute_digest_by_data, \
     update_config_ignore_file_list, get_articles_dir_abspath, get_reindex_cmd
 
