@@ -85,7 +85,7 @@
                     <td>{{ article[index_id_name] }}</td>
                     <td><a href="{{ article[index_url_name] }}">{{ article[index_title_name] }}</a></td>
                     <td>{{ article[index_date_name] }}</td>
-                    {% for tag in article[index_tags_name] %}
+                    {% for tag in article[index_tags_name] | sort %}
                         <td><a href="{{ article[index_tags_name][tag] }}">{{ tag }}</a></td>
                     {% endfor %}
                     {% set remain = max_tag_num - article[index_tags_name]|length %}
