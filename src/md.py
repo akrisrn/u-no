@@ -13,7 +13,7 @@ def render(text):
     # 剔除\r和被<<>>包围的内容
     text = re.sub("(\r|<<.*?>>)", "", text)
     # 如果标题数量在三个及三个以上，自动在开头加上目录
-    if len(re.findall("#+\s+.*", text)) >= 3:
+    if len(re.findall("\n#+\s+.*", text)) >= 3:
         text = "[TOC]\n\n" + text
     # 匹配[]()+语法为站内链接，小括号里填入文件相对路径，查找替换为索引文件中对应的url
     # 利用字典生成去重的匹配项，提高重复匹配的替换效率
