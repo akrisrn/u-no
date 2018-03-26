@@ -47,7 +47,7 @@
                         <a href="{{ fixed_article[index_url_name] }}">
                             {{ fixed_article[index_title_name].split(".")[0] }}
                         </a>
-                        {% for tag in fixed_article[index_tags_name] %}
+                        {% for tag in fixed_article[index_tags_name] | sort %}
                             <div class="tag">{{ tag }}</div>
                         {% endfor %}
                         <div class="date">{{ fixed_article[index_date_name] }}</div>
