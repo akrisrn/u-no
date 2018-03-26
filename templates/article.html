@@ -21,7 +21,7 @@
         <hr>
         <div class="button-group">
             <button class="button primary icon tag" style="width: 30px;height: 29px"></button>
-            {% for tag in tags %}
+            {% for tag in tags | sort %}
                 <button class="button">{{ tag }}</button>
             {% endfor %}
         </div>
