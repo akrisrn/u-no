@@ -5,26 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ get_static_file_url(favicon_img) }}">
     <title>{% block title %}{% endblock %}</title>
-    <script type="text/javascript" src="{{ get_bower_file_url('PACE/pace.min.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ get_bower_file_url('MathJax/MathJax.js') }}?config=TeX-MML-AM_CHTML"></script>
-    <script type="text/javascript" src="{{ get_bower_file_url('raphael/raphael.min.js') }}"></script>
-    <script type="text/javascript" src="{{ get_bower_file_url('underscore/underscore-min.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ get_bower_file_url('js-sequence-diagrams/dist/sequence-diagram-min.js') }}"></script>
-    <script type="text/javascript" src="{{ get_bower_file_url('flowchart/release/flowchart.min.js') }}"></script>
-    <script type="text/javascript" src="{{ get_bower_file_url('jquery/dist/jquery.min.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ get_bower_file_url('tablesorter/dist/js/jquery.tablesorter.min.js') }}"></script>
-    <script type="text/javascript" src="{{ get_bower_file_url('raty/lib/jquery.raty.js') }}"></script>
+    <script type="text/javascript" src="{{ get_static_lib_url('pace.js') }}"></script>
+    <script type="text/javascript" src="{{ get_static_lib_url('mathjax.js') }}"></script>
+    <script type="text/javascript" src="{{ get_static_lib_url('raphael.js') }}"></script>
+    <script type="text/javascript" src="{{ get_static_lib_url('underscore.js') }}"></script>
+    <script type="text/javascript" src="{{ get_static_lib_url('sequence-diagram.js') }}"></script>
+    <script type="text/javascript" src="{{ get_static_lib_url('flowchart.js') }}"></script>
+    <script type="text/javascript" src="{{ get_static_lib_url('jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ get_static_lib_url('jquery-tablesorter.js') }}"></script>
+    <script type="text/javascript" src="{{ get_static_lib_url('jquery-raty.js') }}"></script>
     <script type="text/javascript" src="{{ get_static_file_url('js/pace.on.js') }}"></script>
     <script type="text/javascript" src="{{ get_static_file_url('js/markdown.js') }}"></script>
     {% block extra_js_link %}
     {% endblock %}
-    <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('PACE/themes/blue/pace-theme-flash.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('github-markdown-css/github-markdown.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('css3-github-buttons/gh-buttons.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ get_bower_file_url('raty/lib/jquery.raty.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url('pace.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url('github-markdown.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url('github-buttons.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url('jquery-raty.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/markdown.css') }}">
     {% block extra_css_link %}
@@ -35,7 +32,7 @@
             font-family: 'Source Code Pro';
             font-style: normal;
             font-weight: 400;
-            src: url({{ get_bower_file_url('sourcecodepro-googlefont/SourceCodePro-Regular.ttf') }});
+            src: url({{ get_static_lib_url('source-code-pro.ttf') }});
         }
 
         body {

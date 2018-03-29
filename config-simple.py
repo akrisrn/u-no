@@ -15,6 +15,8 @@ uno_static_dir_name = "static"
 uno_site_name = ""
 # 版本号
 uno_version = ""
+# 是否使用CDN引入静态库
+uno_use_cdn = True
 
 # favicon图片在静态目录下的路径
 uno_favicon_img = ""

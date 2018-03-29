@@ -2,7 +2,7 @@ from flask import Flask, render_template
 
 from config import *
 from src.index import index_url_key, index_title_key, index_id_key, index_tags_key, index_date_key
-from src.util import get_bower_file_url, get_static_file_url
+from src.util import get_static_file_url, get_static_lib_url
 from src.view.main import main
 from src.view.maintenance import maintenance
 
@@ -36,7 +36,7 @@ app.jinja_env.globals["index_date_name"] = index_date_key
 app.jinja_env.globals["index_tags_name"] = index_tags_key
 # 绑定函数到jinja模板
 app.jinja_env.globals.update(get_static_file_url=get_static_file_url)
-app.jinja_env.globals.update(get_bower_file_url=get_bower_file_url)
+app.jinja_env.globals.update(get_static_lib_url=get_static_lib_url)
 
 
 @app.errorhandler(404)
