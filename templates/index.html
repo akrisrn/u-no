@@ -50,8 +50,23 @@
                 var nameVal = $.trim(title.val());
                 var tagVal = $.trim(tag.val());
                 var dateVal = $.trim(date.val());
-                window.location.href = window.location.pathname +
-                    "?i=" + idVal + "&n=" + nameVal + "&t=" + tagVal + "&d=" + dateVal;
+                var href = "";
+                if (idVal !== "") {
+                    href += "&i=" + idVal
+                }
+                if (nameVal !== "") {
+                    href += "&n=" + nameVal
+                }
+                if (tagVal !== "") {
+                    href += "&t=" + tagVal
+                }
+                if (dateVal !== "") {
+                    href += "&d=" + dateVal
+                }
+                if (href !== "") {
+                    href = "?" + href.substr(1)
+                }
+                window.location.href = window.location.pathname + href
             });
 
             $("#clean").click(function () {
