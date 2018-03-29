@@ -97,6 +97,7 @@ def reindex_thread():
     # 遍历文章目录下所有文件和子目录
     for root, dirs, files in os.walk(articles_dir_abspath):
         # 截取相对路径
+        # noinspection PyTypeChecker
         path = root.split(uno_articles_dir_name)[-1].lstrip(os.path.sep).replace("\\", "/")
         # 排除忽略目录
         is_ignore = False
@@ -136,6 +137,7 @@ def reindex_thread():
                 title = file_path
             if not path.startswith(uno_attachments_dir_name):
                 # 获取标签并生成标签字典
+                # noinspection PyUnboundLocalVariable
                 tags = {tag: "/%s?t=%s" % (uno_index_file_name, tag) for tag in get_tags_flag(data)}
                 # 获取日期
                 date = get_date_flag(data)
