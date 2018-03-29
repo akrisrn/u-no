@@ -130,10 +130,12 @@ def get_bower_file_url(filename):
     return url_for("static", filename="bower_components/%s" % filename)
 
 
+# 获取cdnjs上文件url
 def get_cdnjs_file_url(filename):
     return "https://cdnjs.cloudflare.com/ajax/libs/" + filename
 
 
+# 根据是否使用cdn选择本地bower路径或cdnjs链接
 def get_static_lib_url(name):
     return {
         'pace.js': get_bower_file_url("PACE/pace.min.js"),
