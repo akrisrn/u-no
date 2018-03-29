@@ -20,8 +20,6 @@ uno_use_cdn = True
 
 # favicon图片在静态目录下的路径
 uno_favicon_img = ""
-# 返回顶部图片在静态目录下的路径
-uno_to_top_img = ""
 # 主背景图片在静态目录下的路径
 uno_background_img = ""
 
