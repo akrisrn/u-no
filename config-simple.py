@@ -18,12 +18,8 @@ uno_version = ""
 # 是否使用CDN引入静态库
 uno_use_cdn = True
 
-# 主页展示文字
-uno_index_show_text = ""
 # 侧边栏展示文字
 uno_sidebar_show_text = ""
-# 版权信息展示文字
-uno_copyright_show_text = ""
 
 # 根目录下文章目录名
 uno_articles_dir_name = ""

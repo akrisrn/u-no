@@ -130,11 +130,6 @@ body {
     padding: 0 10px;
 }
 
-.cover {
-    text-align: center;
-    margin: 50px 0
-}
-
 @media screen and (max-width: 1220px) {
     #content {
         width: 100%;

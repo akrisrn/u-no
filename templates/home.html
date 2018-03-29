@@ -22,30 +22,20 @@
     }
 {% endblock %}
 {% block content %}
-    <div class="center">
-        <h1>{{ index_show_text | safe }}</h1>
-        <hr>
+    <div class="markdown-body">
+        <ul>
+            {% for fixed_article in fixed_articles %}
+                <li>
+                    <i class="fas fa-angle-double-right"></i>
+                    <a href="{{ fixed_article[index_url_name] }}">
+                        {{ fixed_article[index_title_name].split(".")[0] }}
+                    </a>
+                    {% for tag in fixed_article[index_tags_name] | sort %}
+                        <div class="tag"><i class="fas fa-hashtag"></i>{{ tag }}</div>
+                    {% endfor %}
+                    <div class="date">{{ fixed_article[index_date_name] }}</div>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
-    {% if not fixed_articles %}
-        <div class="cover">
-            <i class="fas fa-terminal" style="font-size: 200px"></i>
-        </div>
-    {% else %}
-        <div class="markdown-body">
-            <ul>
-                {% for fixed_article in fixed_articles %}
-                    <li>
-                        <i class="fas fa-angle-double-right"></i>
-                        <a href="{{ fixed_article[index_url_name] }}">
-                            {{ fixed_article[index_title_name].split(".")[0] }}
-                        </a>
-                        {% for tag in fixed_article[index_tags_name] | sort %}
-                            <div class="tag"><i class="fas fa-hashtag"></i>{{ tag }}</div>
-                        {% endfor %}
-                        <div class="date">{{ fixed_article[index_date_name] }}</div>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
 {% endblock %}

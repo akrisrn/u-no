@@ -57,16 +57,7 @@
     </div>
     {% if not no_sidebar %}
         <div id="sidebar">
-            <div class="cover">
-                <i class="fas fa-code" style="font-size: 80px"></i>
-            </div>
-            <div class="center">
-                <h4>{{ sidebar_show_text | safe }}</h4>
-            </div>
-            <hr>
-            <div class="center">
-                <h5>{{ copyright_show_text | safe }}</h5>
-            </div>
+            {{ sidebar_show_text | safe }}
         </div>
     {% endif %}
 </div>
