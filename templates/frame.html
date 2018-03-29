@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="{{ get_static_file_url(favicon_img) }}">
+    <link rel="shortcut icon" href="img/favicon.ico">
     <title>{% block title %}{% endblock %}</title>
     <script type="text/javascript" src="{{ get_static_lib_url('pace.js') }}"></script>
     <script type="text/javascript" src="{{ get_static_lib_url('mathjax.js') }}"></script>
@@ -36,138 +36,6 @@
             src: url({{ get_static_lib_url('source-code-pro.ttf') }});
         }
 
-        body {
-            background: url({{ get_static_file_url(background_img) }});
-        }
-
-        .markdown-body .toc:before {
-            content: "{{ markdown_toc_text }}";
-        }
-
-        {% set sidebar_cover_a_url = get_static_file_url(sidebar_cover_a_img) %}
-        {% set sidebar_cover_b_url = get_static_file_url(sidebar_cover_b_img) %}
-        {% set sidebar_cover_c_url = get_static_file_url(sidebar_cover_c_img) %}
-
-        #preload-01 {
-            background: url({{ sidebar_cover_c_url }}) no-repeat -9999px -9999px;;
-        }
-
-        #preload-02 {
-            background: url({{ sidebar_cover_b_url }}) no-repeat -9999px -9999px;;
-        }
-
-        #sidebar-cover {
-            height: {{ sidebar_cover_height }}px;
-            background: url({{ sidebar_cover_a_url }}) no-repeat center;
-        }
-
-        #sidebar-cover:hover {
-            animation: nya 7s 10s steps(1, start);
-            -moz-animation: nya 7s 10s steps(1, start);
-            -webkit-animation: nya 7s 10s steps(1, start);
-            -o-animation: nya 7s 10s steps(1, start);
-        }
-
-        @keyframes nya {
-            40% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            42% {
-                background: url({{ sidebar_cover_c_url }}) no-repeat center;
-            }
-            44% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            46% {
-                background: url({{ sidebar_cover_c_url }}) no-repeat center;
-            }
-            48% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            99% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            100% {
-                background: url({{ sidebar_cover_a_url }}) no-repeat center;
-            }
-        }
-
-        @-moz-keyframes nya {
-            40% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            42% {
-                background: url({{ sidebar_cover_c_url }}) no-repeat center;
-            }
-            44% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            46% {
-                background: url({{ sidebar_cover_c_url }}) no-repeat center;
-            }
-            48% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            99% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            100% {
-                background: url({{ sidebar_cover_a_url }}) no-repeat center;
-            }
-        }
-
-        @-webkit-keyframes nya {
-            40% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            42% {
-                background: url({{ sidebar_cover_c_url }}) no-repeat center;
-            }
-            44% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            46% {
-                background: url({{ sidebar_cover_c_url }}) no-repeat center;
-            }
-            48% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            99% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            100% {
-                background: url({{ sidebar_cover_a_url }}) no-repeat center;
-            }
-        }
-
-        @-o-keyframes nya {
-            40% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            42% {
-                background: url({{ sidebar_cover_c_url }}) no-repeat center;
-            }
-            44% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            46% {
-                background: url({{ sidebar_cover_c_url }}) no-repeat center;
-            }
-            48% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            99% {
-                background: url({{ sidebar_cover_b_url }}) no-repeat center;
-            }
-            100% {
-                background: url({{ sidebar_cover_a_url }}) no-repeat center;
-            }
-        }
-
-        {% if no_sidebar is not defined %}
-            {% set no_sidebar = False %}
-        {% endif %}
-
         {% if no_sidebar %}
             #content {
                 width: 100%;
@@ -189,9 +57,9 @@
     </div>
     {% if not no_sidebar %}
         <div id="sidebar">
-            <div id="preload-01"></div>
-            <div id="preload-02"></div>
-            <div id="sidebar-cover"></div>
+            <div class="cover">
+                <i class="fas fa-code" style="font-size: 80px"></i>
+            </div>
             <div class="center">
                 <h4>{{ sidebar_show_text | safe }}</h4>
             </div>

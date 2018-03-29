@@ -3,18 +3,9 @@
     {{ site_name }}
 {% endblock %}
 {% block extra_style %}
-    {% if not fixed_articles %}
-        #content {
-        padding: 0
-        }
-
-        #content .center {
-        padding: 30px 50px 0 50px
-        }
-    {% endif %}
-
     .markdown-body ul {
-    list-style-type: circle
+    padding-left: 1px;
+    list-style-type: none
     }
 
     .markdown-body a {
@@ -36,19 +27,20 @@
         <hr>
     </div>
     {% if not fixed_articles %}
-        <div style="height: {{ index_cover_height }}px;
-                background: url({{ get_static_file_url(index_cover_img) }}) no-repeat center;">
+        <div class="cover">
+            <i class="fas fa-terminal" style="font-size: 200px"></i>
         </div>
     {% else %}
         <div class="markdown-body">
             <ul>
                 {% for fixed_article in fixed_articles %}
                     <li>
+                        <i class="fas fa-angle-double-right"></i>
                         <a href="{{ fixed_article[index_url_name] }}">
                             {{ fixed_article[index_title_name].split(".")[0] }}
                         </a>
                         {% for tag in fixed_article[index_tags_name] | sort %}
-                            <div class="tag">#{{ tag }}</div>
+                            <div class="tag"><i class="fas fa-hashtag"></i>{{ tag }}</div>
                         {% endfor %}
                         <div class="date">{{ fixed_article[index_date_name] }}</div>
                     </li>

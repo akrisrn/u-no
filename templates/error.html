@@ -2,18 +2,11 @@
 {% block title %}
     {{ title }}
 {% endblock %}
-{% block extra_style %}
-    #content {
-    padding: 0
-    }
-{% endblock %}
 {% block content %}
-    <div style="padding: 30px 50px 0 50px">
-        <h1>{{ title }}</h1>
-        <hr>
-        {{ data }}
-    </div>
-    <div style="height: {{ error_cover_height }}px;
-            background: url({{ get_static_file_url(error_cover_img) }}) no-repeat center;">
+    <h1>{{ title }}</h1>
+    <hr>
+    {{ data }}
+    <div class="cover">
+        <i class="fas fa-exclamation" style="font-size: 200px"></i>
     </div>
 {% endblock %}

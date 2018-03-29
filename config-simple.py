@@ -18,34 +18,12 @@ uno_version = ""
 # 是否使用CDN引入静态库
 uno_use_cdn = True
 
-# favicon图片在静态目录下的路径
-uno_favicon_img = ""
-# 主背景图片在静态目录下的路径
-uno_background_img = ""
-
 # 主页展示文字
 uno_index_show_text = ""
 # 侧边栏展示文字
 uno_sidebar_show_text = ""
 # 版权信息展示文字
 uno_copyright_show_text = ""
-# Markdown目录展示文字
-uno_markdown_toc_text = ""
-
-# 主页背景图在静态目录下的路径
-uno_index_cover_img = ""
-# 主页背景图的高度
-uno_index_cover_height = ""
-# 侧边栏背景图在静态目录下的路径
-uno_sidebar_cover_a_img = ""
-uno_sidebar_cover_b_img = ""
-uno_sidebar_cover_c_img = ""
-# 侧边栏背景图的高度
-uno_sidebar_cover_height = ""
-# 错误页面背景图在静态目录下的路径
-uno_error_cover_img = ""
-# 错误页面背景图的高度
-uno_error_cover_height = ""
 
 # 根目录下文章目录名
 uno_articles_dir_name = ""

@@ -10,6 +10,7 @@
 
 .markdown-body .toc:before {
     color: #0366d6;
+    content: "目录";
 }
 
 .markdown-body .star {
