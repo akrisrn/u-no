@@ -121,7 +121,7 @@ def regexp_join(regexp_str, *args):
 
 
 # 清洗文本，剔除空白、双引号、单引号
-def clear_text(text):
+def clean_text(text):
     return re.sub("(\s|\"|\')", "", text)
 
 

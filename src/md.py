@@ -71,11 +71,11 @@ def render(text):
             "social_url_shorthand": True,
         }
     }
-    return markdown(rate(table_increment(inlink(add_toc(clear_md(text))))), extensions, extension_config)
+    return markdown(rate(table_increment(inlink(add_toc(clean_md(text))))), extensions, extension_config)
 
 
 # 剔除\r和被<<>>包围的内容
-def clear_md(text):
+def clean_md(text):
     return re.sub("(\r|<<.*?>>)", "", text)
 
 
