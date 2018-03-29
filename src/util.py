@@ -167,6 +167,6 @@ def get_static_lib_url(name):
         'jquery-raty.css': get_cdnjs_file_url("raty/2.8.0/jquery.raty.min.css"),
         'github-markdown.css': get_cdnjs_file_url("github-markdown-css/2.10.0/github-markdown.min.css"),
         'buttons.css': get_cdnjs_file_url("Buttons/2.0.0/css/buttons.min.css"),
-        'font-awesome.css': get_cdnjs_file_url("font-awesome/4.7.0/css/font-awesome.min.css"),
+        'font-awesome.css': "https://use.fontawesome.com/releases/v5.0.9/css/all.css",
         'source-code-pro.ttf': "https://fonts.gstatic.com/s/sourcecodepro/v7/HI_SiYsKILxRpg3hIP6sJ7fM7PqlPevW.woff2",
     }[name]
