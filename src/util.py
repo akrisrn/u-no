@@ -130,7 +130,7 @@ def get_bower_file_url(filename):
     return url_for("static", filename="bower_components/%s" % filename)
 
 
-def get_cdn_file_url(filename):
+def get_cdnjs_file_url(filename):
     return "https://cdnjs.cloudflare.com/ajax/libs/" + filename
 
 
@@ -148,21 +148,23 @@ def get_static_lib_url(name):
         'jquery-raty.js': get_bower_file_url("raty/lib/jquery.raty.js"),
         'jquery-raty.css': get_bower_file_url("raty/lib/jquery.raty.css"),
         'github-markdown.css': get_bower_file_url("github-markdown-css/github-markdown.css"),
-        'github-buttons.css': get_bower_file_url("css3-github-buttons/gh-buttons.css"),
+        'buttons.css': get_bower_file_url("Buttons/css/buttons.min.css"),
+        'font-awesome.css': get_bower_file_url("Font-Awesome/web-fonts-with-css/css/fontawesome-all.min.css"),
         'source-code-pro.ttf': get_bower_file_url("sourcecodepro-googlefont/SourceCodePro-Regular.ttf"),
     }[name] if not uno_use_cdn else {
-        'pace.js': get_cdn_file_url("pace/1.0.2/pace.min.js"),
-        'pace.css': get_cdn_file_url("pace/1.0.2/themes/blue/pace-theme-flash.css"),
-        'mathjax.js': get_cdn_file_url("mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML"),
-        'raphael.js': get_cdn_file_url("raphael/2.2.7/raphael.min.js"),
-        'underscore.js': get_cdn_file_url("underscore.js/1.8.3/underscore-min.js"),
-        'sequence-diagram.js': get_cdn_file_url("js-sequence-diagrams/1.0.6/sequence-diagram-min.js"),
-        'flowchart.js': get_cdn_file_url("flowchart/1.10.0/flowchart.min.js"),
-        'jquery.js': get_cdn_file_url("jquery/3.3.1/jquery.min.js"),
-        'jquery-tablesorter.js': get_cdn_file_url("jquery.tablesorter/2.30.1/js/jquery.tablesorter.min.js"),
-        'jquery-raty.js': get_cdn_file_url("raty/2.8.0/jquery.raty.min.js"),
-        'jquery-raty.css': get_cdn_file_url("raty/2.8.0/jquery.raty.min.css"),
-        'github-markdown.css': get_cdn_file_url("github-markdown-css/2.10.0/github-markdown.min.css"),
-        'github-buttons.css': get_bower_file_url("css3-github-buttons/gh-buttons.css"),
+        'pace.js': get_cdnjs_file_url("pace/1.0.2/pace.min.js"),
+        'pace.css': get_cdnjs_file_url("pace/1.0.2/themes/blue/pace-theme-flash.css"),
+        'mathjax.js': get_cdnjs_file_url("mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML"),
+        'raphael.js': get_cdnjs_file_url("raphael/2.2.7/raphael.min.js"),
+        'underscore.js': get_cdnjs_file_url("underscore.js/1.8.3/underscore-min.js"),
+        'sequence-diagram.js': get_cdnjs_file_url("js-sequence-diagrams/1.0.6/sequence-diagram-min.js"),
+        'flowchart.js': get_cdnjs_file_url("flowchart/1.10.0/flowchart.min.js"),
+        'jquery.js': get_cdnjs_file_url("jquery/3.3.1/jquery.min.js"),
+        'jquery-tablesorter.js': get_cdnjs_file_url("jquery.tablesorter/2.30.1/js/jquery.tablesorter.min.js"),
+        'jquery-raty.js': get_cdnjs_file_url("raty/2.8.0/jquery.raty.min.js"),
+        'jquery-raty.css': get_cdnjs_file_url("raty/2.8.0/jquery.raty.min.css"),
+        'github-markdown.css': get_cdnjs_file_url("github-markdown-css/2.10.0/github-markdown.min.css"),
+        'buttons.css': get_cdnjs_file_url("Buttons/2.0.0/css/buttons.min.css"),
+        'font-awesome.css': get_cdnjs_file_url("font-awesome/4.7.0/css/font-awesome.min.css"),
         'source-code-pro.ttf': "https://fonts.gstatic.com/s/sourcecodepro/v7/HI_SiYsKILxRpg3hIP6sJ7fM7PqlPevW.woff2",
     }[name]

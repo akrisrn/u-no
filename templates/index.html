@@ -9,9 +9,6 @@
     padding-left: 5px;
     padding-right: 5px;
     }
-    #search {
-    margin-right: -20px
-    }
 {% endblock %}
 {% block content %}
     <h1>{{ title }}</h1>
@@ -20,8 +17,8 @@
     <input id="titleS" placeholder="Search Title" onkeydown="if(event.keyCode===13){search.click()}">
     <input id="tagS" placeholder="Search Tag" onkeydown="if(event.keyCode===13){search.click()}">
     <input id="dateS" placeholder="Search Date" onkeydown="if(event.keyCode===13){search.click()}">
-    <button id="search" class="button icon search">Search</button>
-    <button id="clear" class="button icon trash">Clear</button>
+    <button id="search" class="button button-rounded button-small"><i class="fa fa-search"></i> Search</button>
+    <button id="clean" class="button button-rounded button-small"><i class="fa fa-trash"></i> Clean</button>
     <script>
         $(document).ready(function () {
             function GetRequest() {
@@ -57,7 +54,7 @@
                     "?i=" + idVal + "&n=" + nameVal + "&t=" + tagVal + "&d=" + dateVal;
             });
 
-            $("#clear").click(function () {
+            $("#clean").click(function () {
                 id.val("");
                 title.val("");
                 tag.val("");

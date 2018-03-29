@@ -18,7 +18,6 @@
   "dependencies": {
     "PACE": "pace#^1.0.2",
     "github-markdown-css": "^2.10.0",
-    "css3-github-buttons": "necolas/css3-github-buttons",
     "raphael": "^2.2.7",
     "underscore": "^1.8.3",
     "js-sequence-diagrams": "^2.0.1",
@@ -26,6 +25,8 @@
     "MathJax": "^2.7.3",
     "sourcecodepro-googlefont": "*",
     "tablesorter": "jquery.tablesorter#^2.30.1",
-    "raty": "jquery-raty#^2.8.0"
+    "raty": "jquery-raty#^2.8.0",
+    "Buttons": "^2.0.0",
+    "Font-Awesome": "^5.0.9"
   }
 }

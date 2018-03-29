@@ -20,9 +20,9 @@
         {{ data | safe }}
         <hr>
         <div class="button-group">
-            <button class="button primary icon tag" style="width: 30px;height: 29px"></button>
+            <button class="button button-circle button-small"><i class="fa fa-hashtag"></i></button>
             {% for tag in tags | sort %}
-                <button class="button">{{ tag }}</button>
+                <button class="button button-rounded button-small">{{ tag }}</button>
             {% endfor %}
         </div>
     </div>
