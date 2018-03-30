@@ -6,8 +6,6 @@ uno_port = 5000
 # 是否开启调试
 uno_debug = False
 
-# 是否开启维护模式
-uno_maintenance = False
 # 静态文件目录
 uno_static_dir_name = "static"
 
