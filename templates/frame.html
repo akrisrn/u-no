@@ -41,6 +41,8 @@
 <body>
 <div id="header">
     <a href="{{ url_for('main.index') }}">{{ site_name }}</a>
+    {% set about_article = get_about_article_url() %}
+    <a href="{{ url_for('main.article_page', dir_name=about_article[0], file_hash=about_article[1]) }}">about</a>
 </div>
 <div id="body">
     <div id="content">

@@ -38,6 +38,11 @@ def get_date_flag(content):
     return date
 
 
+# 获取文章里标记的不展示标签标识，语法匹配<<notags()>>
+def get_notags_flag(content):
+    return re.search(get_flag_regexp("notags"), content)
+
+
 # 获取文章里标记的固定索引标识，语法匹配<<fixed()>>
 def get_fixed_flag(content):
     return re.search(get_flag_regexp("fixed"), content)

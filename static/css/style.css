@@ -18,10 +18,17 @@ body {
     padding: 20px 50px 0 50px;
 }
 
-#header a {
+#header a:first-child {
     font-size: 24px;
     font-weight: bold;
-    margin-right: 20px;
+}
+
+#header a:not(:first-child) {
+    color: grey;
+}
+
+#header a:not(:first-child):hover {
+    color: #24292e;
 }
 
 #header a, .tag a {

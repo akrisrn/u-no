@@ -2,7 +2,7 @@ import json
 import os
 import re
 
-from config import uno_index_file_name
+from config import uno_index_file_name, uno_about_file_name
 from src.util import regexp_join, get_articles_dir_abspath
 
 # 组成索引的JSON数据所用的键名
@@ -118,3 +118,10 @@ def index_data_filter(searches):
             if is_find:
                 attachments.append(attachment)
     return [articles, attachments], max_tag_num
+
+
+def get_about_article_url():
+    article = get_item_by_path(uno_about_file_name)
+    if not article:
+        return ["", ""]
+    return article[index_url_key].split("/")[1:]

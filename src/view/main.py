@@ -9,7 +9,7 @@ from config import uno_update_url_name, uno_update_limit_time, uno_reindex_url_n
     uno_index_file_name, uno_attachments_dir_name, uno_articles_dir_name, uno_strip_prefix, uno_ignore_file_list, \
     uno_ignore_dir_list, uno_make_file_ignore_arg
 from src.flag import get_fixed_flag, get_date_flag, get_tags_flag, get_unignore_flag, get_ignore_flag, \
-    get_custom_js_flag, get_custom_css_flag
+    get_custom_js_flag, get_custom_css_flag, get_notags_flag
 from src.index import index_url_key, index_title_key, index_id_key, index_fixed_key, index_tags_key, index_date_key, \
     get_item_by_path, get_item_by_url, index_data_filter, get_fixed_articles
 from src.md import render
@@ -63,6 +63,8 @@ def article_page(dir_name, file_hash):
     if dir_name == uno_articles_dir_name:
         with open(item_abspath, encoding='utf-8') as file_data:
             data = file_data.read()
+        # 识别文章中的不显示标签标识
+        notags = get_notags_flag(data)
         # 识别文章中的自定义css文件，获取自定义css文件url列表
         css_urls = get_custom_css_flag(data)
         # 识别文章中的自定义js文件，获取自定义js文件url列表
@@ -73,8 +75,8 @@ def article_page(dir_name, file_hash):
         title = os.path.splitext(item[index_title_key])[0]
         date = item[index_date_key]
         tags = item[index_tags_key].keys()
-        return render_template('article.html', title=title, data=data, date=date, tags=tags,
-                               css_urls=css_urls, js_urls=js_urls)
+        return render_template('article.html', title=title, data=data, date=date, tags=tags, css_urls=css_urls,
+                               js_urls=js_urls, notags=notags)
     else:
         # 定向到源文件
         file_dir, file = os.path.split(item_abspath)

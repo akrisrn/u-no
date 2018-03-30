@@ -18,12 +18,14 @@
     <hr>
     <div class="markdown-body">
         {{ data | safe }}
-        <hr>
-        <i class="fas fa-tags" style="font-size: 12px"></i>
-        {% for tag in tags | sort %}
-            <div class="tag">
-                <a href="/tag/{{ tag }}"><i class="fas fa-hashtag"></i>{{ tag }}</a>
-            </div>
-        {% endfor %}
+        {% if not notags %}
+            <hr>
+            <i class="fas fa-tags" style="font-size: 12px"></i>
+            {% for tag in tags | sort %}
+                <div class="tag">
+                    <a href="/tag/{{ tag }}"><i class="fas fa-hashtag"></i>{{ tag }}</a>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}
