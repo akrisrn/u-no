@@ -38,6 +38,7 @@
                         {{ fixed_article[index_title_key].split(".")[0] }}
                     </a>
                     {% if not fixed_article[index_notags_key] %}
+                        <i class="fas fa-tags" style="font-size: 12px"></i>
                         {% for tag in fixed_article[index_tags_key] | sort %}
                             <div class="tag">
                                 <a href="/tag/{{ tag }}"><i class="fas fa-hashtag"></i>{{ tag }}</a>
