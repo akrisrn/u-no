@@ -62,7 +62,7 @@ def render(text):
         # 代码高亮配置
         "pymdownx.highlight": {
             "noclasses": True,
-            "pygments_style": "friendly"
+            "pygments_style": "pastie"
         },
         # 自动链接配置
         "pymdownx.magiclink": {
