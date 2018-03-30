@@ -32,17 +32,17 @@
             {% for fixed_article in fixed_articles %}
                 <li>
                     <i class="fas fa-angle-double-right"></i>
-                    <a href="{{ fixed_article[index_url_name] }}">
-                        {{ fixed_article[index_title_name].split(".")[0] }}
+                    <a href="{{ fixed_article[index_url_key] }}">
+                        {{ fixed_article[index_title_key].split(".")[0] }}
                     </a>
-                    {% if not fixed_article[index_notags_name] %}
-                        {% for tag in fixed_article[index_tags_name] | sort %}
+                    {% if not fixed_article[index_notags_key] %}
+                        {% for tag in fixed_article[index_tags_key] | sort %}
                             <div class="tag">
                                 <a href="/tag/{{ tag }}"><i class="fas fa-hashtag"></i>{{ tag }}</a>
                             </div>
                         {% endfor %}
                     {% endif %}
-                    <div class="date">{{ fixed_article[index_date_name] }}</div>
+                    <div class="date">{{ fixed_article[index_date_key] }}</div>
                 </li>
             {% endfor %}
         </ul>

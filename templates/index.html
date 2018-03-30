@@ -99,13 +99,13 @@
             <tbody>
             {% for article in articles %}
                 <tr>
-                    <td>{{ article[index_id_name] }}</td>
-                    <td><a href="{{ article[index_url_name] }}">{{ article[index_title_name] }}</a></td>
-                    <td>{{ article[index_date_name] }}</td>
-                    {% for tag in article[index_tags_name] | sort %}
-                        <td><a href="{{ article[index_tags_name][tag] }}">{{ tag }}</a></td>
+                    <td>{{ article[index_id_key] }}</td>
+                    <td><a href="{{ article[index_url_key] }}">{{ article[index_title_key] }}</a></td>
+                    <td>{{ article[index_date_key] }}</td>
+                    {% for tag in article[index_tags_key] | sort %}
+                        <td><a href="{{ article[index_tags_key][tag] }}">{{ tag }}</a></td>
                     {% endfor %}
-                    {% set remain = max_tag_num - article[index_tags_name]|length %}
+                    {% set remain = max_tag_num - article[index_tags_key]|length %}
                     {% if remain > 0 %}
                         {% for i in range(remain) %}
                             <td></td>
@@ -126,8 +126,8 @@
             <tbody>
             {% for attachment in attachments %}
                 <tr>
-                    <td>{{ attachment[index_id_name] }}</td>
-                    <td><a href="{{ attachment[index_url_name] }}">{{ attachment[index_title_name] }}</a></td>
+                    <td>{{ attachment[index_id_key] }}</td>
+                    <td><a href="{{ attachment[index_url_key] }}">{{ attachment[index_title_key] }}</a></td>
                 </tr>
             {% endfor %}
             </tbody>
