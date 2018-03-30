@@ -33,9 +33,6 @@ uno_reindex_limit_time = 60 * 10
 # 更新的冷却时间
 uno_update_limit_time = 60 * 10
 
-# 关于页面指向的文件名
-uno_about_file_name = ""
-
 # 忽略索引的文件名列表
 uno_ignore_file_list = [uno_index_file_name]
 # 把文件加入忽略列表的URL参数名
