@@ -13,9 +13,8 @@ body {
 #header {
     z-index: 10;
     max-width: 900px;
-    height: 50px;
     margin: 0 auto;
-    padding: 20px 50px 0 50px;
+    padding: 20px 50px 20px 50px;
 }
 
 #header a:first-child {
