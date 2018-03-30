@@ -14,7 +14,7 @@ from src.index import index_url_key, index_title_key, index_id_key, index_fixed_
     get_item_by_path, get_item_by_url, index_data_filter, get_fixed_articles
 from src.md import render
 from src.util import handle_thread, get_update_cmd, compute_digest_by_abspath, compute_digest_by_data, \
-    update_config_ignore_file_list, get_articles_dir_abspath, get_reindex_cmd
+    update_config_ignore_file_list, get_articles_dir_abspath, get_reindex_cmd, update_config_version
 
 main = Blueprint("main", __name__)
 
@@ -193,6 +193,7 @@ update_thread_limit = []
 def update_thread():
     # 执行更新程序命令
     os.popen(get_update_cmd()).close()
+    update_config_version()
     # 冷却
     time.sleep(uno_update_limit_time)
 

@@ -86,6 +86,18 @@ def handle_thread(thread_limit_list, target):
         thread_limit_list[0].start()
 
 
+def update_config(origin, replace):
+    # 读取配置文件数据
+    config_abspath = os.path.join(get_root_abspath(), "config.py")
+    with open(config_abspath, encoding="utf-8") as config_file:
+        config_data = config_file.read()
+    # 用新数据替换旧数据
+    config_data = re.sub(origin, replace, config_data)
+    # 重新写入配置文件
+    with open(config_abspath, "w", encoding="utf-8") as config_file:
+        config_file.write(config_data)
+
+
 # 更新配置文件中的忽略文件列表
 def update_config_ignore_file_list(file_path, is_add):
     # 判断是添加还是移除
@@ -95,16 +107,18 @@ def update_config_ignore_file_list(file_path, is_add):
         uno_ignore_file_list.remove(file_path)
     else:
         return None
-    # 读取配置文件数据
-    config_abspath = os.path.join(get_root_abspath(), "config.py")
-    with open(config_abspath, encoding="utf-8") as config_file:
-        config_data = config_file.read()
     # 用新列表替换旧列表
     replace = "%s = %s" % ("uno_ignore_file_list", uno_ignore_file_list)
-    config_data = re.sub("%s\s*=\s*\[.*?\]" % "uno_ignore_file_list", replace, config_data)
-    # 重新写入配置文件
-    with open(config_abspath, "w", encoding="utf-8") as config_file:
-        config_file.write(config_data)
+    origin = "%s\s*=\s*\[.*?\]" % "uno_ignore_file_list"
+    update_config(origin, replace)
+
+
+def update_config_version():
+    cmd = get_os_cmd_sep().join(["cd %s" % get_root_abspath(), "git rev-list --branches | head -n 1 | cut -b 1-5"])
+    result = os.popen(cmd).read()
+    replace = '%s = "%s"' % ("uno_version", result)
+    origin = '%s\s*=\s*".*?"' % "uno_version"
+    update_config(origin, replace)
 
 
 # 把字符串拼接参数转义后组进正则表达式
