@@ -92,7 +92,7 @@ def tag_page(tag_name):
             new_fixed_articles.append(article)
     if not new_fixed_articles:
         abort(404)
-    return render_template('home.html', fixed_articles=new_fixed_articles)
+    return render_template('home.html', fixed_articles=new_fixed_articles, tag_name=tag_name)
 
 
 # 重建索引线程限制

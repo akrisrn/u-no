@@ -1,6 +1,10 @@
 {% extends "frame.html" %}
 {% block title %}
-    {{ site_name }}
+    {% if tag_name %}
+        {{ tag_name }}
+    {% else %}
+        {{ site_name }}
+    {% endif %}
 {% endblock %}
 {% block extra_style %}
     .markdown-body ul {
@@ -27,6 +31,9 @@
     }
 {% endblock %}
 {% block content %}
+    {% if tag_name %}
+        <a href="{{ url_for('main.index') }}"><i class="fas fa-angle-double-left"></i> HOME</a>
+    {% endif %}
     <div class="markdown-body">
         <ul>
             {% for fixed_article in fixed_articles %}
