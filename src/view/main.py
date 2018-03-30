@@ -192,8 +192,9 @@ update_thread_limit = []
 # 更新程序线程函数
 def update_thread():
     # 执行更新程序命令
-    os.popen(get_update_cmd()).close()
+    # 更新版本号
     update_config_version()
+    os.popen(get_update_cmd()).close()
     # 冷却
     time.sleep(uno_update_limit_time)
 

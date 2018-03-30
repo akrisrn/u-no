@@ -115,7 +115,7 @@ def update_config_ignore_file_list(file_path, is_add):
 
 def update_config_version():
     cmd = get_os_cmd_sep().join(["cd %s" % get_root_abspath(), "git rev-list --branches | head -n 1 | cut -b 1-5"])
-    result = os.popen(cmd).read()
+    result = os.popen(cmd).read().strip()
     replace = '%s = "%s"' % ("uno_version", result)
     origin = '%s\s*=\s*".*?"' % "uno_version"
     update_config(origin, replace)
