@@ -81,6 +81,19 @@ def article_page(dir_name, file_hash):
         return send_from_directory(file_dir, file)
 
 
+# 标签页
+@main.route('/tag/<tag_name>')
+def tag_page(tag_name):
+    new_fixed_articles = []
+    fixed_articles = get_fixed_articles()
+    for article in fixed_articles:
+        if tag_name in article[index_tags_key]:
+            new_fixed_articles.append(article)
+    if not new_fixed_articles:
+        abort(404)
+    return render_template('home.html', fixed_articles=new_fixed_articles)
+
+
 # 重建索引线程限制
 reindex_thread_limit = []
 

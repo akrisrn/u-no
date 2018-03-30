@@ -150,7 +150,6 @@ def get_static_lib_url(name):
         'jquery-raty.js': get_bower_file_url("raty/lib/jquery.raty.js"),
         'jquery-raty.css': get_bower_file_url("raty/lib/jquery.raty.css"),
         'github-markdown.css': get_bower_file_url("github-markdown-css/github-markdown.css"),
-        'buttons.css': get_bower_file_url("Buttons/css/buttons.min.css"),
         'font-awesome.css': get_bower_file_url("Font-Awesome/web-fonts-with-css/css/fontawesome-all.min.css"),
         'source-code-pro.ttf': get_bower_file_url("sourcecodepro-googlefont/SourceCodePro-Regular.ttf"),
     }[name] if not uno_use_cdn else {
@@ -166,7 +165,6 @@ def get_static_lib_url(name):
         'jquery-raty.js': get_cdnjs_file_url("raty/2.8.0/jquery.raty.min.js"),
         'jquery-raty.css': get_cdnjs_file_url("raty/2.8.0/jquery.raty.min.css"),
         'github-markdown.css': get_cdnjs_file_url("github-markdown-css/2.10.0/github-markdown.min.css"),
-        'buttons.css': get_cdnjs_file_url("Buttons/2.0.0/css/buttons.min.css"),
         'font-awesome.css': "https://use.fontawesome.com/releases/v5.0.9/css/all.css",
         'source-code-pro.ttf': "https://fonts.gstatic.com/s/sourcecodepro/v7/HI_SiYsKILxRpg3hIP6sJ7fM7PqlPevW.woff2",
     }[name]

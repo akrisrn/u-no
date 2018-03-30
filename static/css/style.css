@@ -22,6 +22,9 @@ body {
     font-size: 24px;
     font-weight: bold;
     margin-right: 20px;
+}
+
+#header a, .tag a {
     text-decoration: none;
     color: #24292e;
     transition: all 0.5s;
@@ -30,7 +33,7 @@ body {
     -o-transition: all 0.5s
 }
 
-#header a:hover {
+#header a:hover, .tag a:hover {
     color: grey;
     text-decoration: none;
 }
@@ -103,6 +106,10 @@ body {
     font-size: small
 }
 
-.button {
-    padding: 0 10px;
+.tag a {
+    color: grey;
+}
+
+.tag a:hover {
+    color: #24292e;
 }

@@ -13,7 +13,7 @@
     width: 100%
     }
 
-    .markdown-body a {
+    .markdown-body li>a {
     color: #24292e;
     transition: all 0.5s;
     -moz-transition: all 0.5s;
@@ -21,9 +21,9 @@
     -o-transition: all 0.5s
     }
 
-    .markdown-body a:hover {
-    text-decoration: none;
+    .markdown-body li>a:hover {
     color: grey;
+    text-decoration: none;
     }
 {% endblock %}
 {% block content %}
@@ -36,7 +36,9 @@
                         {{ fixed_article[index_title_name].split(".")[0] }}
                     </a>
                     {% for tag in fixed_article[index_tags_name] | sort %}
-                        <div class="tag"><i class="fas fa-hashtag"></i>{{ tag }}</div>
+                        <div class="tag">
+                            <a href="/tag/{{ tag }}"><i class="fas fa-hashtag"></i>{{ tag }}</a>
+                        </div>
                     {% endfor %}
                     <div class="date">{{ fixed_article[index_date_name] }}</div>
                 </li>

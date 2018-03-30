@@ -19,11 +19,11 @@
     <div class="markdown-body">
         {{ data | safe }}
         <hr>
-        <div class="button-group">
-            <button class="button button-rounded button-small"><i class="fas fa-tags"></i></button>
-            {% for tag in tags | sort %}
-                <button class="button button-rounded button-small"><i class="fas fa-hashtag"></i> {{ tag }}</button>
-            {% endfor %}
-        </div>
+        <i class="fas fa-tags" style="font-size: 12px"></i>
+        {% for tag in tags | sort %}
+            <div class="tag">
+                <a href="/tag/{{ tag }}"><i class="fas fa-hashtag"></i>{{ tag }}</a>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
