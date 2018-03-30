@@ -13,6 +13,8 @@ index_date_key = "date"
 index_tags_key = "tags"
 index_fixed_key = "fixed"
 index_notags_key = "notags"
+index_top_key = "top"
+index_highlight_key = "highlight"
 
 
 # 获取索引文件数据
@@ -48,6 +50,7 @@ def get_item_by_url(url):
 # 获取固定索引的文章列表
 def get_fixed_articles():
     fixed_articles = []
+    top_articles = []
     index_data = get_index_data()
     if index_data:
         articles_block = index_data[0]
@@ -56,9 +59,14 @@ def get_fixed_articles():
             article = articles_block[article_path]
             # 把固定索引的文章加入列表
             if article[index_fixed_key]:
-                fixed_articles.append(article)
+                if article[index_top_key]:
+                    top_articles.append(article)
+                else:
+                    fixed_articles.append(article)
         # 按照时间倒叙进行排序
         fixed_articles.sort(key=lambda o: o[index_date_key], reverse=True)
+        top_articles.sort(key=lambda o: o[index_date_key], reverse=True)
+        fixed_articles = top_articles + fixed_articles
     return fixed_articles
 
 

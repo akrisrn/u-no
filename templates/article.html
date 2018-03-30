@@ -16,7 +16,7 @@
     <h1>{{ title }}</h1>
     <a href="{{ url_for('main.index') }}"><i class="fas fa-angle-double-left"></i> HOME</a>
     {% if not notags %}
-        <i class="fas fa-tags" style="font-size: 12px"></i>
+        <i class="fas fa-tags fa-xs"></i>
         {% for tag in tags | sort %}
             <div class="tag">
                 <a href="/tag/{{ tag }}"><i class="fas fa-hashtag"></i>{{ tag }}</a>

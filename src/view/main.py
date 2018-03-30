@@ -9,9 +9,10 @@ from config import uno_update_url_name, uno_update_limit_time, uno_reindex_url_n
     uno_index_file_name, uno_attachments_dir_name, uno_articles_dir_name, uno_strip_prefix, uno_ignore_file_list, \
     uno_ignore_dir_list, uno_make_file_ignore_arg
 from src.flag import get_fixed_flag, get_date_flag, get_tags_flag, get_unignore_flag, get_ignore_flag, \
-    get_custom_js_flag, get_custom_css_flag, get_notags_flag
+    get_custom_js_flag, get_custom_css_flag, get_notags_flag, get_top_flag, get_highlight_flag
 from src.index import index_url_key, index_title_key, index_id_key, index_fixed_key, index_tags_key, index_date_key, \
-    get_item_by_path, get_item_by_url, index_data_filter, get_fixed_articles, index_notags_key
+    get_item_by_path, get_item_by_url, index_data_filter, get_fixed_articles, index_notags_key, index_top_key, \
+    index_highlight_key
 from src.md import render
 from src.util import handle_thread, get_update_cmd, compute_digest_by_abspath, compute_digest_by_data, \
     update_config_ignore_file_list, get_articles_dir_abspath, get_reindex_cmd, update_config_version
@@ -155,22 +156,18 @@ def reindex_thread():
                 date = get_date_flag(data)
                 # 计算文章哈希组成url
                 url = "/%s/%s" % (uno_articles_dir_name, compute_digest_by_data(data))
-                notags = False
-                # 识别文章中不展示标签标识
-                if get_notags_flag(data):
-                    notags = True
-                fixed = False
                 # 识别文章中固定索引标识，来判断是否更新哈希
-                if get_fixed_flag(data):
+                fixed = get_fixed_flag(data)
+                if fixed:
                     # 查找旧索引中对应的项目，如果存在则沿用哈希
                     item = get_item_by_path(file_path)
                     if item:
                         url = item[index_url_key]
-                    fixed = True
                 # 组成一条文章索引
                 articles_block[file_path] = {index_id_key: item_id, index_title_key: title, index_url_key: url,
                                              index_date_key: date, index_tags_key: tags, index_fixed_key: fixed,
-                                             index_notags_key: notags}
+                                             index_notags_key: get_notags_flag(data), index_top_key: get_top_flag(data),
+                                             index_highlight_key: get_highlight_flag(data)}
             else:
                 # 组成一条附件索引
                 url = "/%s/%s" % (uno_attachments_dir_name, compute_digest_by_abspath(file_abspath))

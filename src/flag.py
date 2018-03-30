@@ -12,9 +12,9 @@ def get_flag_regexp(flag):
 
 
 # 获取文章里标记的标签列表，语法匹配<<tag()>>，如果没有则返回默认标签
-def get_tags_flag(content):
+def get_tags_flag(data):
     default_tag = [uno_default_tag]
-    group = re.search(get_flag_regexp("tag"), content)
+    group = re.search(get_flag_regexp("tag"), data)
     if not group:
         return default_tag
     # 生成标签列表
@@ -25,8 +25,8 @@ def get_tags_flag(content):
 
 
 # 获取文章里标记的日期，语法匹配<<date(%y-%m-%d)>>，如果没有则返回空
-def get_date_flag(content):
-    group = re.search(get_flag_regexp("date"), content)
+def get_date_flag(data):
+    group = re.search(get_flag_regexp("date"), data)
     if not group:
         return ""
     date = str(clean_text(group.group(1)).split(",")[0])
@@ -42,28 +42,38 @@ def get_date_flag(content):
 
 
 # 获取文章里标记的不展示标签标识，语法匹配<<notags()>>
-def get_notags_flag(content):
-    return re.search(get_flag_regexp("notags"), content)
+def get_notags_flag(data):
+    return True if re.search(get_flag_regexp("notags"), data) else False
 
 
 # 获取文章里标记的固定索引标识，语法匹配<<fixed()>>
-def get_fixed_flag(content):
-    return re.search(get_flag_regexp("fixed"), content)
+def get_fixed_flag(data):
+    return True if re.search(get_flag_regexp("fixed"), data) else False
+
+
+# 获取文章里标记的置顶标识，语法匹配<<top()>>
+def get_top_flag(data):
+    return True if re.search(get_flag_regexp("top"), data) else False
+
+
+# 获取文章里标记的高亮标识，语法匹配<<highlight()>>
+def get_highlight_flag(data):
+    return True if re.search(get_flag_regexp("highlight"), data) else False
 
 
 # 获取文章里标记的忽略文件标识，语法匹配<<ignore()>>
-def get_ignore_flag(content):
-    return re.search(get_flag_regexp("ignore"), content)
+def get_ignore_flag(data):
+    return True if re.search(get_flag_regexp("ignore"), data) else False
 
 
 # 获取文章里标记的取消忽略文件标识，语法匹配<<unignore()>>
-def get_unignore_flag(content):
-    return re.search(get_flag_regexp("unignore"), content)
+def get_unignore_flag(data):
+    return True if re.search(get_flag_regexp("unignore"), data) else False
 
 
 # 获取文章里标记的自定义css文件列表，语法匹配<<css()>>，如果没有则返回空
-def get_custom_css_flag(content, custom_type="css"):
-    group = re.search(get_flag_regexp(custom_type), content)
+def get_custom_css_flag(data, custom_type="css"):
+    group = re.search(get_flag_regexp(custom_type), data)
     if not group:
         return []
     css_urls = []
@@ -77,5 +87,5 @@ def get_custom_css_flag(content, custom_type="css"):
 
 
 # 获取文章里标记的自定义js文件列表，语法匹配<<js()>>，如果没有则返回空
-def get_custom_js_flag(content):
-    return get_custom_css_flag(content, "js")
+def get_custom_js_flag(data):
+    return get_custom_css_flag(data, "js")

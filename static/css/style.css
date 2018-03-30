@@ -98,3 +98,12 @@ a:hover i {
     color: #24292e;
     text-decoration: none;
 }
+
+.article-hl {
+    font-weight: bold;
+}
+
+.article-hl:before {
+    content: "\f005";
+    font-family: Font Awesome\ 5 Free, serif;
+}
