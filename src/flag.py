@@ -30,12 +30,15 @@ def get_date_flag(content):
     if not group:
         return ""
     date = str(clean_text(group.group(1)).split(",")[0])
-    try:
-        # 日期格式转换为%Y.%m.%d
-        date = datetime.strptime(date, "%y-%m-%d").strftime("%Y.%m.%d")
-    except ValueError:
-        return ""
-    return date
+    new_date = ""
+    date_formats = ["%Y-%m-%d", "%y-%m-%d"]
+    for date_format in date_formats:
+        try:
+            new_date = datetime.strptime(date, date_format).strftime("%Y.%m.%d")
+            break
+        except ValueError:
+            continue
+    return new_date
 
 
 # 获取文章里标记的不展示标签标识，语法匹配<<notags()>>
