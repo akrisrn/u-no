@@ -18,9 +18,6 @@ uno_version = ""
 # 是否使用CDN引入静态库
 uno_use_cdn = True
 
-# 侧边栏展示文字
-uno_sidebar_show_text = ""
-
 # 根目录下文章目录名
 uno_articles_dir_name = ""
 # 文章目录下附件目录名字

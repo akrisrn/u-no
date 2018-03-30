@@ -38,11 +38,6 @@ def get_date_flag(content):
     return date
 
 
-# 获取文章里标记的关闭侧边栏标识，语法匹配<<nosidebar()>>
-def get_no_sidebar_flag(content):
-    return re.search(get_flag_regexp("nosidebar"), content)
-
-
 # 获取文章里标记的固定索引标识，语法匹配<<fixed()>>
 def get_fixed_flag(content):
     return re.search(get_flag_regexp("fixed"), content)

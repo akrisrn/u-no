@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 
-from config import uno_debug, uno_port, uno_host, uno_sidebar_show_text, \
-    uno_site_name, uno_maintenance, uno_static_dir_name
+from config import uno_debug, uno_port, uno_host, uno_site_name, uno_maintenance, uno_static_dir_name
 from src.index import index_url_key, index_title_key, index_id_key, index_tags_key, index_date_key
 from src.util import get_static_file_url, get_static_lib_url
 from src.view.main import main
@@ -15,7 +14,6 @@ app.register_blueprint(maintenance if uno_maintenance else main)
 app.jinja_env.auto_reload = True
 # 绑定变量到jinja模板
 app.jinja_env.globals["site_name"] = uno_site_name
-app.jinja_env.globals["sidebar_show_text"] = uno_sidebar_show_text
 app.jinja_env.globals["index_id_name"] = index_id_key
 app.jinja_env.globals["index_title_name"] = index_title_key
 app.jinja_env.globals["index_url_name"] = index_url_key

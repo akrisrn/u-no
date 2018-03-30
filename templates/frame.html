@@ -35,12 +35,6 @@
             src: url({{ get_static_lib_url('source-code-pro.ttf') }});
         }
 
-        {% if no_sidebar %}
-            #content {
-                width: 100%;
-            }
-        {% endif %}
-
         {% block extra_style %}
         {% endblock %}
     </style>
@@ -54,11 +48,6 @@
         {% block content %}
         {% endblock %}
     </div>
-    {% if not no_sidebar %}
-        <div id="sidebar">
-            {{ sidebar_show_text | safe }}
-        </div>
-    {% endif %}
 </div>
 <div id="to-top">
     <i class="fas fa-chevron-up" style="font-size: 36px"></i>

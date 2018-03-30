@@ -39,7 +39,7 @@ body {
 }
 
 #body {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -49,7 +49,7 @@ body {
     z-index: 5;
     float: left;
     box-sizing: border-box;
-    width: 70%;
+    width: 100%;
     margin-top: 85px;
     margin-bottom: 40px;
     top: 30px;
@@ -62,23 +62,7 @@ body {
     -o-transition: margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s, width 0.5s, top 0.5s;
 }
 
-#sidebar {
-    line-height: 30px;
-    float: left;
-    box-sizing: border-box;
-    width: 27%;
-    margin-top: 85px;
-    margin-left: 35px;
-    padding: 30px 40px;
-    background: white;
-    box-shadow: 0 2px 10px 2px gainsboro;
-    transition: margin 0.5s, width 0.5s;
-    -moz-transition: margin 0.5s, width 0.5s;
-    -webkit-transition: margin 0.5s, width 0.5s;
-    -o-transition: margin 0.5s, width 0.5s;
-}
-
-#content hr, #sidebar hr {
+#content hr {
     border-bottom-color: #eee;
     height: 0.25em;
     padding: 0;
@@ -130,15 +114,10 @@ body {
     padding: 0 10px;
 }
 
-@media screen and (max-width: 1220px) {
+@media screen and (max-width: 1020px) {
     #content {
         width: 100%;
         margin-top: 50px;
         margin-bottom: 0;
-    }
-
-    #sidebar {
-        width: 100%;
-        margin: 0;
     }
 }

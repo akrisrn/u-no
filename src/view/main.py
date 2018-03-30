@@ -9,7 +9,7 @@ from config import uno_update_url_name, uno_update_limit_time, uno_reindex_url_n
     uno_index_file_name, uno_attachments_dir_name, uno_articles_dir_name, uno_strip_prefix, uno_ignore_file_list, \
     uno_ignore_dir_list, uno_make_file_ignore_arg
 from src.flag import get_fixed_flag, get_date_flag, get_tags_flag, get_unignore_flag, get_ignore_flag, \
-    get_custom_js_flag, get_custom_css_flag, get_no_sidebar_flag
+    get_custom_js_flag, get_custom_css_flag
 from src.index import index_url_key, index_title_key, index_id_key, index_fixed_key, index_tags_key, index_date_key, \
     get_item_by_path, get_item_by_url, index_data_filter, get_fixed_articles
 from src.md import render
@@ -35,7 +35,7 @@ def index_file_page():
     search_index = [index_id_key, index_title_key, index_tags_key, index_date_key]
     # 传递非空搜索给过滤器筛选，并得到最大标签数量
     data, max_tag_num = index_data_filter([[search_index[i], search[i]] for i in range(len(search)) if search[i]])
-    return render_template('index.html', title="Index", data=data, max_tag_num=max_tag_num, no_sidebar=True)
+    return render_template('index.html', title="Index", data=data, max_tag_num=max_tag_num)
 
 
 # 文章和附件页，通过对应的目录名和哈希值访问，文章展示markdown渲染结果，附件直接展示源文件
@@ -63,8 +63,6 @@ def article_page(dir_name, file_hash):
     if dir_name == uno_articles_dir_name:
         with open(item_abspath, encoding='utf-8') as file_data:
             data = file_data.read()
-        # 识别文章中的隐藏侧边栏标识
-        no_sidebar = get_no_sidebar_flag(data)
         # 识别文章中的自定义css文件，获取自定义css文件url列表
         css_urls = get_custom_css_flag(data)
         # 识别文章中的自定义js文件，获取自定义js文件url列表
@@ -76,7 +74,7 @@ def article_page(dir_name, file_hash):
         date = item[index_date_key]
         tags = item[index_tags_key].keys()
         return render_template('article.html', title=title, data=data, date=date, tags=tags,
-                               css_urls=css_urls, js_urls=js_urls, no_sidebar=no_sidebar)
+                               css_urls=css_urls, js_urls=js_urls)
     else:
         # 定向到源文件
         file_dir, file = os.path.split(item_abspath)
