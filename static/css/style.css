@@ -11,10 +11,10 @@ body {
 
 #header {
     z-index: 10;
-    width: 100%;
-    height: 40px;
-    padding-top: 10px;
-    text-align: center;
+    max-width: 900px;
+    height: 50px;
+    margin: 0 auto;
+    padding: 20px 50px 0 50px;
 }
 
 #header a {
@@ -47,7 +47,7 @@ body {
     box-sizing: border-box;
     width: 100%;
     top: 30px;
-    padding: 30px 50px;
+    padding: 0 50px;
     transition: margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s, width 0.5s, top 0.5s;
     -moz-transition: margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s, width 0.5s, top 0.5s;
     -webkit-transition: margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s, width 0.5s, top 0.5s;
