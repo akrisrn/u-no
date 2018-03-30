@@ -123,5 +123,5 @@ def index_data_filter(searches):
 def get_about_article_url():
     article = get_item_by_path(uno_about_file_name)
     if not article:
-        return ["", ""]
+        return []
     return article[index_url_key].split("/")[1:]
