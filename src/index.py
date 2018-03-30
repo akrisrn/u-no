@@ -12,6 +12,7 @@ index_url_key = "url"
 index_date_key = "date"
 index_tags_key = "tags"
 index_fixed_key = "fixed"
+index_notags_key = "notags"
 
 
 # 获取索引文件数据

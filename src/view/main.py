@@ -11,7 +11,7 @@ from config import uno_update_url_name, uno_update_limit_time, uno_reindex_url_n
 from src.flag import get_fixed_flag, get_date_flag, get_tags_flag, get_unignore_flag, get_ignore_flag, \
     get_custom_js_flag, get_custom_css_flag, get_notags_flag
 from src.index import index_url_key, index_title_key, index_id_key, index_fixed_key, index_tags_key, index_date_key, \
-    get_item_by_path, get_item_by_url, index_data_filter, get_fixed_articles
+    get_item_by_path, get_item_by_url, index_data_filter, get_fixed_articles, index_notags_key
 from src.md import render
 from src.util import handle_thread, get_update_cmd, compute_digest_by_abspath, compute_digest_by_data, \
     update_config_ignore_file_list, get_articles_dir_abspath, get_reindex_cmd, update_config_version
@@ -63,8 +63,6 @@ def article_page(dir_name, file_hash):
     if dir_name == uno_articles_dir_name:
         with open(item_abspath, encoding='utf-8') as file_data:
             data = file_data.read()
-        # 识别文章中的不显示标签标识
-        notags = get_notags_flag(data)
         # 识别文章中的自定义css文件，获取自定义css文件url列表
         css_urls = get_custom_css_flag(data)
         # 识别文章中的自定义js文件，获取自定义js文件url列表
@@ -75,6 +73,7 @@ def article_page(dir_name, file_hash):
         title = os.path.splitext(item[index_title_key])[0]
         date = item[index_date_key]
         tags = item[index_tags_key].keys()
+        notags = item[index_notags_key]
         return render_template('article.html', title=title, data=data, date=date, tags=tags, css_urls=css_urls,
                                js_urls=js_urls, notags=notags)
     else:
@@ -156,6 +155,10 @@ def reindex_thread():
                 date = get_date_flag(data)
                 # 计算文章哈希组成url
                 url = "/%s/%s" % (uno_articles_dir_name, compute_digest_by_data(data))
+                notags = False
+                # 识别文章中不展示标签标识
+                if get_notags_flag(data):
+                    notags = True
                 fixed = False
                 # 识别文章中固定索引标识，来判断是否更新哈希
                 if get_fixed_flag(data):
@@ -166,7 +169,8 @@ def reindex_thread():
                     fixed = True
                 # 组成一条文章索引
                 articles_block[file_path] = {index_id_key: item_id, index_title_key: title, index_url_key: url,
-                                             index_date_key: date, index_tags_key: tags, index_fixed_key: fixed}
+                                             index_date_key: date, index_tags_key: tags, index_fixed_key: fixed,
+                                             index_notags_key: notags}
             else:
                 # 组成一条附件索引
                 url = "/%s/%s" % (uno_attachments_dir_name, compute_digest_by_abspath(file_abspath))

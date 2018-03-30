@@ -35,11 +35,13 @@
                     <a href="{{ fixed_article[index_url_name] }}">
                         {{ fixed_article[index_title_name].split(".")[0] }}
                     </a>
-                    {% for tag in fixed_article[index_tags_name] | sort %}
-                        <div class="tag">
-                            <a href="/tag/{{ tag }}"><i class="fas fa-hashtag"></i>{{ tag }}</a>
-                        </div>
-                    {% endfor %}
+                    {% if not fixed_article[index_notags_name] %}
+                        {% for tag in fixed_article[index_tags_name] | sort %}
+                            <div class="tag">
+                                <a href="/tag/{{ tag }}"><i class="fas fa-hashtag"></i>{{ tag }}</a>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                     <div class="date">{{ fixed_article[index_date_name] }}</div>
                 </li>
             {% endfor %}
