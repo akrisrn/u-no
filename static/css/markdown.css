@@ -17,16 +17,8 @@
     font-size: x-small;
 }
 
-.markdown-body a i {
-    color: #24292e;
-    transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -o-transition: all 0.5s
-}
-
-.markdown-body a:hover i {
-    color: #0366d6;
+.markdown-body a:hover {
+    text-decoration: none;
 }
 
 /* Critic Markup Start */

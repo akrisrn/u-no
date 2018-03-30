@@ -10,6 +10,24 @@ body {
     background-color: #F7F7F7;
 }
 
+a, a i {
+    color: #24292e;
+    text-decoration: none;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s
+}
+
+a:hover {
+    color: grey;
+    text-decoration: none;
+}
+
+a:hover i {
+    color: #0366d6;
+}
+
 #body {
     max-width: 1000px;
     margin: 20px auto 0 auto;
@@ -43,7 +61,7 @@ body {
 
 #date {
     text-align: right;
-    margin-top: -15px;
+    margin-top: -20px;
     margin-bottom: -10px
 }
 
@@ -80,11 +98,6 @@ body {
 
 .tag a {
     color: grey;
-    text-decoration: none;
-    transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -o-transition: all 0.5s
 }
 
 .tag a:hover {
