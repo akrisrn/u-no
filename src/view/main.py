@@ -149,6 +149,7 @@ def reindex_thread():
             else:
                 item_id = ""
                 title = file_path
+            title = title.replace("+：", ":")
             if not path.startswith(uno_attachments_dir_name):
                 # 获取标签并生成标签字典
                 # noinspection PyUnboundLocalVariable
