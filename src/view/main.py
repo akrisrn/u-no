@@ -102,7 +102,7 @@ reindex_thread_limit = []
 
 
 # 重建索引线程函数
-def reindex_thread():
+def reindex_thread(sleep_time=uno_reindex_limit_time):
     # 执行重建索引命令
     os.popen(get_reindex_cmd()).close()
     articles_dir_abspath = get_articles_dir_abspath()
@@ -179,7 +179,7 @@ def reindex_thread():
     with open(os.path.join(articles_dir_abspath, uno_index_file_name), 'w', encoding='utf-8') as index_file:
         index_file.write(index_data)
     # 冷却
-    time.sleep(uno_reindex_limit_time)
+    time.sleep(sleep_time)
 
 
 # 重建索引页，通过重建索引url名访问，另开线程执行操作，出于保密url原因返回404
@@ -195,13 +195,13 @@ update_thread_limit = []
 
 
 # 更新程序线程函数
-def update_thread():
+def update_thread(sleep_time=uno_update_limit_time):
     # 执行更新程序命令
     # 更新版本号
     update_config_version()
     os.popen(get_update_cmd()).close()
     # 冷却
-    time.sleep(uno_update_limit_time)
+    time.sleep(sleep_time)
 
 
 # 更新程序页，通过更新程序url名访问，另开线程执行操作，出于保密url原因返回404
