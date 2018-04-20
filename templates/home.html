@@ -36,6 +36,7 @@
                     <i class="fas fa-angle-double-right"></i>
                     <a href="{{ fixed_article[index_url_key] }}"
                        {% if fixed_article[index_highlight_key] %}class="article-hl"{% endif %}>
+                        {% if fixed_article[index_highlight_key] %}<i class="fas fa-star"></i>{% endif %}
                         {{ fixed_article[index_title_key].split(".")[0] }}
                     </a>
                     {% if not fixed_article[index_notags_key] %}

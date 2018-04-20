@@ -102,8 +102,3 @@ a:hover i {
 .article-hl {
     font-weight: bold;
 }
-
-.article-hl:before {
-    content: "\f005";
-    font-family: Font Awesome\ 5 Free, serif;
-}
