@@ -68,10 +68,17 @@ a:hover i {
     cursor: pointer;
     right: 12px;
     z-index: 10;
-    transition: opacity 0.5s;
-    -moz-transition: opacity 0.5s;
-    -webkit-transition: opacity 0.5s;
-    -o-transition: opacity 0.5s;
+}
+
+#to-top, #to-top i {
+    transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+}
+
+#to-top:hover i {
+    color: #0366d6;
 }
 
 .center {
