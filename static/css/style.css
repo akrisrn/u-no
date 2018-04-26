@@ -10,7 +10,7 @@ body {
     background-color: #F7F7F7;
 }
 
-a, a i {
+a, a i, li i {
     color: #24292e;
     text-decoration: none;
     transition: all 0.5s;
@@ -24,7 +24,7 @@ a:hover {
     text-decoration: none;
 }
 
-a:hover i {
+a:hover i, li:hover > i:first-child {
     color: #0366d6;
 }
 
