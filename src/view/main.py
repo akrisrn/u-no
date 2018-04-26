@@ -84,7 +84,7 @@ def article_page(dir_name, file_hash):
 
 
 # 标签页
-@main.route('/tag/<tag_name>')
+@main.route('/tags/<tag_name>')
 def tag_page(tag_name):
     new_fixed_articles = []
     fixed_articles = get_fixed_articles()

@@ -19,7 +19,8 @@
         <i class="fas fa-tags fa-xs"></i>
         {% for tag in tags | sort %}
             <div class="tag">
-                <a href="/tag/{{ tag }}"><i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ tag }}</a>
+                <a href="{{ url_for('main.tag_page', tag_name=tag) }}"><i style="margin-right: 3px"
+                                                                          class="fas fa-hashtag"></i>{{ tag }}</a>
             </div>
         {% endfor %}
     {% endif %}
