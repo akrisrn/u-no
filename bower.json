@@ -22,7 +22,7 @@
     "underscore": "^1.8.3",
     "js-sequence-diagrams": "^2.0.1",
     "flowchart": "^1.8.0",
-    "MathJax": "^2.7.3",
+    "MathJax": "components/MathJax#^2.6.0",
     "sourcecodepro-googlefont": "*",
     "tablesorter": "jquery.tablesorter#^2.30.1",
     "raty": "jquery-raty#^2.8.0",
