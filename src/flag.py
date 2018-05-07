@@ -1,8 +1,8 @@
 import re
 from datetime import datetime
 
+import src.index
 from config import uno_default_tag
-from src.index import index_url_key, get_item_by_path
 from src.util import clean_text, regexp_join
 
 
@@ -80,9 +80,9 @@ def get_custom_css_flag(data, custom_type="css"):
     for css_path in clean_text(group.group(1)).split(","):
         if css_path:
             # 根据css文件相对路径从索引文件中取出url
-            item = get_item_by_path(css_path)
+            item = src.index.get_item_by_path(css_path)
             if item:
-                css_urls.append(item[index_url_key])
+                css_urls.append(item[src.index.index_url_key])
     return css_urls
 
 
