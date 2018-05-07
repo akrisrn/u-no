@@ -22,14 +22,10 @@ uno_articles_dir_name = ""
 uno_attachments_dir_name = ""
 # 索引文件名
 uno_index_file_name = ""
-# 重建索引的URL名
-uno_reindex_url_name = ""
 # 更新程序的URL名
 uno_update_url_name = ""
 # 更新时重启的systemd服务名
 uno_update_service_name = ""
-# 重建索引的冷却时间
-uno_reindex_limit_time = 60 * 10
 # 更新的冷却时间
 uno_update_limit_time = 60 * 10
 

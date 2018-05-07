@@ -2,8 +2,12 @@ import json
 import os
 import re
 
-from config import uno_index_file_name
-from src.util import regexp_join, get_articles_dir_abspath
+from config import uno_index_file_name, uno_attachments_dir_name, uno_articles_dir_name, uno_strip_prefix, \
+    uno_ignore_file_list, uno_ignore_dir_list
+from src.flag import get_highlight_flag, get_top_flag, get_notags_flag, get_fixed_flag, get_date_flag, get_tags_flag, \
+    get_unignore_flag, get_ignore_flag
+from src.util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
+    update_config_ignore_file_list, get_reindex_cmd
 
 # 组成索引的JSON数据所用的键名
 index_id_key = "id"
@@ -127,3 +131,82 @@ def index_data_filter(searches):
             if is_find:
                 attachments.append(attachment)
     return [articles, attachments], max_tag_num
+
+
+# 重建索引
+def reindex():
+    # 执行重建索引命令
+    os.popen(get_reindex_cmd()).close()
+    articles_dir_abspath = get_articles_dir_abspath()
+    articles_block = {}
+    attachments_block = {}
+    # 遍历文章目录下所有文件和子目录
+    for root, dirs, files in os.walk(articles_dir_abspath):
+        # 截取相对路径
+        # noinspection PyTypeChecker
+        path = root.split(uno_articles_dir_name)[-1].lstrip(os.path.sep).replace("\\", "/")
+        # 排除忽略目录
+        is_ignore = False
+        for ignore_dir in uno_ignore_dir_list:
+            if path.startswith(ignore_dir):
+                is_ignore = True
+                break
+        if is_ignore:
+            continue
+        for file in files:
+            # 组成文件路径
+            file_path = "/".join([path, file]).lstrip("/")
+            file_abspath = os.path.join(root, file)
+            if not path.startswith(uno_attachments_dir_name):
+                # 忽略无法以unicode编码的文件
+                try:
+                    with open(file_abspath, encoding='utf-8') as file_data:
+                        data = file_data.read()
+                except UnicodeDecodeError:
+                    continue
+                # 识别文章中的忽略文件标识，来判断如何更新忽略列表
+                if get_ignore_flag(data):
+                    update_config_ignore_file_list(file_path, True)
+                # 识别文章中的取消忽略文件标识，来判断如何更新忽略列表
+                if get_unignore_flag(data):
+                    update_config_ignore_file_list(file_path, False)
+            # 排除忽略文件
+            if file_path in uno_ignore_file_list:
+                continue
+            # 分离编号和标题
+            group = re.search("(%s)" % uno_strip_prefix, file_path)
+            if group:
+                item_id = group.group(1).strip("-")
+                title = re.sub(group.group(1), "", file_path)
+            else:
+                item_id = ""
+                title = file_path
+            title = title.replace("+：", ":")
+            if not path.startswith(uno_attachments_dir_name):
+                # 获取标签并生成标签字典
+                # noinspection PyUnboundLocalVariable
+                tags = {tag: "/%s?t=%s" % (uno_index_file_name, tag) for tag in get_tags_flag(data)}
+                # 获取日期
+                date = get_date_flag(data)
+                # 计算文章哈希组成url
+                url = "/%s/%s" % (uno_articles_dir_name, compute_digest_by_data(data))
+                # 识别文章中固定索引标识，来判断是否更新哈希
+                fixed = get_fixed_flag(data)
+                if fixed:
+                    # 查找旧索引中对应的项目，如果存在则沿用哈希
+                    item = get_item_by_path(file_path)
+                    if item:
+                        url = item[index_url_key]
+                # 组成一条文章索引
+                articles_block[file_path] = {index_id_key: item_id, index_title_key: title, index_url_key: url,
+                                             index_date_key: date, index_tags_key: tags, index_fixed_key: fixed,
+                                             index_notags_key: get_notags_flag(data), index_top_key: get_top_flag(data),
+                                             index_highlight_key: get_highlight_flag(data)}
+            else:
+                # 组成一条附件索引
+                url = "/%s/%s" % (uno_attachments_dir_name, compute_digest_by_abspath(file_abspath))
+                attachments_block[file_path] = {index_id_key: item_id, index_title_key: title, index_url_key: url}
+    # 写入索引文件
+    index_data = json.dumps([articles_block, attachments_block], separators=(',', ':'))
+    with open(os.path.join(articles_dir_abspath, uno_index_file_name), 'w', encoding='utf-8') as index_file:
+        index_file.write(index_data)
