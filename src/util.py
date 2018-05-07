@@ -1,23 +1,10 @@
 import hashlib
 import os
-import platform
 import re
-from threading import Thread
 
 from flask import url_for
 
-from config import uno_ignore_file_list, uno_update_service_name, uno_debug, uno_version, uno_articles_dir_name, \
-    uno_use_cdn
-
-
-# 判断操作系统是否是Windows
-def is_windows():
-    return True if platform.system() == "Windows" else False
-
-
-# 获取系统命令分隔符
-def get_os_cmd_sep():
-    return "&" if is_windows() else ";"
+from config import uno_ignore_file_list, uno_debug, uno_version, uno_articles_dir_name, uno_use_cdn
 
 
 # 获取根目录绝对路径
@@ -62,30 +49,6 @@ def get_version(url):
     return "%s?v=%s" % (url, ver)
 
 
-# 获取重建索引命令
-def get_reindex_cmd(dir_abspath=get_articles_dir_abspath()):
-    # 移动到文章目录执行git pull
-    return get_os_cmd_sep().join(["cd %s" % dir_abspath, "git pull"])
-
-
-# 获取更新程序命令
-def get_update_cmd():
-    # 移动到根目录执行git pull，如果不是Windows，尝试重启systemd服务
-    restart_cmd = "" if is_windows() else "systemctl restart %s" % uno_update_service_name
-    return get_os_cmd_sep().join([get_reindex_cmd(get_root_abspath()), restart_cmd])
-
-
-# 处理线程，在限制列表下只能同时运行一个线程任务
-def handle_thread(thread_limit_list, target):
-    # 如果线程结束了，清空限制列表
-    if thread_limit_list and not thread_limit_list[0].is_alive():
-        thread_limit_list.clear()
-    # 如果限制列表为空，加入新任务到限制列表并启动
-    if not thread_limit_list:
-        thread_limit_list.append(Thread(target=target))
-        thread_limit_list[0].start()
-
-
 def update_config(origin, replace):
     # 读取配置文件数据
     config_abspath = os.path.join(get_root_abspath(), "config.py")
@@ -110,14 +73,6 @@ def update_config_ignore_file_list(file_path, is_add):
     # 用新列表替换旧列表
     replace = "%s = %s" % ("uno_ignore_file_list", uno_ignore_file_list)
     origin = "%s\s*=\s*\[.*?\]" % "uno_ignore_file_list"
-    update_config(origin, replace)
-
-
-def update_config_version():
-    cmd = get_os_cmd_sep().join(["cd %s" % get_root_abspath(), "git rev-list --branches | head -n 1 | cut -b 1-7"])
-    result = os.popen(cmd).read().strip()
-    replace = '%s = "%s"' % ("uno_version", result)
-    origin = '%s\s*=\s*".*?"' % "uno_version"
     update_config(origin, replace)
 
 

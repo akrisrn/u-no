@@ -1,16 +1,13 @@
 import os
-import time
 
 from flask import send_from_directory, Blueprint, render_template, request, abort
 
-from config import uno_update_url_name, uno_update_limit_time, uno_index_file_name, uno_attachments_dir_name, \
-    uno_articles_dir_name, uno_make_file_ignore_arg
+from config import uno_index_file_name, uno_attachments_dir_name, uno_articles_dir_name, uno_make_file_ignore_arg
 from src.flag import get_custom_js_flag, get_custom_css_flag
-from src.index import index_title_key, index_id_key, index_tags_key, index_date_key, \
-    get_item_by_url, index_data_filter, get_fixed_articles, index_notags_key, reindex
+from src.index import index_title_key, index_id_key, index_tags_key, index_date_key, get_item_by_url, \
+    index_data_filter, get_fixed_articles, index_notags_key, reindex
 from src.md import render
-from src.util import handle_thread, get_update_cmd, update_config_ignore_file_list, get_articles_dir_abspath, \
-    update_config_version
+from src.util import update_config_ignore_file_list, get_articles_dir_abspath
 
 main = Blueprint("main", __name__)
 
@@ -90,25 +87,3 @@ def tag_page(tag_name):
     if not new_fixed_articles:
         abort(404)
     return render_template('home.html', fixed_articles=new_fixed_articles, tag_name=tag_name)
-
-
-# 更新程序线程限制
-update_thread_limit = []
-
-
-# 更新程序线程函数
-def update_thread(sleep_time=uno_update_limit_time):
-    # 执行更新程序命令
-    # 更新版本号
-    update_config_version()
-    os.popen(get_update_cmd()).close()
-    # 冷却
-    time.sleep(sleep_time)
-
-
-# 更新程序页，通过更新程序url名访问，另开线程执行操作，出于保密url原因返回404
-@main.route('/%s' % uno_update_url_name)
-def update():
-    # 重建索引线程处理
-    handle_thread(update_thread_limit, update_thread)
-    abort(404)

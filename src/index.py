@@ -7,7 +7,7 @@ from config import uno_index_file_name, uno_attachments_dir_name, uno_articles_d
 from src.flag import get_highlight_flag, get_top_flag, get_notags_flag, get_fixed_flag, get_date_flag, get_tags_flag, \
     get_unignore_flag, get_ignore_flag
 from src.util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
-    update_config_ignore_file_list, get_reindex_cmd
+    update_config_ignore_file_list
 
 # 组成索引的JSON数据所用的键名
 index_id_key = "id"
@@ -135,8 +135,6 @@ def index_data_filter(searches):
 
 # 重建索引
 def reindex():
-    # 执行重建索引命令
-    os.popen(get_reindex_cmd()).close()
     articles_dir_abspath = get_articles_dir_abspath()
     articles_block = {}
     attachments_block = {}

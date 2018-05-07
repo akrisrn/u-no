@@ -1,4 +1,4 @@
-from src.view.main import reindex_thread
+from src.index import reindex
 
 if __name__ == '__main__':
-    reindex_thread(0)
+    reindex()
