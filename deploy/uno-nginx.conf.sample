@@ -11,10 +11,10 @@ server {
 
     location @uno {
         include uwsgi_params;
-        uwsgi_pass unix:/var/www/html/u-no/deploy/uno-uwsgi.sock;
+        uwsgi_pass unix:/YOUR_SOCK_FILE_PATH;
     }
 
     location /static {
-        root /var/www/html/u-no/;
+        root /YOUR_PROJECT_PATH;
     }
 }

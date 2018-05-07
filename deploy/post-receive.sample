@@ -1,5 +1,5 @@
 #!/bin/sh
 unset GIT_DIR
-PROJECT_DIR=/YOUR_PROJECT/
-VENV_DIR=/YOUR_VENV/
-${VENV_DIR}bin/python ${PROJECT_DIR}reindex.py
+PROJECT_DIR=/YOUR_PROJECT_PATH
+VENV_DIR=/YOUR_VENV_PATH
+${VENV_DIR}/bin/python ${PROJECT_DIR}/reindex.py

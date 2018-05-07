@@ -1,0 +1,16 @@
+[uwsgi]
+base = /YOUR_PROJECT_PATH
+
+app = uno
+module = %(app)
+
+home = /YOUR_VENV_PATH
+pythonpath = %(base)
+
+socket = /YOUR_SOCK_FILE_PATH
+
+chmod-socket = 666
+
+callable = app
+
+logto = /YOUR_LOG_FILE_PATH

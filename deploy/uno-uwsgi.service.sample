@@ -3,7 +3,7 @@ Description=U-NO uWSGI Emperor
 After=syslog.target
 
 [Service]
-ExecStart=/usr/bin/uwsgi --ini /var/www/html/u-no/deploy/uno-uwsgi.ini
+ExecStart=/usr/bin/uwsgi --ini /YOUR_UNO-UWSGI.INI_PATH
 # Requires systemd version 211 or newer
 RuntimeDirectory=uwsgi
 Restart=always
