@@ -5,6 +5,10 @@ uno_host = "127.0.0.1"
 uno_port = 5000
 # 是否开启调试
 uno_debug = False
+# 登陆索引页密码
+uno_password = ""
+# 用于会话储存的密钥
+uno_secret_key = ""
 
 # 静态文件目录
 uno_static_dir_name = "static"

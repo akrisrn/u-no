@@ -1,0 +1,30 @@
+{% extends "frame.html" %}
+{% block title %}
+    Login
+{% endblock %}
+{% block content %}
+    <script>
+        $(document).ready(function () {
+            $("input[type=password]").keydown(function (e) {
+                if (e.which === 13) {
+                    $("button[type=submit]").click();
+                    return false;
+                }
+            });
+        });
+    </script>
+    <hr>
+    <div class="center">
+        <h1 {% if error %}style="color: red;"{% endif %}>* PASSWORD *</h1>
+        <form method="post">
+            <label>
+                <input type="password" name="password"/>
+            </label>
+            <label>
+                <input name="referrer" value="{{ referrer }}" style="display: none">
+            </label>
+            <button type="submit" style="display: none">Submit</button>
+        </form>
+    </div>
+    <hr>
+{% endblock %}
