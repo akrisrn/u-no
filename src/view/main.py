@@ -29,8 +29,8 @@ def index_file_page():
               request.args.get('d', '').strip()]  # 搜索日期
     search_index = [index_id_key, index_title_key, index_tags_key, index_date_key]
     # 传递非空搜索给过滤器筛选，并得到最大标签数量
-    data, max_tag_num = index_data_filter([[search_index[i], search[i]] for i in range(len(search)) if search[i]])
-    return render_template('index.html', title="Index", data=data, max_tag_num=max_tag_num)
+    data = index_data_filter([[search_index[i], search[i]] for i in range(len(search)) if search[i]])
+    return render_template('index.html', title="Index", data=data)
 
 
 # 文章和附件页，通过对应的目录名和哈希值访问，文章展示markdown渲染结果，附件直接展示源文件

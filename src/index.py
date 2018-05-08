@@ -78,7 +78,6 @@ def get_fixed_articles():
 def index_data_filter(searches):
     articles = []
     attachments = []
-    max_tag_num = 0
     index_data = get_index_data()
     if index_data:
         articles_block = index_data[0]
@@ -109,8 +108,6 @@ def index_data_filter(searches):
                         break
             # 如果找到则把文章加入列表
             if is_find:
-                # 计算最大标签数量
-                max_tag_num = max(max_tag_num, len(article[index_tags_key]))
                 articles.append(article)
         # 处理附件块
         for attachment_path in attachments_block:
@@ -130,7 +127,7 @@ def index_data_filter(searches):
             # 如果找到则把附件加入列表
             if is_find:
                 attachments.append(attachment)
-    return [articles, attachments], max_tag_num
+    return [articles, attachments]
 
 
 # 重建索引
