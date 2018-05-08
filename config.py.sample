@@ -39,3 +39,5 @@ uno_strip_prefix = ""
 
 # 无标签时默认标签名
 uno_default_tag = ""
+# 私密标签，只有登陆后才能访问
+uno_secret_tags = []

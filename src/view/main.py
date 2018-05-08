@@ -3,10 +3,10 @@ import os
 from flask import send_from_directory, Blueprint, render_template, request, abort, url_for, redirect, session
 
 from config import uno_index_file_name, uno_attachments_dir_name, uno_articles_dir_name, uno_make_file_ignore_arg, \
-    uno_password
+    uno_password, uno_secret_tags
 from src.flag import get_custom_js_flag, get_custom_css_flag
 from src.index import index_title_key, index_id_key, index_tags_key, index_date_key, get_item_by_url, \
-    index_data_filter, get_fixed_articles, index_notags_key, reindex, index_fixed_key, index_parent_key
+    index_data_filter, get_fixed_articles, index_notags_key, reindex, index_parent_key
 from src.md import render
 from src.util import update_config_ignore_file_list, get_articles_dir_abspath, logged, auth
 
@@ -49,8 +49,10 @@ def article_page(dir_name, file_hash):
     item, item_path = get_item_by_url("/%s/%s" % (dir_name, file_hash))
     if not item:
         abort(404)
-    if not logged() and not item[index_fixed_key]:
-        abort(404)
+    if not logged():
+        for secret_tag in uno_secret_tags:
+            if secret_tag in item[index_tags_key]:
+                abort(404)
     # 判断文件是否存在
     item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
     if not os.path.exists(item_abspath):
