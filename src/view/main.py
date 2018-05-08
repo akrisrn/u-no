@@ -6,7 +6,7 @@ from config import uno_index_file_name, uno_attachments_dir_name, uno_articles_d
     uno_password
 from src.flag import get_custom_js_flag, get_custom_css_flag
 from src.index import index_title_key, index_id_key, index_tags_key, index_date_key, get_item_by_url, \
-    index_data_filter, get_fixed_articles, index_notags_key, reindex, index_fixed_key
+    index_data_filter, get_fixed_articles, index_notags_key, reindex, index_fixed_key, index_parent_key
 from src.md import render
 from src.util import update_config_ignore_file_list, get_articles_dir_abspath, logged, auth
 
@@ -30,7 +30,13 @@ def index_file_page():
     search_index = [index_id_key, index_title_key, index_tags_key, index_date_key]
     # 传递非空搜索给过滤器筛选，并得到最大标签数量
     data = index_data_filter([[search_index[i], search[i]] for i in range(len(search)) if search[i]])
-    return render_template('index.html', title="Index", data=data)
+    parents = {}
+    for item in data[0]:
+        parent = item[index_parent_key]
+        if parent not in parents:
+            parents[parent] = []
+        parents[parent].append(item)
+    return render_template('index.html', title="Index", data=[parents, data[1]], attach_dir=uno_attachments_dir_name)
 
 
 # 文章和附件页，通过对应的目录名和哈希值访问，文章展示markdown渲染结果，附件直接展示源文件

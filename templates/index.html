@@ -84,34 +84,41 @@
         })
     </script>
     <div class="markdown-body">
-        {% set articles = data[0] %}
+        {% set parents = data[0] %}
         {% set attachments = data[1] %}
-        <table style="height:600px;">
-            <thead>
-            <tr>
-                <th>No.</th>
-                <th>Title</th>
-                <th>Date</th>
-                <th>Tags</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for article in articles %}
+        {% set max_table_height = 400 %}
+        {% for parent in parents %}
+            {% set articles = parents[parent] %}
+            <h3>{{ parent }}</h3>
+            <table style="height:{{ max_table_height }}px;">
+                <thead>
                 <tr>
-                    <td align="right">{{ article[index_id_key] }}</td>
-                    <td><a href="{{ article[index_url_key] }}">{{ article[index_title_key] }}</a></td>
-                    <td>{{ article[index_date_key] }}</td>
-                    <td>
-                        {% for tag in article[index_tags_key] | sort %}
-                            <a href="{{ article[index_tags_key][tag] }}"><i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ tag }}</a>
-                        {% endfor %}
-                    </td>
+                    <th>No.</th>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Tags</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <hr>
-        <table>
+                </thead>
+                <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <td align="right">{{ article[index_id_key] }}</td>
+                        <td><a href="{{ article[index_url_key] }}">{{ article[index_title_key] }}</a></td>
+                        <td>{{ article[index_date_key] }}</td>
+                        <td>
+                            {% for tag in article[index_tags_key] | sort %}
+                                <a href="{{ article[index_tags_key][tag] }}"><i style="margin-right: 3px"
+                                                                                class="fas fa-hashtag"></i>{{ tag }}</a>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <hr>
+        {% endfor %}
+        <h3>{{ attach_dir }}</h3>
+        <table style="height:{{ max_table_height }}px;">
             <thead>
             <tr>
                 <th>No.</th>

@@ -11,6 +11,7 @@ from src.util import regexp_join, get_articles_dir_abspath, compute_digest_by_ab
 
 # 组成索引的JSON数据所用的键名
 index_id_key = "id"
+index_parent_key = "parent"
 index_title_key = "title"
 index_url_key = "url"
 index_date_key = "date"
@@ -177,6 +178,7 @@ def reindex():
                 item_id = ""
                 title = file_path
             title = title.replace("+：", ":")
+            parent, title = os.path.split(title)
             if not path.startswith(uno_attachments_dir_name):
                 # 获取标签并生成标签字典
                 # noinspection PyUnboundLocalVariable
@@ -193,14 +195,16 @@ def reindex():
                     if item:
                         url = item[index_url_key]
                 # 组成一条文章索引
-                articles_block[file_path] = {index_id_key: item_id, index_title_key: title, index_url_key: url,
-                                             index_date_key: date, index_tags_key: tags, index_fixed_key: fixed,
-                                             index_notags_key: get_notags_flag(data), index_top_key: get_top_flag(data),
+                articles_block[file_path] = {index_id_key: item_id, index_parent_key: parent, index_title_key: title,
+                                             index_url_key: url, index_date_key: date, index_tags_key: tags,
+                                             index_fixed_key: fixed, index_notags_key: get_notags_flag(data),
+                                             index_top_key: get_top_flag(data),
                                              index_highlight_key: get_highlight_flag(data)}
             else:
                 # 组成一条附件索引
                 url = "/%s/%s" % (uno_attachments_dir_name, compute_digest_by_abspath(file_abspath))
-                attachments_block[file_path] = {index_id_key: item_id, index_title_key: title, index_url_key: url}
+                attachments_block[file_path] = {index_id_key: item_id, index_parent_key: parent, index_title_key: title,
+                                                index_url_key: url}
     # 写入索引文件
     index_data = json.dumps([articles_block, attachments_block], separators=(',', ':'))
     with open(os.path.join(articles_dir_abspath, uno_index_file_name), 'w', encoding='utf-8') as index_file:
