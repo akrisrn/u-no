@@ -36,7 +36,8 @@ def index_file_page():
         if parent not in parents:
             parents[parent] = []
         parents[parent].append(item)
-    return render_template('index.html', title="Index", data=[parents, data[1]], attach_dir=uno_attachments_dir_name)
+    return render_template('index.html', title="Index", data=[parents, data[1]],
+                           article_dir=uno_articles_dir_name, attach_dir=uno_attachments_dir_name)
 
 
 # 文章和附件页，通过对应的目录名和哈希值访问，文章展示markdown渲染结果，附件直接展示源文件

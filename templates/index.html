@@ -14,6 +14,43 @@
     max-width: 9999px;
     margin: 0;
     }
+
+    .tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    }
+
+    .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    }
+
+    .tab button:hover {
+    background-color: #ddd;
+    }
+
+    .tab button.active {
+    background-color: #ccc;
+    }
+
+    .tabcontent {
+    display: none;
+    }
+
+    .tabcontent {
+    animation: fadeEffect 1s;
+    }
+
+    @keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+    }
 {% endblock %}
 {% block content %}
     <h1>{{ title }}</h1>
@@ -28,35 +65,35 @@
     <script>
         $(document).ready(function () {
             function GetRequest() {
-                var url = location.search;
-                var request = {};
+                const url = location.search;
+                const request = {};
                 if (url.indexOf("?") !== -1) {
-                    var str = url.substr(1);
-                    var strList = str.split("&");
-                    for (var i = 0; i < strList.length; i++) {
+                    const str = url.substr(1);
+                    const strList = str.split("&");
+                    for (let i = 0; i < strList.length; i++) {
                         request[strList[i].split("=")[0]] = decodeURI(strList[i].split("=")[1]);
                     }
                 }
                 return request;
             }
 
-            var id = $("#idS");
-            var title = $("#titleS");
-            var tag = $("#tagS");
-            var date = $("#dateS");
+            const id = $("#idS");
+            const title = $("#titleS");
+            const tag = $("#tagS");
+            const date = $("#dateS");
 
-            var request = GetRequest();
+            const request = GetRequest();
             id.val(request["i"]);
             title.val(request["n"]);
             tag.val(request["t"]);
             date.val(request["d"]);
 
             $("#search").click(function () {
-                var idVal = $.trim(id.val());
-                var nameVal = $.trim(title.val());
-                var tagVal = $.trim(tag.val());
-                var dateVal = $.trim(date.val());
-                var href = "";
+                const idVal = $.trim(id.val());
+                const nameVal = $.trim(title.val());
+                const tagVal = $.trim(tag.val());
+                const dateVal = $.trim(date.val());
+                let href = "";
                 if (idVal !== "") {
                     href += "&i=" + idVal
                 }
@@ -80,58 +117,92 @@
                 title.val("");
                 tag.val("");
                 date.val("");
-            })
-        })
+            });
+
+            document.getElementById("defaultOpen").click();
+        });
+
+        function openCity(evt, cityName) {
+            let i, tabcontent, tablinks;
+
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
     </script>
     <div class="markdown-body">
         {% set parents = data[0] %}
         {% set attachments = data[1] %}
-        {% set max_table_height = 360 %}
+        <div class="tab">
+            {% for parent in parents %}
+                {% set parent = parent if parent else article_dir %}
+                <button class="tablinks" onclick="openCity(event, '{{ parent }}')"
+                        {% if loop.index == 1 %}id="defaultOpen"{% endif %}>
+                    {{ parent }}
+                </button>
+            {% endfor %}
+            <button class="tablinks" onclick="openCity(event, '{{ attach_dir }}')">
+                {{ attach_dir }}
+            </button>
+        </div>
         {% for parent in parents %}
-            {% set articles = parents[parent] %}
-            <table style="max-height:{{ max_table_height }}px;width:50%;float:left;">
+            <div id="{{ parent if parent else article_dir }}" class="tabcontent">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Tags</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for article in parents[parent] %}
+                        <tr>
+                            <td align="right">{{ article[index_id_key] }}</td>
+                            <td><a href="{{ article[index_url_key] }}">{{ article[index_title_key] }}</a></td>
+                            <td>{{ article[index_date_key] }}</td>
+                            <td>
+                                {% for tag in article[index_tags_key] | sort %}
+                                    <a href="{{ article[index_tags_key][tag] }}">
+                                        <i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ tag }}
+                                    </a>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+        <div id="{{ attach_dir }}" class="tabcontent">
+            <table>
                 <thead>
                 <tr>
                     <th>No.</th>
                     <th>Title</th>
-                    <th>Date</th>
-                    <th>Tags</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for article in articles %}
+                {% for attachment in attachments %}
                     <tr>
-                        <td align="right">{{ article[index_id_key] }}</td>
-                        <td><a href="{{ article[index_url_key] }}">
-                            {{ parent + "/" if parent else "" }}{{ article[index_title_key] }}</a></td>
-                        <td>{{ article[index_date_key] }}</td>
+                        <td>{{ attachment[index_id_key] }}</td>
                         <td>
-                            {% for tag in article[index_tags_key] | sort %}
-                                <a href="{{ article[index_tags_key][tag] }}"><i style="margin-right: 3px"
-                                                                                class="fas fa-hashtag"></i>{{ tag }}</a>
-                            {% endfor %}
+                            <a href="{{ attachment[index_url_key] }}">{{ attachment[index_title_key] }}</a>
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-        {% endfor %}
-        <table style="max-height:{{ max_table_height }}px;width:50%;float:left;">
-            <thead>
-            <tr>
-                <th>No.</th>
-                <th>Title</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for attachment in attachments %}
-                <tr>
-                    <td>{{ attachment[index_id_key] }}</td>
-                    <td><a href="{{ attachment[index_url_key] }}">{{ attach_dir }}/{{ attachment[index_title_key] }}</a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        </div>
     </div>
 {% endblock %}

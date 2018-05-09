@@ -100,7 +100,7 @@
 }());
 
 $(function () {
-    $("#content").find("> div > table").tablesorter({sortList: [[0, 0]]});
+    $("#content").find("table").tablesorter({sortList: [[0, 0]]});
     $('.star').raty({
         readOnly: true,
         starType: "i"
