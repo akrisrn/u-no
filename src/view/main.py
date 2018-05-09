@@ -9,6 +9,7 @@ from src.index import index_title_key, index_id_key, index_tags_key, index_date_
     index_data_filter, get_fixed_articles, index_notags_key, reindex, index_parent_key, index_secret_key
 from src.md import render
 from src.util import update_config_ignore_file_list, get_articles_dir_abspath, logged, auth
+from operator import itemgetter, attrgetter
 
 main = Blueprint("main", __name__)
 
@@ -36,7 +37,7 @@ def index_file_page():
         if parent not in parents:
             parents[parent] = []
         parents[parent].append(item)
-    return render_template('index.html', title="Index", data=[parents, data[1]],
+    return render_template('index.html', title="Index", data=[parents, sorted(data[1], key=itemgetter(index_id_key))],
                            article_dir=uno_articles_dir_name, attach_dir=uno_attachments_dir_name)
 
 
