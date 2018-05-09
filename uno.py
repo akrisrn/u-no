@@ -27,7 +27,8 @@ app.jinja_env.globals["index_secret_key"] = index_secret_key
 # 绑定函数到jinja模板
 app.jinja_env.globals.update(get_static_file_url=get_static_file_url)
 app.jinja_env.globals.update(get_static_lib_url=get_static_lib_url)
-
+# jinja循环控制扩展
+app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 app.secret_key = uno_secret_key
 
 

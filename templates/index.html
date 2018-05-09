@@ -143,10 +143,14 @@
         {% set parents = data[0] %}
         {% set attachments = data[1] %}
         <div class="tab">
-            {% for parent in parents %}
-                {% set parent = parent if parent else article_dir %}
-                <button class="tablinks" onclick="openCity(event, '{{ parent }}')"
-                        {% if loop.index == 1 %}id="defaultOpen"{% endif %}>
+            <button class="tablinks" onclick="openCity(event, '{{ article_dir }}')" id="defaultOpen">
+                {{ article_dir }}
+            </button>
+            {% for parent in parents | sort %}
+                {% if not parent %}
+                    {% continue %}
+                {% endif %}
+                <button class="tablinks" onclick="openCity(event, '{{ parent }}')">
                     {{ parent }}
                 </button>
             {% endfor %}
