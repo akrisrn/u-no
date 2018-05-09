@@ -161,9 +161,13 @@
                 <table>
                     <thead>
                     <tr>
-                        <th>No.</th>
+                        <th>ID</th>
                         <th>Title</th>
                         <th>Date</th>
+                        <th>Fixed</th>
+                        <th>Top</th>
+                        <th>Highlight</th>
+                        <th>NoTags</th>
                         <th>Tags</th>
                     </tr>
                     </thead>
@@ -173,6 +177,10 @@
                             <td align="right">{{ article[index_id_key] }}</td>
                             <td><a href="{{ article[index_url_key] }}">{{ article[index_title_key] }}</a></td>
                             <td>{{ article[index_date_key] }}</td>
+                            <td>{{ article[index_fixed_key] }}</td>
+                            <td>{{ article[index_top_key] }}</td>
+                            <td>{{ article[index_highlight_key] }}</td>
+                            <td>{{ article[index_notags_key] }}</td>
                             <td>
                                 {% for tag in article[index_tags_key] | sort %}
                                     <a href="{{ article[index_tags_key][tag] }}">
@@ -191,7 +199,7 @@
                 <table>
                     <thead>
                     <tr>
-                        <th>No.</th>
+                        <th>ID</th>
                         <th>Title</th>
                     </tr>
                     </thead>
