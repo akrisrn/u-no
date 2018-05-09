@@ -1,4 +1,5 @@
 import os
+from operator import itemgetter
 
 from flask import send_from_directory, Blueprint, render_template, request, abort, url_for, redirect, session
 
@@ -9,7 +10,6 @@ from src.index import index_title_key, index_id_key, index_tags_key, index_date_
     index_data_filter, get_fixed_articles, index_notags_key, reindex, index_parent_key, index_secret_key
 from src.md import render
 from src.util import update_config_ignore_file_list, get_articles_dir_abspath, logged, auth
-from operator import itemgetter, attrgetter
 
 main = Blueprint("main", __name__)
 
