@@ -2,7 +2,7 @@ import json
 import os
 import re
 
-from config import uno_index_file_name, uno_attachments_dir_name, uno_articles_dir_name, uno_strip_prefix, \
+from config import uno_index_file_name, uno_attachments_dir_name, uno_articles_dir_name, \
     uno_ignore_file_list, uno_ignore_dir_list, uno_secret_tags
 from src.flag import get_highlight_flag, get_top_flag, get_notags_flag, get_fixed_flag, get_date_flag, get_tags_flag, \
     get_unignore_flag, get_ignore_flag
@@ -150,6 +150,7 @@ def reindex():
                 break
         if is_ignore:
             continue
+        index = 1
         for file in files:
             # 组成文件路径
             file_path = "/".join([path, file]).lstrip("/")
@@ -170,16 +171,7 @@ def reindex():
             # 排除忽略文件
             if file_path in uno_ignore_file_list:
                 continue
-            # 分离编号和标题
-            group = re.search("(%s)" % uno_strip_prefix, file_path)
-            if group:
-                item_id = group.group(1).strip("-")
-                title = re.sub(group.group(1), "", file_path)
-            else:
-                item_id = ""
-                title = file_path
-            title = title.replace("+：", ":")
-            parent, title = os.path.split(title)
+            parent, title = os.path.split(file_path.replace("+：", ":"))
             if not path.startswith(uno_attachments_dir_name):
                 # 获取标签并生成标签字典
                 # noinspection PyUnboundLocalVariable
@@ -202,7 +194,7 @@ def reindex():
                     if item:
                         url = item[index_url_key]
                 # 组成一条文章索引
-                articles_block[file_path] = {index_id_key: item_id, index_parent_key: parent, index_title_key: title,
+                articles_block[file_path] = {index_id_key: index, index_parent_key: parent, index_title_key: title,
                                              index_url_key: url, index_date_key: date, index_tags_key: tags,
                                              index_fixed_key: fixed, index_notags_key: get_notags_flag(data),
                                              index_top_key: get_top_flag(data), index_secret_key: secret,
@@ -210,8 +202,9 @@ def reindex():
             else:
                 # 组成一条附件索引
                 url = "/%s/%s" % (uno_attachments_dir_name, compute_digest_by_abspath(file_abspath))
-                attachments_block[file_path] = {index_id_key: item_id, index_parent_key: parent, index_title_key: title,
+                attachments_block[file_path] = {index_id_key: index, index_parent_key: parent, index_title_key: title,
                                                 index_url_key: url}
+            index += 1
     # 写入索引文件
     index_data = json.dumps([articles_block, attachments_block], separators=(',', ':'))
     with open(os.path.join(articles_dir_abspath, uno_index_file_name), 'w', encoding='utf-8') as index_file:

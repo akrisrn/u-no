@@ -34,9 +34,6 @@ uno_make_file_ignore_arg = ""
 # 忽略索引的目录名
 uno_ignore_dir_list = [".git"]
 
-# 文件名展示时剔除的前缀（可正则）
-uno_strip_prefix = ""
-
 # 无标签时默认标签名
 uno_default_tag = ""
 # 私密标签，只有登陆后才能访问
