@@ -201,21 +201,32 @@
             </div>
         {% endfor %}
         {% if attachments %}
+            {% set attch_len = attachments | length %}
+            {% set max_rows = 10 %}
+            {% set max_column = (attch_len / max_rows) | round(0, 'ceil') | int %}
             <div id="{{ attach_dir }}" class="tabcontent">
                 <table>
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Title</th>
+                        {% for _ in range(max_column) %}
+                            <th>ID</th>
+                            <th>Title</th>
+                        {% endfor %}
                     </tr>
                     </thead>
                     <tbody>
-                    {% for attachment in attachments %}
+                    {% for i in range(attch_len if attch_len < max_rows else max_rows) %}
                         <tr>
-                            <td align="right">{{ attachment[index_id_key] }}</td>
-                            <td>
-                                <a href="{{ attachment[index_url_key] }}">{{ attachment[index_title_key] }}</a>
-                            </td>
+                            {% for j in range(max_column) %}
+                                {% set index = j * max_rows + i %}
+                                {% if index < attch_len %}
+                                    {% set attachment = attachments[index] %}
+                                    <td align="right">{{ attachment[index_id_key] }}</td>
+                                    <td>
+                                        <a href="{{ attachment[index_url_key] }}">{{ attachment[index_title_key] }}</a>
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
                         </tr>
                     {% endfor %}
                     </tbody>
