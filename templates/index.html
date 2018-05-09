@@ -86,11 +86,10 @@
     <div class="markdown-body">
         {% set parents = data[0] %}
         {% set attachments = data[1] %}
-        {% set max_table_height = 400 %}
+        {% set max_table_height = 360 %}
         {% for parent in parents %}
             {% set articles = parents[parent] %}
-            <h3>{{ parent }}</h3>
-            <table style="height:{{ max_table_height }}px;">
+            <table style="max-height:{{ max_table_height }}px;width:50%;float:left;">
                 <thead>
                 <tr>
                     <th>No.</th>
@@ -103,7 +102,8 @@
                 {% for article in articles %}
                     <tr>
                         <td align="right">{{ article[index_id_key] }}</td>
-                        <td><a href="{{ article[index_url_key] }}">{{ article[index_title_key] }}</a></td>
+                        <td><a href="{{ article[index_url_key] }}">
+                            {{ parent + "/" if parent else "" }}{{ article[index_title_key] }}</a></td>
                         <td>{{ article[index_date_key] }}</td>
                         <td>
                             {% for tag in article[index_tags_key] | sort %}
@@ -115,10 +115,8 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <hr>
         {% endfor %}
-        <h3>{{ attach_dir }}</h3>
-        <table style="height:{{ max_table_height }}px;">
+        <table style="max-height:{{ max_table_height }}px;width:50%;float:left;">
             <thead>
             <tr>
                 <th>No.</th>
@@ -129,7 +127,8 @@
             {% for attachment in attachments %}
                 <tr>
                     <td>{{ attachment[index_id_key] }}</td>
-                    <td><a href="{{ attachment[index_url_key] }}">{{ attachment[index_title_key] }}</a></td>
+                    <td><a href="{{ attachment[index_url_key] }}">{{ attach_dir }}/{{ attachment[index_title_key] }}</a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
