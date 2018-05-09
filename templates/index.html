@@ -122,7 +122,7 @@
             document.getElementById("defaultOpen").click();
         });
 
-        function openCity(evt, cityName) {
+        function openCity(evt, cityName, t) {
             let i, tabcontent, tablinks;
 
             tabcontent = document.getElementsByClassName("tabcontent");
@@ -133,30 +133,32 @@
             tablinks = document.getElementsByClassName("tablinks");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
+                tablinks[i].children[0].className = tablinks[i].children[0].className.replace("-open", "");
             }
 
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
+            t.children[0].className = t.children[0].className + "-open"
         }
     </script>
     <div class="markdown-body">
         {% set parents = data[0] %}
         {% set attachments = data[1] %}
         <div class="tab">
-            <button class="tablinks" onclick="openCity(event, '{{ article_dir }}')" id="defaultOpen">
-                {{ article_dir }}
+            <button class="tablinks" onclick="openCity(event, '{{ article_dir }}', this)" id="defaultOpen">
+                <i style="margin-right: 10px" class="far fa-folder"></i>{{ article_dir }}
             </button>
             {% for parent in parents | sort %}
                 {% if not parent %}
                     {% continue %}
                 {% endif %}
-                <button class="tablinks" onclick="openCity(event, '{{ parent }}')">
-                    {{ parent }}
+                <button class="tablinks" onclick="openCity(event, '{{ parent }}', this)">
+                    <i style="margin-right: 10px" class="far fa-folder"></i>{{ parent }}
                 </button>
             {% endfor %}
             {% if attachments %}
-                <button class="tablinks" onclick="openCity(event, '{{ attach_dir }}')" id="defaultOpen">
-                    {{ attach_dir }}
+                <button class="tablinks" onclick="openCity(event, '{{ attach_dir }}', this)" id="defaultOpen">
+                    <i style="margin-right: 10px" class="far fa-folder"></i>{{ attach_dir }}
                 </button>
             {% endif %}
         </div>
