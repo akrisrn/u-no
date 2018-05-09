@@ -150,9 +150,11 @@
                     {{ parent }}
                 </button>
             {% endfor %}
-            <button class="tablinks" onclick="openCity(event, '{{ attach_dir }}')">
-                {{ attach_dir }}
-            </button>
+            {% if attachments %}
+                <button class="tablinks" onclick="openCity(event, '{{ attach_dir }}')">
+                    {{ attach_dir }}
+                </button>
+            {% endif %}
         </div>
         {% for parent in parents %}
             <div id="{{ parent if parent else article_dir }}" class="tabcontent">
@@ -184,25 +186,27 @@
                 </table>
             </div>
         {% endfor %}
-        <div id="{{ attach_dir }}" class="tabcontent">
-            <table>
-                <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Title</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for attachment in attachments %}
+        {% if attachments %}
+            <div id="{{ attach_dir }}" class="tabcontent">
+                <table>
+                    <thead>
                     <tr>
-                        <td>{{ attachment[index_id_key] }}</td>
-                        <td>
-                            <a href="{{ attachment[index_url_key] }}">{{ attachment[index_title_key] }}</a>
-                        </td>
+                        <th>No.</th>
+                        <th>Title</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                    {% for attachment in attachments %}
+                        <tr>
+                            <td>{{ attachment[index_id_key] }}</td>
+                            <td>
+                                <a href="{{ attachment[index_url_key] }}">{{ attachment[index_title_key] }}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
