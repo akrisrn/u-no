@@ -3,7 +3,7 @@ import os
 import re
 
 from config import uno_index_file_name, uno_attachments_dir_name, uno_articles_dir_name, uno_strip_prefix, \
-    uno_ignore_file_list, uno_ignore_dir_list
+    uno_ignore_file_list, uno_ignore_dir_list, uno_secret_tags
 from src.flag import get_highlight_flag, get_top_flag, get_notags_flag, get_fixed_flag, get_date_flag, get_tags_flag, \
     get_unignore_flag, get_ignore_flag
 from src.util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
@@ -20,6 +20,7 @@ index_fixed_key = "fixed"
 index_notags_key = "notags"
 index_top_key = "top"
 index_highlight_key = "highlight"
+index_secret_key = "secret"
 
 
 # 获取索引文件数据
@@ -183,6 +184,12 @@ def reindex():
                 # 获取标签并生成标签字典
                 # noinspection PyUnboundLocalVariable
                 tags = {tag: "/%s?t=%s" % (uno_index_file_name, tag) for tag in get_tags_flag(data)}
+                # 根据标签判断是否为私密
+                secret = False
+                for tag in tags:
+                    if tag in uno_secret_tags:
+                        secret = True
+                        break
                 # 获取日期
                 date = get_date_flag(data)
                 # 计算文章哈希组成url
@@ -198,7 +205,7 @@ def reindex():
                 articles_block[file_path] = {index_id_key: item_id, index_parent_key: parent, index_title_key: title,
                                              index_url_key: url, index_date_key: date, index_tags_key: tags,
                                              index_fixed_key: fixed, index_notags_key: get_notags_flag(data),
-                                             index_top_key: get_top_flag(data),
+                                             index_top_key: get_top_flag(data), index_secret_key: secret,
                                              index_highlight_key: get_highlight_flag(data)}
             else:
                 # 组成一条附件索引

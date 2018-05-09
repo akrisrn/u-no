@@ -167,6 +167,7 @@
                         <th>Fixed</th>
                         <th>Top</th>
                         <th>Highlight</th>
+                        <th>Secret</th>
                         <th>NoTags</th>
                         <th>Tags</th>
                     </tr>
@@ -180,6 +181,7 @@
                             <td>{{ article[index_fixed_key] }}</td>
                             <td>{{ article[index_top_key] }}</td>
                             <td>{{ article[index_highlight_key] }}</td>
+                            <td>{{ article[index_secret_key] }}</td>
                             <td>{{ article[index_notags_key] }}</td>
                             <td>
                                 {% for tag in article[index_tags_key] | sort %}
