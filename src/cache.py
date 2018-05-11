@@ -22,4 +22,4 @@ def get_file_cache(file_path):
     else:
         if file_path in cache_dict:
             del cache_dict[file_path]
-    return cache_dict[file_path]
+    return cache_dict[file_path][1]

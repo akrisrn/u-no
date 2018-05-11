@@ -5,6 +5,7 @@ from flask import send_from_directory, Blueprint, render_template, request, abor
 
 from config import uno_index_file_name, uno_attachments_dir_name, uno_articles_dir_name, uno_make_file_ignore_arg, \
     uno_password
+from src.cache import get_file_cache
 from src.flag import get_custom_js_flag, get_custom_css_flag
 from src.index import index_title_key, index_id_key, index_tags_key, index_date_key, get_item_by_url, \
     index_data_filter, get_fixed_articles, index_notags_key, reindex, index_parent_key, index_secret_key
@@ -66,8 +67,7 @@ def article_page(dir_name, file_hash):
         reindex()
         abort(404)
     if dir_name == uno_articles_dir_name:
-        with open(item_abspath, encoding='utf-8') as file_data:
-            data = file_data.read()
+        data = get_file_cache(item_abspath)
         # 识别文章中的自定义css文件，获取自定义css文件url列表
         css_urls = get_custom_css_flag(data)
         # 识别文章中的自定义js文件，获取自定义js文件url列表

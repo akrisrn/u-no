@@ -4,12 +4,11 @@ import re
 
 from config import uno_index_file_name, uno_attachments_dir_name, uno_articles_dir_name, \
     uno_ignore_file_list, uno_ignore_dir_list, uno_secret_tags
+from src.cache import get_file_cache
 from src.flag import get_highlight_flag, get_top_flag, get_notags_flag, get_fixed_flag, get_date_flag, get_tags_flag, \
     get_unignore_flag, get_ignore_flag
 from src.util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
     update_config_ignore_file_list
-from src.cache import get_file_cache
-
 
 # 组成索引的JSON数据所用的键名
 index_id_key = "id"
@@ -29,7 +28,7 @@ index_secret_key = "secret"
 def get_index_data():
     # 组成索引文件绝对路径
     index_file_path = os.path.join(get_articles_dir_abspath(), uno_index_file_name)
-    return json.loads(get_file_cache(index_file_path)[1])
+    return json.loads(get_file_cache(index_file_path))
 
 
 # 根据相对路径从索引文件中取出对应项目
