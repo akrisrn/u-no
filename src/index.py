@@ -22,17 +22,36 @@ index_top_key = "top"
 index_highlight_key = "highlight"
 index_secret_key = "secret"
 
+index_date_cache = []
 
-# 获取索引文件数据
-def get_index_data():
+
+def build_cache(file_path, mtime):
+    index_date_cache.clear()
+    index_date_cache.append(mtime)
+    with open(file_path, encoding='utf-8') as index_file:
+        index_data = index_file.read()
+    index_date_cache.append(json.loads(index_data))
+
+
+def get_index_data_cache():
     # 组成索引文件绝对路径
     index_file_path = os.path.join(get_articles_dir_abspath(), uno_index_file_name)
     # 判断是否存在
     if os.path.exists(index_file_path):
-        with open(index_file_path, encoding='utf-8') as index_file:
-            index_data = index_file.read()
-        return json.loads(index_data)
-    return []
+        index_file_mtime = os.path.getmtime(index_file_path)
+        if not index_date_cache:
+            build_cache(index_file_path, index_file_mtime)
+        else:
+            if index_date_cache[0] != index_file_mtime:
+                build_cache(index_file_path, index_file_mtime)
+    else:
+        index_date_cache.clear()
+    return index_date_cache
+
+
+# 获取索引文件数据
+def get_index_data():
+    return get_index_data_cache()[1]
 
 
 # 根据相对路径从索引文件中取出对应项目
