@@ -2,11 +2,10 @@ import json
 import os
 import re
 
+import src.flag
 from config import uno_index_file_name, uno_attachments_dir_name, uno_articles_dir_name, \
     uno_ignore_file_list, uno_ignore_dir_list, uno_secret_tags
 from src.cache import get_file_cache
-from src.flag import get_highlight_flag, get_top_flag, get_notags_flag, get_fixed_flag, get_date_flag, get_tags_flag, \
-    get_unignore_flag, get_ignore_flag
 from src.util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
     update_config_ignore_file_list
 
@@ -159,10 +158,10 @@ def reindex():
                 except UnicodeDecodeError:
                     continue
                 # 识别文章中的忽略文件标识，来判断如何更新忽略列表
-                if get_ignore_flag(data):
+                if src.flag.get_ignore_flag(data):
                     update_config_ignore_file_list(file_path, True)
                 # 识别文章中的取消忽略文件标识，来判断如何更新忽略列表
-                if get_unignore_flag(data):
+                if src.flag.get_unignore_flag(data):
                     update_config_ignore_file_list(file_path, False)
             # 排除忽略文件
             if file_path in uno_ignore_file_list:
@@ -171,7 +170,7 @@ def reindex():
             if not path.startswith(uno_attachments_dir_name):
                 # 获取标签并生成标签字典
                 # noinspection PyUnboundLocalVariable
-                tags = {tag: "/%s?t=%s" % (uno_index_file_name, tag) for tag in get_tags_flag(data)}
+                tags = {tag: "/%s?t=%s" % (uno_index_file_name, tag) for tag in src.flag.get_tags_flag(data)}
                 # 根据标签判断是否为私密
                 secret = False
                 for tag in tags:
@@ -179,11 +178,11 @@ def reindex():
                         secret = True
                         break
                 # 获取日期
-                date = get_date_flag(data)
+                date = src.flag.get_date_flag(data)
                 # 计算文章哈希组成url
                 url = "/%s/%s" % (uno_articles_dir_name, compute_digest_by_data(data))
                 # 识别文章中固定索引标识，来判断是否更新哈希
-                fixed = get_fixed_flag(data)
+                fixed = src.flag.get_fixed_flag(data)
                 if fixed:
                     # 查找旧索引中对应的项目，如果存在则沿用哈希
                     item = get_item_by_path(file_path)
@@ -192,9 +191,9 @@ def reindex():
                 # 组成一条文章索引
                 articles_block[file_path] = {index_id_key: index, index_parent_key: parent, index_title_key: title,
                                              index_url_key: url, index_date_key: date, index_tags_key: tags,
-                                             index_fixed_key: fixed, index_notags_key: get_notags_flag(data),
-                                             index_top_key: get_top_flag(data), index_secret_key: secret,
-                                             index_highlight_key: get_highlight_flag(data)}
+                                             index_fixed_key: fixed, index_notags_key: src.flag.get_notags_flag(data),
+                                             index_top_key: src.flag.get_top_flag(data), index_secret_key: secret,
+                                             index_highlight_key: src.flag.get_highlight_flag(data)}
             else:
                 # 组成一条附件索引
                 url = "/%s/%s" % (uno_attachments_dir_name, compute_digest_by_abspath(file_abspath))
