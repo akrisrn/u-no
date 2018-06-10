@@ -1,10 +1,12 @@
-{% extends "frame.html" %}
-{% block title %}
+{%- extends "frame.html" -%}
+{%- block title -%}
     {{ title }}
-{% endblock %}
-{% block content %}
-    <a href="{{ url_for('main.index') }}"><i class="fas fa-angle-double-left"></i> HOME</a>
+{%- endblock -%}
+{%- block content -%}
+    <a href="{{ url_for('main.index') }}">
+        <i class="fas fa-angle-double-left"></i> HOME
+    </a>
     <div class="center">
         <h1>{{ title }}</h1>
     </div>
-{% endblock %}
+{%- endblock -%}

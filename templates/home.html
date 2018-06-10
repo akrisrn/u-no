@@ -1,12 +1,12 @@
-{% extends "frame.html" %}
-{% block title %}
-    {% if tag_name %}
+{%- extends "frame.html" -%}
+{%- block title -%}
+    {%- if tag_name -%}
         {{ tag_name }}
-    {% else %}
+    {%- else -%}
         {{ site_name }}
-    {% endif %}
-{% endblock %}
-{% block extra_style %}
+    {%- endif -%}
+{%- endblock -%}
+{%- block extra_style -%}
     .markdown-body ul {
     padding-left: 1px;
     list-style-type: none
@@ -24,33 +24,36 @@
     .markdown-body li>a:hover {
     color: grey;
     }
-{% endblock %}
-{% block content %}
-    {% if tag_name %}
-        <a href="{{ url_for('main.index') }}"><i class="fas fa-angle-double-left"></i> HOME</a>
-    {% endif %}
+{%- endblock -%}
+{%- block content -%}
+    {%- if tag_name -%}
+        <a href="{{ url_for('main.index') }}">
+            <i class="fas fa-angle-double-left"></i> HOME
+        </a>
+    {%- endif -%}
     <div class="markdown-body">
         <ul>
-            {% for fixed_article in fixed_articles %}
+            {%- for fixed_article in fixed_articles -%}
                 <li>
                     <i class="fas fa-angle-double-right"></i>
                     <a href="{{ fixed_article[index_url_key] }}"
-                       {% if fixed_article[index_highlight_key] %}class="article-hl"{% endif %}>
-                        {% if fixed_article[index_highlight_key] %}<i class="fas fa-star"></i>{% endif %}
+                       {%- if fixed_article[index_highlight_key] -%}class="article-hl"{%- endif -%}>
+                        {%- if fixed_article[index_highlight_key] -%}<i class="fas fa-star"></i>{%- endif %}
                         {{ fixed_article[index_title_key].split(".")[0] }}
                     </a>
-                    {% if not fixed_article[index_notags_key] %}
+                    {%- if not fixed_article[index_notags_key] -%}
                         <i class="fas fa-tags fa-xs"></i>
-                        {% for tag in fixed_article[index_tags_key] | sort %}
+                        {%- for tag in fixed_article[index_tags_key] | sort -%}
                             <div class="tag">
-                                <a href="{{ url_for('main.tag_page', tag_name=tag) }}"><i style="margin-right: 3px"
-                                                                                          class="fas fa-hashtag"></i>{{ tag }}</a>
+                                <a href="{{ url_for('main.tag_page', tag_name=tag) }}">
+                                    <i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ tag }}
+                                </a>
                             </div>
-                        {% endfor %}
-                    {% endif %}
+                        {%- endfor -%}
+                    {%- endif -%}
                     <div class="date">{{ fixed_article[index_date_key] }}</div>
                 </li>
-            {% endfor %}
+            {%- endfor -%}
         </ul>
     </div>
-{% endblock %}
+{%- endblock -%}

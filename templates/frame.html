@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ get_static_file_url('img/favicon.ico') }}">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{%- block title -%}{%- endblock -%}</title>
     <script type="text/javascript" src="{{ get_static_lib_url('pace.js') }}"></script>
     <script type="text/javascript" src="{{ get_static_lib_url('mathjax.js') }}"></script>
     <script type="text/javascript" src="{{ get_static_lib_url('raphael.js') }}"></script>
@@ -16,16 +16,16 @@
     <script type="text/javascript" src="{{ get_static_lib_url('jquery-raty.js') }}"></script>
     <script type="text/javascript" src="{{ get_static_file_url('js/pace.on.js') }}"></script>
     <script type="text/javascript" src="{{ get_static_file_url('js/markdown.js') }}"></script>
-    {% block extra_js_link %}
-    {% endblock %}
+    {%- block extra_js_link -%}
+    {%- endblock -%}
     <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url('pace.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url('github-markdown.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url('font-awesome.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url('jquery-raty.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/markdown.css') }}">
-    {% block extra_css_link %}
-    {% endblock %}
+    {%- block extra_css_link -%}
+    {%- endblock -%}
     <style>
         @font-face {
             font-family: 'Source Code Pro';
@@ -34,15 +34,15 @@
             src: url({{ get_static_lib_url('source-code-pro.ttf') }});
         }
 
-        {% block extra_style %}
-        {% endblock %}
+        {%- block extra_style -%}
+        {%- endblock -%}
     </style>
 </head>
 <body>
 <div id="body">
     <div id="content">
-        {% block content %}
-        {% endblock %}
+        {%- block content -%}
+        {%- endblock -%}
     </div>
 </div>
 <div id="to-top">

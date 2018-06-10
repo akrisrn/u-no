@@ -1,8 +1,8 @@
-{% extends "frame.html" %}
-{% block title %}
+{%- extends "frame.html" -%}
+{%- block title -%}
     Login
-{% endblock %}
-{% block content %}
+{%- endblock -%}
+{%- block content -%}
     <script>
         $(document).ready(function () {
             $("input[type=password]").keydown(function (e) {
@@ -15,7 +15,7 @@
     </script>
     <a href="{{ url_for('main.index') }}"><i class="fas fa-angle-double-left"></i> HOME</a>
     <div class="center">
-        <h1 {% if error %}style="color: red;"{% endif %}>* PASSWORD *</h1>
+        <h1 {%- if error -%}style="color: red;"{%- endif -%}>* PASSWORD *</h1>
         <form method="post">
             <label>
                 <input type="password" name="password" autofocus="autofocus"/>
@@ -26,4 +26,4 @@
             <button type="submit" style="display: none">Submit</button>
         </form>
     </div>
-{% endblock %}
+{%- endblock -%}

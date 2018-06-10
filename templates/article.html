@@ -1,32 +1,35 @@
-{% extends "frame.html" %}
-{% block title %}
+{%- extends "frame.html" -%}
+{%- block title -%}
     {{ title }}
-{% endblock %}
-{% block extra_js_link %}
-    {% for js_url in js_urls %}
+{%- endblock -%}
+{%- block extra_js_link -%}
+    {%- for js_url in js_urls -%}
         <script type="text/javascript" src="{{ js_url }}"></script>
-    {% endfor %}
-{% endblock %}
-{% block extra_css_link %}
-    {% for css_url in css_urls %}
+    {%- endfor -%}
+{%- endblock -%}
+{%- block extra_css_link -%}
+    {%- for css_url in css_urls -%}
         <link rel="stylesheet" type="text/css" href="{{ css_url }}">
-    {% endfor %}
-{% endblock %}
-{% block content %}
+    {%- endfor -%}
+{%- endblock -%}
+{%- block content -%}
     <h1>{{ title }}</h1>
-    <a href="{{ url_for('main.index') }}"><i class="fas fa-angle-double-left"></i> HOME</a>
-    {% if not notags %}
+    <a href="{{ url_for('main.index') }}">
+        <i class="fas fa-angle-double-left"></i> HOME
+    </a>
+    {%- if not notags -%}
         <i class="fas fa-tags fa-xs"></i>
-        {% for tag in tags | sort %}
+        {%- for tag in tags | sort -%}
             <div class="tag">
-                <a href="{{ url_for('main.tag_page', tag_name=tag) }}"><i style="margin-right: 3px"
-                                                                          class="fas fa-hashtag"></i>{{ tag }}</a>
+                <a href="{{ url_for('main.tag_page', tag_name=tag) }}">
+                    <i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ tag }}
+                </a>
             </div>
-        {% endfor %}
-    {% endif %}
+        {%- endfor -%}
+    {%- endif -%}
     <div class="date">{{ date }}</div>
     <hr>
     <div class="markdown-body">
         {{ data | safe }}
     </div>
-{% endblock %}
+{%- endblock -%}
