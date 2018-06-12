@@ -19,10 +19,10 @@
     </a>
     {%- if not notags -%}
         <i class="fas fa-tags fa-xs"></i>
-        {%- for tag in tags | sort -%}
+        {%- for key in tags | sort -%}
             <div class="tag">
-                <a href="{{ url_for('main.tag_page', tag_name=tag) }}">
-                    <i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ tag }}
+                <a href="{{ url_for('main.tag_page', tag_hash=key) }}">
+                    <i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ tags[key][1] }}
                 </a>
             </div>
         {%- endfor -%}

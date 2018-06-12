@@ -78,7 +78,7 @@ def article_page(dir_name, file_hash, frozen=False):
         # 去后缀
         title = os.path.splitext(item[index_title_key])[0]
         date = item[index_date_key]
-        tags = item[index_tags_key].keys()
+        tags = item[index_tags_key]
         notags = item[index_notags_key]
         return render_template('article.html', title=title, data=data, date=date, tags=tags, css_urls=css_urls,
                                js_urls=js_urls, notags=notags)
@@ -89,14 +89,18 @@ def article_page(dir_name, file_hash, frozen=False):
 
 
 # 标签页
-@main.route('/tags/<tag_name>')
-def tag_page(tag_name):
+@main.route('/tags/<tag_hash>')
+def tag_page(tag_hash):
     new_fixed_articles = []
     fixed_articles = get_fixed_articles()
+    tag_name = ""
     for article in fixed_articles:
-        for tag in article[index_tags_key]:
-            if tag.upper() == tag_name.upper():
+        for key in article[index_tags_key]:
+            if key == tag_hash:
+                if not tag_name:
+                    tag_name = article[index_tags_key][key][1]
                 new_fixed_articles.append(article)
+                break
     if not new_fixed_articles:
         abort(404)
     return render_template('home.html', fixed_articles=new_fixed_articles, tag_name=tag_name)
