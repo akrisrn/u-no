@@ -58,7 +58,7 @@ def get_fixed_articles():
         # 遍历文章块
         for article_path in articles_block:
             article = articles_block[article_path]
-            # 把固定索引的文章加入列表
+            # 把固定索引的文章加入列表，除去隐藏文章
             if article[index_fixed_key] and not article[index_secret_key]:
                 if article[index_top_key]:
                     top_articles.append(article)
