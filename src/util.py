@@ -62,6 +62,7 @@ def compute_digest_by_data(data):
 
 # 获取版本号
 def get_version(url):
+    url = url.replace("http://", "")
     # 在调试模式和没有配置版本号的情况下计算文件哈希作为版本号
     file_abspath = os.path.join(get_root_abspath(), url[1:])
     ver = uno_version if uno_version and not uno_debug else compute_digest_by_abspath(file_abspath)

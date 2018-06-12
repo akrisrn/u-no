@@ -38,3 +38,6 @@ uno_ignore_dir_list = [".git"]
 uno_default_tag = ""
 # 私密标签，只有登陆后才能访问
 uno_secret_tags = []
+
+# 生成静态站点目录
+uno_frozen_dir_name = "frozen_site"

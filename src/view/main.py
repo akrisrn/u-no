@@ -44,7 +44,7 @@ def index_file_page():
 
 # 文章和附件页，通过对应的目录名和哈希值访问，文章展示markdown渲染结果，附件直接展示源文件
 @main.route('/<any("%s", "%s"):dir_name>/<file_hash>' % (uno_articles_dir_name, uno_attachments_dir_name))
-def article_page(dir_name, file_hash):
+def article_page(dir_name, file_hash, frozen=False):
     # 判断哈希格式
     if len(file_hash) != 40 or not file_hash.isalnum():
         abort(404)
@@ -52,20 +52,22 @@ def article_page(dir_name, file_hash):
     item, item_path = get_item_by_url("/%s/%s" % (dir_name, file_hash))
     if not item:
         abort(404)
-    if not logged() and item[index_secret_key]:
-        abort(404)
+    if not frozen:
+        if not logged() and item[index_secret_key]:
+            abort(404)
     # 判断文件是否存在
     item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
     if not os.path.exists(item_abspath):
         abort(404)
     # 识别把文件加入忽略列表的url参数
-    make_file_ignore_arg = request.args.get(uno_make_file_ignore_arg, "").strip()
-    if make_file_ignore_arg == "1":
-        # 加入忽略列表
-        update_config_ignore_file_list(item_path, True)
-        # 重建索引
-        reindex()
-        abort(404)
+    if not frozen:
+        make_file_ignore_arg = request.args.get(uno_make_file_ignore_arg, "").strip()
+        if make_file_ignore_arg == "1":
+            # 加入忽略列表
+            update_config_ignore_file_list(item_path, True)
+            # 重建索引
+            reindex()
+            abort(404)
     if dir_name == uno_articles_dir_name:
         data = get_file_cache(item_abspath)
         # 识别文章中的自定义css文件，获取自定义css文件url列表
