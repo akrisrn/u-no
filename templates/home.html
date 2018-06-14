@@ -7,23 +7,25 @@
     {%- endif -%}
 {%- endblock -%}
 {%- block extra_style -%}
-    .markdown-body ul {
-    padding-left: 1px;
-    list-style-type: none
-    }
+    <style>
+        .markdown-body ul {
+            padding-left: 1px;
+            list-style-type: none
+        }
 
-    .markdown-body ul li {
-    display: inline-block;
-    width: 100%
-    }
+        .markdown-body ul li {
+            display: inline-block;
+            width: 100%
+        }
 
-    .markdown-body li>a {
-    color: #24292e;
-    }
+        .markdown-body li > a {
+            color: #24292e;
+        }
 
-    .markdown-body li>a:hover {
-    color: grey;
-    }
+        .markdown-body li > a:hover {
+            color: grey;
+        }
+    </style>
 {%- endblock -%}
 {%- block content -%}
     {%- if tag_name -%}
