@@ -91,7 +91,7 @@ def index_data_filter(searches):
                     is_tag_find = False
                     # 有一个匹配则视为找到标签，结束循环
                     for key in article[index]:
-                        if re.search(pattern, article[index][key][1]):
+                        if re.search(pattern, article[index][key]):
                             is_tag_find = True
                             break
                     # 如果标签都没匹配则视为没找到对应文章，结束循环
@@ -170,12 +170,11 @@ def reindex():
             if not path.startswith(uno_attachments_dir_name):
                 # 获取标签并生成标签字典
                 # noinspection PyUnboundLocalVariable
-                tags = {compute_digest_by_data(tag): ["/%s?t=%s" % (uno_index_file_name, tag), tag]
-                        for tag in src.flag.get_tags_flag(data)}
+                tags = {compute_digest_by_data(tag): tag for tag in src.flag.get_tags_flag(data)}
                 # 根据标签判断是否为私密
                 secret = False
                 for key in tags:
-                    if tags[key][1] in uno_secret_tags:
+                    if tags[key] in uno_secret_tags:
                         secret = True
                         break
                 # 获取日期

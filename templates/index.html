@@ -205,9 +205,9 @@
                             <td>{{ article[index_notags_key] }}</td>
                             <td>
                                 {%- for key in article[index_tags_key] | sort -%}
-                                    <a href="{{ article[index_tags_key][key][0] }}">
+                                    <a href="{{ "?t=" + article[index_tags_key][key] }}">
                                         <i style="margin-right: 3px"
-                                           class="fas fa-hashtag"></i>{{ article[index_tags_key][key][1] }}
+                                           class="fas fa-hashtag"></i>{{ article[index_tags_key][key] }}
                                     </a>
                                 {%- endfor -%}
                             </td>

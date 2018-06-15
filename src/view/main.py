@@ -98,7 +98,7 @@ def tag_page(tag_hash):
         for key in article[index_tags_key]:
             if key == tag_hash:
                 if not tag_name:
-                    tag_name = article[index_tags_key][key][1]
+                    tag_name = article[index_tags_key][key]
                 new_fixed_articles.append(article)
                 break
     if not new_fixed_articles:
