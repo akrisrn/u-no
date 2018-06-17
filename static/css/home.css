@@ -1,0 +1,17 @@
+.markdown-body ul {
+    padding-left: 1px;
+    list-style-type: none
+}
+
+.markdown-body ul li {
+    display: inline-block;
+    width: 100%
+}
+
+.markdown-body li > a {
+    color: #24292e;
+}
+
+.markdown-body li > a:hover {
+    color: grey;
+}
