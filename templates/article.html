@@ -18,11 +18,7 @@
     {%- if not notags -%}
         <i class="fas fa-tags fa-xs"></i>
         {% for key in tags | sort -%}
-            <div class="tag">
-                <a href="{{ url_for('main.tag_page', tag_hash=key) }}">
-                    <i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ tags[key] }}
-                </a>
-            </div>
+            <vue-tag url="{{ url_for('main.tag_page', tag_hash=key) }}" name="{{ tags[key] }}"></vue-tag>
         {%- endfor -%}
     {%- endif -%}
     <div class="date">{{ date }}</div>
