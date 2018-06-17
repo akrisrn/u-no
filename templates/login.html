@@ -13,7 +13,9 @@
             });
         });
     </script>
-    <a href="{{ url_for('main.index') }}"><i class="fas fa-angle-double-left"></i> HOME</a>
+    <a href="/">
+        <i style="margin-right: 10px" class="fas fa-angle-double-left"></i>HOME
+    </a>
     <div class="center">
         <h1 {%- if error -%}style="color: red;"{%- endif -%}>* PASSWORD *</h1>
         <form method="post">
