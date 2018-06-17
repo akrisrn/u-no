@@ -35,20 +35,20 @@
         <ul>
             {%- for fixed_article in fixed_articles -%}
                 <li>
-                    <i class="fas fa-angle-double-right"></i>
-                    <a href="{{ fixed_article[index_url_key] }}"
-                       {%- if fixed_article[index_highlight_key] -%}class="article-hl"{%- endif -%}>
-                        {%- if fixed_article[index_highlight_key] -%}<i class="fas fa-star"></i>{%- endif %}
-                        {{ fixed_article[index_title_key].split(".")[0] }}
-                    </a>
+                    <vue-home-li-icon></vue-home-li-icon>
+                    <vue-home-li url="{{ fixed_article[index_url_key] }}"
+                                 name="{{ fixed_article[index_title_key].split(".")[0] }}"
+                                 highlight="{{ "1" if fixed_article[index_highlight_key] else "" }}">
+                    </vue-home-li>
                     {%- if not fixed_article[index_notags_key] -%}
-                        <i class="fas fa-tags fa-xs"></i>
+                        <vue-tag-icon></vue-tag-icon>
                         {% for key in fixed_article[index_tags_key] | sort -%}
                             <vue-tag url="{{ url_for('main.tag_page', tag_hash=key) }}"
-                                     name="{{ fixed_article[index_tags_key][key] }}"></vue-tag>
+                                     name="{{ fixed_article[index_tags_key][key] }}">
+                            </vue-tag>
                         {%- endfor -%}
                     {%- endif -%}
-                    <div class="date">{{ fixed_article[index_date_key] }}</div>
+                    <vue-date date="{{ fixed_article[index_date_key] }}"></vue-date>
                 </li>
             {%- endfor -%}
         </ul>

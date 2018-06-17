@@ -16,14 +16,12 @@
     <h1>{{ title }}</h1>
     <vue-return-home></vue-return-home>
     {%- if not notags -%}
-        <i class="fas fa-tags fa-xs"></i>
+        <vue-tag-icon></vue-tag-icon>
         {% for key in tags | sort -%}
             <vue-tag url="{{ url_for('main.tag_page', tag_hash=key) }}" name="{{ tags[key] }}"></vue-tag>
         {%- endfor -%}
     {%- endif -%}
-    <div class="date">{{ date }}</div>
+    <vue-date date="{{ date }}"></vue-date>
     <hr>
-    <div class="markdown-body">
-        {{ data | safe }}
-    </div>
+    <div class="markdown-body">{{ data | safe }}</div>
 {%- endblock -%}
