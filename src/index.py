@@ -100,7 +100,7 @@ def index_data_filter(searches):
                         break
                 else:
                     # 如果没匹配则视为没找到对应文章，结束循环
-                    if not re.search(pattern, article[index]):
+                    if not re.search(pattern, str(article[index])):
                         is_find = False
                         break
             # 如果找到则把文章加入列表
@@ -118,7 +118,7 @@ def index_data_filter(searches):
                 # 根据搜索内容组成正则表达式，忽略大小写
                 pattern = re.compile(regexp_join(".*%s.*", search), re.I)
                 # 如果没匹配则视为没找到对应附件，结束循环
-                if not re.search(pattern, attachment[index]):
+                if not re.search(pattern, str(attachment[index])):
                     is_find = False
                     break
             # 如果找到则把附件加入列表
