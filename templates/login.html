@@ -7,16 +7,5 @@
 {%- endblock -%}
 {%- block content -%}
     <vue-return-home></vue-return-home>
-    <div class="center">
-        <h1 {%- if error -%}style="color: red;"{%- endif -%}>* PASSWORD *</h1>
-        <form method="post">
-            <label>
-                <input type="password" name="password" autofocus="autofocus"/>
-            </label>
-            <label>
-                <input name="referrer" value="{{ referrer }}" style="display: none">
-            </label>
-            <button type="submit" style="display: none">Submit</button>
-        </form>
-    </div>
+    <vue-login-form error="{{ "1" if error else "" }}" referrer="{{ referrer }}"></vue-login-form>
 {%- endblock -%}
