@@ -2,17 +2,10 @@
 {%- block title -%}
     Login
 {%- endblock -%}
+{%- block extra_js_link -%}
+    <script type="text/javascript" src="{{ get_static_file_url("js/login.js") }}"></script>
+{%- endblock -%}
 {%- block content -%}
-    <script>
-        $(document).ready(function () {
-            $("input[type=password]").keydown(function (e) {
-                if (e.which === 13) {
-                    $("button[type=submit]").click();
-                    return false;
-                }
-            });
-        });
-    </script>
     <vue-return-home></vue-return-home>
     <div class="center">
         <h1 {%- if error -%}style="color: red;"{%- endif -%}>* PASSWORD *</h1>
