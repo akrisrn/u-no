@@ -126,38 +126,70 @@ def get_cdnjs_file_url(filename):
 
 # 根据是否使用cdn选择本地bower路径或cdnjs链接
 def get_static_lib_url(name):
-    return {
-        'vue.js': get_bower_file_url("vue/dist/vue." + "js" if uno_debug else "min.js"),
-        'lodash.js': get_bower_file_url("lodash/dist/lodash.min.js"),
-        'pace.js': get_bower_file_url("PACE/pace.min.js"),
-        'pace.css': get_bower_file_url("PACE/themes/blue/pace-theme-flash.css"),
-        'mathjax.js': get_bower_file_url("MathJax/MathJax.js") + "?config=TeX-MML-AM_CHTML",
-        'raphael.js': get_bower_file_url("raphael/raphael.min.js"),
-        'underscore.js': get_bower_file_url("underscore/underscore-min.js"),
-        'sequence-diagram.js': get_bower_file_url("js-sequence-diagrams/dist/sequence-diagram-min.js"),
-        'flowchart.js': get_bower_file_url("flowchart/release/flowchart.min.js"),
-        'jquery.js': get_bower_file_url("jquery/dist/jquery.min.js"),
-        'jquery-tablesorter.js': get_bower_file_url("tablesorter/dist/js/jquery.tablesorter.min.js"),
-        'jquery-raty.js': get_bower_file_url("raty/lib/jquery.raty.js"),
-        'jquery-raty.css': get_bower_file_url("raty/lib/jquery.raty.css"),
-        'github-markdown.css': get_bower_file_url("github-markdown-css/github-markdown.css"),
-        'font-awesome.css': get_bower_file_url("Font-Awesome/web-fonts-with-css/css/fontawesome-all.min.css"),
-        'source-code-pro.ttf': get_bower_file_url("sourcecodepro-googlefont/SourceCodePro-Regular.ttf"),
-    }[name] if not uno_use_cdn else {
-        'vue.js': get_cdnjs_file_url("vue/2.5.16/vue." + "js" if uno_debug else "min.js"),
-        'lodash.js': get_cdnjs_file_url("lodash.js/4.17.10/lodash.min.js"),
-        'pace.js': get_cdnjs_file_url("pace/1.0.2/pace.min.js"),
-        'pace.css': get_cdnjs_file_url("pace/1.0.2/themes/blue/pace-theme-flash.css"),
-        'mathjax.js': get_cdnjs_file_url("mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML"),
-        'raphael.js': get_cdnjs_file_url("raphael/2.2.7/raphael.min.js"),
-        'underscore.js': get_cdnjs_file_url("underscore.js/1.8.3/underscore-min.js"),
-        'sequence-diagram.js': get_cdnjs_file_url("js-sequence-diagrams/1.0.6/sequence-diagram-min.js"),
-        'flowchart.js': get_cdnjs_file_url("flowchart/1.10.0/flowchart.min.js"),
-        'jquery.js': get_cdnjs_file_url("jquery/3.3.1/jquery.min.js"),
-        'jquery-tablesorter.js': get_cdnjs_file_url("jquery.tablesorter/2.30.1/js/jquery.tablesorter.min.js"),
-        'jquery-raty.js': get_cdnjs_file_url("raty/2.8.0/jquery.raty.min.js"),
-        'jquery-raty.css': get_cdnjs_file_url("raty/2.8.0/jquery.raty.min.css"),
-        'github-markdown.css': get_cdnjs_file_url("github-markdown-css/2.10.0/github-markdown.min.css"),
-        'font-awesome.css': "https://use.fontawesome.com/releases/v5.0.9/css/all.css",
-        'source-code-pro.ttf': "https://fonts.gstatic.com/s/sourcecodepro/v7/HI_SiYsKILxRpg3hIP6sJ7fM7PqlPevW.woff2",
-    }[name]
+    lib = {
+        "vue.js": {
+            "local": get_bower_file_url("vue/dist/vue." + "js" if uno_debug else "min.js"),
+            "remote": get_cdnjs_file_url("vue/2.5.16/vue." + "js" if uno_debug else "min.js")
+        },
+        "lodash.js": {
+            "local": get_bower_file_url("lodash/dist/lodash.min.js"),
+            "remote": get_cdnjs_file_url("lodash.js/4.17.10/lodash.min.js")
+        },
+        "pace.js": {
+            "local": get_bower_file_url("PACE/pace.min.js"),
+            "remote": get_cdnjs_file_url("pace/1.0.2/pace.min.js")
+        },
+        "pace-theme-flash.css": {
+            "local": get_bower_file_url("PACE/themes/blue/pace-theme-flash.css"),
+            "remote": get_cdnjs_file_url("pace/1.0.2/themes/blue/pace-theme-flash.css")
+        },
+        "mathjax.js": {
+            "local": get_bower_file_url("MathJax/MathJax.js") + "?config=TeX-MML-AM_CHTML",
+            "remote": get_cdnjs_file_url("mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML")
+        },
+        "raphael.js": {
+            "local": get_bower_file_url("raphael/raphael.min.js"),
+            "remote": get_cdnjs_file_url("raphael/2.2.7/raphael.min.js")
+        },
+        "underscore.js": {
+            "local": get_bower_file_url("underscore/underscore-min.js"),
+            "remote": get_cdnjs_file_url("underscore.js/1.8.3/underscore-min.js")
+        },
+        "sequence-diagram.js": {
+            "local": get_bower_file_url("js-sequence-diagrams/dist/sequence-diagram-min.js"),
+            "remote": get_cdnjs_file_url("js-sequence-diagrams/1.0.6/sequence-diagram-min.js")
+        },
+        "flowchart.js": {
+            "local": get_bower_file_url("flowchart/release/flowchart.min.js"),
+            "remote": get_cdnjs_file_url("flowchart/1.10.0/flowchart.min.js")
+        },
+        "jquery.js": {
+            "local": get_bower_file_url("jquery/dist/jquery.min.js"),
+            "remote": get_cdnjs_file_url("jquery/3.3.1/jquery.min.js")
+        },
+        "jquery-tablesorter.js": {
+            "local": get_bower_file_url("tablesorter/dist/js/jquery.tablesorter.min.js"),
+            "remote": get_cdnjs_file_url("jquery.tablesorter/2.30.1/js/jquery.tablesorter.min.js")
+        },
+        "jquery-raty.js": {
+            "local": get_bower_file_url("raty/lib/jquery.raty.js"),
+            "remote": get_cdnjs_file_url("raty/2.8.0/jquery.raty.min.js")
+        },
+        "jquery-raty.css": {
+            "local": get_bower_file_url("raty/lib/jquery.raty.css"),
+            "remote": get_cdnjs_file_url("raty/2.8.0/jquery.raty.min.css")
+        },
+        "github-markdown.css": {
+            "local": get_bower_file_url("github-markdown-css/github-markdown.css"),
+            "remote": get_cdnjs_file_url("github-markdown-css/2.10.0/github-markdown.min.css")
+        },
+        "font-awesome-all.css": {
+            "local": get_bower_file_url("Font-Awesome/web-fonts-with-css/css/fontawesome-all.min.css"),
+            "remote": "https://use.fontawesome.com/releases/v5.0.9/css/all.css"
+        },
+        "source-code-pro-regular.font": {
+            "local": get_bower_file_url("sourcecodepro-googlefont/SourceCodePro-Regular.ttf"),
+            "remote": "https://fonts.gstatic.com/s/sourcecodepro/v7/HI_SiYsKILxRpg3hIP6sJ7fM7PqlPevW.woff2"
+        }
+    }
+    return lib[name]["remote" if uno_use_cdn else "local"]
