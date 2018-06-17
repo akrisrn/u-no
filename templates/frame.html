@@ -5,27 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ get_static_file_url('img/favicon.ico') }}">
     <title>{%- block title -%}{%- endblock -%}</title>
-    <script type="text/javascript" src="{{ get_static_lib_url('vue.js') }}"></script>
-    <script type="text/javascript" src="{{ get_static_lib_url('lodash.js') }}"></script>
-    <script type="text/javascript" src="{{ get_static_lib_url('pace.js') }}"></script>
-    <script type="text/javascript" src="{{ get_static_lib_url('mathjax.js') }}"></script>
-    <script type="text/javascript" src="{{ get_static_lib_url('raphael.js') }}"></script>
-    <script type="text/javascript" src="{{ get_static_lib_url('underscore.js') }}"></script>
-    <script type="text/javascript" src="{{ get_static_lib_url('sequence-diagram.js') }}"></script>
-    <script type="text/javascript" src="{{ get_static_lib_url('flowchart.js') }}"></script>
-    <script type="text/javascript" src="{{ get_static_lib_url('jquery.js') }}"></script>
-    <script type="text/javascript" src="{{ get_static_lib_url('jquery-tablesorter.js') }}"></script>
-    <script type="text/javascript" src="{{ get_static_lib_url('jquery-raty.js') }}"></script>
-    <script type="text/javascript" src="{{ get_static_file_url('js/pace.on.js') }}"></script>
-    <script type="text/javascript" src="{{ get_static_file_url('js/markdown.js') }}"></script>
+    {%- set js_libs = ["vue.js", "lodash.js", "pace.js", "mathjax.js", "raphael.js", "underscore.js",
+    "sequence-diagram.js", "flowchart.js", "jquery.js", "jquery-tablesorter.js", "jquery-raty.js"] -%}
+    {%- set css_libs = ["pace-theme-flash.css", "github-markdown.css", "font-awesome-all.css", "jquery-raty.css"] -%}
+    {%- set js_custom = ["js/pace.on.js", "js/markdown.js"] -%}
+    {%- set css_custom = ["css/style.css", "css/markdown.css"] -%}
+    {%- for lib in js_libs -%}
+        <script type="text/javascript" src="{{ get_static_lib_url(lib) }}"></script>
+    {%- endfor -%}
+    {%- for custom in js_custom -%}
+        <script type="text/javascript" src="{{ get_static_file_url(custom) }}"></script>
+    {%- endfor -%}
     {%- block extra_js_link -%}
     {%- endblock -%}
-    <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url('pace-theme-flash.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url('github-markdown.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url('font-awesome-all.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url('jquery-raty.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ get_static_file_url('css/markdown.css') }}">
+    {%- for lib in css_libs -%}
+        <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url(lib) }}">
+    {%- endfor -%}
+    {%- for custom in css_custom -%}
+        <link rel="stylesheet" type="text/css" href="{{ get_static_file_url(custom) }}">
+    {%- endfor -%}
     {%- block extra_css_link -%}
     {%- endblock -%}
     <style>
