@@ -13,35 +13,23 @@
     {%- endfor -%}
 {%- endblock -%}
 {%- block content -%}
-    <div id="article">
-        <h1>${title}</h1>
-        <a href="/">
-            <i style="margin-right: 10px" class="fas fa-angle-double-left"></i>HOME
-        </a>
-        <template v-if="!notags">
-            <i class="fas fa-tags fa-xs"></i>
-            <div class="tag" v-for="tag in sortedTags">
-                <a :href="tag.url">
-                    <i style="margin-right: 3px" class="fas fa-hashtag"></i>${tag.name}
+    <h1>{{ title }}</h1>
+    <a href="/">
+        <i style="margin-right: 10px" class="fas fa-angle-double-left"></i>HOME
+    </a>
+    {%- if not notags -%}
+        <i class="fas fa-tags fa-xs"></i>
+        {%- for key in tags | sort -%}
+            <div class="tag">
+                <a href="{{ url_for('main.tag_page', tag_hash=key) }}">
+                    <i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ tags[key] }}
                 </a>
             </div>
-        </template>
-        <div class="date">${date}</div>
-        <hr>
-        <div class="markdown-body" v-html="content"></div>
+        {%- endfor -%}
+    {%- endif -%}
+    <div class="date">{{ date }}</div>
+    <hr>
+    <div class="markdown-body">
+        {{ data | safe }}
     </div>
-{%- endblock -%}
-{%- block vue -%}
-    <script>
-        new Vue({
-            delimiters: ['${', '}'],
-            el: "#article",
-            data: {{ data | safe }},
-            computed: {
-                sortedTags: function () {
-                    return _.sortBy(this.tags, 'name')
-                }
-            }
-        })
-    </script>
 {%- endblock -%}
