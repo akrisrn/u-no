@@ -128,6 +128,7 @@ def get_cdnjs_file_url(filename):
 def get_static_lib_url(name):
     return {
         'vue.js': get_bower_file_url("vue/dist/vue." + "js" if uno_debug else "min.js"),
+        'lodash.js': get_bower_file_url("lodash/dist/lodash.min.js"),
         'pace.js': get_bower_file_url("PACE/pace.min.js"),
         'pace.css': get_bower_file_url("PACE/themes/blue/pace-theme-flash.css"),
         'mathjax.js': get_bower_file_url("MathJax/MathJax.js") + "?config=TeX-MML-AM_CHTML",
@@ -144,6 +145,7 @@ def get_static_lib_url(name):
         'source-code-pro.ttf': get_bower_file_url("sourcecodepro-googlefont/SourceCodePro-Regular.ttf"),
     }[name] if not uno_use_cdn else {
         'vue.js': get_cdnjs_file_url("vue/2.5.16/vue." + "js" if uno_debug else "min.js"),
+        'lodash.js': get_cdnjs_file_url("lodash.js/4.17.10/lodash.min.js"),
         'pace.js': get_cdnjs_file_url("pace/1.0.2/pace.min.js"),
         'pace.css': get_cdnjs_file_url("pace/1.0.2/themes/blue/pace-theme-flash.css"),
         'mathjax.js': get_cdnjs_file_url("mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML"),
