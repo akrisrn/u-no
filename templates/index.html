@@ -65,9 +65,7 @@
 {%- endblock -%}
 {%- block content -%}
     <h1>{{ title }}</h1>
-    <a href="/">
-        <i style="margin-right: 10px" class="fas fa-angle-double-left"></i>HOME
-    </a>
+    <vue-return-home></vue-return-home>
     <hr>
     <input id="idS" placeholder="Search ID" onkeydown="if(event.keyCode===13){search.click()}">
     <input id="titleS" placeholder="Search Title" onkeydown="if(event.keyCode===13){search.click()}">

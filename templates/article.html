@@ -14,9 +14,7 @@
 {%- endblock -%}
 {%- block content -%}
     <h1>{{ title }}</h1>
-    <a href="/">
-        <i style="margin-right: 10px" class="fas fa-angle-double-left"></i>HOME
-    </a>
+    <vue-return-home></vue-return-home>
     {%- if not notags -%}
         <i class="fas fa-tags fa-xs"></i>
         {%- for key in tags | sort -%}
