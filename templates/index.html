@@ -12,10 +12,10 @@
     <h1>{{ title }}</h1>
     <vue-return-home></vue-return-home>
     <hr>
-    <input id="idS" placeholder="Search ID" onkeydown="if(event.keyCode===13){search.click()}">
-    <input id="titleS" placeholder="Search Title" onkeydown="if(event.keyCode===13){search.click()}">
-    <input id="tagS" placeholder="Search Tag" onkeydown="if(event.keyCode===13){search.click()}">
-    <input id="dateS" placeholder="Search Date" onkeydown="if(event.keyCode===13){search.click()}">
+    <input id="idS" placeholder="Search ID">
+    <input id="titleS" placeholder="Search Title">
+    <input id="tagS" placeholder="Search Tag">
+    <input id="dateS" placeholder="Search Date">
     <button id="search"><i class="fa fa-search"></i> Search</button>
     <button id="clean"><i class="fa fa-trash"></i> Clean</button>
     <div class="markdown-body">
@@ -23,7 +23,7 @@
         {%- set attachments = data[1] -%}
         <div class="tab">
             {%- if parents[''] -%}
-                <button class="tablinks" onclick="openCity(event, '{{ article_dir }}', this)" id="defaultOpen">
+                <button class="tablinks" onclick="openTab(event, '{{ article_dir }}', this)" id="defaultOpen">
                     <i style="margin-right: 10px" class="far fa-folder"></i>{{ article_dir }}
                 </button>
             {%- endif -%}
@@ -31,13 +31,13 @@
                 {%- if not parent -%}
                     {%- continue -%}
                 {%- endif -%}
-                <button class="tablinks" onclick="openCity(event, '{{ parent }}', this)"
+                <button class="tablinks" onclick="openTab(event, '{{ parent }}', this)"
                         {%- if not parents[''] and loop.index ==  1 -%}id="defaultOpen"{%- endif -%}>
                     <i style="margin-right: 10px" class="far fa-folder"></i>{{ parent }}
                 </button>
             {%- endfor -%}
             {%- if attachments -%}
-                <button class="tablinks" onclick="openCity(event, '{{ attach_dir }}', this)" id="defaultOpen">
+                <button class="tablinks" onclick="openTab(event, '{{ attach_dir }}', this)" id="defaultOpen">
                     <i style="margin-right: 10px" class="far fa-folder"></i>{{ attach_dir }}
                 </button>
             {%- endif -%}
