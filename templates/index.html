@@ -23,7 +23,7 @@
         {%- set attachments = data[1] -%}
         <div class="tab">
             {%- if parents[''] -%}
-                <button class="tablinks" onclick="openTab(event, '{{ article_dir }}', this)" id="defaultOpen">
+                <button class="tablinks" id="defaultOpen">
                     <i style="margin-right: 10px" class="far fa-folder"></i>{{ article_dir }}
                 </button>
             {%- endif -%}
@@ -31,13 +31,12 @@
                 {%- if not parent -%}
                     {%- continue -%}
                 {%- endif -%}
-                <button class="tablinks" onclick="openTab(event, '{{ parent }}', this)"
-                        {%- if not parents[''] and loop.index ==  1 -%}id="defaultOpen"{%- endif -%}>
+                <button class="tablinks" {%- if not parents[''] and loop.index ==  1 -%}id="defaultOpen"{%- endif -%}>
                     <i style="margin-right: 10px" class="far fa-folder"></i>{{ parent }}
                 </button>
             {%- endfor -%}
             {%- if attachments -%}
-                <button class="tablinks" onclick="openTab(event, '{{ attach_dir }}', this)" id="defaultOpen">
+                <button class="tablinks" id="defaultOpen">
                     <i style="margin-right: 10px" class="far fa-folder"></i>{{ attach_dir }}
                 </button>
             {%- endif -%}
