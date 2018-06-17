@@ -128,8 +128,8 @@ def get_cdnjs_file_url(filename):
 def get_static_lib_url(name):
     lib = {
         "vue.js": {
-            "local": get_bower_file_url("vue/dist/vue." + "js" if uno_debug else "min.js"),
-            "remote": get_cdnjs_file_url("vue/2.5.16/vue." + "js" if uno_debug else "min.js")
+            "local": get_bower_file_url("vue/dist/vue." + ("js" if uno_debug else "min.js")),
+            "remote": get_cdnjs_file_url("vue/2.5.16/vue." + ("js" if uno_debug else "min.js"))
         },
         "lodash.js": {
             "local": get_bower_file_url("lodash/dist/lodash.min.js"),
