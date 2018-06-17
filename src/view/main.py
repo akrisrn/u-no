@@ -1,7 +1,7 @@
 import os
 from operator import itemgetter
 
-from flask import send_from_directory, Blueprint, render_template, request, abort, url_for, redirect, session
+from flask import send_from_directory, Blueprint, render_template, request, abort, url_for, redirect, session, json
 
 from config import uno_index_file_name, uno_attachments_dir_name, uno_articles_dir_name, uno_make_file_ignore_arg, \
     uno_password
@@ -68,20 +68,17 @@ def article_page(dir_name, file_hash, frozen=False):
             reindex()
             abort(404)
     if dir_name == uno_articles_dir_name:
-        data = get_file_cache(item_abspath)
-        # 识别文章中的自定义css文件，获取自定义css文件url列表
-        css_urls = get_custom_css_flag(data)
-        # 识别文章中的自定义js文件，获取自定义js文件url列表
-        js_urls = get_custom_js_flag(data)
-        # markdown渲染
-        data = render(data)
-        # 去后缀
-        title = os.path.splitext(item[index_title_key])[0]
-        date = item[index_date_key]
-        tags = item[index_tags_key]
-        notags = item[index_notags_key]
-        return render_template('article.html', title=title, data=data, date=date, tags=tags, css_urls=css_urls,
-                               js_urls=js_urls, notags=notags)
+        file_data = get_file_cache(item_abspath)
+        data = {
+            "title": os.path.splitext(item[index_title_key])[0],
+            "content": render(file_data),
+            "date": item[index_date_key],
+            "tags": [{"name": item[index_tags_key][key], "url": url_for('main.tag_page', tag_hash=key)}
+                     for key in item[index_tags_key]],
+            "notags": item[index_notags_key]
+        }
+        return render_template('article.html', data=json.dumps(data), title=data["title"],
+                               css_urls=get_custom_css_flag(file_data), js_urls=get_custom_js_flag(file_data))
     else:
         # 定向到源文件
         file_dir, file = os.path.split(item_abspath)
