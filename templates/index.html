@@ -12,33 +12,24 @@
     <h1>{{ title }}</h1>
     <vue-return-home></vue-return-home>
     <hr>
-    <input id="idS" placeholder="Search ID">
-    <input id="titleS" placeholder="Search Title">
-    <input id="tagS" placeholder="Search Tag">
-    <input id="dateS" placeholder="Search Date">
-    <button id="search"><i class="fa fa-search"></i> Search</button>
-    <button id="clean"><i class="fa fa-trash"></i> Clean</button>
+    <vue-index-search-bar></vue-index-search-bar>
     <div class="markdown-body">
         {%- set parents = data[0] -%}
         {%- set attachments = data[1] -%}
         <div class="tab">
             {%- if parents[''] -%}
-                <button class="tablinks" id="defaultOpen">
-                    <i style="margin-right: 10px" class="far fa-folder"></i>{{ article_dir }}
-                </button>
+                <vue-index-tab-button name="{{ article_dir }}" id="defaultOpen"></vue-index-tab-button>
             {%- endif -%}
             {%- for parent in parents | sort -%}
                 {%- if not parent -%}
                     {%- continue -%}
                 {%- endif -%}
-                <button class="tablinks" {%- if not parents[''] and loop.index ==  1 -%}id="defaultOpen"{%- endif -%}>
-                    <i style="margin-right: 10px" class="far fa-folder"></i>{{ parent }}
-                </button>
+                <vue-index-tab-button name="{{ parent }}"
+                                      id="{{ "defaultOpen" if not parents[''] and loop.index == 1 else "" }}">
+                </vue-index-tab-button>
             {%- endfor -%}
             {%- if attachments -%}
-                <button class="tablinks" id="defaultOpen">
-                    <i style="margin-right: 10px" class="far fa-folder"></i>{{ attach_dir }}
-                </button>
+                <vue-index-tab-button name="{{ article_dir }}" id="defaultOpen"></vue-index-tab-button>
             {%- endif -%}
         </div>
         {%- for parent in parents -%}
@@ -70,10 +61,9 @@
                             <td>{{ article[index_notags_key] }}</td>
                             <td>
                                 {%- for key in article[index_tags_key] | sort -%}
-                                    <a href="{{ "?t=" + article[index_tags_key][key] }}">
-                                        <i style="margin-right: 3px"
-                                           class="fas fa-hashtag"></i>{{ article[index_tags_key][key] }}
-                                    </a>
+                                    <vue-tag url="{{ "?t=" + article[index_tags_key][key] }}"
+                                             name="{{ article[index_tags_key][key] }}">
+                                    </vue-tag>
                                 {%- endfor -%}
                             </td>
                         </tr>

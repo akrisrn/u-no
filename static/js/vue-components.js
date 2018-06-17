@@ -59,4 +59,24 @@ Vue.component('vue-error', {
     template: '<div class="center"><h1>{{ title }}</h1></div>'
 });
 
+Vue.component('vue-index-search-bar', {
+    template: `
+<div>
+    <input id="idS" placeholder="Search ID">
+    <input id="titleS" placeholder="Search Title">
+    <input id="tagS" placeholder="Search Tag">
+    <input id="dateS" placeholder="Search Date">
+    <button id="search"><i class="fa fa-search"></i> Search</button>
+    <button id="clean"><i class="fa fa-trash"></i> Clean</button>
+</div>`
+});
+
+Vue.component('vue-index-tab-button', {
+    props: ['name', 'id'],
+    template: `
+<button class="tablinks" :id="id">
+    <i style="margin-right: 10px" class="far fa-folder"></i>{{ name }}
+</button>`
+});
+
 new Vue({el: '#content'});
