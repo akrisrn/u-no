@@ -52,7 +52,7 @@ def article_page(dir_name, file_hash, frozen=False):
     item, item_path = get_item_by_url("/%s/%s" % (dir_name, file_hash))
     if not item:
         abort(404)
-    if not frozen and not logged() and item[index_secret_key]:
+    if dir_name == uno_articles_dir_name and not frozen and not logged() and item[index_secret_key]:
         abort(404)
     # 判断文件是否存在
     item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
