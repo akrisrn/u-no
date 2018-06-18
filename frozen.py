@@ -32,10 +32,10 @@ if __name__ == '__main__':
     frozen_static_dir_abspath = os.path.join(frozen_dir_abspath, uno_static_dir_name)
 
     if os.path.exists(frozen_dir_abspath):
-        shutil.rmtree(frozen_articles_dir_abspath)
-        shutil.rmtree(frozen_attachments_dir_abspath)
-        shutil.rmtree(frozen_tags_dir_abspath)
-        shutil.rmtree(frozen_static_dir_abspath)
+        shutil.rmtree(frozen_articles_dir_abspath, True)
+        shutil.rmtree(frozen_attachments_dir_abspath, True)
+        shutil.rmtree(frozen_tags_dir_abspath, True)
+        shutil.rmtree(frozen_static_dir_abspath, True)
     else:
         os.mkdir(frozen_dir_abspath)
 
