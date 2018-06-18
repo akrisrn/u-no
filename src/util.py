@@ -5,7 +5,7 @@ from functools import wraps
 
 from flask import url_for, session, redirect, request
 
-from config import uno_ignore_file_list, uno_debug, uno_version, uno_articles_dir_name, uno_use_cdn, uno_password
+from config import uno_ignore_file_list, uno_debug, uno_version, uno_use_cdn, uno_password, uno_articles_dir_abspath
 
 
 def logged():
@@ -34,7 +34,7 @@ def get_root_abspath():
 
 # 获取文章目录绝对路径
 def get_articles_dir_abspath():
-    return os.path.join(get_root_abspath(), uno_articles_dir_name)
+    return uno_articles_dir_abspath
 
 
 # 获取静态文件url

@@ -3,7 +3,7 @@ from operator import itemgetter
 
 from flask import send_from_directory, Blueprint, render_template, request, abort, url_for, redirect, session
 
-from config import uno_index_file_name, uno_attachments_dir_name, uno_articles_dir_name, uno_make_file_ignore_arg, \
+from config import uno_index_file_name, uno_attachments_url_name, uno_articles_url_name, uno_make_file_ignore_arg, \
     uno_password
 from src.cache import get_file_cache
 from src.flag import get_custom_js_flag, get_custom_css_flag
@@ -39,20 +39,20 @@ def index_file_page():
             parents[parent] = []
         parents[parent].append(item)
     return render_template('index.html', title="Index", data=[parents, sorted(data[1], key=itemgetter(index_id_key))],
-                           article_dir=uno_articles_dir_name, attach_dir=uno_attachments_dir_name)
+                           article_url=uno_articles_url_name, attach_url=uno_attachments_url_name)
 
 
 # 文章和附件页，通过对应的目录名和哈希值访问，文章展示markdown渲染结果，附件直接展示源文件
-@main.route('/<any("%s", "%s"):dir_name>/<file_hash>' % (uno_articles_dir_name, uno_attachments_dir_name))
-def article_page(dir_name, file_hash, frozen=False):
+@main.route('/<any("%s", "%s"):url_name>/<file_hash>' % (uno_articles_url_name, uno_attachments_url_name))
+def article_page(url_name, file_hash, frozen=False):
     # 判断哈希格式
     if len(file_hash) != 40 or not file_hash.isalnum():
         abort(404)
     # 在索引文件中查找对应哈希的项目信息
-    item, item_path = get_item_by_url("/%s/%s" % (dir_name, file_hash))
+    item, item_path = get_item_by_url("/%s/%s" % (url_name, file_hash))
     if not item:
         abort(404)
-    if dir_name == uno_articles_dir_name and not frozen and not logged() and item[index_secret_key]:
+    if url_name == uno_articles_url_name and not frozen and not logged() and item[index_secret_key]:
         abort(404)
     # 判断文件是否存在
     item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
@@ -67,7 +67,7 @@ def article_page(dir_name, file_hash, frozen=False):
             # 重建索引
             reindex()
             abort(404)
-    if dir_name == uno_articles_dir_name:
+    if url_name == uno_articles_url_name:
         data = get_file_cache(item_abspath)
         # 识别文章中的自定义css文件，获取自定义css文件url列表
         css_urls = get_custom_css_flag(data)

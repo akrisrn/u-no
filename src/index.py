@@ -3,8 +3,8 @@ import os
 import re
 
 import src.flag
-from config import uno_index_file_name, uno_attachments_dir_name, uno_articles_dir_name, \
-    uno_ignore_file_list, uno_ignore_dir_list, uno_secret_tags
+from config import uno_index_file_name, uno_attachments_url_name, uno_articles_url_name, uno_ignore_file_list, \
+    uno_ignore_dir_list, uno_secret_tags, uno_attachments_dir_name
 from src.cache import get_file_cache
 from src.util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
     update_config_ignore_file_list
@@ -136,7 +136,7 @@ def reindex():
     for root, dirs, files in os.walk(articles_dir_abspath):
         # 截取相对路径
         # noinspection PyTypeChecker
-        path = root.split(uno_articles_dir_name)[-1].lstrip(os.path.sep).replace("\\", "/")
+        path = root.split(articles_dir_abspath)[-1].lstrip(os.path.sep).replace("\\", "/")
         # 排除忽略目录
         is_ignore = False
         for ignore_dir in uno_ignore_dir_list:
@@ -180,14 +180,14 @@ def reindex():
                 # 获取日期
                 date = src.flag.get_date_flag(data)
                 # 计算文章哈希组成url
-                url = "/%s/%s" % (uno_articles_dir_name, compute_digest_by_data(data))
+                url = "/%s/%s" % (uno_articles_url_name, compute_digest_by_data(data))
                 # 识别文章中固定索引标识，来判断是否更新哈希
                 fixed = src.flag.get_fixed_flag(data)
                 if fixed:
                     # 查找旧索引中对应的项目，如果存在则沿用哈希
                     item = get_item_by_path(file_path)
                     if item:
-                        url = item[index_url_key]
+                        url = "/%s/%s" % (uno_articles_url_name, item[index_url_key].split("/")[-1])
                 # 组成一条文章索引
                 articles_block[file_path] = {index_id_key: index, index_parent_key: parent, index_title_key: title,
                                              index_url_key: url, index_date_key: date, index_tags_key: tags,
@@ -196,7 +196,7 @@ def reindex():
                                              index_highlight_key: src.flag.get_highlight_flag(data)}
             else:
                 # 组成一条附件索引
-                url = "/%s/%s" % (uno_attachments_dir_name, compute_digest_by_abspath(file_abspath))
+                url = "/%s/%s" % (uno_attachments_url_name, compute_digest_by_abspath(file_abspath))
                 attachments_block[file_path] = {index_id_key: index, index_parent_key: parent, index_title_key: title,
                                                 index_url_key: url}
             index += 1

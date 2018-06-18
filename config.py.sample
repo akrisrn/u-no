@@ -20,9 +20,13 @@ uno_version = ""
 # 是否使用CDN引入静态库
 uno_use_cdn = True
 
-# 根目录下文章目录名
-uno_articles_dir_name = ""
-# 文章目录下附件目录名字
+# 文章URL名
+uno_articles_url_name = ""
+# 附件URL名
+uno_attachments_url_name = ""
+# 文章目录绝对路径
+uno_articles_dir_abspath = ""
+# 文章目录下的附件目录名
 uno_attachments_dir_name = ""
 # 索引文件名
 uno_index_file_name = ""
