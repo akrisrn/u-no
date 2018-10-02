@@ -4,3 +4,4 @@ __pycache__
 config.py
 static/bower_components
 frozen_site
+*.iml
