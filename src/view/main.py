@@ -3,13 +3,13 @@ from operator import itemgetter
 
 from flask import send_from_directory, Blueprint, render_template, request, abort
 
-from config import uno_index_file_name, uno_attachments_url_name, uno_articles_url_name, uno_make_file_ignore_arg
+from config import uno_index_file_name, uno_attachments_url_name, uno_articles_url_name
 from src.cache import get_file_cache
 from src.flag import get_custom_js_flag, get_custom_css_flag
 from src.index import index_title_key, index_id_key, index_tags_key, index_date_key, get_item_by_url, \
-    index_data_filter, get_fixed_articles, index_notags_key, reindex, index_parent_key
+    index_data_filter, get_fixed_articles, index_notags_key, index_parent_key
 from src.md import render
-from src.util import update_config_ignore_file_list, get_articles_dir_abspath
+from src.util import get_articles_dir_abspath
 
 main = Blueprint("main", __name__)
 
@@ -54,15 +54,6 @@ def article_page(url_name, file_hash, frozen=False):
     item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
     if not os.path.exists(item_abspath):
         abort(404)
-    # 识别把文件加入忽略列表的url参数
-    if not frozen:
-        make_file_ignore_arg = request.args.get(uno_make_file_ignore_arg, "").strip()
-        if make_file_ignore_arg == "1":
-            # 加入忽略列表
-            update_config_ignore_file_list(item_path, True)
-            # 重建索引
-            reindex()
-            abort(404)
     if url_name == uno_articles_url_name:
         data = get_file_cache(item_abspath)
         # 识别文章中的自定义css文件，获取自定义css文件url列表
