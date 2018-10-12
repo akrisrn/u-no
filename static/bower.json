@@ -1,0 +1,20 @@
+{
+  "name": "u-no",
+  "private": true,
+  "authors": [
+    "AkrISrn <shairkarine@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/akrisrn/u-no",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "js-sequence-diagrams": "bramp/js-sequence-diagrams#^2.0.1"
+  }
+}

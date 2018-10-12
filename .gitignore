@@ -4,5 +4,6 @@ __pycache__
 config.py
 static/node_modules
 static/package-lock.json
+static/bower_components
 frozen_site
 *.iml
