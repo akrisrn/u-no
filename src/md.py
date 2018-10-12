@@ -38,7 +38,7 @@ def render(text):
         'markdown.extensions.toc',
     ]
     # 扩展配置
-    extension_config = {
+    extension_configs = {
         # 使用GitHub的emoji
         "pymdownx.emoji": {
             "emoji_index": pymdownx.emoji.gemoji,
@@ -70,8 +70,9 @@ def render(text):
             "social_url_shorthand": True,
         }
     }
-    return markdown(rate(table_increment(inlink(add_toc(clean_md(text))))), extensions=extensions,
-                    extension_configs=extension_config)
+    for ext in [clean_md, add_toc, inlink, table_increment, rate]:
+        text = ext(text)
+    return markdown(text, extensions=extensions, extension_configs=extension_configs)
 
 
 # 剔除\r和被<<>>包围的内容
