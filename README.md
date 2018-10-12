@@ -7,6 +7,7 @@ pip install -r requirements.txt
 ```
 cd static
 npm install
+bower install
 ```
 
 ## 运行
