@@ -117,10 +117,6 @@ def get_static_lib_url(name):
             "local": get_bower_file_url("vue/dist/vue." + ("js" if uno_debug else "min.js")),
             "remote": get_cdnjs_file_url("vue/2.5.16/vue." + ("js" if uno_debug else "min.js"))
         },
-        "lodash.js": {
-            "local": get_bower_file_url("lodash/dist/lodash.min.js"),
-            "remote": get_cdnjs_file_url("lodash.js/4.17.10/lodash.min.js")
-        },
         "pace.js": {
             "local": get_bower_file_url("PACE/pace.min.js"),
             "remote": get_cdnjs_file_url("pace/1.0.2/pace.min.js")
