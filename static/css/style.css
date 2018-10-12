@@ -109,7 +109,3 @@ a:hover i, li:hover > i:first-child {
 .article-hl {
     font-weight: bold;
 }
-
-.pw-error {
-    color: red;
-}
