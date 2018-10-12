@@ -1,244 +1,99 @@
 {%- extends "frame.html" -%}
 {%- block title -%}
-    {{ title }}
+{{ title }}
 {%- endblock -%}
 {%- block extra_js_link -%}
-    <script type="text/javascript" src="{{ get_static_file_url("js/index.js") }}"></script>
+<script type="text/javascript" src="{{ get_static_file_url("js/index.js") }}"></script>
 {%- endblock -%}
-{%
-    -block;
-    extra_css_link - %
-}
-<
-link;
-rel = "stylesheet";
-type = "text/css";
-href = "{{ get_static_file_url(";
-css / index.css;
-") }}" >
+{%- block extra_css_link -%}
+<link rel="stylesheet" type="text/css" href="{{ get_static_file_url("css/index.css") }}">
 {%- endblock -%}
-{%
-    -block;
-    content - %
-}
-<
-h1 > {;
-{
-    title
-}
-}<
-/h1>
-< vue -;
-return -home > < /vue-return-home>
+{%- block content -%}
+<h1>{{ title }}</h1>
+<vue-return-home></vue-return-home>
     <hr>
     <vue-index-search-bar></vue-index-search-bar>
-    < div;
-class
-= "markdown-body" >
-    { % -set;
-parents = data[0] - %
-}
-{%
-    -set;
-    attachments = data[1] - %
-}
-<
-div;
-class
-= "tab" >
-    { % -;
-if parents[''] - %}
-<
-vue - index - tab - button;
-name = "{{ article_url }}";
-id = "defaultOpen" > < /vue-index-tab-button>;
-            {%- endif -%}
-{%
-    -;
-    for parent in parents | sort - %}
-{%
-    -;
-    if not parent - %
-}
-{%
-    -;
-    continue;
-    - %
-}
-                {%- endif -%}
-<
-vue - index - tab - button;
-name = "{{ parent }}";
-id = "{{ ";
-defaultOpen;
-" if not parents[''] and loop.index == 1 else ";
-" }}" >
-< /vue-index-tab-button>;
-            {%- endfor -%}
-{%
-    -;
-    if attachments - %}
-<
-vue - index - tab - button;
-name = "{{ attach_url }}";
-id = "defaultOpen" > < /vue-index-tab-button>;
-            {%- endif -%}
-<
-/div>;
-{%
-    -;
-    for parent in parents - %}
-<
-div;
-id = "{{ parent if parent else article_url }}";
-class
-= "tabcontent" >
-                <table>
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Date</th>
-                        <th>Fixed</th>
-                        <th>Top</th>
-                        <th>Highlight</th>
-                        <th>NoTags</th>
-                        <th>Tags</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-    { % -;
-for article in parents[parent] - %}
-                        <tr>
-< td;
-align = "right" > {;
-{
-    article[index_id_key]
-}
-}<
-/td>
-< td > < a;
-href = "{{ article[index_url_key] }}" > {;
-{
-    article[index_title_key]
-}
-}<
-/a></;
-td >
-< td > {;
-{
-    article[index_date_key]
-}
-}<
-/td>
-< td > {;
-{
-    article[index_fixed_key]
-}
-}<
-/td>
-< td > {;
-{
-    article[index_top_key]
-}
-}<
-/td>
-< td > {;
-{
-    article[index_highlight_key]
-}
-}<
-/td>
-< td > {;
-{
-    article[index_notags_key]
-}
-}<
-/td>
-                            <td>
-{ % -;
-for key in article[index_tags_key] | sort - %}
-<
-vue - tag;
-url = "{{ " ? t = " + article[index_tags_key][key] }}"
-                                             name="{{ article[index_tags_key][key] }}">
-                                                 < /vue-tag>;
-                                {%- endfor -%}
-                            </td>
-< /tr>;
-                    {%- endfor -%}
-                    </tbody>
-                </table>
-< /div>;
-        {%- endfor -%}
-{%
-    -;
-    if attachments - %}
-{%
-    -set;
-    attch_len = attachments | length - %
-}
-{%
-    -set;
-    max_rows = 10 - %
-}
-{%
-    -set;
-    max_column = (attch_len / max_rows) | round(0, 'ceil') | int - %
-}
-<
-div;
-id = "{{ attach_url }}";
-class
-= "tabcontent" >
-                <table>
-                    <tbody>
-    { % -;
-for i in range(attch_len if attch_len < max_rows else
-max_rows;
-)
-- %
-}
-                        <tr>
-{ % -;
-for j in range(max_column) - %}
-{%
-    -set;
-    index = j * max_rows + i - %
-}
-{%
-    -;
-    if index < attch_len - %}
-{%
-    -set;
-    attachment = attachments[index] - %
-}
-<
-td;
-align = "right" > {;
-{
-    attachment[index_id_key]
-}
-}<
-/td>
-                                    <td>
-< a;
-href = "{{ attachment[index_url_key] }}" > {;
-{
-    attachment[index_title_key]
-}
-}<
-/a>
-< /td>;
-                                {%- endif -%}
-                            {%- endfor -%}
-<
-/tr>;
-                    {%- endfor -%}
-                    </tbody>
-                </table>
-< /div>;
-        {%- endif -%}
-<
-/div>;
+    <div class="markdown-body">
+    {%- set parents = data[0] -%}
+{%- set attachments = data[1] -%}
+<div class="tab">
+    {%- if parents[''] -%}
+<vue-index-tab-button name="{{ article_url }}" id="defaultOpen"></vue-index-tab-button>
+{%- endif -%}
+{%- for parent in parents | sort -%}
+{%- if not parent -%}
+{%- continue -%}
+{%- endif -%}
+<vue-index-tab-button name="{{ parent }}"
+id="{{ "defaultOpen" if not parents[''] and loop.index == 1 else "" }}">
+</vue-index-tab-button>
+{%- endfor -%}
+{%- if attachments -%}
+<vue-index-tab-button name="{{ attach_url }}" id="defaultOpen"></vue-index-tab-button>
+{%- endif -%}
+</div>
+{%- for parent in parents -%}
+<div id="{{ parent if parent else article_url }}" class="tabcontent">
+    <table>
+    <thead>
+    <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Date</th>
+    <th>Fixed</th>
+    <th>Top</th>
+    <th>Highlight</th>
+    <th>NoTags</th>
+    <th>Tags</th>
+    </tr>
+    </thead>
+    <tbody>
+    {%- for article in parents[parent] -%}
+<tr>
+<td align="right">{{ article[index_id_key] }}</td>
+<td><a href="{{ article[index_url_key] }}">{{ article[index_title_key] }}</a></td>
+<td>{{ article[index_date_key] }}</td>
+<td>{{ article[index_fixed_key] }}</td>
+<td>{{ article[index_top_key] }}</td>
+<td>{{ article[index_highlight_key] }}</td>
+<td>{{ article[index_notags_key] }}</td>
+<td>
+{%- for key in article[index_tags_key] | sort -%}
+<vue-tag url="{{ "?t=" + article[index_tags_key][key] }}"
+    name="{{ article[index_tags_key][key] }}">
+        </vue-tag>
+{%- endfor -%}
+</td>
+</tr>
+{%- endfor -%}
+</tbody>
+</table>
+</div>
+{%- endfor -%}
+{%- if attachments -%}
+{%- set attch_len = attachments | length -%}
+{%- set max_rows = 10 -%}
+{%- set max_column = (attch_len / max_rows) | round(0, 'ceil') | int -%}
+<div id="{{ attach_url }}" class="tabcontent">
+    <table>
+    <tbody>
+    {%- for i in range(attch_len if attch_len < max_rows else max_rows) -%}
+<tr>
+{%- for j in range(max_column) -%}
+{%- set index = j * max_rows + i -%}
+{%- if index < attch_len -%}
+{%- set attachment = attachments[index] -%}
+<td align="right">{{ attachment[index_id_key] }}</td>
+<td>
+<a href="{{ attachment[index_url_key] }}">{{ attachment[index_title_key] }}</a>
+</td>
+{%- endif -%}
+{%- endfor -%}
+</tr>
+{%- endfor -%}
+</tbody>
+</table>
+</div>
+{%- endif -%}
+</div>
 {%- endblock -%}
