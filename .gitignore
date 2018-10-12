@@ -2,6 +2,7 @@
 .venv
 __pycache__
 config.py
-static/bower_components
+static/node_modules
+static/package-lock.json
 frozen_site
 *.iml
