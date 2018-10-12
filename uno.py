@@ -1,8 +1,8 @@
 from flask import Flask, render_template
 
-from config import uno_debug, uno_port, uno_host, uno_site_name, uno_static_dir_name, uno_secret_key
+from config import uno_debug, uno_port, uno_host, uno_site_name, uno_static_dir_name
 from src.index import index_url_key, index_title_key, index_id_key, index_tags_key, index_date_key, index_notags_key, \
-    index_highlight_key, index_fixed_key, index_top_key, index_secret_key
+    index_highlight_key, index_fixed_key, index_top_key
 from src.util import get_static_file_url, get_static_lib_url
 from src.view.main import main
 
@@ -23,13 +23,11 @@ app.jinja_env.globals["index_notags_key"] = index_notags_key
 app.jinja_env.globals["index_highlight_key"] = index_highlight_key
 app.jinja_env.globals["index_fixed_key"] = index_fixed_key
 app.jinja_env.globals["index_top_key"] = index_top_key
-app.jinja_env.globals["index_secret_key"] = index_secret_key
 # 绑定函数到jinja模板
 app.jinja_env.globals.update(get_static_file_url=get_static_file_url)
 app.jinja_env.globals.update(get_static_lib_url=get_static_lib_url)
 # jinja循环控制扩展
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
-app.secret_key = uno_secret_key
 
 
 @app.errorhandler(404)

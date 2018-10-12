@@ -1,29 +1,10 @@
 import hashlib
 import os
 import re
-from functools import wraps
 
-from flask import url_for, session, redirect, request
+from flask import url_for
 
-from config import uno_ignore_file_list, uno_debug, uno_version, uno_use_cdn, uno_password, uno_articles_dir_abspath
-
-
-def logged():
-    if session.get('password') == uno_password:
-        return True
-    else:
-        return False
-
-
-def auth(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        if logged():
-            return func(*args, **kwargs)
-        else:
-            return redirect(url_for('main.login', ref=request.url))
-
-    return wrapper
+from config import uno_ignore_file_list, uno_debug, uno_version, uno_use_cdn, uno_articles_dir_abspath
 
 
 # 获取根目录绝对路径
