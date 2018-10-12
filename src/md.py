@@ -1,6 +1,7 @@
 import re
 
 import pymdownx.emoji
+import pymdownx.superfences
 from markdown import markdown
 
 from src.index import index_url_key, get_item_by_path
@@ -68,6 +69,17 @@ def render(text):
             "repo_url_shortener": True,
             "repo_url_shorthand": True,
             "social_url_shorthand": True,
+        },
+        "pymdownx.superfences": {
+            "custom_fences": [{
+                'name': 'flow',
+                'class': 'uml-flowchart',
+                'format': pymdownx.superfences.fence_code_format
+            }, {
+                'name': 'sequence',
+                'class': 'uml-sequence-diagram',
+                'format': pymdownx.superfences.fence_code_format
+            }]
         }
     }
     for ext in [clean_md, add_toc, inlink, table_increment, rate]:
