@@ -9,7 +9,7 @@ from src.flag import get_custom_js_flag, get_custom_css_flag
 from src.index import index_title_key, index_id_key, index_tags_key, index_date_key, get_item_by_url, \
     index_data_filter, get_fixed_articles, index_notags_key, index_parent_key
 from src.md import render
-from src.util import get_articles_dir_abspath
+from src.util import get_articles_dir_abspath, is_valid_hash
 
 main = Blueprint("main", __name__)
 
@@ -44,7 +44,7 @@ def index_file_page():
 @main.route('/<any("%s", "%s"):url_name>/<file_hash>' % (uno_articles_url_name, uno_attachments_url_name))
 def article_page(url_name, file_hash):
     # 判断哈希格式
-    if len(file_hash) != 40 or not file_hash.isalnum():
+    if not is_valid_hash(file_hash):
         abort(404)
     # 在索引文件中查找对应哈希的项目信息
     item, item_path = get_item_by_url("/%s/%s" % (url_name, file_hash))
@@ -78,6 +78,9 @@ def article_page(url_name, file_hash):
 # 标签页
 @main.route('/tags/<tag_hash>')
 def tag_page(tag_hash):
+    # 判断哈希格式
+    if not is_valid_hash(tag_hash):
+        abort(404)
     new_fixed_articles = []
     fixed_articles = get_fixed_articles()
     tag_name = ""

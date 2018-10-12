@@ -95,6 +95,11 @@ def clean_text(text):
     return re.sub("(\s|\"|\')", "", text)
 
 
+# 检查哈希值是否有效
+def is_valid_hash(hash_value):
+    return len(hash_value) == 40 and hash_value.isalnum()
+
+
 # 获取bower包文件url
 def get_bower_file_url(filename):
     return url_for("static", filename="bower_components/%s" % filename)
