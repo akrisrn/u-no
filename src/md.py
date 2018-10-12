@@ -71,7 +71,8 @@ def render(text):
             "social_url_shorthand": True,
         }
     }
-    return markdown(rate(table_increment(inlink(add_toc(clean_md(text))))), extensions, extension_config)
+    return markdown(rate(table_increment(inlink(add_toc(clean_md(text))))), extensions=extensions,
+                    extension_configs=extension_config)
 
 
 # 剔除\r和被<<>>包围的内容
