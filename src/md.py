@@ -7,7 +7,6 @@ from src.index import index_url_key, get_item_by_path
 from src.util import regexp_join
 
 
-# noinspection SpellCheckingInspection
 # markdown渲染
 def render(text):
     # markdown扩展
