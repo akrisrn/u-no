@@ -42,7 +42,7 @@ def index_file_page():
 
 # 文章和附件页，通过对应的目录名和哈希值访问，文章展示markdown渲染结果，附件直接展示源文件
 @main.route('/<any("%s", "%s"):url_name>/<file_hash>' % (uno_articles_url_name, uno_attachments_url_name))
-def article_page(url_name, file_hash, frozen=False):
+def article_page(url_name, file_hash):
     # 判断哈希格式
     if len(file_hash) != 40 or not file_hash.isalnum():
         abort(404)

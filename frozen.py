@@ -51,7 +51,7 @@ if __name__ == '__main__':
         for article in fixed_articles:
             dir_name, file_hash = article[index_url_key][1:].split("/")
             with open(os.path.join(frozen_articles_dir_abspath, file_hash + ".html"), "w", encoding="utf-8") as f:
-                article_page_data = clean(article_page(dir_name, file_hash, True))
+                article_page_data = clean(article_page(dir_name, file_hash))
                 for result in re.finditer("/%s/([0-9a-z]{40})" % uno_attachments_url_name, article_page_data):
                     item, item_path = get_item_by_url(result.group())
                     item_abspath = os.path.join(uno_articles_dir_abspath, item_path)
