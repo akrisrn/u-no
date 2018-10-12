@@ -5,7 +5,8 @@ pip install -r requirements.txt
 ```
 
 ```
-bower install
+cd static
+npm install
 ```
 
 ## 运行
