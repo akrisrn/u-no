@@ -4,13 +4,19 @@ import re
 
 from flask import url_for
 
-from config import uno_ignore_file_list, uno_debug, uno_version, uno_use_cdn, uno_articles_dir_abspath
+from config import uno_ignore_file_list, uno_debug, uno_version, uno_use_cdn, uno_articles_dir_abspath, \
+    uno_static_dir_name
 
 
 # 获取根目录绝对路径
 def get_root_abspath():
     # 根据当前目录的位置进行切割
     return os.path.dirname(os.path.abspath(__file__)).split(__package__)[0]
+
+
+# 获取静态目录绝对路径
+def get_static_abspath():
+    return os.path.join(get_root_abspath(), uno_static_dir_name)
 
 
 # 获取文章目录绝对路径
