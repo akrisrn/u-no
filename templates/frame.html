@@ -7,7 +7,8 @@
     <title>{%- block title -%}{%- endblock -%}</title>
     {%- set js_libs = ["vue.js", "pace.js", "mathjax.js", "raphael.js", "underscore.js",
     "sequence-diagram.js", "flowchart.js", "jquery.js", "jquery-tablesorter.js", "jquery-raty.js"] -%}
-    {%- set css_libs = ["pace-theme-flash.css", "github-markdown.css", "font-awesome-all.css", "jquery-raty.css"] -%}
+    {%- set css_libs = ["pace-theme-flash.css", "github-markdown.css", "font-awesome-all.css", "jquery-raty.css",
+    "source-code-pro.css"] -%}
     {%- set js_custom = ["js/pace.on.js", "js/markdown.js"] -%}
     {%- set css_custom = ["css/style.css", "css/markdown.css"] -%}
     {%- for lib in js_libs -%}
@@ -26,14 +27,6 @@
     {%- endfor -%}
     {%- block extra_css_link -%}
     {%- endblock -%}
-    <style>
-        @font-face {
-            font-family: 'Source Code Pro';
-            font-style: normal;
-            font-weight: 400;
-            src: url({{ get_static_lib_url('source-code-pro-regular.font') }});
-        }
-    </style>
 </head>
 <body>
 <div id="body">

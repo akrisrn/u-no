@@ -171,9 +171,9 @@ def get_static_lib_url(name):
             "local": get_module_file_url("@fortawesome/fontawesome-free/css/all.min.css"),
             "remote": get_cdn_file_url("@fortawesome/fontawesome-free@5.4.1/css/all.min.css")
         },
-        "source-code-pro-regular.font": {
-            "local": get_module_file_url("source-code-pro/TTF/SourceCodePro-Regular.ttf"),
-            "remote": get_cdn_file_url("source-code-pro@2.30.1/TTF/SourceCodePro-Regular.ttf")
+        "source-code-pro.css": {
+            "local": get_module_file_url("source-code-pro/source-code-pro.css"),
+            "remote": get_cdn_file_url("source-code-pro@2.30.1/source-code-pro.min.css")
         }
     }
     return lib[name]["remote" if uno_use_cdn else "local"]
