@@ -121,31 +121,31 @@ def get_static_lib_url(name):
     global lib
     if not lib:
         lib = {
-            "vue.js": {
+            "vue": {
                 "local": get_module_file_url("vue/dist/vue." + ("js" if uno_debug else "min.js")),
                 "remote": get_cdn_file_url("vue@2.5.17/dist/vue." + ("js" if uno_debug else "min.js"))
             },
-            "pace.js": {
+            "pace-js": {
                 "local": get_module_file_url("pace-js/pace.min.js"),
                 "remote": get_cdn_file_url("pace-js@1.0.2/pace.min.js")
             },
-            "pace-theme-flash.css": {
+            "pace-js|css": {
                 "local": get_module_file_url("pace-js/themes/blue/pace-theme-flash.css"),
                 "remote": get_cdn_file_url("pace-js@1.0.2/themes/blue/pace-theme-flash.css")
             },
-            "mathjax.js": {
+            "mathjax": {
                 "local": get_module_file_url("mathjax/unpacked/MathJax.js") + "?config=TeX-MML-AM_CHTML",
                 "remote": get_cdn_file_url("mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML")
             },
-            "raphael.js": {
+            "raphael": {
                 "local": get_module_file_url("raphael/raphael.min.js"),
                 "remote": get_cdn_file_url("raphael@2.2.7/raphael.min.js")
             },
-            "underscore.js": {
+            "underscore": {
                 "local": get_module_file_url("underscore/underscore-min.js"),
                 "remote": get_cdn_file_url("underscore@1.9.1/underscore-min.js")
             },
-            "sequence-diagram.js": {
+            "js-sequence-diagrams": {
                 "local": get_module_file_url("js-sequence-diagrams/dist/sequence-diagram-min.js", False),
                 "remote": get_cdn_file_url("bramp/js-sequence-diagrams@2.0.1/dist/sequence-diagram-min.js", False)
             },
@@ -153,31 +153,31 @@ def get_static_lib_url(name):
                 "local": get_module_file_url("flowchart.js/release/flowchart.min.js"),
                 "remote": get_cdn_file_url("flowchart.js@1.11.3/release/flowchart.min.js")
             },
-            "jquery.js": {
+            "jquery": {
                 "local": get_module_file_url("jquery/dist/jquery.min.js"),
                 "remote": get_cdn_file_url("jquery@3.3.1/dist/jquery.min.js")
             },
-            "jquery-tablesorter.js": {
+            "tablesorter": {
                 "local": get_module_file_url("tablesorter/dist/js/jquery.tablesorter.min.js"),
                 "remote": get_cdn_file_url("tablesorter@2.31.0/dist/js/jquery.tablesorter.min.js")
             },
-            "jquery-raty.js": {
+            "raty-js": {
                 "local": get_module_file_url("raty-js/lib/jquery.raty.js"),
                 "remote": get_cdn_file_url("raty-js@2.8.0/lib/jquery.raty.min.js")
             },
-            "jquery-raty.css": {
+            "raty-js|css": {
                 "local": get_module_file_url("raty-js/lib/jquery.raty.css"),
                 "remote": get_cdn_file_url("raty-js@2.8.0/lib/jquery.raty.min.css")
             },
-            "github-markdown.css": {
+            "github-markdown-css": {
                 "local": get_module_file_url("github-markdown-css/github-markdown.css"),
                 "remote": get_cdn_file_url("github-markdown-css@2.10.0/github-markdown.min.css")
             },
-            "font-awesome-all.css": {
+            "@fortawesome/fontawesome-free": {
                 "local": get_module_file_url("@fortawesome/fontawesome-free/css/all.min.css"),
                 "remote": get_cdn_file_url("@fortawesome/fontawesome-free@5.4.1/css/all.min.css")
             },
-            "source-code-pro.css": {
+            "source-code-pro": {
                 "local": get_module_file_url("source-code-pro/source-code-pro.css"),
                 "remote": get_cdn_file_url("source-code-pro@2.30.1/source-code-pro.min.css")
             }

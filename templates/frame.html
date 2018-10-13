@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ get_static_file_url('img/favicon.ico') }}">
     <title>{%- block title -%}{%- endblock -%}</title>
-    {%- set js_libs = ["vue.js", "pace.js", "mathjax.js", "raphael.js", "underscore.js",
-    "sequence-diagram.js", "flowchart.js", "jquery.js", "jquery-tablesorter.js", "jquery-raty.js"] -%}
-    {%- set css_libs = ["pace-theme-flash.css", "github-markdown.css", "font-awesome-all.css", "jquery-raty.css",
-    "source-code-pro.css"] -%}
+    {%- set js_libs = ["vue", "pace-js", "mathjax", "raphael", "underscore", "js-sequence-diagrams", "flowchart.js",
+    "jquery", "tablesorter", "raty-js"] -%}
+    {%- set css_libs = ["pace-js|css", "github-markdown-css", "@fortawesome/fontawesome-free", "raty-js|css",
+    "source-code-pro"] -%}
     {%- set js_custom = ["js/pace.on.js", "js/markdown.js"] -%}
     {%- set css_custom = ["css/style.css", "css/markdown.css"] -%}
     {%- for lib in js_libs -%}
