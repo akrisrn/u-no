@@ -112,68 +112,68 @@ def get_cdn_file_url(filename, is_npm=True):
     return "https://cdn.jsdelivr.net/%s/%s" % (cdn_type, filename)
 
 
-# 根据是否使用cdn选择本地bower路径或cdnjs链接
+# 根据是否使用cdn选择本地包路径或cdn链接
 def get_static_lib_url(name):
     lib = {
         "vue.js": {
             "local": get_module_file_url("vue/dist/vue." + ("js" if uno_debug else "min.js")),
-            "remote": get_cdn_file_url("vue/2.5.16/vue." + ("js" if uno_debug else "min.js"))
+            "remote": get_cdn_file_url("vue@2.5.17/dist/vue." + ("js" if uno_debug else "min.js"))
         },
         "pace.js": {
             "local": get_module_file_url("pace-js/pace.min.js"),
-            "remote": get_cdn_file_url("pace/1.0.2/pace.min.js")
+            "remote": get_cdn_file_url("pace-js@1.0.2/pace.min.js")
         },
         "pace-theme-flash.css": {
             "local": get_module_file_url("pace-js/themes/blue/pace-theme-flash.css"),
-            "remote": get_cdn_file_url("pace/1.0.2/themes/blue/pace-theme-flash.css")
+            "remote": get_cdn_file_url("pace-js@1.0.2/themes/blue/pace-theme-flash.css")
         },
         "mathjax.js": {
-            "local": get_module_file_url("mathjax/MathJax.js") + "?config=TeX-MML-AM_CHTML",
-            "remote": get_cdn_file_url("mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML")
+            "local": get_module_file_url("mathjax/unpacked/MathJax.js") + "?config=TeX-MML-AM_CHTML",
+            "remote": get_cdn_file_url("mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML")
         },
         "raphael.js": {
             "local": get_module_file_url("raphael/raphael.min.js"),
-            "remote": get_cdn_file_url("raphael/2.2.7/raphael.min.js")
+            "remote": get_cdn_file_url("raphael@2.2.7/raphael.min.js")
         },
         "underscore.js": {
             "local": get_module_file_url("underscore/underscore-min.js"),
-            "remote": get_cdn_file_url("underscore.js/1.8.3/underscore-min.js")
+            "remote": get_cdn_file_url("underscore@1.9.1/underscore-min.js")
         },
         "sequence-diagram.js": {
             "local": get_module_file_url("js-sequence-diagrams/dist/sequence-diagram-min.js", False),
-            "remote": get_cdn_file_url("js-sequence-diagrams/1.0.6/sequence-diagram-min.js")
+            "remote": get_cdn_file_url("bramp/js-sequence-diagrams@2.0.1/dist/sequence-diagram-min.js", False)
         },
         "flowchart.js": {
             "local": get_module_file_url("flowchart.js/release/flowchart.min.js"),
-            "remote": get_cdn_file_url("flowchart/1.10.0/flowchart.min.js")
+            "remote": get_cdn_file_url("flowchart.js@1.11.3/release/flowchart.min.js")
         },
         "jquery.js": {
             "local": get_module_file_url("jquery/dist/jquery.min.js"),
-            "remote": get_cdn_file_url("jquery/3.3.1/jquery.min.js")
+            "remote": get_cdn_file_url("jquery@3.3.1/dist/jquery.min.js")
         },
         "jquery-tablesorter.js": {
             "local": get_module_file_url("tablesorter/dist/js/jquery.tablesorter.min.js"),
-            "remote": get_cdn_file_url("jquery.tablesorter/2.30.1/js/jquery.tablesorter.min.js")
+            "remote": get_cdn_file_url("tablesorter@2.31.0/dist/js/jquery.tablesorter.min.js")
         },
         "jquery-raty.js": {
             "local": get_module_file_url("raty-js/lib/jquery.raty.js"),
-            "remote": get_cdn_file_url("raty/2.8.0/jquery.raty.min.js")
+            "remote": get_cdn_file_url("raty-js@2.8.0/lib/jquery.raty.min.js")
         },
         "jquery-raty.css": {
             "local": get_module_file_url("raty-js/lib/jquery.raty.css"),
-            "remote": get_cdn_file_url("raty/2.8.0/jquery.raty.min.css")
+            "remote": get_cdn_file_url("raty-js@2.8.0/lib/jquery.raty.min.css")
         },
         "github-markdown.css": {
             "local": get_module_file_url("github-markdown-css/github-markdown.css"),
-            "remote": get_cdn_file_url("github-markdown-css/2.10.0/github-markdown.min.css")
+            "remote": get_cdn_file_url("github-markdown-css@2.10.0/github-markdown.min.css")
         },
         "font-awesome-all.css": {
             "local": get_module_file_url("@fortawesome/fontawesome-free/css/all.min.css"),
-            "remote": "https://use.fontawesome.com/releases/v5.0.9/css/all.css"
+            "remote": get_cdn_file_url("@fortawesome/fontawesome-free@5.4.1/css/all.min.css")
         },
         "source-code-pro-regular.font": {
             "local": get_module_file_url("source-code-pro/TTF/SourceCodePro-Regular.ttf"),
-            "remote": "https://fonts.gstatic.com/s/sourcecodepro/v7/HI_SiYsKILxRpg3hIP6sJ7fM7PqlPevW.woff2"
+            "remote": get_cdn_file_url("source-code-pro@2.30.1/TTF/SourceCodePro-Regular.ttf")
         }
     }
     return lib[name]["remote" if uno_use_cdn else "local"]
