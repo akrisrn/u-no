@@ -1,4 +1,5 @@
 import hashlib
+import json
 import os
 import re
 
@@ -118,6 +119,31 @@ def get_cdn_file_url(filename, is_npm=True):
     return "https://cdn.jsdelivr.net/%s/%s" % (cdn_type, filename)
 
 
+package_json_data = {}
+bower_json_data = {}
+
+
+def get_lib_version(name):
+    global package_json_data
+    global bower_json_data
+    if not package_json_data:
+        static_abspath = get_static_abspath()
+        with open(os.path.join(static_abspath, "package.json"), encoding="utf-8") as package_json_file:
+            package_json_data = json.loads(package_json_file.read())
+        with open(os.path.join(static_abspath, "bower.json"), encoding="utf-8") as bower_json_file:
+            bower_json_data = json.loads(bower_json_file.read())
+    version = "^"
+    name = name.split("|")[0]
+    package_dep = package_json_data["dependencies"]
+    if name in package_dep:
+        version = package_dep[name]
+    else:
+        bower_dep = bower_json_data["dependencies"]
+        if name in bower_dep:
+            version = bower_dep[name]
+    return version.split("^")[1]
+
+
 lib = {}
 remoteOrLocal = "remote" if uno_use_cdn else "local"
 
@@ -126,66 +152,86 @@ remoteOrLocal = "remote" if uno_use_cdn else "local"
 def get_static_lib_url(name):
     global lib
     if not lib:
+        libs = ["vue",
+                "pace-js",
+                "pace-js|css",
+                "mathjax",
+                "raphael",
+                "underscore",
+                "js-sequence-diagrams",
+                "flowchart.js",
+                "jquery",
+                "tablesorter",
+                "raty-js",
+                "raty-js|css",
+                "github-markdown-css",
+                "@fortawesome/fontawesome-free",
+                "source-code-pro"]
         lib = {
-            "vue": {
+            libs[0]: {
                 "local": get_module_file_url("vue/dist/vue." + ("js" if uno_debug else "min.js")),
-                "remote": get_cdn_file_url("vue@2.5.17/dist/vue." + ("js" if uno_debug else "min.js"))
+                "remote": get_cdn_file_url(
+                    "vue@%s/dist/vue." % get_lib_version(libs[0])) + ("js" if uno_debug else "min.js")
             },
-            "pace-js": {
+            libs[1]: {
                 "local": get_module_file_url("pace-js/pace.min.js"),
-                "remote": get_cdn_file_url("pace-js@1.0.2/pace.min.js")
+                "remote": get_cdn_file_url("pace-js@%s/pace.min.js" % get_lib_version(libs[1]))
             },
-            "pace-js|css": {
+            libs[2]: {
                 "local": get_module_file_url("pace-js/themes/blue/pace-theme-flash.css"),
-                "remote": get_cdn_file_url("pace-js@1.0.2/themes/blue/pace-theme-flash.css")
+                "remote": get_cdn_file_url("pace-js@%s/themes/blue/pace-theme-flash.css" % get_lib_version(libs[2]))
             },
-            "mathjax": {
+            libs[3]: {
                 "local": get_module_file_url("mathjax/unpacked/MathJax.js") + "?config=TeX-MML-AM_CHTML",
-                "remote": get_cdn_file_url("mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML")
+                "remote": get_cdn_file_url(
+                    "mathjax@%s/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" % get_lib_version(libs[3]))
             },
-            "raphael": {
+            libs[4]: {
                 "local": get_module_file_url("raphael/raphael.min.js"),
-                "remote": get_cdn_file_url("raphael@2.2.7/raphael.min.js")
+                "remote": get_cdn_file_url("raphael@%s/raphael.min.js" % get_lib_version(libs[4]))
             },
-            "underscore": {
+            libs[5]: {
                 "local": get_module_file_url("underscore/underscore-min.js"),
-                "remote": get_cdn_file_url("underscore@1.9.1/underscore-min.js")
+                "remote": get_cdn_file_url("underscore@%s/underscore-min.js" % get_lib_version(libs[5]))
             },
-            "js-sequence-diagrams": {
+            libs[6]: {
                 "local": get_module_file_url("js-sequence-diagrams/dist/sequence-diagram-min.js", False),
-                "remote": get_cdn_file_url("bramp/js-sequence-diagrams@2.0.1/dist/sequence-diagram-min.js", False)
+                "remote": get_cdn_file_url(
+                    "bramp/js-sequence-diagrams@%s/dist/sequence-diagram-min.js" % get_lib_version(libs[6]), False)
             },
-            "flowchart.js": {
+            libs[7]: {
                 "local": get_module_file_url("flowchart.js/release/flowchart.min.js"),
-                "remote": get_cdn_file_url("flowchart.js@1.11.3/release/flowchart.min.js")
+                "remote": get_cdn_file_url("flowchart.js@%s/release/flowchart.min.js" % get_lib_version(libs[7]))
             },
-            "jquery": {
+            libs[8]: {
                 "local": get_module_file_url("jquery/dist/jquery.min.js"),
-                "remote": get_cdn_file_url("jquery@3.3.1/dist/jquery.min.js")
+                "remote": get_cdn_file_url("jquery@%s/dist/jquery.min.js" % get_lib_version(libs[8]))
             },
-            "tablesorter": {
+            libs[9]: {
                 "local": get_module_file_url("tablesorter/dist/js/jquery.tablesorter.min.js"),
-                "remote": get_cdn_file_url("tablesorter@2.31.0/dist/js/jquery.tablesorter.min.js")
+                "remote": get_cdn_file_url(
+                    "tablesorter@%s/dist/js/jquery.tablesorter.min.js" % get_lib_version(libs[9]))
             },
-            "raty-js": {
+            libs[10]: {
                 "local": get_module_file_url("raty-js/lib/jquery.raty.js"),
-                "remote": get_cdn_file_url("raty-js@2.8.0/lib/jquery.raty.min.js")
+                "remote": get_cdn_file_url("raty-js@%s/lib/jquery.raty.min.js" % get_lib_version(libs[10]))
             },
-            "raty-js|css": {
+            libs[11]: {
                 "local": get_module_file_url("raty-js/lib/jquery.raty.css"),
-                "remote": get_cdn_file_url("raty-js@2.8.0/lib/jquery.raty.min.css")
+                "remote": get_cdn_file_url("raty-js@%s/lib/jquery.raty.min.css" % get_lib_version(libs[11]))
             },
-            "github-markdown-css": {
+            libs[12]: {
                 "local": get_module_file_url("github-markdown-css/github-markdown.css"),
-                "remote": get_cdn_file_url("github-markdown-css@2.10.0/github-markdown.min.css")
+                "remote": get_cdn_file_url("github-markdown-css@%s/github-markdown.min.css" % get_lib_version(libs[12]))
             },
-            "@fortawesome/fontawesome-free": {
+            libs[13]: {
                 "local": get_module_file_url("@fortawesome/fontawesome-free/css/all.min.css"),
-                "remote": get_cdn_file_url("@fortawesome/fontawesome-free@5.4.1/css/all.min.css")
+                "remote": get_cdn_file_url(
+                    "@fortawesome/fontawesome-free@%s/css/all.min.css" % get_lib_version(libs[13]))
             },
-            "source-code-pro": {
+            libs[14]: {
                 "local": get_module_file_url("source-code-pro/source-code-pro.css"),
-                "remote": get_cdn_file_url("source-code-pro@2.30.1/source-code-pro.min.css")
+                "remote": get_cdn_file_url("source-code-pro@%s/source-code-pro.min.css" % get_lib_version(libs[14]))
             }
         }
     return lib[name][remoteOrLocal]
