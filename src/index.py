@@ -2,9 +2,9 @@ import json
 import os
 import re
 
+from flask import current_app
+
 import src.flag
-from config import uno_index_file_name, uno_attachments_url_name, uno_articles_url_name, uno_ignore_file_list, \
-    uno_ignore_dir_list, uno_attachments_dir_name
 from src.cache import get_file_cache
 from src.util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
     update_config_ignore_file_list
@@ -25,7 +25,7 @@ index_highlight_key = "highlight"
 # 获取索引文件数据
 def get_index_data():
     # 组成索引文件绝对路径
-    index_file_path = os.path.join(get_articles_dir_abspath(), uno_index_file_name)
+    index_file_path = os.path.join(get_articles_dir_abspath(), current_app.config["INDEX_FILE_NAME"])
     return json.loads(get_file_cache(index_file_path))
 
 
@@ -138,7 +138,7 @@ def reindex():
         path = root.split(articles_dir_abspath)[-1].lstrip(os.path.sep).replace("\\", "/")
         # 排除忽略目录
         is_ignore = False
-        for ignore_dir in uno_ignore_dir_list:
+        for ignore_dir in current_app.config["IGNORE_DIR_LIST"]:
             if path.startswith(ignore_dir):
                 is_ignore = True
                 break
@@ -149,7 +149,7 @@ def reindex():
             # 组成文件路径
             file_path = "/".join([path, file]).lstrip("/")
             file_abspath = os.path.join(root, file)
-            if not path.startswith(uno_attachments_dir_name):
+            if not path.startswith(current_app.config["ATTACHMENTS_DIR_NAME"]):
                 # 忽略无法以unicode编码的文件
                 try:
                     with open(file_abspath, encoding='utf-8') as file_data:
@@ -163,24 +163,24 @@ def reindex():
                 if src.flag.get_unignore_flag(data):
                     update_config_ignore_file_list(file_path, False)
             # 排除忽略文件
-            if file_path in uno_ignore_file_list:
+            if file_path in current_app.config["IGNORE_FILE_LIST"]:
                 continue
             parent, title = os.path.split(file_path.replace("+：", ":"))
-            if not path.startswith(uno_attachments_dir_name):
+            if not path.startswith(current_app.config["ATTACHMENTS_DIR_NAME"]):
                 # 获取标签并生成标签字典
                 # noinspection PyUnboundLocalVariable
                 tags = {compute_digest_by_data(tag): tag for tag in src.flag.get_tags_flag(data)}
                 # 获取日期
                 date = src.flag.get_date_flag(data)
                 # 计算文章哈希组成url
-                url = "/%s/%s" % (uno_articles_url_name, compute_digest_by_data(data))
+                url = "/%s/%s" % (current_app.config["ARTICLES_URL_NAME"], compute_digest_by_data(data))
                 # 识别文章中固定索引标识，来判断是否更新哈希
                 fixed = src.flag.get_fixed_flag(data)
                 if fixed:
                     # 查找旧索引中对应的项目，如果存在则沿用哈希
                     item = get_item_by_path(file_path)
                     if item:
-                        url = "/%s/%s" % (uno_articles_url_name, item[index_url_key].split("/")[-1])
+                        url = "/%s/%s" % (current_app.config["ARTICLES_URL_NAME"], item[index_url_key].split("/")[-1])
                 # 组成一条文章索引
                 articles_block[file_path] = {index_id_key: index, index_parent_key: parent, index_title_key: title,
                                              index_url_key: url, index_date_key: date, index_tags_key: tags,
@@ -189,11 +189,12 @@ def reindex():
                                              index_highlight_key: src.flag.get_highlight_flag(data)}
             else:
                 # 组成一条附件索引
-                url = "/%s/%s" % (uno_attachments_url_name, compute_digest_by_abspath(file_abspath))
+                url = "/%s/%s" % (current_app.config["ATTACHMENTS_URL_NAME"], compute_digest_by_abspath(file_abspath))
                 attachments_block[file_path] = {index_id_key: index, index_parent_key: parent, index_title_key: title,
                                                 index_url_key: url}
             index += 1
     # 写入索引文件
     index_data = json.dumps([articles_block, attachments_block], separators=(',', ':'))
-    with open(os.path.join(articles_dir_abspath, uno_index_file_name), 'w', encoding='utf-8') as index_file:
+    with open(os.path.join(articles_dir_abspath, current_app.config["INDEX_FILE_NAME"]), 'w',
+              encoding='utf-8') as index_file:
         index_file.write(index_data)

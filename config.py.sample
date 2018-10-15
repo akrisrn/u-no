@@ -1,39 +1,39 @@
 # 以下三项只在直接运行主文件时生效
 # 主机名
-uno_host = "127.0.0.1"
+HOST = "127.0.0.1"
 # 端口
-uno_port = 5000
+PORT = 5000
 # 是否开启调试
-uno_debug = False
+DEBUG = False
 
 # 静态文件目录
-uno_static_dir_name = "static"
+STATIC_DIR_NAME = "static"
 
 # 站点名
-uno_site_name = ""
+SITE_NAME = ""
 # 版本号
-uno_version = ""
+VERSION = ""
 # 是否使用CDN引入静态库
-uno_use_cdn = True
+USE_CDN = True
 
 # 文章URL名
-uno_articles_url_name = ""
+ARTICLES_URL_NAME = ""
 # 附件URL名
-uno_attachments_url_name = ""
+ATTACHMENTS_URL_NAME = ""
 # 文章目录绝对路径
-uno_articles_dir_abspath = ""
+ARTICLES_DIR_ABSPATH = ""
 # 文章目录下的附件目录名
-uno_attachments_dir_name = ""
+ATTACHMENTS_DIR_NAME = ""
 # 索引文件名
-uno_index_file_name = ""
+INDEX_FILE_NAME = ""
 
 # 忽略索引的文件名列表
-uno_ignore_file_list = [uno_index_file_name]
+IGNORE_FILE_LIST = [INDEX_FILE_NAME]
 # 忽略索引的目录名
-uno_ignore_dir_list = [".git"]
+IGNORE_DIR_LIST = [".git"]
 
 # 无标签时默认标签名
-uno_default_tag = ""
+DEFAULT_TAG = ""
 
 # 生成静态站点目录
-uno_frozen_dir_name = "frozen_site"
+FROZEN_DIR_NAME = "frozen_site"

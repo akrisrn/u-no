@@ -1,8 +1,9 @@
 import re
 from datetime import datetime
 
+from flask import current_app
+
 import src.index
-from config import uno_default_tag
 from src.util import clean_text, regexp_join
 
 
@@ -13,7 +14,7 @@ def get_flag_regexp(flag):
 
 # 获取文章里标记的标签列表，语法匹配<<tag()>>，如果没有则返回默认标签
 def get_tags_flag(data):
-    default_tag = [uno_default_tag]
+    default_tag = [current_app.config["DEFAULT_TAG"]]
     group = re.search(get_flag_regexp("tag"), data)
     if not group:
         return default_tag

@@ -1,6 +1,6 @@
 import os
 
-from config import uno_index_file_name
+from flask import current_app
 
 cache_dict = {}
 
@@ -29,6 +29,6 @@ def get_file_cache(file_path):
     else:
         if file_path in cache_dict:
             del cache_dict[file_path]
-        if file_path.endswith(uno_index_file_name):
+        if file_path.endswith(current_app.config["INDEX_FILE_NAME"]):
             build_cache(file_path)
     return cache_dict[file_path][1]

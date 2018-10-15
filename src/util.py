@@ -3,10 +3,7 @@ import json
 import os
 import re
 
-from flask import url_for
-
-from config import uno_ignore_file_list, uno_debug, uno_version, uno_use_cdn, uno_articles_dir_abspath, \
-    uno_static_dir_name
+from flask import url_for, current_app
 
 
 # 获取根目录绝对路径
@@ -17,12 +14,12 @@ def get_root_abspath():
 
 # 获取静态目录绝对路径
 def get_static_abspath():
-    return os.path.join(get_root_abspath(), uno_static_dir_name)
+    return os.path.join(get_root_abspath(), current_app.config["STATIC_DIR_NAME"])
 
 
 # 获取文章目录绝对路径
 def get_articles_dir_abspath():
-    return uno_articles_dir_abspath
+    return current_app.config["ARTICLES_DIR_ABSPATH"]
 
 
 # 获取静态文件url
@@ -53,7 +50,8 @@ def get_version(url):
     url = url.replace("http://", "")
     # 在调试模式和没有配置版本号的情况下计算文件哈希作为版本号
     file_abspath = os.path.join(get_root_abspath(), url[1:])
-    ver = uno_version if uno_version and not uno_debug else compute_digest_by_abspath(file_abspath)
+    version = current_app.config["VERSION"]
+    ver = version if version and not current_app.config["DEBUG"] else compute_digest_by_abspath(file_abspath)
     return "%s?v=%s" % (url, ver)
 
 
@@ -72,15 +70,17 @@ def update_config(origin, replace):
 # 更新配置文件中的忽略文件列表
 def update_config_ignore_file_list(file_path, is_add):
     # 判断是添加还是移除
-    if is_add and file_path not in uno_ignore_file_list:
-        uno_ignore_file_list.append(file_path)
-    elif not is_add and file_path in uno_ignore_file_list:
-        uno_ignore_file_list.remove(file_path)
+    ignore_file_list = current_app.config["IGNORE_FILE_LIST"]
+    if is_add and file_path not in ignore_file_list:
+        ignore_file_list.append(file_path)
+    elif not is_add and file_path in ignore_file_list:
+        ignore_file_list.remove(file_path)
     else:
         return None
+    current_app.config["IGNORE_FILE_LIST"] = ignore_file_list
     # 用新列表替换旧列表
-    replace = "%s = %s" % ("uno_ignore_file_list", uno_ignore_file_list)
-    origin = "%s\s*=\s*\[.*?\]" % "uno_ignore_file_list"
+    replace = "%s = %s" % ("IGNORE_FILE_LIST", ignore_file_list)
+    origin = "%s\s*=\s*\[.*?\]" % "IGNORE_FILE_LIST"
     update_config(origin, replace)
 
 
@@ -145,7 +145,6 @@ def get_lib_version(name):
 
 
 lib = {}
-remoteOrLocal = "remote" if uno_use_cdn else "local"
 
 
 # 根据是否使用cdn选择本地包路径或cdn链接
@@ -233,4 +232,4 @@ def get_static_lib_url(name):
                 "remote": get_cdn_file_url("source-code-pro@%s/source-code-pro.min.css" % get_lib_version(libs[14]))
             }
         }
-    return lib[name][remoteOrLocal]
+    return lib[name]["remote" if current_app.config["USE_CDN"] else "local"]

@@ -1,9 +1,9 @@
 import os
 from operator import itemgetter
 
-from flask import send_from_directory, Blueprint, render_template, request, abort
+from flask import send_from_directory, Blueprint, render_template, request, abort, current_app
 
-from config import uno_index_file_name, uno_attachments_url_name, uno_articles_url_name
+from config import INDEX_FILE_NAME, ATTACHMENTS_URL_NAME, ARTICLES_URL_NAME
 from src.cache import get_file_cache
 from src.flag import get_custom_js_flag, get_custom_css_flag
 from src.index import index_title_key, index_id_key, index_tags_key, index_date_key, get_item_by_url, \
@@ -21,7 +21,7 @@ def index():
 
 
 # 索引页，通过索引文件名访问，展示索引文件内容，可通过传输url参数搜索
-@main.route('/%s' % uno_index_file_name)
+@main.route('/%s' % INDEX_FILE_NAME)
 def index_file_page():
     search = [request.args.get('i', '').strip(),  # 搜索编号
               request.args.get('n', '').strip(),  # 搜索标题
@@ -37,11 +37,12 @@ def index_file_page():
             parents[parent] = []
         parents[parent].append(item)
     return render_template('index.html', title="Index", data=[parents, sorted(data[1], key=itemgetter(index_id_key))],
-                           article_url=uno_articles_url_name, attach_url=uno_attachments_url_name)
+                           article_url=current_app.config["ARTICLES_URL_NAME"],
+                           attach_url=current_app.config["ATTACHMENTS_URL_NAME"])
 
 
 # 文章和附件页，通过对应的目录名和哈希值访问，文章展示markdown渲染结果，附件直接展示源文件
-@main.route('/<any("%s", "%s"):url_name>/<file_hash>' % (uno_articles_url_name, uno_attachments_url_name))
+@main.route('/<any("%s", "%s"):url_name>/<file_hash>' % (ARTICLES_URL_NAME, ATTACHMENTS_URL_NAME))
 def article_page(url_name, file_hash):
     # 判断哈希格式
     if not is_valid_hash(file_hash):
@@ -54,7 +55,7 @@ def article_page(url_name, file_hash):
     item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
     if not os.path.exists(item_abspath):
         abort(404)
-    if url_name == uno_articles_url_name:
+    if url_name == current_app.config["ARTICLES_URL_NAME"]:
         data = get_file_cache(item_abspath)
         # 识别文章中的自定义css文件，获取自定义css文件url列表
         css_urls = get_custom_css_flag(data)
