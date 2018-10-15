@@ -36,7 +36,8 @@ def index_file_page():
         if parent not in parents:
             parents[parent] = []
         parents[parent].append(item)
-    return render_template('index.html', title="Index", data=[parents, sorted(data[1], key=itemgetter(index_id_key))],
+    return render_template('index.html', title=index_url_name.upper(),
+                           data=[parents, sorted(data[1], key=itemgetter(index_id_key))],
                            article_url=articles_url_name, attach_url=attachments_url_name)
 
 
