@@ -3,7 +3,7 @@ from operator import itemgetter
 
 from flask import send_from_directory, Blueprint, render_template, request, abort
 
-from const import index_url_name, articles_url_name, attachments_url_name
+from const import index_url_name, articles_url_name, attachments_url_name, tags_url_name
 from cache import get_file_cache
 from flag import get_custom_js_flag, get_custom_css_flag
 from index import index_title_key, index_id_key, index_tags_key, index_date_key, get_item_by_url, \
@@ -77,7 +77,7 @@ def article_page(url_name, file_hash):
 
 
 # 标签页
-@main.route('/tags/<tag_hash>')
+@main.route('/%s/<tag_hash>' % tags_url_name)
 def tag_page(tag_hash):
     # 判断哈希格式
     if not is_valid_hash(tag_hash):
