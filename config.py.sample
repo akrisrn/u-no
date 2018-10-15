@@ -16,10 +16,6 @@ VERSION = ""
 # 是否使用CDN引入静态库
 USE_CDN = True
 
-# 文章URL名
-ARTICLES_URL_NAME = ""
-# 附件URL名
-ATTACHMENTS_URL_NAME = ""
 # 文章目录绝对路径
 ARTICLES_DIR_ABSPATH = ""
 # 文章目录下的附件目录名
