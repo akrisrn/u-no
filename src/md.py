@@ -4,8 +4,8 @@ import pymdownx.emoji
 import pymdownx.superfences
 from markdown import markdown
 
-from src.index import index_url_key, get_item_by_path
-from src.util import regexp_join
+from index import index_url_key, get_item_by_path
+from util import regexp_join
 
 
 # markdown渲染

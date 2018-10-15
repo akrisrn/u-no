@@ -3,8 +3,8 @@ from datetime import datetime
 
 from flask import current_app
 
-import src.index
-from src.util import clean_text, regexp_join
+import index
+from util import clean_text, regexp_join
 
 
 # 获取匹配flag的正则表达式，忽略大小写
@@ -81,9 +81,9 @@ def get_custom_css_flag(data, custom_type="css"):
     for css_path in clean_text(group.group(1)).split(","):
         if css_path:
             # 根据css文件相对路径从索引文件中取出url
-            item = src.index.get_item_by_path(css_path)
+            item = index.get_item_by_path(css_path)
             if item:
-                css_urls.append(item[src.index.index_url_key])
+                css_urls.append(item[index.index_url_key])
     return css_urls
 
 

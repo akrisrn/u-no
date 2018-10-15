@@ -1,9 +1,9 @@
 from flask import Flask, render_template
 
-from src.index import index_url_key, index_title_key, index_id_key, index_tags_key, index_date_key, index_notags_key, \
+from index import index_url_key, index_title_key, index_id_key, index_tags_key, index_date_key, index_notags_key, \
     index_highlight_key, index_fixed_key, index_top_key
-from src.util import get_static_file_url, get_static_lib_url
-from src.view.main import main
+from util import get_static_file_url, get_static_lib_url
+from view.main import main
 
 app = Flask(__name__)
 # 载入配置

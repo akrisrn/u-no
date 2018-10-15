@@ -4,10 +4,10 @@ import re
 
 from flask import current_app
 
-import src.flag
+import flag
 from const import articles_url_name, attachments_url_name
-from src.cache import get_file_cache
-from src.util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
+from cache import get_file_cache
+from util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
     update_config_ignore_file_list
 
 # 组成索引的JSON数据所用的键名
@@ -158,10 +158,10 @@ def reindex():
                 except UnicodeDecodeError:
                     continue
                 # 识别文章中的忽略文件标识，来判断如何更新忽略列表
-                if src.flag.get_ignore_flag(data):
+                if flag.get_ignore_flag(data):
                     update_config_ignore_file_list(file_path, True)
                 # 识别文章中的取消忽略文件标识，来判断如何更新忽略列表
-                if src.flag.get_unignore_flag(data):
+                if flag.get_unignore_flag(data):
                     update_config_ignore_file_list(file_path, False)
             # 排除忽略文件
             if file_path in current_app.config["IGNORE_FILE_LIST"]:
@@ -170,13 +170,13 @@ def reindex():
             if not path.startswith(current_app.config["ATTACHMENTS_DIR_NAME"]):
                 # 获取标签并生成标签字典
                 # noinspection PyUnboundLocalVariable
-                tags = {compute_digest_by_data(tag): tag for tag in src.flag.get_tags_flag(data)}
+                tags = {compute_digest_by_data(tag): tag for tag in flag.get_tags_flag(data)}
                 # 获取日期
-                date = src.flag.get_date_flag(data)
+                date = flag.get_date_flag(data)
                 # 计算文章哈希组成url
                 url = "/%s/%s" % (articles_url_name, compute_digest_by_data(data))
                 # 识别文章中固定索引标识，来判断是否更新哈希
-                fixed = src.flag.get_fixed_flag(data)
+                fixed = flag.get_fixed_flag(data)
                 if fixed:
                     # 查找旧索引中对应的项目，如果存在则沿用哈希
                     item = get_item_by_path(file_path)
@@ -185,9 +185,9 @@ def reindex():
                 # 组成一条文章索引
                 articles_block[file_path] = {index_id_key: index, index_parent_key: parent, index_title_key: title,
                                              index_url_key: url, index_date_key: date, index_tags_key: tags,
-                                             index_fixed_key: fixed, index_notags_key: src.flag.get_notags_flag(data),
-                                             index_top_key: src.flag.get_top_flag(data),
-                                             index_highlight_key: src.flag.get_highlight_flag(data)}
+                                             index_fixed_key: fixed, index_notags_key: flag.get_notags_flag(data),
+                                             index_top_key: flag.get_top_flag(data),
+                                             index_highlight_key: flag.get_highlight_flag(data)}
             else:
                 # 组成一条附件索引
                 url = "/%s/%s" % (attachments_url_name, compute_digest_by_abspath(file_abspath))

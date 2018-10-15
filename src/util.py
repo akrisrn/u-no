@@ -9,7 +9,7 @@ from flask import url_for, current_app
 # 获取根目录绝对路径
 def get_root_abspath():
     # 根据当前目录的位置进行切割
-    return os.path.dirname(os.path.abspath(__file__)).split(__package__)[0]
+    return os.path.dirname(os.path.abspath(__file__)).split("src")[0]
 
 
 # 获取静态目录绝对路径

@@ -4,12 +4,12 @@ from operator import itemgetter
 from flask import send_from_directory, Blueprint, render_template, request, abort
 
 from const import index_url_name, articles_url_name, attachments_url_name
-from src.cache import get_file_cache
-from src.flag import get_custom_js_flag, get_custom_css_flag
-from src.index import index_title_key, index_id_key, index_tags_key, index_date_key, get_item_by_url, \
+from cache import get_file_cache
+from flag import get_custom_js_flag, get_custom_css_flag
+from index import index_title_key, index_id_key, index_tags_key, index_date_key, get_item_by_url, \
     index_data_filter, get_fixed_articles, index_notags_key, index_parent_key
-from src.md import render
-from src.util import get_articles_dir_abspath, is_valid_hash
+from md import render
+from util import get_articles_dir_abspath, is_valid_hash
 
 main = Blueprint("main", __name__)
 
