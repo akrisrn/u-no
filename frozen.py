@@ -42,7 +42,7 @@ if __name__ == '__main__':
     data_list = {}
     page_urls = {}
     with app.app_context():
-        index_page_data = index()
+        index_page_data = home()
         data_list[os.path.join(frozen_dir_abspath, "index.html")] = index_page_data
         for result_article in re.finditer("/%s/[0-9a-z]{40}" % articles_url_name, index_page_data):
             article, _ = get_item_by_url(result_article.group())

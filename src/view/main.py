@@ -16,7 +16,7 @@ main = Blueprint("main", __name__)
 
 # 首页，展示固定索引的文章，如果没有就展示首页背景图
 @main.route('/')
-def index():
+def home():
     return render_template('home.html', fixed_articles=get_fixed_articles())
 
 
