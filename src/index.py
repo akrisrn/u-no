@@ -5,22 +5,11 @@ import re
 from flask import current_app
 
 import flag
-from const import articles_url_name, attachments_url_name
+from const import articles_url_name, attachments_url_name, index_url_key, index_title_key, index_parent_key, \
+    index_id_key, index_highlight_key, index_top_key, index_notags_key, index_fixed_key, index_tags_key, index_date_key
 from cache import get_file_cache
 from util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
     update_config_ignore_file_list
-
-# 组成索引的JSON数据所用的键名
-index_id_key = "id"
-index_parent_key = "parent"
-index_title_key = "title"
-index_url_key = "url"
-index_date_key = "date"
-index_tags_key = "tags"
-index_fixed_key = "fixed"
-index_notags_key = "notags"
-index_top_key = "top"
-index_highlight_key = "highlight"
 
 
 # 获取索引文件数据
