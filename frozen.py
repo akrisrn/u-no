@@ -49,7 +49,9 @@ if __name__ == '__main__':
     with app.app_context():
         data_list = {}
         page_urls = {}
+
         index_page_data = index()
+        data_list[os.path.join(frozen_dir_abspath, "index.html")] = index_page_data
         for result_article in re.finditer("/%s/[0-9a-z]{40}" % uno_articles_url_name, index_page_data):
             article, _ = get_item_by_url(result_article.group())
             article_title = os.path.splitext(article[index_title_key])[0]
@@ -57,6 +59,7 @@ if __name__ == '__main__':
             article_page_data = article_page(uno_articles_url_name, article_hash)
             data_list[os.path.join(frozen_articles_dir_abspath, article_title + ".html")] = article_page_data
             page_urls[result_article.group()] = "/%s/%s" % (uno_articles_url_name, article_title + ".html")
+
             for result_attach in re.finditer("/%s/[0-9a-z]{40}" % uno_attachments_url_name, article_page_data):
                 attach, attach_path = get_item_by_url(result_attach.group())
                 attach_abspath = os.path.join(uno_articles_dir_abspath, attach_path)
@@ -64,14 +67,14 @@ if __name__ == '__main__':
                 new_attach_abspath = os.path.join(frozen_attachments_dir_abspath, attach_filename)
                 shutil.copy(attach_abspath, new_attach_abspath)
                 page_urls[result_attach.group()] = "/%s/%s" % (uno_attachments_url_name, attach_filename)
+
             tags = article[index_tags_key]
             for tag in tags:
                 tag_abspath = os.path.join(frozen_tags_dir_abspath, tags[tag] + ".html")
                 if tag_abspath not in data_list:
                     data_list[tag_abspath] = tag_page(tag)
                     page_urls["/%s/%s" % (uno_tags_url_name, tag)] = "/%s/%s.html" % (uno_tags_url_name, tags[tag])
-        with open(os.path.join(frozen_dir_abspath, "index.html"), "w", encoding="utf-8") as f:
-            f.write(replace_url(index_page_data, page_urls))
+
         for path in data_list:
             with open(path, "w", encoding="utf-8") as f:
                 f.write(replace_url(data_list[path], page_urls))
