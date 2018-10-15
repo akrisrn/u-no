@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
     let inputs = [$("#idS"), $("#titleS"), $("#tagS"), $("#dateS")];
     let flags = ["i", "n", "t", "d"];
 
