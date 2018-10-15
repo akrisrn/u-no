@@ -169,9 +169,8 @@ def get_static_lib_url(name):
                 "source-code-pro"]
         lib = {
             libs[0]: {
-                "local": get_module_file_url("vue/dist/vue." + ("js" if uno_debug else "min.js")),
-                "remote": get_cdn_file_url(
-                    "vue@%s/dist/vue." % get_lib_version(libs[0])) + ("js" if uno_debug else "min.js")
+                "local": get_module_file_url("vue/dist/vue.min.js"),
+                "remote": get_cdn_file_url("vue@%s/dist/vue.min.js" % get_lib_version(libs[0]))
             },
             libs[1]: {
                 "local": get_module_file_url("pace-js/pace.min.js"),
