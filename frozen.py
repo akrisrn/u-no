@@ -2,8 +2,8 @@ import os
 import re
 import shutil
 
-import util
 from index import index_url_key, index_tags_key, index_title_key, get_item_by_url
+from util import get_root_abspath
 from view.main import home, article_page, tag_page, articles_url_name, attachments_url_name, tags_url_name
 from uno import app
 
@@ -15,7 +15,7 @@ if __name__ == '__main__':
     app.config["USE_CDN"] = True
     app.config["DEBUG"] = False
 
-    root_abspath = util.get_root_abspath()
+    root_abspath = get_root_abspath()
     static_dir_abspath = os.path.join(root_abspath, static_dir_name)
 
     frozen_dir_abspath = os.path.join(root_abspath, frozen_dir_name)
