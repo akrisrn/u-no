@@ -42,7 +42,8 @@ if __name__ == '__main__':
     os.mkdir(frozen_articles_dir_abspath)
     os.mkdir(frozen_attachments_dir_abspath)
     os.mkdir(frozen_tags_dir_abspath)
-    shutil.copytree(static_dir_abspath, frozen_static_dir_abspath, ignore=shutil.ignore_patterns("bower_components"))
+    shutil.copytree(static_dir_abspath, frozen_static_dir_abspath,
+                    ignore=shutil.ignore_patterns("bower_components", "node_modules", "*.json"))
 
     with app.app_context():
         with open(os.path.join(frozen_dir_abspath, "index.html"), "w", encoding="utf-8") as f:
