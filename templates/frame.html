@@ -9,7 +9,7 @@
     "jquery", "tablesorter", "raty-js"] -%}
     {%- set css_libs = ["pace-js|css", "github-markdown-css", "@fortawesome/fontawesome-free", "raty-js|css",
     "source-code-pro"] -%}
-    {%- set js_custom = ["js/pace.on.js", "js/markdown.js"] -%}
+    {%- set js_custom = ["js/pace.on.js", "js/markdown.js", "js/script.js"] -%}
     {%- set css_custom = ["css/style.css", "css/markdown.css"] -%}
     {%- for lib in js_libs -%}
         <script type="text/javascript" src="{{ get_static_lib_url(lib) }}"></script>
