@@ -56,6 +56,7 @@
                         <th width="50">Top</th>
                         <th width="50">Highlight</th>
                         <th width="50">NoTags</th>
+                        <th width="250">Edit</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -82,6 +83,13 @@
                             </td>
                             <td align="center">
                                 <vue-check :checked="{{ article[index_notags_key] | lower }}"></vue-check>
+                            </td>
+                            <td>
+                                <div class="button-group edit-group">
+                                    <a href="{{ url_for("edit.ignore", item_path=article[index_path_key]) }}"
+                                       class="button danger" title="Ignore">I
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     {%- endfor -%}

@@ -12,6 +12,20 @@
     outline: none;
 }
 
+.edit-group {
+    position: relative;
+    top: 4px;
+}
+
+.edit-group a {
+    padding: 5px 10px;
+    color: #333;
+    transition: none;
+    -moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: none;
+}
+
 #body {
     max-width: 9999px;
     margin: 0;
