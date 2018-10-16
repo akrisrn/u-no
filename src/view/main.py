@@ -3,11 +3,11 @@ from operator import itemgetter
 
 from flask import send_from_directory, Blueprint, render_template, request, abort
 
-from const import index_url_name, articles_url_name, attachments_url_name, tags_url_name
+from const import index_notags_key, index_parent_key, index_path_key, index_url_name, index_title_key, index_id_key, \
+    index_tags_key, index_date_key, articles_url_name, attachments_url_name, tags_url_name
 from cache import get_file_cache
 from flag import get_custom_js_flag, get_custom_css_flag
-from index import index_title_key, index_id_key, index_tags_key, index_date_key, get_item_by_url, \
-    index_data_filter, get_fixed_articles, index_notags_key, index_parent_key
+from index import get_item_by_url, index_data_filter, get_fixed_articles
 from md import render
 from util import get_articles_dir_abspath, is_valid_hash
 
@@ -48,7 +48,8 @@ def article_page(url_name, file_hash):
     if not is_valid_hash(file_hash):
         abort(404)
     # 在索引文件中查找对应哈希的项目信息
-    item, item_path = get_item_by_url("/%s/%s" % (url_name, file_hash))
+    item = get_item_by_url("/%s/%s" % (url_name, file_hash))
+    item_path = item[index_path_key]
     if not item:
         abort(404)
     # 判断文件是否存在

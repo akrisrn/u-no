@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 
-from index import index_url_key, index_title_key, index_id_key, index_tags_key, index_date_key, index_notags_key, \
-    index_highlight_key, index_fixed_key, index_top_key
+from const import index_url_key, index_title_key, index_id_key, index_tags_key, index_date_key, index_notags_key, \
+    index_highlight_key, index_fixed_key, index_top_key, index_path_key
 from util import get_static_file_url, get_static_lib_url
 from view.main import main
 
@@ -19,6 +19,7 @@ app.jinja_env.auto_reload = True
 app.jinja_env.globals["site_name"] = app.config["SITE_NAME"]
 app.jinja_env.globals["index_id_key"] = index_id_key
 app.jinja_env.globals["index_title_key"] = index_title_key
+app.jinja_env.globals["index_path_key"] = index_path_key
 app.jinja_env.globals["index_url_key"] = index_url_key
 app.jinja_env.globals["index_date_key"] = index_date_key
 app.jinja_env.globals["index_tags_key"] = index_tags_key
