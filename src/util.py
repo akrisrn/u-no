@@ -177,7 +177,7 @@ def get_static_lib_url(name):
             },
             libs[2]: {
                 "local": get_module_file_url("pace-js/themes/blue/pace-theme-flash.css"),
-                "remote": get_cdn_file_url("pace-js@%s/themes/blue/pace-theme-flash.css" % get_lib_version(libs[2]))
+                "remote": get_cdn_file_url("pace-js@%s/themes/blue/pace-theme-flash.min.css" % get_lib_version(libs[2]))
             },
             libs[3]: {
                 "local": get_module_file_url("mathjax/unpacked/MathJax.js") + "?config=TeX-MML-AM_CHTML",
