@@ -62,12 +62,12 @@ Vue.component('vue-error', {
 Vue.component('vue-index-search-bar', {
     template: `
 <div>
-    <input id="idS" placeholder="Search ID">
-    <input id="titleS" placeholder="Search Title">
-    <input id="tagS" placeholder="Search Tag">
-    <input id="dateS" placeholder="Search Date">
-    <button id="search"><i class="fa fa-search"></i> Search</button>
-    <button id="clean"><i class="fa fa-trash"></i> Clean</button>
+    <input id="idS" class="search-input" placeholder="Search ID">
+    <input id="titleS" class="search-input" placeholder="Search Title">
+    <input id="tagS" class="search-input" placeholder="Search Tag">
+    <input id="dateS" class="search-input" placeholder="Search Date">
+    <button id="search" class="search-button"><i class="fa fa-search"></i> Search</button>
+    <button id="clean" class="search-button"><i class="fa fa-trash"></i> Clean</button>
 </div>`
 });
 

@@ -42,10 +42,10 @@ a:hover i, li:hover > i:first-child {
     width: 100%;
     top: 30px;
     padding: 0 50px 20px;
-    transition: margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s, width 0.5s, top 0.5s;
-    -moz-transition: margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s, width 0.5s, top 0.5s;
-    -webkit-transition: margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s, width 0.5s, top 0.5s;
-    -o-transition: margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s, width 0.5s, top 0.5s;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s
 }
 
 #content hr {
