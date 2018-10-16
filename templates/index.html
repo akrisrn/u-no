@@ -84,6 +84,12 @@
             {%- set max_column = (attch_len / max_rows) | round(0, 'ceil') | int -%}
             <div id="{{ attach_url }}" class="tabcontent">
                 <table>
+                    <thead>
+                        <tr>
+                            <th width="20">ID</th>
+                            <th>Title</th>
+                        </tr>
+                    </thead>
                     <tbody>
                     {%- for i in range(attch_len if attch_len < max_rows else max_rows) -%}
                         <tr>
