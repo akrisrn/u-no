@@ -59,18 +59,6 @@ Vue.component('vue-error', {
     template: '<div class="center"><h1>{{ title }}</h1></div>'
 });
 
-Vue.component('vue-index-search-bar', {
-    template: `
-<div>
-    <input id="idS" class="search-input" placeholder="Search ID">
-    <input id="titleS" class="search-input" placeholder="Search Title">
-    <input id="tagS" class="search-input" placeholder="Search Tag">
-    <input id="dateS" class="search-input" placeholder="Search Date">
-    <button id="search" class="search-button"><i class="fa fa-search"></i> Search</button>
-    <button id="clean" class="search-button"><i class="fa fa-trash"></i> Clean</button>
-</div>`
-});
-
 Vue.component('vue-index-tab-button', {
     props: ['name', 'id'],
     template: `

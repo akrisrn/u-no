@@ -12,7 +12,14 @@
     <h1>{{ title }}</h1>
     <vue-return-home></vue-return-home>
     <hr>
-    <vue-index-search-bar></vue-index-search-bar>
+    <div>
+        <input id="idS" class="search-input" placeholder="Search ID">
+        <input id="titleS" class="search-input" placeholder="Search Title">
+        <input id="tagS" class="search-input" placeholder="Search Tag">
+        <input id="dateS" class="search-input" placeholder="Search Date">
+        <button id="search" class="search-button"><i class="fa fa-search"></i> Search</button>
+        <button id="clean" class="search-button"><i class="fa fa-trash"></i> Clean</button>
+    </div>
     <div class="markdown-body">
         {%- set parents = data[0] -%}
         {%- set attachments = data[1] -%}
