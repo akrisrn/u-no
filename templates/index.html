@@ -39,12 +39,12 @@
                     <tr>
                         <th width="20">ID</th>
                         <th>Title</th>
+                        <th>Tags</th>
                         <th width="120">Date</th>
                         <th width="50">Fixed</th>
                         <th width="50">Top</th>
                         <th width="50">Highlight</th>
                         <th width="50">NoTags</th>
-                        <th>Tags</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -52,6 +52,13 @@
                         <tr>
                             <td align="right">{{ article[index_id_key] }}</td>
                             <td><a href="{{ article[index_url_key] }}">{{ article[index_title_key] }}</a></td>
+                            <td>
+                                {%- for key in article[index_tags_key] | sort -%}
+                                    <vue-tag url="{{ "?t=" + article[index_tags_key][key] }}"
+                                             name="{{ article[index_tags_key][key] }}">
+                                    </vue-tag>
+                                {%- endfor -%}
+                            </td>
                             <td>{{ article[index_date_key] }}</td>
                             <td align="center">
                                 <vue-check :checked="{{ article[index_fixed_key] | lower }}"></vue-check>
@@ -64,13 +71,6 @@
                             </td>
                             <td align="center">
                                 <vue-check :checked="{{ article[index_notags_key] | lower }}"></vue-check>
-                            </td>
-                            <td>
-                                {%- for key in article[index_tags_key] | sort -%}
-                                    <vue-tag url="{{ "?t=" + article[index_tags_key][key] }}"
-                                             name="{{ article[index_tags_key][key] }}">
-                                    </vue-tag>
-                                {%- endfor -%}
                             </td>
                         </tr>
                     {%- endfor -%}
