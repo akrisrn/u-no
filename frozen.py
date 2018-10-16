@@ -4,7 +4,7 @@ import shutil
 
 from index import index_url_key, index_tags_key, index_title_key, get_item_by_url
 from util import get_root_abspath
-from view.main import home, article_page, tag_page, articles_url_name, attachments_url_name, tags_url_name
+from view.main import home_page, article_page, tag_page, articles_url_name, attachments_url_name, tags_url_name
 from uno import app
 
 if __name__ == '__main__':
@@ -41,7 +41,7 @@ if __name__ == '__main__':
     data_list = {}
     page_urls = {}
     with app.app_context():
-        index_page_data = home()
+        index_page_data = home_page()
         data_list[os.path.join(frozen_dir_abspath, "index.html")] = index_page_data
         for result_article in re.finditer("/%s/[0-9a-z]{40}" % articles_url_name, index_page_data):
             article, _ = get_item_by_url(result_article.group())

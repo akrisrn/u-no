@@ -16,13 +16,13 @@ main = Blueprint("main", __name__)
 
 # 首页，展示固定索引的文章，如果没有就展示首页背景图
 @main.route('/')
-def home():
+def home_page():
     return render_template('home.html', fixed_articles=get_fixed_articles())
 
 
 # 索引页，通过索引文件名访问，展示索引文件内容，可通过传输url参数搜索
 @main.route('/%s' % index_url_name)
-def index_file_page():
+def index_page():
     search = [request.args.get('i', '').strip(),  # 搜索编号
               request.args.get('n', '').strip(),  # 搜索标题
               request.args.get('t', '').strip(),  # 搜索标签名
