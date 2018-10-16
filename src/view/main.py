@@ -1,7 +1,7 @@
 import os
 from operator import itemgetter
 
-from flask import send_from_directory, Blueprint, render_template, request, abort, url_for, redirect
+from flask import send_from_directory, Blueprint, render_template, request, abort, url_for, redirect, current_app
 
 from const import index_notags_key, index_parent_key, index_path_key, index_url_name, index_title_key, index_id_key, \
     index_tags_key, index_date_key, articles_url_name, attachments_url_name, tags_url_name, reindex_url_name
@@ -36,9 +36,11 @@ def index_page():
         if parent not in parents:
             parents[parent] = []
         parents[parent].append(item)
+    ignore_files = current_app.config["IGNORE_FILE_LIST"]
     return render_template('index.html', title=index_url_name.upper(),
-                           data=[parents, sorted(data[1], key=itemgetter(index_id_key))],
-                           article_url=articles_url_name, attach_url=attachments_url_name)
+                           data=[parents, sorted(data[1], key=itemgetter(index_id_key)), ignore_files],
+                           article_url=articles_url_name, attach_url=attachments_url_name,
+                           ignore_tab_name="ignore_file")
 
 
 @main.route('/%s' % reindex_url_name)

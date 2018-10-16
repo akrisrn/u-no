@@ -27,6 +27,7 @@
     <div class="markdown-body">
         {%- set parents = data[0] -%}
         {%- set attachments = data[1] -%}
+        {%- set ignore_files = data[2] -%}
         <div class="tab">
             {%- if parents[''] -%}
                 <vue-index-tab-button name="{{ article_url }}" id="defaultOpen"></vue-index-tab-button>
@@ -41,6 +42,9 @@
             {%- endfor -%}
             {%- if attachments -%}
                 <vue-index-tab-button name="{{ attach_url }}" id="defaultOpen"></vue-index-tab-button>
+            {%- endif -%}
+            {%- if ignore_files -%}
+                <vue-index-tab-button name="{{ ignore_tab_name }}"></vue-index-tab-button>
             {%- endif -%}
         </div>
         {%- for parent in parents -%}
@@ -122,6 +126,32 @@
                                     </td>
                                 {%- endif -%}
                             {%- endfor -%}
+                        </tr>
+                    {%- endfor -%}
+                    </tbody>
+                </table>
+            </div>
+        {%- endif -%}
+        {%- if ignore_files -%}
+            <div id="{{ ignore_tab_name }}" class="tabcontent">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th width="250">Edit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%- for file_name in ignore_files -%}
+                        <tr>
+                            <td>{{ file_name }}</td>
+                            <td>
+                                <div class="button-group edit-group">
+                                    <a href="{{ url_for("edit.unignore", item_path=file_name) }}"
+                                       class="button" title="Unignore">UI
+                                    </a>
+                                </div>
+                            </td>
                         </tr>
                     {%- endfor -%}
                     </tbody>
