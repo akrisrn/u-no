@@ -50,6 +50,9 @@ $(function () {
 
     for (let tab of $(".tablinks")) {
         $(tab).click(function (evt) {
+            let clickElement = document.getElementById(this.innerText);
+            let isDisplay = clickElement.style.display !== "block";
+
             let i, tabcontent, tablinks;
 
             tabcontent = document.getElementsByClassName("tabcontent");
@@ -63,9 +66,11 @@ $(function () {
                 tablinks[i].children[0].className = tablinks[i].children[0].className.replace("-open", "");
             }
 
-            document.getElementById(this.innerText).style.display = "block";
-            evt.currentTarget.className += " active";
-            this.children[0].className = this.children[0].className + "-open"
+            if (isDisplay) {
+                clickElement.style.display = "block";
+                evt.currentTarget.className += " active";
+                this.children[0].className = this.children[0].className + "-open"
+            }
         })
     }
 
