@@ -79,4 +79,10 @@ Vue.component('vue-index-tab-button', {
 </button>`
 });
 
+Vue.component('vue-check', {
+    props: ['checked'],
+    template: `
+<i :class="['fas', checked ? 'fa-check' : 'fa-times']"></i>`
+});
+
 new Vue({el: '#content'});
