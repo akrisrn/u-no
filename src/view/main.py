@@ -1,13 +1,13 @@
 import os
 from operator import itemgetter
 
-from flask import send_from_directory, Blueprint, render_template, request, abort
+from flask import send_from_directory, Blueprint, render_template, request, abort, url_for, redirect
 
 from const import index_notags_key, index_parent_key, index_path_key, index_url_name, index_title_key, index_id_key, \
-    index_tags_key, index_date_key, articles_url_name, attachments_url_name, tags_url_name
+    index_tags_key, index_date_key, articles_url_name, attachments_url_name, tags_url_name, reindex_url_name
 from cache import get_file_cache
 from flag import get_custom_js_flag, get_custom_css_flag
-from index import get_item_by_url, index_data_filter, get_fixed_articles
+from index import get_item_by_url, index_data_filter, get_fixed_articles, reindex
 from md import render
 from util import get_articles_dir_abspath, is_valid_hash
 
@@ -39,6 +39,12 @@ def index_page():
     return render_template('index.html', title=index_url_name.upper(),
                            data=[parents, sorted(data[1], key=itemgetter(index_id_key))],
                            article_url=articles_url_name, attach_url=attachments_url_name)
+
+
+@main.route('/%s' % reindex_url_name)
+def reindex_page():
+    reindex()
+    return redirect(url_for(".index_page"))
 
 
 # 文章和附件页，通过对应的目录名和哈希值访问，文章展示markdown渲染结果，附件直接展示源文件

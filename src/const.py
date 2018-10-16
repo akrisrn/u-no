@@ -2,6 +2,7 @@ index_url_name = "index"
 articles_url_name = "articles"
 attachments_url_name = "uploads"
 tags_url_name = "tags"
+reindex_url_name = "reindex"
 
 # 组成索引的JSON数据所用的键名
 index_id_key = "id"
