@@ -47,6 +47,14 @@
     animation: fadeEffect 1s;
 }
 
+.tabcontent table {
+    display: table;
+}
+
+.tabcontent table thead {
+    text-align: left;
+}
+
 @keyframes fadeEffect {
     from {
         opacity: 0;
