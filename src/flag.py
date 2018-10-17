@@ -37,7 +37,7 @@ def get_date_flag(data):
     date_formats = ["%Y-%m-%d", "%y-%m-%d"]
     for date_format in date_formats:
         try:
-            new_date = datetime.strptime(date, date_format).strftime("%Y.%m.%d")
+            new_date = datetime.strptime(date, date_format).strftime("%Y-%m-%d")
             break
         except ValueError:
             continue
