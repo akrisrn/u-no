@@ -65,6 +65,11 @@
                     </thead>
                     <tbody>
                     {%- for article in parents[parent] -%}
+                        {%- set isFixed = article[index_fixed_key] -%}
+                        {%- set isTop = article[index_top_key] -%}
+                        {%- set isHighlight = article[index_highlight_key] -%}
+                        {%- set isNotags = article[index_notags_key] -%}
+                        {%- set article_path = article[index_path_key] -%}
                         <tr>
                             <td align="right">{{ article[index_id_key] }}</td>
                             <td><a href="{{ article[index_url_key] }}">{{ article[index_title_key] }}</a></td>
@@ -77,20 +82,36 @@
                             </td>
                             <td>{{ article[index_date_key] }}</td>
                             <td align="center">
-                                <vue-check :checked="{{ article[index_fixed_key] | lower }}"></vue-check>
+                                <vue-check :checked="{{ isFixed | lower }}"></vue-check>
                             </td>
                             <td align="center">
-                                <vue-check :checked="{{ article[index_top_key] | lower }}"></vue-check>
+                                <vue-check :checked="{{ isTop | lower }}"></vue-check>
                             </td>
                             <td align="center">
-                                <vue-check :checked="{{ article[index_highlight_key] | lower }}"></vue-check>
+                                <vue-check :checked="{{ isHighlight | lower }}"></vue-check>
                             </td>
                             <td align="center">
-                                <vue-check :checked="{{ article[index_notags_key] | lower }}"></vue-check>
+                                <vue-check :checked="{{ isNotags | lower }}"></vue-check>
                             </td>
                             <td>
                                 <div class="button-group edit-group">
-                                    <a href="{{ url_for("edit.ignore", item_path=article[index_path_key]) }}"
+                                    <a href="{{ url_for("edit.%sfixed" % ("un" if isFixed else ""), item_path=article_path) }}"
+                                       class="button" title="{{ "Un" if isFixed else "" }}Fixed">
+                                        {{ "U" if isFixed else "" }}F
+                                    </a>
+                                    <a href="{{ url_for("edit.%stop" % ("un" if isTop else ""), item_path=article_path) }}"
+                                       class="button" title="{{ "Un" if isTop else "" }}Top">
+                                        {{ "U" if isTop else "" }}T
+                                    </a>
+                                    <a href="{{ url_for("edit.%shighlight" % ("un" if isHighlight else ""), item_path=article_path) }}"
+                                       class="button" title="{{ "Un" if isHighlight else "" }}Highlight">
+                                        {{ "U" if isHighlight else "" }}H
+                                    </a>
+                                    <a href="{{ url_for("edit.%snotags" % ("un" if isNotags else ""), item_path=article_path) }}"
+                                       class="button" title="{{ "Un" if isNotags else "" }}NoTags">
+                                        {{ "U" if isNotags else "" }}N
+                                    </a>
+                                    <a href="{{ url_for("edit.ignore", item_path=article_path) }}"
                                        class="button danger" title="Ignore">I
                                     </a>
                                 </div>
@@ -148,7 +169,7 @@
                             <td>
                                 <div class="button-group edit-group">
                                     <a href="{{ url_for("edit.unignore", item_path=file_name) }}"
-                                       class="button" title="Unignore">UI
+                                       class="button" title="UnIgnore">UI
                                     </a>
                                 </div>
                             </td>

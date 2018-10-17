@@ -43,3 +43,47 @@ def ignore(item_path, is_ignore=True):
 @edit.route('/%s/<path:item_path>' % flag_unignore)
 def unignore(item_path):
     return ignore(item_path, False)
+
+
+@edit.route('/%s/<path:item_path>' % flag_fixed)
+def fixed(item_path, is_fixed=True):
+    toggle_flag(item_path, flag_fixed, is_fixed)
+    return redirect(url_for('main.reindex_page'))
+
+
+@edit.route('/un%s/<path:item_path>' % flag_fixed)
+def unfixed(item_path):
+    return fixed(item_path, False)
+
+
+@edit.route('/%s/<path:item_path>' % flag_top)
+def top(item_path, is_top=True):
+    toggle_flag(item_path, flag_top, is_top)
+    return redirect(url_for('main.reindex_page'))
+
+
+@edit.route('/un%s/<path:item_path>' % flag_top)
+def untop(item_path):
+    return top(item_path, False)
+
+
+@edit.route('/%s/<path:item_path>' % flag_highlight)
+def highlight(item_path, is_highlight=True):
+    toggle_flag(item_path, flag_highlight, is_highlight)
+    return redirect(url_for('main.reindex_page'))
+
+
+@edit.route('/un%s/<path:item_path>' % flag_highlight)
+def unhighlight(item_path):
+    return highlight(item_path, False)
+
+
+@edit.route('/%s/<path:item_path>' % flag_notags)
+def notags(item_path, is_notags=True):
+    toggle_flag(item_path, flag_notags, is_notags)
+    return redirect(url_for('main.reindex_page'))
+
+
+@edit.route('/un%s/<path:item_path>' % flag_notags)
+def unnotags(item_path):
+    return notags(item_path, False)
