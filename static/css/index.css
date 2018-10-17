@@ -17,7 +17,7 @@
     top: 4px;
 }
 
-.edit-group a {
+.edit-group a, .edit-group button {
     padding: 5px 10px;
     color: #333;
     transition: none;
