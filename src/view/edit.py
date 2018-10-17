@@ -27,7 +27,7 @@ def toggle_flag(item_path, flag, is_on):
     else:
         if not is_on:
             return
-        item_data += "\n<<%s()>>" % flag
+        item_data += "%s<<%s()>>" % ("" if item_data.endswith("\n") else "\n", flag)
     with open(item_abspath, "w", encoding='utf-8') as item_file:
         item_file.write(item_data)
 
