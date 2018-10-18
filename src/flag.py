@@ -11,7 +11,7 @@ from util import clean_text, regexp_join
 
 # 获取匹配flag的正则表达式，忽略大小写
 def get_flag_regexp(flag):
-    return re.compile(regexp_join("\s*<<\s*%s\((.*?)\)\s*>>", flag), re.I)
+    return re.compile(regexp_join("(\s*<<\s*%s\()(.*?)(\)\s*>>)", flag), re.I)
 
 
 # 获取文章里标记的标签列表，语法匹配<<tag()>>，如果没有则返回默认标签
@@ -21,7 +21,7 @@ def get_tags_flag(data):
     if not group:
         return default_tag
     # 生成标签列表
-    tags = [tag for tag in clean_text(group.group(1)).split(",") if tag]
+    tags = [tag for tag in clean_text(group.group(2)).split(",") if tag]
     if not tags:
         return default_tag
     return tags
@@ -32,7 +32,7 @@ def get_date_flag(data):
     group = re.search(get_flag_regexp(flag_date), data)
     if not group:
         return ""
-    date = str(clean_text(group.group(1)).split(",")[0])
+    date = str(clean_text(group.group(2)).split(",")[0])
     new_date = ""
     date_formats = ["%Y-%m-%d", "%y-%m-%d"]
     for date_format in date_formats:
@@ -80,7 +80,7 @@ def get_custom_css_flag(data, custom_type=flag_css):
     if not group:
         return []
     css_urls = []
-    for css_path in clean_text(group.group(1)).split(","):
+    for css_path in clean_text(group.group(2)).split(","):
         if css_path:
             # 根据css文件相对路径从索引文件中取出url
             item = index.get_item_by_path(css_path)
