@@ -11,7 +11,7 @@ from util import update_config_ignore_file_list, get_articles_dir_abspath
 edit = Blueprint("edit", __name__)
 
 
-def toggle_flag(item_path, flag, is_on, data=""):
+def toggle_flag(item_path, flag, is_on, data=None):
     item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
     if not os.path.exists(item_abspath):
         abort(404)
@@ -24,7 +24,8 @@ def toggle_flag(item_path, flag, is_on, data=""):
     if group:
         if is_on:
             return
-        item_data = re.sub(flag_regexp, "%s%s%s" % (group.group(1), data, group.group(3)) if data else "", item_data)
+        sub_text = "%s%s%s" % (group.group(1), data, group.group(3)) if data is not None else ""
+        item_data = re.sub(flag_regexp, sub_text, item_data)
     else:
         if not is_on:
             return
