@@ -79,18 +79,19 @@ $(function () {
 });
 
 function edit(_this, type) {
-    let textDiv = _this.parentElement.previousElementSibling;
-    textDiv.style.display = "none";
-    let text = textDiv.innerText;
-
-    let input = document.createElement("input");
-    input.type = type;
-    input.value = text;
-
+    let parent = _this.parentElement.parentElement;
+    let showDiv = _this.parentElement.previousElementSibling;
+    showDiv.style.display = "none";
     let editDiv = document.createElement("div");
     editDiv.style.display = "inline";
-    editDiv.appendChild(input);
-    textDiv.parentElement.insertBefore(editDiv, textDiv);
+    parent.insertBefore(editDiv, showDiv);
+
+    if (type === "date") {
+        let input = document.createElement("input");
+        input.type = "date";
+        input.value = showDiv.innerText;
+        editDiv.appendChild(input);
+    }
 
     _this.style.display = "none";
     let next = _this.nextElementSibling;
@@ -99,12 +100,17 @@ function edit(_this, type) {
     next.nextElementSibling.style.display = "inline";
 }
 
-function submit(_this, url) {
+function submit(_this, url, type) {
     let parent = _this.parentElement.parentElement;
-    let data = parent.children[0].children[0].value;
+    let data = "";
+    if (type === "date") {
+        data = parent.children[0].children[0].value;
+    }
     $.getJSON(url, {data}, (result) => {
         if (result) {
-            parent.children[1].innerText = data;
+            if (type === "date") {
+                parent.children[1].innerText = data;
+            }
         }
         cancel(_this.nextElementSibling)
     })

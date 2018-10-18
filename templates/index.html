@@ -85,7 +85,7 @@
                                 <div class="button-group edit-group">
                                     <button class="button" title="Edit Date" onclick="edit(this, 'date')">E</button>
                                     <button class="button" title="Submit"
-                                            onclick="submit(this, '{{ url_for("edit.date", item_path=article_path) }}')"
+                                            onclick="submit(this, '{{ url_for("edit.date", item_path=article_path) }}', 'date')"
                                             style="display: none">S
                                     </button>
                                     <button class="button" title="Cancel" onclick="cancel(this)"
