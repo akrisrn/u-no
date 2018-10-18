@@ -121,3 +121,19 @@ function cancel(_this) {
     // noinspection JSUnresolvedVariable
     pre.previousElementSibling.style.display = "inline";
 }
+
+flag_state = {};
+
+function toggle(_this, urls, state) {
+    if (flag_state[urls[0]] === undefined) {
+        flag_state[urls[0]] = state;
+    }
+    $.getJSON(flag_state[urls[0]] ? urls[1] : urls[0], "", (result) => {
+        if (result) {
+            flag_state[urls[0]] = !flag_state[urls[0]];
+            let classList = _this.parentElement.parentElement.children[0].classList;
+            classList.toggle("fa-times");
+            classList.toggle("fa-check")
+        }
+    })
+}

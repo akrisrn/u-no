@@ -56,11 +56,11 @@
                         <th>Title</th>
                         <th>Tags</th>
                         <th width="160">Date</th>
-                        <th width="50">Fixed</th>
-                        <th width="50">Top</th>
-                        <th width="50">Highlight</th>
-                        <th width="50">NoTags</th>
-                        <th width="300">Edit</th>
+                        <th width="80">Fixed</th>
+                        <th width="80">Top</th>
+                        <th width="80">Highlight</th>
+                        <th width="80">NoTags</th>
+                        <th width="100">Edit</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -95,34 +95,42 @@
                             </td>
                             <td align="center">
                                 <vue-check :checked="{{ isFixed | lower }}"></vue-check>
+                                <div class="button-group edit-group">
+                                    {%- set fixed_urls = [url_for("edit.fixed", item_path=article_path), url_for("edit.unfixed", item_path=article_path)] -%}
+                                    <button class="button" title="Toggle"
+                                            onclick='toggle(this, {{ fixed_urls | tojson }}, {{ isFixed | lower }})'>T
+                                    </button>
+                                </div>
                             </td>
                             <td align="center">
                                 <vue-check :checked="{{ isTop | lower }}"></vue-check>
+                                <div class="button-group edit-group">
+                                    {%- set top_urls = [url_for("edit.top", item_path=article_path), url_for("edit.untop", item_path=article_path)] -%}
+                                    <button class="button" title="Toggle"
+                                            onclick='toggle(this, {{ top_urls | tojson }}, {{ isTop | lower }})'>T
+                                    </button>
+                                </div>
                             </td>
                             <td align="center">
                                 <vue-check :checked="{{ isHighlight | lower }}"></vue-check>
+                                <div class="button-group edit-group">
+                                    {%- set hl_urls = [url_for("edit.highlight", item_path=article_path), url_for("edit.unhighlight", item_path=article_path)] -%}
+                                    <button class="button" title="Toggle"
+                                            onclick='toggle(this, {{ hl_urls | tojson }}, {{ isHighlight | lower }})'>T
+                                    </button>
+                                </div>
                             </td>
                             <td align="center">
                                 <vue-check :checked="{{ isNotags | lower }}"></vue-check>
+                                <div class="button-group edit-group">
+                                    {%- set notags_urls = [url_for("edit.notags", item_path=article_path), url_for("edit.unnotags", item_path=article_path)] -%}
+                                    <button class="button" title="Toggle"
+                                            onclick='toggle(this, {{ notags_urls | tojson }}, {{ isNotags | lower }})'>T
+                                    </button>
+                                </div>
                             </td>
                             <td>
                                 <div class="button-group edit-group">
-                                    <a href="{{ url_for("edit.%sfixed" % ("un" if isFixed else ""), item_path=article_path) }}"
-                                       class="button" title="{{ "Un" if isFixed else "" }}Fixed">
-                                        {{ "U" if isFixed else "" }}F
-                                    </a>
-                                    <a href="{{ url_for("edit.%stop" % ("un" if isTop else ""), item_path=article_path) }}"
-                                       class="button" title="{{ "Un" if isTop else "" }}Top">
-                                        {{ "U" if isTop else "" }}T
-                                    </a>
-                                    <a href="{{ url_for("edit.%shighlight" % ("un" if isHighlight else ""), item_path=article_path) }}"
-                                       class="button" title="{{ "Un" if isHighlight else "" }}Highlight">
-                                        {{ "U" if isHighlight else "" }}H
-                                    </a>
-                                    <a href="{{ url_for("edit.%snotags" % ("un" if isNotags else ""), item_path=article_path) }}"
-                                       class="button" title="{{ "Un" if isNotags else "" }}NoTags">
-                                        {{ "U" if isNotags else "" }}N
-                                    </a>
                                     <a href="{{ url_for("edit.ignore", item_path=article_path) }}"
                                        class="button danger" title="Ignore">I
                                     </a>

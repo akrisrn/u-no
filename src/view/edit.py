@@ -1,7 +1,7 @@
 import os
 import re
 
-from flask import Blueprint, redirect, url_for, abort, request, jsonify
+from flask import Blueprint, abort, request, jsonify
 
 from cache import get_file_cache
 from const import flag_notags, flag_highlight, flag_top, flag_fixed, flag_unignore, flag_ignore, flag_date
@@ -50,8 +50,7 @@ def toggle_flag(item_path, flag, is_on, data=None):
 def ignore(item_path, is_ignore=True):
     # 加入忽略列表
     update_config_ignore_file_list(item_path, is_ignore)
-    toggle_flag(item_path, flag_unignore if is_ignore else flag_ignore, False)
-    return redirect(url_for('main.reindex_page'))
+    return jsonify(toggle_flag(item_path, flag_unignore if is_ignore else flag_ignore, False))
 
 
 @edit.route('/%s/<path:item_path>' % flag_unignore)
@@ -61,8 +60,7 @@ def unignore(item_path):
 
 @edit.route('/%s/<path:item_path>' % flag_fixed)
 def fixed(item_path, is_fixed=True):
-    toggle_flag(item_path, flag_fixed, is_fixed)
-    return redirect(url_for('main.reindex_page'))
+    return jsonify(toggle_flag(item_path, flag_fixed, is_fixed))
 
 
 @edit.route('/un%s/<path:item_path>' % flag_fixed)
@@ -72,8 +70,7 @@ def unfixed(item_path):
 
 @edit.route('/%s/<path:item_path>' % flag_top)
 def top(item_path, is_top=True):
-    toggle_flag(item_path, flag_top, is_top)
-    return redirect(url_for('main.reindex_page'))
+    return jsonify(toggle_flag(item_path, flag_top, is_top))
 
 
 @edit.route('/un%s/<path:item_path>' % flag_top)
@@ -83,8 +80,7 @@ def untop(item_path):
 
 @edit.route('/%s/<path:item_path>' % flag_highlight)
 def highlight(item_path, is_highlight=True):
-    toggle_flag(item_path, flag_highlight, is_highlight)
-    return redirect(url_for('main.reindex_page'))
+    return jsonify(toggle_flag(item_path, flag_highlight, is_highlight))
 
 
 @edit.route('/un%s/<path:item_path>' % flag_highlight)
@@ -94,8 +90,7 @@ def unhighlight(item_path):
 
 @edit.route('/%s/<path:item_path>' % flag_notags)
 def notags(item_path, is_notags=True):
-    toggle_flag(item_path, flag_notags, is_notags)
-    return redirect(url_for('main.reindex_page'))
+    return jsonify(toggle_flag(item_path, flag_notags, is_notags))
 
 
 @edit.route('/un%s/<path:item_path>' % flag_notags)
