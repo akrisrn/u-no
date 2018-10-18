@@ -15,6 +15,7 @@
 .edit-group {
     position: relative;
     top: 4px;
+    display: inline-block;
 }
 
 .edit-group a, .edit-group button {
