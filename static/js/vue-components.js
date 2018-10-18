@@ -70,7 +70,7 @@ Vue.component('vue-index-tab-button', {
 Vue.component('vue-check', {
     props: ['checked'],
     template: `
-<i :class="['fas', checked ? 'fa-check' : 'fa-times']"></i>`
+<i :class="['fas', checked ? 'fa-check' : 'fa-times', 'check']"></i>`
 });
 
 new Vue({el: '#content'});
