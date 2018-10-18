@@ -55,7 +55,7 @@
                         <th width="20">ID</th>
                         <th>Title</th>
                         <th>Tags</th>
-                        <th width="120">Date</th>
+                        <th width="160">Date</th>
                         <th width="50">Fixed</th>
                         <th width="50">Top</th>
                         <th width="50">Highlight</th>
@@ -80,7 +80,19 @@
                                     </vue-tag>
                                 {%- endfor -%}
                             </td>
-                            <td>{{ article[index_date_key] }}</td>
+                            <td>
+                                <div style="display: inline">{{ article[index_date_key] }}</div>
+                                <div class="button-group edit-group">
+                                    <button class="button" title="Edit Date" onclick="edit(this, 'date')">E</button>
+                                    <button class="button" title="Submit"
+                                            onclick="submit(this, '{{ url_for("edit.date", item_path=article_path) }}')"
+                                            style="display: none">S
+                                    </button>
+                                    <button class="button" title="Cancel" onclick="cancel(this)"
+                                            style="display: none">C
+                                    </button>
+                                </div>
+                            </td>
                             <td align="center">
                                 <vue-check :checked="{{ isFixed | lower }}"></vue-check>
                             </td>

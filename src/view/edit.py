@@ -1,10 +1,10 @@
 import os
 import re
 
-from flask import Blueprint, redirect, url_for, abort
+from flask import Blueprint, redirect, url_for, abort, request, jsonify
 
 from cache import get_file_cache
-from const import flag_notags, flag_highlight, flag_top, flag_fixed, flag_unignore, flag_ignore
+from const import flag_notags, flag_highlight, flag_top, flag_fixed, flag_unignore, flag_ignore, flag_date
 from flag import get_flag_regexp
 from index import reindex
 from util import update_config_ignore_file_list, get_articles_dir_abspath
@@ -101,3 +101,8 @@ def notags(item_path, is_notags=True):
 @edit.route('/un%s/<path:item_path>' % flag_notags)
 def unnotags(item_path):
     return notags(item_path, False)
+
+
+@edit.route('/%s/<path:item_path>' % flag_date)
+def date(item_path):
+    return jsonify(toggle_flag(item_path, flag_date, False, request.args.get("data", "")))

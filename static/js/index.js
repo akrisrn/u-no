@@ -77,3 +77,47 @@ $(function () {
     let defaultOpen = document.getElementById("defaultOpen");
     if (defaultOpen !== null) defaultOpen.click()
 });
+
+function edit(_this, type) {
+    let textDiv = _this.parentElement.previousElementSibling;
+    textDiv.style.display = "none";
+    let text = textDiv.innerText;
+
+    let input = document.createElement("input");
+    input.type = type;
+    input.value = text;
+
+    let editDiv = document.createElement("div");
+    editDiv.appendChild(input);
+    textDiv.parentElement.insertBefore(editDiv, textDiv);
+
+    _this.style.display = "none";
+    let next = _this.nextElementSibling;
+    next.style.display = "inline";
+    // noinspection JSUnresolvedVariable
+    next.nextElementSibling.style.display = "inline";
+}
+
+function submit(_this, url) {
+    let parent = _this.parentElement.parentElement;
+    let data = parent.children[0].children[0].value;
+    $.getJSON(url, {data}, (result) => {
+        if (result) {
+            parent.children[1].innerText = data;
+        }
+        cancel(_this.nextElementSibling)
+    })
+}
+
+function cancel(_this) {
+    let textDiv = _this.parentElement.previousElementSibling;
+    textDiv.style.display = "inline";
+    let editDiv = textDiv.previousElementSibling;
+    editDiv.remove();
+
+    _this.style.display = "none";
+    let pre = _this.previousElementSibling;
+    pre.style.display = "none";
+    // noinspection JSUnresolvedVariable
+    pre.previousElementSibling.style.display = "inline";
+}

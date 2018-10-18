@@ -26,6 +26,12 @@
     -o-transition: none;
 }
 
+.tabcontent input[type=date] {
+    width: 160px;
+    height: 28px;
+    outline: none;
+}
+
 #body {
     max-width: 9999px;
     margin: 0;
