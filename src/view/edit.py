@@ -1,7 +1,7 @@
 import os
 import re
 
-from flask import Blueprint, abort, request, jsonify
+from flask import Blueprint, abort, request, jsonify, url_for, redirect
 
 from cache import get_file_cache
 from const import flag_notags, flag_highlight, flag_top, flag_fixed, flag_unignore, flag_ignore, flag_date
@@ -12,7 +12,7 @@ from util import update_config_ignore_file_list, get_articles_dir_abspath
 edit = Blueprint("edit", __name__)
 
 
-def toggle_flag(item_path, flag, is_on, data=None):
+def toggle_flag(item_path, flag, is_on, data=None, force_reindex=False):
     def toggle():
         item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
         if not os.path.exists(item_abspath):
@@ -41,7 +41,7 @@ def toggle_flag(item_path, flag, is_on, data=None):
         return True
 
     is_reindex = toggle()
-    if is_reindex:
+    if force_reindex or is_reindex:
         reindex()
     return is_reindex
 
@@ -50,7 +50,8 @@ def toggle_flag(item_path, flag, is_on, data=None):
 def ignore(item_path, is_ignore=True):
     # 加入忽略列表
     update_config_ignore_file_list(item_path, is_ignore)
-    return jsonify(toggle_flag(item_path, flag_unignore if is_ignore else flag_ignore, False))
+    toggle_flag(item_path, flag_unignore if is_ignore else flag_ignore, False, None, True)
+    return redirect(url_for('main.index_page'))
 
 
 @edit.route('/%s/<path:item_path>' % flag_unignore)
