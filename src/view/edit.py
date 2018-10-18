@@ -6,33 +6,44 @@ from flask import Blueprint, redirect, url_for, abort
 from cache import get_file_cache
 from const import flag_notags, flag_highlight, flag_top, flag_fixed, flag_unignore, flag_ignore
 from flag import get_flag_regexp
+from index import reindex
 from util import update_config_ignore_file_list, get_articles_dir_abspath
 
 edit = Blueprint("edit", __name__)
 
 
 def toggle_flag(item_path, flag, is_on, data=None):
-    item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
-    if not os.path.exists(item_abspath):
-        abort(404)
-    try:
-        item_data = get_file_cache(item_abspath)
-    except UnicodeDecodeError:
-        return False
-    flag_regexp = get_flag_regexp(flag)
-    group = re.search(flag_regexp, item_data)
-    if group:
-        if is_on:
+    def toggle():
+        item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
+        if not os.path.exists(item_abspath):
+            abort(404)
+        try:
+            item_data = get_file_cache(item_abspath)
+        except UnicodeDecodeError:
             return False
-        sub_text = "%s%s%s" % (group.group(1), data, group.group(3)) if data is not None else ""
-        item_data = re.sub(flag_regexp, sub_text, item_data)
-    else:
-        if not is_on:
-            return False
-        item_data += "%s<<%s()>>" % ("" if item_data.endswith("\n") else "\n", flag)
-    with open(item_abspath, "w", encoding='utf-8') as item_file:
-        item_file.write(item_data)
-    return True
+        flag_regexp = get_flag_regexp(flag)
+        group = re.search(flag_regexp, item_data)
+        if group:
+            if is_on:
+                return False
+            sub_text = ""
+            if data is not None:
+                if data == group.group(2):
+                    return False
+                sub_text = "%s%s%s" % (group.group(1), data, group.group(3))
+            item_data = re.sub(flag_regexp, sub_text, item_data)
+        else:
+            if not is_on:
+                return False
+            item_data += "%s<<%s()>>" % ("" if item_data.endswith("\n") else "\n", flag)
+        with open(item_abspath, "w", encoding='utf-8') as item_file:
+            item_file.write(item_data)
+        return True
+
+    is_reindex = toggle()
+    if is_reindex:
+        reindex()
+    return is_reindex
 
 
 @edit.route('/%s/<path:item_path>' % flag_ignore)
