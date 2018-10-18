@@ -23,12 +23,12 @@ def toggle_flag(item_path, flag, is_on, data=None):
     group = re.search(flag_regexp, item_data)
     if group:
         if is_on:
-            return True
+            return False
         sub_text = "%s%s%s" % (group.group(1), data, group.group(3)) if data is not None else ""
         item_data = re.sub(flag_regexp, sub_text, item_data)
     else:
         if not is_on:
-            return True
+            return False
         item_data += "%s<<%s()>>" % ("" if item_data.endswith("\n") else "\n", flag)
     with open(item_abspath, "w", encoding='utf-8') as item_file:
         item_file.write(item_data)
