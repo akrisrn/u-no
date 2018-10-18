@@ -88,6 +88,7 @@ function edit(_this, type) {
     input.value = text;
 
     let editDiv = document.createElement("div");
+    editDiv.style.display = "inline";
     editDiv.appendChild(input);
     textDiv.parentElement.insertBefore(editDiv, textDiv);
 

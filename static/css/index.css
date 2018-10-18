@@ -28,9 +28,10 @@
 }
 
 .tabcontent input[type=date] {
-    width: 160px;
-    height: 28px;
+    width: 125px;
+    height: 22px;
     outline: none;
+    font-size: 12px;
 }
 
 .tabcontent .check {
