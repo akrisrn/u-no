@@ -91,6 +91,13 @@ function edit(_this, type) {
         input.type = "date";
         input.value = showDiv.innerText;
         editDiv.appendChild(input);
+    } else if (type === "tag") {
+        for (let child of showDiv.children) {
+            let input = document.createElement("input");
+            input.type = "text";
+            input.value = child.innerText;
+            editDiv.appendChild(input);
+        }
     }
 
     _this.style.display = "none";
@@ -102,14 +109,44 @@ function edit(_this, type) {
 
 function submit(_this, url, type) {
     let parent = _this.parentElement.parentElement;
+    let editDiv = parent.children[0];
+    let showDiv = parent.children[1];
     let data = "";
     if (type === "date") {
-        data = parent.children[0].children[0].value;
+        data = editDiv.children[0].value;
+    } else if (type === "tag") {
+        for (let child of editDiv.children) {
+            let inputData = child.value.trim();
+            if (inputData === "") {
+                continue;
+            }
+            let splitInputData = inputData.split(",");
+            if (splitInputData.length > 1) {
+                for (let split of splitInputData) {
+                    let splitData = split.trim();
+                    if (splitData === "") {
+                        continue
+                    }
+                    data += splitData + ","
+                }
+            } else {
+                data += inputData + ","
+            }
+        }
+        data = data.substring(0, data.length - 1)
     }
     $.getJSON(url, {data}, (result) => {
         if (result) {
             if (type === "date") {
-                parent.children[1].innerText = data;
+                showDiv.innerText = data;
+            } else if (type === "tag") {
+                let tagExmDiv = showDiv.children[0].cloneNode(true);
+                showDiv.innerHTML = "";
+                for (let split of data.split(",")) {
+                    let tagDiv = tagExmDiv.cloneNode(true);
+                    tagDiv.children[0].childNodes[1].nodeValue = split;
+                    showDiv.appendChild(tagDiv)
+                }
             }
         }
         cancel(_this.nextElementSibling)

@@ -74,11 +74,22 @@
                             <td align="right">{{ article[index_id_key] }}</td>
                             <td><a href="{{ article[index_url_key] }}">{{ article[index_title_key] }}</a></td>
                             <td>
-                                {%- for key in article[index_tags_key] | sort -%}
-                                    <vue-tag url="{{ "?t=" + article[index_tags_key][key] }}"
-                                             name="{{ article[index_tags_key][key] }}">
-                                    </vue-tag>
-                                {%- endfor -%}
+                                <div style="display: inline">
+                                    {%- for key in article[index_tags_key] | sort -%}
+                                        <vue-tag url="{{ "?t=" + article[index_tags_key][key] }}"
+                                                 name="{{ article[index_tags_key][key] }}">
+                                        </vue-tag>
+                                    {%- endfor -%}
+                                </div>
+                                <div class="button-group edit-group">
+                                    <button class="button" title="Edit Tag" onclick="edit(this, 'tag')">E</button>
+                                    <button class="button" title="Submit"
+                                            onclick="submit(this, '{{ url_for("edit.tag", item_path=article_path) }}', 'tag')"
+                                            style="display: none">S
+                                    </button>
+                                    <button class="button" title="Cancel" onclick="cancel(this)" style="display: none">C
+                                    </button>
+                                </div>
                             </td>
                             <td>
                                 <div style="display: inline">{{ article[index_date_key] }}</div>
@@ -88,8 +99,7 @@
                                             onclick="submit(this, '{{ url_for("edit.date", item_path=article_path) }}', 'date')"
                                             style="display: none">S
                                     </button>
-                                    <button class="button" title="Cancel" onclick="cancel(this)"
-                                            style="display: none">C
+                                    <button class="button" title="Cancel" onclick="cancel(this)" style="display: none">C
                                     </button>
                                 </div>
                             </td>

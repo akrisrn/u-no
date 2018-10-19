@@ -9,9 +9,7 @@ Vue.component('vue-tag', {
     props: ['url', 'name'],
     template: `
 <div class="tag">
-    <a :href="url">
-        <i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ name }}
-    </a>
+    <a :href="url"><i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ name }}</a>
 </div>`
 });
 

@@ -34,6 +34,15 @@
     font-size: 12px;
 }
 
+.tabcontent input[type=text] {
+    width: 65px;
+    height: 24px;
+    outline: none;
+    font-size: 12px;
+    position: relative;
+    top: -3px
+}
+
 .tabcontent .check {
     width: 16px;
 }
