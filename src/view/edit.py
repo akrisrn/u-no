@@ -12,7 +12,7 @@ from util import update_config_ignore_file_list, get_articles_dir_abspath
 edit = Blueprint("edit", __name__)
 
 
-def toggle_flag(item_path, flag, is_on, data=None, force_reindex=False):
+def toggle_flag(item_path, flag, is_on, data=None, force_reindex=False, force_update=False):
     def toggle():
         item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
         if not os.path.exists(item_abspath):
@@ -24,7 +24,7 @@ def toggle_flag(item_path, flag, is_on, data=None, force_reindex=False):
         flag_regexp = get_flag_regexp(flag)
         group = re.search(flag_regexp, item_data)
         if group:
-            if is_on:
+            if not force_update and is_on:
                 return False
             sub_text = ""
             if data is not None:
@@ -33,9 +33,9 @@ def toggle_flag(item_path, flag, is_on, data=None, force_reindex=False):
                 sub_text = "%s%s%s" % (group.group(1), data, group.group(3))
             item_data = re.sub(flag_regexp, sub_text, item_data)
         else:
-            if not is_on:
+            if not force_update and not is_on:
                 return False
-            item_data += "%s<<%s()>>" % ("" if item_data.endswith("\n") else "\n", flag)
+            item_data += "%s<<%s(%s)>>" % ("" if item_data.endswith("\n") else "\n", flag, "" if data is None else data)
         with open(item_abspath, "w", encoding='utf-8') as item_file:
             item_file.write(item_data)
         return True
@@ -101,9 +101,9 @@ def unnotags(item_path):
 
 @edit.route('/%s/<path:item_path>' % flag_tag)
 def tag(item_path):
-    return jsonify(toggle_flag(item_path, flag_tag, False, request.args.get("data", "")))
+    return jsonify(toggle_flag(item_path, flag_tag, False, request.args.get("data", ""), False, True))
 
 
 @edit.route('/%s/<path:item_path>' % flag_date)
 def date(item_path):
-    return jsonify(toggle_flag(item_path, flag_date, False, request.args.get("data", "")))
+    return jsonify(toggle_flag(item_path, flag_date, False, request.args.get("data", ""), False, True))
