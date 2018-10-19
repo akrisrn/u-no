@@ -28,22 +28,21 @@
     -o-transition: none;
 }
 
-.tabcontent .edit-date {
-    width: 125px;
-    height: 22px;
+.tabcontent .edit-input {
     outline: none;
     font-size: 12px;
     position: relative;
     top: -2px;
 }
 
+.tabcontent .edit-date {
+    width: 125px;
+    height: 22px;
+}
+
 .tabcontent .edit-tag {
     width: 65px;
     height: 24px;
-    outline: none;
-    font-size: 12px;
-    position: relative;
-    top: -2px
 }
 
 .tabcontent .check {

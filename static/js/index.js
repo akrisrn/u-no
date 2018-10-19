@@ -89,12 +89,14 @@ function edit(_this, type) {
     if (type === "date") {
         let input = document.createElement("input");
         input.type = "date";
+        input.classList.add("edit-input");
         input.classList.add("edit-date");
         input.value = showDiv.innerText;
         editDiv.appendChild(input);
     } else if (type === "tag") {
         for (let child of showDiv.children) {
             let input = document.createElement("input");
+            input.classList.add("edit-input");
             input.classList.add("edit-tag");
             input.value = child.innerText;
             editDiv.appendChild(input);
@@ -135,6 +137,8 @@ function submit(_this, url, type) {
             }
         }
         data = data.substring(0, data.length - 1)
+    } else if (type === "title") {
+
     }
     $.getJSON(url, {data}, (result) => {
         if (result) {
@@ -149,6 +153,8 @@ function submit(_this, url, type) {
                     tagDiv.children[0].childNodes[1].nodeValue = split;
                     showDiv.appendChild(tagDiv)
                 }
+            } else if (type === "title") {
+
             }
         }
         cancel(_this.nextElementSibling)
