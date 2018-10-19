@@ -4,6 +4,10 @@
 {%- endblock -%}
 {%- block extra_js_link -%}
     <script type="text/javascript" src="{{ get_static_file_url("js/index.js") }}"></script>
+    <!--suppress JSUnusedLocalSymbols -->
+    <script>
+        const default_tag = "{{ default_tag }}";
+    </script>
 {%- endblock -%}
 {%- block extra_css_link -%}
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url("css/index.css") }}">
