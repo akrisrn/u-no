@@ -1,3 +1,7 @@
+.button {
+    font-family: 'Source Code Pro', SimSun, sans-serif;
+}
+
 .search-input-group {
     display: inline;
     position: relative;
