@@ -33,6 +33,8 @@
     height: 22px;
     outline: none;
     font-size: 12px;
+    position: relative;
+    top: -2px;
 }
 
 .tabcontent input[type=text] {
@@ -41,7 +43,7 @@
     outline: none;
     font-size: 12px;
     position: relative;
-    top: -3px
+    top: -2px
 }
 
 .tabcontent .check {
