@@ -1,0 +1,25 @@
+{%- extends "frame.html" -%}
+{%- block title -%}
+    * {{ title }} - {{ site_name }}
+{%- endblock -%}
+{%- block extra_js_link -%}
+    <script type="text/javascript" src="{{ get_static_lib_url("editor.md") }}"></script>
+    <script type="text/javascript" src="{{ get_static_file_url("js/edit.js") }}"></script>
+    <!--suppress JSUnusedLocalSymbols -->
+    <script>
+        const lib_path = "{{ get_static_lib_url("editor.md|lib") }}"
+    </script>
+{%- endblock -%}
+{%- block extra_css_link -%}
+    <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url("editor.md|css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ get_static_file_url("css/edit.css") }}">
+{%- endblock -%}
+{%- block content -%}
+    <h1>{{ title }}</h1>
+    <hr>
+    <div id="editormd">
+        <label>
+            <textarea style="display:none;"></textarea>
+        </label>
+    </div>
+{%- endblock -%}

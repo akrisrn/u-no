@@ -1,6 +1,6 @@
 {%- extends "frame.html" -%}
 {%- block title -%}
-    * {{ title }} - {{ site_name }}
+    {{ title }} - {{ site_name }}
 {%- endblock -%}
 {%- block extra_js_link -%}
     <script type="text/javascript" src="{{ get_static_file_url("js/index.js") }}"></script>
@@ -64,7 +64,7 @@
                         <th width="80">Top</th>
                         <th width="80">Highlight</th>
                         <th width="80">NoTags</th>
-                        <th width="80">Edit</th>
+                        <th width="90">Edit</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -146,6 +146,9 @@
                             <td>
                                 <i class="fas fa-edit"></i>
                                 <div class="button-group edit-group">
+                                    <a href="{{ url_for("edit.article", item_path=article_path) }}"
+                                       class="button" title="Edit article">E
+                                    </a>
                                     <a href="{{ url_for("edit.ignore", item_path=article_path) }}"
                                        class="button danger" title="Ignore">I
                                     </a>

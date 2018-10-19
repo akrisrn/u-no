@@ -1,7 +1,7 @@
 import os
 import re
 
-from flask import Blueprint, abort, request, jsonify, url_for, redirect
+from flask import Blueprint, abort, request, jsonify, url_for, redirect, render_template
 
 from cache import get_file_cache
 from const import flag_notags, flag_highlight, flag_top, flag_fixed, flag_unignore, flag_ignore, flag_tag, flag_date
@@ -107,3 +107,8 @@ def tag(item_path):
 @edit.route('/%s/<path:item_path>' % flag_date)
 def date(item_path):
     return jsonify(toggle_flag(item_path, flag_date, False, request.args.get("data", ""), False, True))
+
+
+@edit.route('/article/<path:item_path>')
+def article(item_path):
+    return render_template('edit.html', title=item_path)
