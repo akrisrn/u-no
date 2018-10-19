@@ -165,7 +165,10 @@ def get_static_lib_url(name):
                 "raty-js|css",
                 "github-markdown-css",
                 "@fortawesome/fontawesome-free",
-                "source-code-pro"]
+                "source-code-pro",
+                "editor.md",
+                "editor.md|css",
+                "editor.md|lib"]
         lib = {
             libs[0]: {
                 "local": get_module_file_url("vue/dist/vue.min.js"),
@@ -230,6 +233,19 @@ def get_static_lib_url(name):
             libs[14]: {
                 "local": get_module_file_url("source-code-pro/source-code-pro.css"),
                 "remote": get_cdn_file_url("source-code-pro@%s/source-code-pro.min.css" % get_lib_version(libs[14]))
-            }
+            },
+            libs[15]: {
+                "local": get_module_file_url("editor.md/editormd.min.js", False),
+                "remote": get_cdn_file_url("pandao/editor.md@%s/editormd.min.js" % get_lib_version(libs[15]), False)
+            },
+            libs[16]: {
+                "local": get_module_file_url("editor.md/css/editormd.min.css", False),
+                "remote": get_cdn_file_url("pandao/editor.md@%s/css/editormd.min.css" % get_lib_version(libs[16]),
+                                           False)
+            },
+            libs[17]: {
+                "local": get_module_file_url("editor.md/lib/", False),
+                "remote": get_cdn_file_url("pandao/editor.md@%s/lib/" % get_lib_version(libs[17]), False)
+            },
         }
     return lib[name]["remote" if current_app.config["USE_CDN"] else "local"]
