@@ -116,15 +116,15 @@ function submit(_this, url, type) {
         data = editDiv.children[0].value;
     } else if (type === "tag") {
         for (let child of editDiv.children) {
-            let inputData = child.value.trim();
-            if (inputData === "") {
+            let inputData = child.value.trim().replace("，", ",");
+            if (inputData === "" || inputData === default_tag) {
                 continue;
             }
             let splitInputData = inputData.split(",");
             if (splitInputData.length > 1) {
                 for (let split of splitInputData) {
                     let splitData = split.trim();
-                    if (splitData === "") {
+                    if (splitData === "" || splitData === default_tag) {
                         continue
                     }
                     data += splitData + ","
