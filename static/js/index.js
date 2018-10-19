@@ -137,8 +137,6 @@ function submit(_this, url, type) {
             }
         }
         data = data.substring(0, data.length - 1)
-    } else if (type === "title") {
-
     }
     $.getJSON(url, {data}, (result) => {
         if (result) {
@@ -153,8 +151,6 @@ function submit(_this, url, type) {
                     tagDiv.children[0].childNodes[1].nodeValue = split;
                     showDiv.appendChild(tagDiv)
                 }
-            } else if (type === "title") {
-
             }
         }
         cancel(_this.nextElementSibling)
