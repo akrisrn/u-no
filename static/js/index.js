@@ -89,12 +89,13 @@ function edit(_this, type) {
     if (type === "date") {
         let input = document.createElement("input");
         input.type = "date";
+        input.classList.add("edit-date");
         input.value = showDiv.innerText;
         editDiv.appendChild(input);
     } else if (type === "tag") {
         for (let child of showDiv.children) {
             let input = document.createElement("input");
-            input.type = "text";
+            input.classList.add("edit-tag");
             input.value = child.innerText;
             editDiv.appendChild(input);
         }

@@ -28,7 +28,7 @@
     -o-transition: none;
 }
 
-.tabcontent input[type=date] {
+.tabcontent .edit-date {
     width: 125px;
     height: 22px;
     outline: none;
@@ -37,7 +37,7 @@
     top: -2px;
 }
 
-.tabcontent input[type=text] {
+.tabcontent .edit-tag {
     width: 65px;
     height: 24px;
     outline: none;
