@@ -21,7 +21,7 @@ def get_tags_flag(data):
     if not group:
         return default_tag
     # 生成标签列表
-    tags = [tag for tag in clean_text(group.group(2)).split(",") if tag]
+    tags = [tag for tag in re.split("[,，]", clean_text(group.group(2))) if tag]
     if not tags:
         return default_tag
     return tags
