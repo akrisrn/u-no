@@ -3,10 +3,10 @@ from datetime import datetime
 
 from flask import current_app
 
-import index
-from const import flag_js, flag_css, flag_unignore, flag_ignore, flag_highlight, flag_top, flag_fixed, flag_notags, \
-    flag_tag, flag_date
-from util import clean_text, regexp_join
+import src.index
+from .const import index_url_key, flag_js, flag_css, flag_unignore, flag_ignore, flag_highlight, flag_top, \
+    flag_fixed, flag_notags, flag_tag, flag_date
+from .util import clean_text, regexp_join
 
 
 # 获取匹配flag的正则表达式，忽略大小写
@@ -83,9 +83,9 @@ def get_custom_css_flag(data, custom_type=flag_css):
     for css_path in clean_text(group.group(2)).split(","):
         if css_path:
             # 根据css文件相对路径从索引文件中取出url
-            item = index.get_item_by_path(css_path)
+            item = src.index.get_item_by_path(css_path)
             if item:
-                css_urls.append(item[index.index_url_key])
+                css_urls.append(item[index_url_key])
     return css_urls
 
 

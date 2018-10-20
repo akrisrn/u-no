@@ -2,10 +2,10 @@ import os
 import re
 import shutil
 
-from const import index_path_key, index_url_key, index_tags_key, index_title_key
-from index import get_item_by_url
-from util import get_root_abspath
-from view.main import home_page, article_page, tag_page, articles_url_name, attachments_url_name, tags_url_name
+from src.const import index_path_key, index_url_key, index_tags_key, index_title_key
+from src.index import get_item_by_url
+from src.util import get_root_abspath
+from src.view.main import home_page, article_page, tag_page, articles_url_name, attachments_url_name, tags_url_name
 from uno import app
 
 if __name__ == '__main__':
