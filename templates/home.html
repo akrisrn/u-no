@@ -12,7 +12,10 @@
 {%- endblock -%}
 {%- block content -%}
     {%- if tag_name -%}
-        <h2><vue-hashtag-icon></vue-hashtag-icon>{{ tag_name }}</h2>
+        <h2>
+            <vue-hashtag-icon></vue-hashtag-icon>
+            {{ tag_name }}
+        </h2>
         <vue-return-home></vue-return-home>
     {%- else -%}
         <h2>{{ site_name }}</h2>
