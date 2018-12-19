@@ -1,15 +1,16 @@
 {%- extends "frame.html" -%}
+{%- set title = site_name -%}
+{%- if tag_name -%}
+    {%- set title = "#%s - %s" % (tag_name, site_name) -%}
+{%- endif -%}
 {%- block title -%}
-    {%- if tag_name -%}
-        # {{ tag_name }} - {{ site_name }}
-    {%- else -%}
-        {{ site_name }}
-    {%- endif -%}
+    {{ title }}
 {%- endblock -%}
 {%- block extra_css_link -%}
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url("css/home.css") }}">
 {%- endblock -%}
 {%- block content -%}
+    <h2>{{ title }}</h2>
     {%- if tag_name -%}
         <vue-return-home></vue-return-home>
     {%- endif -%}
