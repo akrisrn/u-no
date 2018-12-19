@@ -1,4 +1,4 @@
-var obj = document.getElementById("to-top");
+const obj = document.getElementById("to-top");
 
 function getScrollTop() {
     return document.documentElement.scrollTop + document.body.scrollTop;
@@ -17,7 +17,7 @@ window.onscroll = function () {
 };
 
 obj.onclick = function () {
-    var goTop = setInterval(scrollMove, 10);
+    const goTop = setInterval(scrollMove, 10);
 
     function scrollMove() {
         setScrollTop(getScrollTop() / 1.1);

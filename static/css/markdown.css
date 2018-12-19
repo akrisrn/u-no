@@ -113,6 +113,7 @@
     border: 1px solid #0000bb;
 }
 
+/*noinspection CssUnknownProperty*/
 .markdown-body span.critic:before {
     content: '\00a0\bb';
     border-right: none;
@@ -124,6 +125,7 @@
     border-bottom-left-radius: 3px;
 }
 
+/*noinspection CssUnknownProperty*/
 .markdown-body span.critic:after {
     content: '\ab\00a0';
     border-left: none;

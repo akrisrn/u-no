@@ -8,17 +8,16 @@
      * @param {object} settings is the settings for converter.
      * @return {void}
      */
-    var uml = (function (converter, className, settings) {
-
-        var getFromCode = function getFromCode(parent) {
+    const uml = (function (converter, className, settings) {
+        const getFromCode = function getFromCode(parent) {
             // Handles <pre><code>
-            var text = "";
-            for (var j = 0; j < parent.childNodes.length; j++) {
-                var subEl = parent.childNodes[j];
+            let text = "";
+            for (let j = 0; j < parent.childNodes.length; j++) {
+                const subEl = parent.childNodes[j];
                 if (subEl.tagName.toLowerCase() === "code") {
-                    for (var k = 0; k < subEl.childNodes.length; k++) {
-                        var child = subEl.childNodes[k];
-                        var whitespace = /^\s*$/;
+                    for (let k = 0; k < subEl.childNodes.length; k++) {
+                        const child = subEl.childNodes[k];
+                        const whitespace = /^\s*$/;
                         if (child.nodeName === "#text" && !whitespace.test(child.nodeValue)) {
                             text = child.nodeValue;
                             break;
@@ -29,28 +28,27 @@
             return text;
         };
 
-        var getFromDiv = function getFromDiv(parent) {
+        const getFromDiv = function getFromDiv(parent) {
             // Handles <div>
             return parent.textContent || parent.innerText;
         };
 
         // Change body to whatever element your main Markdown content lives.
-        var body = document.querySelectorAll("body");
-        var blocks = document.querySelectorAll("pre." + className + ",div." + className
-
+        const body = document.querySelectorAll("body");
+        const blocks = document.querySelectorAll("pre." + className + ",div." + className
             // Is there a settings object?
         );
-        var config = settings === void 0 ? {} : settings;
+        const config = settings === void 0 ? {} : settings;
 
         // Find the UML source element and get the text
-        for (var i = 0; i < blocks.length; i++) {
-            var parentEl = blocks[i];
-            var el = document.createElement("div");
+        for (let i = 0; i < blocks.length; i++) {
+            const parentEl = blocks[i];
+            const el = document.createElement("div");
             el.className = className;
             el.style.visibility = "hidden";
             el.style.position = "absolute";
 
-            var text = parentEl.tagName.toLowerCase() === "pre" ? getFromCode(parentEl) : getFromDiv(parentEl);
+            const text = parentEl.tagName.toLowerCase() === "pre" ? getFromCode(parentEl) : getFromDiv(parentEl);
 
             // Insert our new div at the end of our content to get general
             // typeset and page sizes as our parent might be `display:none`
@@ -61,7 +59,7 @@
             // into the proper place, and then make our SVG visible again.
             // Lastly, clean up the old node.
             body[0].appendChild(el);
-            var diagram = converter.parse(text);
+            const diagram = converter.parse(text);
             diagram.drawSVG(el, config);
             el.style.visibility = "visible";
             el.style.position = "static";
@@ -71,7 +69,7 @@
     });
 
     (function () {
-        var onReady = function onReady(fn) {
+        const onReady = function onReady(fn) {
             if (document.addEventListener) {
                 document.addEventListener("DOMContentLoaded", fn);
             } else {
@@ -96,7 +94,6 @@
             }
         });
     })();
-
 }());
 
 $(function () {

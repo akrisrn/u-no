@@ -4,7 +4,7 @@ $(function () {
 
     inputs.forEach(function (item) {
         item.keydown(function () {
-            if (event.keyCode === 13) search.click()
+            if (event.keyCode === 13) $("#search").click()
         });
     });
 
