@@ -18,6 +18,20 @@ bower install
 python uno.py
 ```
 
+### 重建索引
+
+```
+python reindex.py
+```
+
+### 静态化
+
+- 获得一份使用CDN的静态站点
+
+```
+python frozen.py
+```
+
 ## 部署（VirtualEnv + uWSGI + systemd + Nginx）
 
 ### VirtualEnv
