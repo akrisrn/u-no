@@ -80,7 +80,7 @@ def update_config_ignore_file_list(file_path, is_add):
     current_app.config["IGNORE_FILE_LIST"] = ignore_file_list
     # 用新列表替换旧列表
     replace = "%s = %s" % ("IGNORE_FILE_LIST", ignore_file_list)
-    origin = "%s\s*=\s*\[.*?\]" % "IGNORE_FILE_LIST"
+    origin = r"%s\s*=\s*\[.*?\]" % "IGNORE_FILE_LIST"
     update_config(origin, replace)
 
 
@@ -99,7 +99,7 @@ def regexp_join(regexp_str, *args):
 
 # 清洗文本，剔除空白、双引号、单引号
 def clean_text(text):
-    return re.sub("(\s|\"|\')", "", text)
+    return re.sub(r"(\s|\"|\')", "", text)
 
 
 # 检查哈希值是否有效

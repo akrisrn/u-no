@@ -95,7 +95,7 @@ def clean_md(text):
 
 # 如果标题数量在三个及三个以上，自动在开头加上目录
 def add_toc(text):
-    if len(re.findall("\n#+\s+.*", text)) >= 3:
+    if len(re.findall(r"\n#+\s+.*", text)) >= 3:
         text = "[TOC]\n\n" + text
     return text
 
@@ -104,7 +104,7 @@ def add_toc(text):
 def inlink(text):
     # 利用字典生成去重的匹配项，提高重复匹配的替换效率
     url_match_dict = {group.group(): [group.group(1), group.group(2)]
-                      for group in re.finditer("\[(.*?)\]\((.*?)\)\+", text)}
+                      for group in re.finditer(r"\[(.*?)\]\((.*?)\)\+", text)}
     for match in url_match_dict:
         file_path = url_match_dict[match][1]
         # 根据文件相对路径从索引文件中取出url
@@ -117,7 +117,7 @@ def inlink(text):
 # 匹配md表格语法中| 1. |部分为自增序列
 def table_increment(text):
     num = 1
-    for group in re.finditer("\|\s*(:?-:?|1\.)\s*(.*)", text):
+    for group in re.finditer(r"\|\s*(:?-:?|1\.)\s*(.*)", text):
         # 进入新表格后计数重置
         if group.group(1).strip(":") == "-":
             num = 1
@@ -131,7 +131,7 @@ def table_increment(text):
 # 匹配*[]语法为评分标签，方括号内匹配0-10
 def rate(text):
     # 利用字典生成去重的匹配项，提高重复匹配的替换效率
-    rate_match_dict = {group.group(): group.group(1) for group in re.finditer("\*\[([0-9]|10)\]", text)}
+    rate_match_dict = {group.group(): group.group(1) for group in re.finditer(r"\*\[([0-9]|10)\]", text)}
     for match in rate_match_dict.keys():
         # 实际展示的评分为匹配数字的一半
         rate_num = int(rate_match_dict[match]) / 2

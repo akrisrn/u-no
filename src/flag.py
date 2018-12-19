@@ -11,7 +11,7 @@ from .util import clean_text, regexp_join
 
 # 获取匹配flag的正则表达式，忽略大小写
 def get_flag_regexp(flag):
-    return re.compile(regexp_join("(\s*<<\s*%s\()(.*?)(\)\s*>>)", flag), re.I)
+    return re.compile(regexp_join(r"(\s*<<\s*%s\()(.*?)(\)\s*>>)", flag), re.I)
 
 
 # 获取文章里标记的标签列表，语法匹配<<tag()>>，如果没有则返回默认标签
