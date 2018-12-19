@@ -22,6 +22,10 @@ Vue.component('vue-tag-icon', {
     template: '<i class="fas fa-tags fa-xs"></i>'
 });
 
+Vue.component('vue-hashtag-icon', {
+    template: '<i style="margin-right: 3px" class="fas fa-hashtag"></i>'
+});
+
 Vue.component('vue-home-li-icon', {
     template: '<i class="fas fa-angle-double-right"></i>'
 });
