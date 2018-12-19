@@ -1,11 +1,9 @@
-<!--suppress HtmlUnknownTag -->
 {%- extends "frame.html" -%}
 {%- block title -%}
     {{ title }} - {{ site_name }}
 {%- endblock -%}
 {%- block extra_js_link -%}
     <script type="text/javascript" src="{{ get_static_file_url("js/index.js") }}"></script>
-    <!--suppress JSUnusedLocalSymbols -->
     <script>
         const default_tag = "{{ default_tag }}";
     </script>
