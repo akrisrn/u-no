@@ -5,7 +5,7 @@ from flask import current_app
 
 import src.index
 from .const import index_url_key, flag_js, flag_css, flag_unignore, flag_ignore, flag_highlight, flag_top, \
-    flag_fixed, flag_notags, flag_tag, flag_date
+    flag_fixed, flag_notags, flag_tag, flag_date, flag_plugin
 from .util import clean_text, regexp_join
 
 
@@ -92,3 +92,11 @@ def get_custom_css_flag(data, custom_type=flag_css):
 # 获取文章里标记的自定义js文件列表，语法匹配<<js()>>，如果没有则返回空
 def get_custom_js_flag(data):
     return get_custom_css_flag(data, flag_js)
+
+
+# 获取文章里标记的插件列表，语法匹配<<plugin()>>，如果没有则返回空
+def get_plugin_flag(data):
+    group = re.search(get_flag_regexp(flag_plugin), data)
+    if not group:
+        return []
+    return [plugin_name for plugin_name in clean_text(group.group(2)).split(",") if plugin_name]

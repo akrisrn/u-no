@@ -6,10 +6,10 @@ from flask import send_from_directory, Blueprint, render_template, request, abor
 from ..const import index_notags_key, index_parent_key, index_path_key, index_url_name, index_title_key, index_id_key, \
     index_tags_key, index_date_key, articles_url_name, attachments_url_name, tags_url_name, reindex_url_name
 from ..cache import get_file_cache
-from ..flag import get_custom_js_flag, get_custom_css_flag
+from ..flag import get_custom_js_flag, get_custom_css_flag, get_plugin_flag
 from ..index import get_item_by_url, index_data_filter, get_fixed_articles, reindex
 from ..md import render
-from ..util import get_articles_dir_abspath, is_valid_hash
+from ..util import get_articles_dir_abspath, is_valid_hash, get_plugins_urls
 
 main = Blueprint("main", __name__)
 
@@ -66,10 +66,11 @@ def article_page(url_name, file_hash):
         abort(404)
     if url_name == articles_url_name:
         data = get_file_cache(item_abspath)
+        plugin_urls = get_plugins_urls(get_plugin_flag(data))
         # 识别文章中的自定义css文件，获取自定义css文件url列表
-        css_urls = get_custom_css_flag(data)
+        css_urls = plugin_urls["css"] + get_custom_css_flag(data)
         # 识别文章中的自定义js文件，获取自定义js文件url列表
-        js_urls = get_custom_js_flag(data)
+        js_urls = plugin_urls["js"] + get_custom_js_flag(data)
         # markdown渲染
         data = render(data)
         # 去后缀
