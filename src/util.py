@@ -4,7 +4,7 @@ import os
 import re
 
 from flask import url_for, current_app
-from const import lib_names, plugin_names
+from .const import lib_names, plugin_names
 
 
 # 获取根目录绝对路径
