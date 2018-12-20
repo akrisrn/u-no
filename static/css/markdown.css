@@ -2,6 +2,7 @@
     margin-top: 20px;
     margin-bottom: 30px;
     line-height: 2;
+    text-align: justify;
 }
 
 .markdown-body, .markdown-body code, .markdown-body pre {
