@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ get_static_file_url('img/favicon.ico') }}">
     <title>{%- block title -%}{%- endblock -%}</title>
-    {%- set plugin_urls = get_plugins_urls(["vue", "pace", "jquery", "tablesorter", "raty", "markdown-style", "fonts"]) -%}
+    {%- set default_plugin_urls = get_plugins_urls(["vue", "pace", "jquery", "tablesorter", "raty", "markdown-style", "fonts"]) -%}
     {%- set js_custom = ["js/pace.on.js", "js/markdown.js", "js/script.js"] -%}
     {%- set css_custom = ["css/style.css", "css/markdown.css"] -%}
-    {%- for js_url in plugin_urls["js"] -%}
+    {%- for js_url in default_plugin_urls["js"] -%}
         <script type="text/javascript" src="{{ js_url }}"></script>
     {%- endfor -%}
     {%- for custom in js_custom -%}
@@ -16,7 +16,7 @@
     {%- endfor -%}
     {%- block extra_js_link -%}
     {%- endblock -%}
-    {%- for css_url in plugin_urls["css"] -%}
+    {%- for css_url in default_plugin_urls["css"] -%}
         <link rel="stylesheet" type="text/css" href="{{ css_url }}">
     {%- endfor -%}
     {%- for custom in css_custom -%}
