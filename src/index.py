@@ -125,7 +125,6 @@ def reindex():
     # 遍历文章目录下所有文件和子目录
     for root, dirs, files in os.walk(articles_dir_abspath):
         # 截取相对路径
-        # noinspection PyTypeChecker
         path = root.split(articles_dir_abspath)[-1].lstrip(os.path.sep).replace("\\", "/")
         # 排除忽略目录
         is_ignore = False
@@ -159,7 +158,6 @@ def reindex():
             parent, title = os.path.split(file_path.replace("+：", ":"))
             if not path.startswith(current_app.config["ATTACHMENTS_DIR_NAME"]):
                 # 获取标签并生成标签字典
-                # noinspection PyUnboundLocalVariable
                 tags = {compute_digest_by_data(tag): tag for tag in src.flag.get_tags_flag(data)}
                 # 获取日期
                 date = src.flag.get_date_flag(data)

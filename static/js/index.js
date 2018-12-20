@@ -106,7 +106,6 @@ function edit(_this, type) {
     _this.style.display = "none";
     let next = _this.nextElementSibling;
     next.style.display = "inline";
-    // noinspection JSUnresolvedVariable
     next.nextElementSibling.style.display = "inline";
 }
 
@@ -166,7 +165,6 @@ function cancel(_this) {
     _this.style.display = "none";
     let pre = _this.previousElementSibling;
     pre.style.display = "none";
-    // noinspection JSUnresolvedVariable
     pre.previousElementSibling.style.display = "inline";
 }
 

@@ -73,7 +73,6 @@
             if (document.addEventListener) {
                 document.addEventListener("DOMContentLoaded", fn);
             } else {
-                // noinspection JSUnresolvedFunction
                 document.attachEvent("onreadystatechange", function () {
                     if (document.readyState === "interactive") {
                         fn();
@@ -87,9 +86,7 @@
                 uml(flowchart, "uml-flowchart");
             }
 
-            // noinspection JSUnresolvedVariable
             if (typeof Diagram !== "undefined") {
-                // noinspection JSUnresolvedVariable
                 uml(Diagram, "uml-sequence-diagram", {theme: "simple"});
             }
         });
