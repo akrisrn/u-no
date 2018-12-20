@@ -27,3 +27,38 @@ flag_ignore = "ignore"
 flag_unignore = "unignore"
 flag_css = "css"
 flag_js = "js"
+flag_plugin = "plugin"
+
+lib_names = [
+    "vue",
+    "pace-js",
+    "pace-js|css",
+    "mathjax",
+    "raphael",
+    "underscore",
+    "js-sequence-diagrams",
+    "flowchart.js",
+    "jquery",
+    "tablesorter",
+    "raty-js",
+    "raty-js|css",
+    "github-markdown-css",
+    "@fortawesome/fontawesome-free",
+    "source-code-pro",
+    "editor.md",
+    "editor.md|css",
+    "editor.md|lib"
+]
+
+plugin_names = [
+    "vue",              # 1
+    "pace",             # 1
+    "jquery",           # 1
+    "markdown-style",   # 1
+    "markdown-editor",  # 1
+    "fonts",            # 1
+    "mathjax",          # 0
+    "uml",              # 0
+    "tablesorter",      # 1
+    "raty",             # 1
+]

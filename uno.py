@@ -2,7 +2,7 @@ from flask import Flask, render_template
 
 from src.const import index_url_key, index_title_key, index_id_key, index_tags_key, index_date_key, index_notags_key, \
     index_highlight_key, index_fixed_key, index_top_key, index_path_key
-from src.util import get_static_file_url, get_static_lib_url
+from src.util import get_static_file_url, get_static_lib_url, get_plugins_urls, get_plugin_urls
 from src.view.main import main
 from src.view.edit import edit
 
@@ -33,6 +33,8 @@ app.jinja_env.globals["index_top_key"] = index_top_key
 # 绑定函数到jinja模板
 app.jinja_env.globals.update(get_static_file_url=get_static_file_url)
 app.jinja_env.globals.update(get_static_lib_url=get_static_lib_url)
+app.jinja_env.globals.update(get_plugin_urls=get_plugin_urls)
+app.jinja_env.globals.update(get_plugins_urls=get_plugins_urls)
 # jinja循环控制扩展
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 

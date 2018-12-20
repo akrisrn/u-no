@@ -4,6 +4,7 @@ import os
 import re
 
 from flask import url_for, current_app
+from const import lib_names, plugin_names
 
 
 # 获取根目录绝对路径
@@ -144,108 +145,153 @@ def get_lib_version(name):
     return version.split("^")[1]
 
 
-lib = {}
+libs = {}
 
 
 # 根据是否使用cdn选择本地包路径或cdn链接
 def get_static_lib_url(name):
-    global lib
-    if not lib:
-        libs = ["vue",
-                "pace-js",
-                "pace-js|css",
-                "mathjax",
-                "raphael",
-                "underscore",
-                "js-sequence-diagrams",
-                "flowchart.js",
-                "jquery",
-                "tablesorter",
-                "raty-js",
-                "raty-js|css",
-                "github-markdown-css",
-                "@fortawesome/fontawesome-free",
-                "source-code-pro",
-                "editor.md",
-                "editor.md|css",
-                "editor.md|lib"]
-        lib = {
-            libs[0]: {
+    global libs
+    if not libs:
+        libs = {
+            lib_names[0]: {
                 "local": get_module_file_url("vue/dist/vue.min.js"),
-                "remote": get_cdn_file_url("vue@%s/dist/vue.min.js" % get_lib_version(libs[0]))
+                "remote": get_cdn_file_url("vue@%s/dist/vue.min.js" % get_lib_version(lib_names[0]))
             },
-            libs[1]: {
+            lib_names[1]: {
                 "local": get_module_file_url("pace-js/pace.min.js"),
-                "remote": get_cdn_file_url("pace-js@%s/pace.min.js" % get_lib_version(libs[1]))
+                "remote": get_cdn_file_url("pace-js@%s/pace.min.js" % get_lib_version(lib_names[1]))
             },
-            libs[2]: {
+            lib_names[2]: {
                 "local": get_module_file_url("pace-js/themes/blue/pace-theme-flash.css"),
-                "remote": get_cdn_file_url("pace-js@%s/themes/blue/pace-theme-flash.min.css" % get_lib_version(libs[2]))
+                "remote": get_cdn_file_url(
+                    "pace-js@%s/themes/blue/pace-theme-flash.min.css" % get_lib_version(lib_names[2]))
             },
-            libs[3]: {
+            lib_names[3]: {
                 "local": get_module_file_url("mathjax/unpacked/MathJax.js") + "?config=TeX-MML-AM_CHTML",
                 "remote": get_cdn_file_url(
-                    "mathjax@%s/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" % get_lib_version(libs[3]))
+                    "mathjax@%s/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" % get_lib_version(lib_names[3]))
             },
-            libs[4]: {
+            lib_names[4]: {
                 "local": get_module_file_url("raphael/raphael.min.js"),
-                "remote": get_cdn_file_url("raphael@%s/raphael.min.js" % get_lib_version(libs[4]))
+                "remote": get_cdn_file_url("raphael@%s/raphael.min.js" % get_lib_version(lib_names[4]))
             },
-            libs[5]: {
+            lib_names[5]: {
                 "local": get_module_file_url("underscore/underscore-min.js"),
-                "remote": get_cdn_file_url("underscore@%s/underscore-min.js" % get_lib_version(libs[5]))
+                "remote": get_cdn_file_url("underscore@%s/underscore-min.js" % get_lib_version(lib_names[5]))
             },
-            libs[6]: {
+            lib_names[6]: {
                 "local": get_module_file_url("js-sequence-diagrams/dist/sequence-diagram-min.js", False),
                 "remote": get_cdn_file_url(
-                    "bramp/js-sequence-diagrams@%s/dist/sequence-diagram-min.js" % get_lib_version(libs[6]), False)
+                    "bramp/js-sequence-diagrams@%s/dist/sequence-diagram-min.js" % get_lib_version(lib_names[6]),
+                    False)
             },
-            libs[7]: {
+            lib_names[7]: {
                 "local": get_module_file_url("flowchart.js/release/flowchart.min.js"),
-                "remote": get_cdn_file_url("flowchart.js@%s/release/flowchart.min.js" % get_lib_version(libs[7]))
+                "remote": get_cdn_file_url(
+                    "flowchart.js@%s/release/flowchart.min.js" % get_lib_version(lib_names[7]))
             },
-            libs[8]: {
+            lib_names[8]: {
                 "local": get_module_file_url("jquery/dist/jquery.min.js"),
-                "remote": get_cdn_file_url("jquery@%s/dist/jquery.min.js" % get_lib_version(libs[8]))
+                "remote": get_cdn_file_url("jquery@%s/dist/jquery.min.js" % get_lib_version(lib_names[8]))
             },
-            libs[9]: {
+            lib_names[9]: {
                 "local": get_module_file_url("tablesorter/dist/js/jquery.tablesorter.min.js"),
                 "remote": get_cdn_file_url(
-                    "tablesorter@%s/dist/js/jquery.tablesorter.min.js" % get_lib_version(libs[9]))
+                    "tablesorter@%s/dist/js/jquery.tablesorter.min.js" % get_lib_version(lib_names[9]))
             },
-            libs[10]: {
+            lib_names[10]: {
                 "local": get_module_file_url("raty-js/lib/jquery.raty.js"),
-                "remote": get_cdn_file_url("raty-js@%s/lib/jquery.raty.min.js" % get_lib_version(libs[10]))
+                "remote": get_cdn_file_url("raty-js@%s/lib/jquery.raty.min.js" % get_lib_version(lib_names[10]))
             },
-            libs[11]: {
+            lib_names[11]: {
                 "local": get_module_file_url("raty-js/lib/jquery.raty.css"),
-                "remote": get_cdn_file_url("raty-js@%s/lib/jquery.raty.min.css" % get_lib_version(libs[11]))
+                "remote": get_cdn_file_url("raty-js@%s/lib/jquery.raty.min.css" % get_lib_version(lib_names[11]))
             },
-            libs[12]: {
+            lib_names[12]: {
                 "local": get_module_file_url("github-markdown-css/github-markdown.css"),
-                "remote": get_cdn_file_url("github-markdown-css@%s/github-markdown.min.css" % get_lib_version(libs[12]))
+                "remote": get_cdn_file_url(
+                    "github-markdown-css@%s/github-markdown.min.css" % get_lib_version(lib_names[12]))
             },
-            libs[13]: {
+            lib_names[13]: {
                 "local": get_module_file_url("@fortawesome/fontawesome-free/css/all.min.css"),
                 "remote": get_cdn_file_url(
-                    "@fortawesome/fontawesome-free@%s/css/all.min.css" % get_lib_version(libs[13]))
+                    "@fortawesome/fontawesome-free@%s/css/all.min.css" % get_lib_version(lib_names[13]))
             },
-            libs[14]: {
+            lib_names[14]: {
                 "local": get_module_file_url("source-code-pro/source-code-pro.css"),
-                "remote": get_cdn_file_url("source-code-pro@%s/source-code-pro.min.css" % get_lib_version(libs[14]))
+                "remote": get_cdn_file_url(
+                    "source-code-pro@%s/source-code-pro.min.css" % get_lib_version(lib_names[14]))
             },
-            libs[15]: {
+            lib_names[15]: {
                 "local": get_module_file_url("editor.md/editormd.min.js", False),
-                "remote": get_cdn_file_url("pandao/editor.md@%s/editormd.min.js" % get_lib_version(libs[15]), False)
-            },
-            libs[16]: {
-                "local": get_module_file_url("editor.md/css/editormd.min.css", False),
-                "remote": get_cdn_file_url("pandao/editor.md@%s/css/editormd.min.css" % get_lib_version(libs[16]),
+                "remote": get_cdn_file_url("pandao/editor.md@%s/editormd.min.js" % get_lib_version(lib_names[15]),
                                            False)
             },
-            libs[17]: {
+            lib_names[16]: {
+                "local": get_module_file_url("editor.md/css/editormd.min.css", False),
+                "remote": get_cdn_file_url(
+                    "pandao/editor.md@%s/css/editormd.min.css" % get_lib_version(lib_names[16]), False)
+            },
+            lib_names[17]: {
                 "local": get_module_file_url("editor.md/lib/", False),
-                "remote": get_cdn_file_url("pandao/editor.md@%s/lib/" % get_lib_version(libs[17]), False)
+                "remote": get_cdn_file_url("pandao/editor.md@%s/lib/" % get_lib_version(lib_names[17]), False)
             },
         }
-    return lib[name]["remote" if current_app.config["USE_CDN"] else "local"]
+    return libs[name]["remote" if current_app.config["USE_CDN"] else "local"]
+
+
+plugins = {
+    plugin_names[0]: {
+        "js": [lib_names[0]],
+        "css": []
+    },
+    plugin_names[1]: {
+        "js": [lib_names[1]],
+        "css": [lib_names[2]]
+    },
+    plugin_names[2]: {
+        "js": [lib_names[8]],
+        "css": []
+    },
+    plugin_names[3]: {
+        "js": [],
+        "css": [lib_names[12]]
+    },
+    plugin_names[4]: {
+        "js": [lib_names[15]],
+        "css": [lib_names[16]]
+    },
+    plugin_names[5]: {
+        "js": [],
+        "css": [lib_names[13], lib_names[14]]
+    },
+    plugin_names[6]: {
+        "js": [lib_names[3]],
+        "css": []
+    },
+    plugin_names[7]: {
+        "js": [lib_names[4], lib_names[5], lib_names[6], lib_names[7]],
+        "css": []
+    },
+    plugin_names[8]: {
+        "js": [lib_names[9]],
+        "css": []
+    },
+    plugin_names[9]: {
+        "js": [lib_names[10]],
+        "css": [lib_names[11]]
+    },
+}
+
+
+def get_plugin_urls(name):
+    return {t: [get_static_lib_url(lib_name) for lib_name in plugins[name][t]] for t in ["js", "css"]}
+
+
+def get_plugins_urls(names):
+    urls = {"js": [], "css": []}
+    for name in names:
+        plugin_urls = get_plugin_urls(name)
+        urls["js"] += plugin_urls["js"]
+        urls["css"] += plugin_urls["css"]
+    return urls

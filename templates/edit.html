@@ -2,15 +2,20 @@
 {%- block title -%}
     * {{ title }} - {{ site_name }}
 {%- endblock -%}
+{%- set plugin_editor_urls = get_plugin_urls("markdown-editor") -%}
 {%- block extra_js_link -%}
-    <script type="text/javascript" src="{{ get_static_lib_url("editor.md") }}"></script>
+    {%- for js_url in plugin_editor_urls["js"] -%}
+        <script type="text/javascript" src="{{ js_url }}"></script>
+    {%- endfor -%}
     <script type="text/javascript" src="{{ get_static_file_url("js/edit.js") }}"></script>
     <script>
         const lib_path = "{{ get_static_lib_url("editor.md|lib") }}"
     </script>
 {%- endblock -%}
 {%- block extra_css_link -%}
-    <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url("editor.md|css") }}">
+    {%- for css_url in plugin_editor_urls["css"] -%}
+        <link rel="stylesheet" type="text/css" href="{{ css_url }}">
+    {%- endfor -%}
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url("css/edit.css") }}">
 {%- endblock -%}
 {%- block content -%}

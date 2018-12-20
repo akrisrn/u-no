@@ -5,22 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ get_static_file_url('img/favicon.ico') }}">
     <title>{%- block title -%}{%- endblock -%}</title>
-    {%- set js_libs = ["vue", "pace-js", "mathjax", "raphael", "underscore", "js-sequence-diagrams", "flowchart.js",
-    "jquery", "tablesorter", "raty-js"] -%}
-    {%- set css_libs = ["pace-js|css", "github-markdown-css", "@fortawesome/fontawesome-free", "raty-js|css",
-    "source-code-pro"] -%}
+    {%- set plugin_urls = get_plugins_urls(["vue", "pace", "jquery", "tablesorter", "raty", "markdown-style", "fonts"]) -%}
     {%- set js_custom = ["js/pace.on.js", "js/markdown.js", "js/script.js"] -%}
     {%- set css_custom = ["css/style.css", "css/markdown.css"] -%}
-    {%- for lib in js_libs -%}
-        <script type="text/javascript" src="{{ get_static_lib_url(lib) }}"></script>
+    {%- for js_url in plugin_urls["js"] -%}
+        <script type="text/javascript" src="{{ js_url }}"></script>
     {%- endfor -%}
     {%- for custom in js_custom -%}
         <script type="text/javascript" src="{{ get_static_file_url(custom) }}"></script>
     {%- endfor -%}
     {%- block extra_js_link -%}
     {%- endblock -%}
-    {%- for lib in css_libs -%}
-        <link rel="stylesheet" type="text/css" href="{{ get_static_lib_url(lib) }}">
+    {%- for css_url in plugin_urls["css"] -%}
+        <link rel="stylesheet" type="text/css" href="{{ css_url }}">
     {%- endfor -%}
     {%- for custom in css_custom -%}
         <link rel="stylesheet" type="text/css" href="{{ get_static_file_url(custom) }}">
