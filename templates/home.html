@@ -24,6 +24,7 @@
             {%- for fixed_article in fixed_articles -%}
                 <li>
                     <vue-home-li-icon></vue-home-li-icon>
+                    <vue-date date="{{ fixed_article[index_date_key] }}"></vue-date>
                     <vue-home-li url="{{ fixed_article[index_url_key] }}"
                                  name="{{ fixed_article[index_title_key].split(".")[0] }}"
                                  highlight="{{ "1" if fixed_article[index_highlight_key] else "" }}">
@@ -36,7 +37,6 @@
                             </vue-tag>
                         {%- endfor -%}
                     {%- endif -%}
-                    <vue-date date="{{ fixed_article[index_date_key] }}"></vue-date>
                 </li>
             {%- endfor -%}
         </ul>

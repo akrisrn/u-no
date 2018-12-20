@@ -15,13 +15,13 @@
 {%- block content -%}
     <h1>{{ title }}</h1>
     <vue-return-home></vue-return-home>
+    <vue-date date="{{ date }}"></vue-date>
     {%- if not notags -%}
         <vue-tag-icon></vue-tag-icon>
         {% for key in tags | sort -%}
             <vue-tag url="{{ url_for('main.tag_page', tag_hash=key) }}" name="{{ tags[key] }}"></vue-tag>
         {%- endfor -%}
     {%- endif -%}
-    <vue-date date="{{ date }}"></vue-date>
     <hr>
     <div class="markdown-body">{{ data | safe }}</div>
 {%- endblock -%}

@@ -1,3 +1,15 @@
+@media screen and (max-width: 600px) {
+    .date {
+        float: none;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .date {
+        display: none;
+    }
+}
+
 .markdown-body ul {
     padding-left: 1px;
     list-style-type: none
@@ -5,7 +17,10 @@
 
 .markdown-body ul li {
     display: inline-block;
-    width: 100%
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .markdown-body li > a {
