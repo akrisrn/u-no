@@ -5,10 +5,10 @@ import re
 from flask import current_app
 
 import src.flag
+from .cache import get_file_cache
 from .const import index_url_key, index_title_key, index_parent_key, index_id_key, index_highlight_key, \
     index_top_key, index_notags_key, index_fixed_key, index_tags_key, index_date_key, index_path_key, \
     articles_url_name, attachments_url_name
-from .cache import get_file_cache
 from .util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
     update_config_ignore_file_list
 
