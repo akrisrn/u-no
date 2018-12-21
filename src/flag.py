@@ -5,7 +5,7 @@ from flask import current_app
 
 import src.index
 from .const import index_url_key, flag_js, flag_css, flag_unignore, flag_ignore, flag_highlight, flag_top, \
-    flag_fixed, flag_notags, flag_tag, flag_date, flag_plugin
+    flag_fixed, flag_notags, flag_tag, flag_date, flag_plugin, show_date_format
 from .util import clean_text, regexp_join
 
 
@@ -37,7 +37,7 @@ def get_date_flag(data):
     date_formats = ["%Y-%m-%d", "%y-%m-%d"]
     for date_format in date_formats:
         try:
-            new_date = datetime.strptime(date, date_format).strftime("%Y-%m-%d")
+            new_date = datetime.strptime(date, date_format).strftime(show_date_format)
             break
         except ValueError:
             continue

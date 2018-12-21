@@ -2,10 +2,11 @@ import hashlib
 import json
 import os
 import re
+from datetime import datetime
 
 from flask import url_for, current_app
 
-from .const import lib_names, plugin_names
+from .const import lib_names, plugin_names, show_date_format
 
 
 # 获取根目录绝对路径
@@ -102,6 +103,11 @@ def regexp_join(regexp_str, *args):
 # 清洗文本，剔除空白、双引号、单引号
 def clean_text(text):
     return re.sub(r"(\s|\"|\')", "", text)
+
+
+# 重新格式化日期字符串
+def format_date(date, fmt):
+    return datetime.strptime(date, show_date_format).strftime(fmt) if date else ""
 
 
 # 检查哈希值是否有效

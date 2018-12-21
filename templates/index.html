@@ -96,7 +96,7 @@
                                 </div>
                             </td>
                             <td>
-                                <div style="display: inline">{{ article[index_date_key] }}</div>
+                                <div style="display: inline">{{ format_date(article[index_date_key], "%Y-%m-%d") }}</div>
                                 <div class="button-group edit-group">
                                     <button class="button" title="Edit Date" onclick="edit(this, 'date')">E</button>
                                     <button class="button" title="Submit"

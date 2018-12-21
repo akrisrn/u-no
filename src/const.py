@@ -29,6 +29,8 @@ flag_css = "css"
 flag_js = "js"
 flag_plugin = "plugin"
 
+show_date_format = "%y-%m-%d"
+
 lib_names = [
     "vue",
     "pace-js",
