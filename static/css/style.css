@@ -3,15 +3,15 @@
 }
 
 body {
-    color: #24292e;
+    color: #3b454e;
     font-size: 16px;
     margin: 0;
     padding: 0;
-    background-color: #F6F6F6;
+    background-color: #f6f6f6;
 }
 
 a, a i, li i {
-    color: #24292e;
+    color: #3b454e;
     text-decoration: none;
     transition: all 0.5s;
     -moz-transition: all 0.5s;
@@ -20,7 +20,7 @@ a, a i, li i {
 }
 
 a:hover {
-    color: #7B7B7B;
+    color: #7b7b7b;
     text-decoration: none;
 }
 
@@ -49,7 +49,6 @@ a:hover i, li:hover > i:first-child {
 }
 
 #content hr {
-    border-bottom-color: #eee;
     height: 0.25em;
     padding: 0;
     margin: 24px 0;
@@ -88,22 +87,22 @@ a:hover i, li:hover > i:first-child {
 .date {
     float: right;
     display: inline;
-    color: #7B7B7B;
+    color: #7b7b7b;
 }
 
 .tag {
     display: inline-block;
     padding-right: 8px;
-    color: #7B7B7B;
+    color: #7b7b7b;
     font-size: small
 }
 
 .tag a {
-    color: #7B7B7B;
+    color: #7b7b7b;
 }
 
 .tag a:hover {
-    color: #24292e;
+    color: #3b454e;
     text-decoration: none;
 }
 

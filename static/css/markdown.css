@@ -3,6 +3,7 @@
     margin-bottom: 30px;
     line-height: 2;
     text-align: justify;
+    color: #3b454e;
 }
 
 .markdown-body, .markdown-body code, .markdown-body pre {
@@ -143,7 +144,6 @@
 
 #content > div > del > ul, #content > div > ins.critic.block > ul {
     margin-bottom: 0;
-
 }
 
 /* Critic Markup End */
