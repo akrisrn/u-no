@@ -144,8 +144,8 @@ function submit(_this, url, type) {
             } else if (type === "tag") {
                 let tagExmDiv = showDiv.children[0].cloneNode(true);
                 showDiv.innerHTML = "";
-                let splitDate = data === "" ? [default_tag] : data.split(",");
-                for (let split of splitDate) {
+                let splitData = data === "" ? [default_tag] : data.split(",");
+                for (let split of splitData) {
                     let tagDiv = tagExmDiv.cloneNode(true);
                     tagDiv.children[0].childNodes[1].nodeValue = split;
                     showDiv.appendChild(tagDiv)
