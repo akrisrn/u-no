@@ -37,7 +37,7 @@ if __name__ == '__main__':
     os.mkdir(frozen_attachments_dir_abspath)
     os.mkdir(frozen_tags_dir_abspath)
     ignore_list = ["bower_components", "node_modules", "*.json",
-                   "edit.css", "edit.js", "gh-buttons.css", "gh-icons.png", "index.css", "index.js"]
+                   "edit.css", "edit.js", "index.css", "index.js"]
     shutil.copytree(static_dir_abspath, frozen_static_dir_abspath, ignore=shutil.ignore_patterns(*ignore_list))
 
     data_list = {}
