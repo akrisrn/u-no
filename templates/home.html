@@ -6,7 +6,11 @@
         {{ site_name }}
     {%- endif -%}
 {%- endblock -%}
+{%- block extra_js_link -%}
+    <script type="text/javascript" src="{{ get_static_file_url("js/home.js") }}"></script>
+{%- endblock -%}
 {%- block extra_css_link -%}
+    <link rel="stylesheet" type="text/css" href="{{ get_static_file_url("css/gh-buttons.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url("css/home.css") }}">
 {%- endblock -%}
 {%- block content -%}
@@ -22,7 +26,7 @@
     <div class="markdown-body">
         <ul>
             {%- for fixed_article in fixed_articles -%}
-                <li>
+                <li class="page-{{ (loop.index - 1) // page_size + 1 }}">
                     <vue-home-li-icon></vue-home-li-icon>
                     <vue-date date="{{ fixed_article[index_date_key] }}"></vue-date>
                     <vue-home-li url="{{ fixed_article[index_url_key] }}"
@@ -40,5 +44,15 @@
                 </li>
             {%- endfor -%}
         </ul>
+        {%- set page_count = (fixed_articles | length / page_size) | round | int -%}
+        {%- if page_count > 1 -%}
+            <div class="button-group">
+                <button class="button icon arrowleft">&nbsp;</button>
+                {%- for i in range(1, page_count + 1) -%}
+                    <button class="button">{{ i }}</button>
+                {%- endfor -%}
+                <button class="button icon arrowright">&nbsp;</button>
+            </div>
+        {%- endif -%}
     </div>
 {%- endblock -%}

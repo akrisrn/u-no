@@ -20,6 +20,7 @@ app.jinja_env.auto_reload = True
 # 绑定变量到jinja模板
 app.jinja_env.globals["site_name"] = app.config["SITE_NAME"]
 app.jinja_env.globals["default_tag"] = app.config["DEFAULT_TAG"]
+app.jinja_env.globals["page_size"] = app.config["PAGE_SIZE"]
 app.jinja_env.globals["index_id_key"] = index_id_key
 app.jinja_env.globals["index_title_key"] = index_title_key
 app.jinja_env.globals["index_path_key"] = index_path_key

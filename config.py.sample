@@ -15,6 +15,8 @@ SITE_NAME = ""
 VERSION = ""
 # 是否使用CDN引入静态库
 USE_CDN = True
+# 首页一页展示文章数
+PAGE_SIZE = 20
 
 # 文章目录绝对路径
 ARTICLES_DIR_ABSPATH = ""
