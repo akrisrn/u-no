@@ -6,7 +6,7 @@ from flask import Blueprint, abort, request, jsonify, url_for, redirect, render_
 from ..cache import get_file_cache
 from ..const import flag_notags, flag_highlight, flag_top, flag_fixed, flag_unignore, flag_ignore, flag_tag, flag_date
 from ..flag import get_flag_regexp
-from ..index import reindex
+from ..index import reindex, get_item_by_path
 from ..util import update_config_ignore_file_list, get_articles_dir_abspath
 
 edit = Blueprint("edit", __name__)
@@ -14,6 +14,8 @@ edit = Blueprint("edit", __name__)
 
 def toggle_flag(item_path, flag, is_on, data=None, force_reindex=False, force_update=False):
     def toggle():
+        if not get_item_by_path(item_path):
+            abort(404)
         item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
         if not os.path.exists(item_abspath):
             abort(404)
