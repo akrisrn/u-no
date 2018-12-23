@@ -8,7 +8,7 @@
     <title>{%- block title -%}{%- endblock -%}</title>
     {%- set default_plugin_urls = get_plugins_urls(["vue", "pace", "jquery", "tablesorter", "raty", "markdown-style", "fonts"]) -%}
     {%- set js_custom = ["js/pace.on.js", "js/markdown.js", "js/script.js"] -%}
-    {%- set css_custom = ["css/style.css", "css/markdown.css"] -%}
+    {%- set css_custom = ["css/style.css", "css/markdown.css", "css/gh-buttons.css"] -%}
     {%- for js_url in default_plugin_urls["js"] -%}
         <script type="text/javascript" src="{{ js_url }}"></script>
     {%- endfor -%}
