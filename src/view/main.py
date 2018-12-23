@@ -57,10 +57,10 @@ def article_page(url_name, file_hash):
         abort(404)
     # 在索引文件中查找对应哈希的项目信息
     item = get_item_by_url("/%s/%s" % (url_name, file_hash))
-    item_path = item[index_path_key]
     if not item:
         abort(404)
     # 判断文件是否存在
+    item_path = item[index_path_key]
     item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
     if not os.path.exists(item_abspath):
         abort(404)
