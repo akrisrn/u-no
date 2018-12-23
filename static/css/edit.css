@@ -2,13 +2,12 @@
     display: none;
 }
 
-#save {
+.button-group, #message {
     float: right
 }
 
 #message {
     display: none;
-    float: right;
     margin-right: 20px;
     margin-top: 6px;
     color: green;

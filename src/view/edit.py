@@ -4,7 +4,8 @@ import re
 from flask import Blueprint, abort, request, jsonify, url_for, redirect, render_template
 
 from ..cache import get_file_cache
-from ..const import flag_notags, flag_highlight, flag_top, flag_fixed, flag_unignore, flag_ignore, flag_tag, flag_date
+from ..const import flag_notags, flag_highlight, flag_top, flag_fixed, flag_unignore, flag_ignore, flag_tag, flag_date, \
+    index_url_key
 from ..flag import get_flag_regexp
 from ..index import reindex, get_item_by_path
 from ..util import update_config_ignore_file_list, get_articles_dir_abspath
@@ -113,7 +114,8 @@ def date(item_path):
 
 @edit.route('/article/<path:item_path>', methods=["GET", "POST"])
 def article(item_path):
-    if not get_item_by_path(item_path):
+    item = get_item_by_path(item_path)
+    if not item:
         abort(404)
     item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
     if not os.path.exists(item_abspath):
@@ -122,6 +124,6 @@ def article(item_path):
         with open(item_abspath, "w", encoding='utf-8') as item_file:
             item_file.write(request.form["data"])
         reindex()
-        return jsonify(True)
+        return jsonify(get_item_by_path(item_path)[index_url_key])
     else:
-        return render_template('edit.html', title=item_path, data=get_file_cache(item_abspath))
+        return render_template('edit.html', title=item_path, url=item[index_url_key], data=get_file_cache(item_abspath))
