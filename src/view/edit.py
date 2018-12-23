@@ -111,6 +111,17 @@ def date(item_path):
     return jsonify(toggle_flag(item_path, flag_date, False, request.args.get("data", ""), False, True))
 
 
-@edit.route('/article/<path:item_path>')
+@edit.route('/article/<path:item_path>', methods=["GET", "POST"])
 def article(item_path):
-    return render_template('edit.html', title=item_path)
+    if not get_item_by_path(item_path):
+        abort(404)
+    item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
+    if not os.path.exists(item_abspath):
+        abort(404)
+    if request.method == "POST":
+        with open(item_abspath, "w", encoding='utf-8') as item_file:
+            item_file.write(request.form["data"])
+        reindex()
+        return jsonify(True)
+    else:
+        return render_template('edit.html', title=item_path, data=get_file_cache(item_abspath))

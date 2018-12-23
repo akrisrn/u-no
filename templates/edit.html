@@ -16,12 +16,15 @@
     {%- for css_url in plugin_editor_urls["css"] -%}
         <link rel="stylesheet" type="text/css" href="{{ css_url }}">
     {%- endfor -%}
+    <link rel="stylesheet" type="text/css" href="{{ get_static_file_url("css/gh-buttons.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url("css/edit.css") }}">
 {%- endblock -%}
 {%- block content -%}
     <h1>{{ title }}</h1>
     <hr>
     <div id="editormd">
-        <textarea style="display:none;"></textarea>
+        <textarea id="data">{{ data }}</textarea>
     </div>
+    <button id="save" class="button big">Save</button>
+    <div id="message">Success!</div>
 {%- endblock -%}
