@@ -3,7 +3,9 @@ $(function () {
         id: "editormd",
         path: lib_path,
         height: "525px",
-        watch: false
+        watch: false,
+        taskList: true,
+        emoji: true,
     });
     const fullscreen = editor.fullscreen;
     const fullscreenExit = editor.fullscreenExit;
