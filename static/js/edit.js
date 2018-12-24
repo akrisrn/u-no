@@ -2,7 +2,7 @@ $(function () {
     const editor = editormd({
         id: "editormd",
         path: lib_path,
-        height: "700px",
+        height: "525px",
         watch: false
     });
     const fullscreen = editor.fullscreen;
