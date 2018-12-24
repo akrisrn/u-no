@@ -36,6 +36,10 @@
     /* IE hacks */
     zoom: 1;
     *display: inline;
+    transition: none;
+    -moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: none;
 }
 
 .button:hover,
