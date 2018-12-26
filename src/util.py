@@ -33,6 +33,10 @@ def get_static_file_url(filename, have_version=True):
     return url_for("static", filename=filename)
 
 
+def digest(data):
+    return hashlib.sha1(data).hexdigest()[:7]
+
+
 # 根据文件绝对路径计算哈希
 def compute_digest_by_abspath(abspath):
     # 判断文件是否存在
@@ -40,12 +44,12 @@ def compute_digest_by_abspath(abspath):
         raise Exception("No such file")
     with open(abspath, 'rb') as file:
         data = file.read()
-    return hashlib.sha1(data).hexdigest()
+    return digest(data)
 
 
 # 根据文件内容计算哈希
 def compute_digest_by_data(data):
-    return hashlib.sha1(data.encode("utf-8")).hexdigest()
+    return digest(data.encode("utf-8"))
 
 
 # 获取版本号
@@ -112,7 +116,7 @@ def format_date(date, fmt):
 
 # 检查哈希值是否有效
 def is_valid_hash(hash_value):
-    return len(hash_value) == 40 and hash_value.isalnum()
+    return len(hash_value) == 7 and hash_value.isalnum()
 
 
 # 获取本地包中文件url
