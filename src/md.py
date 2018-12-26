@@ -6,7 +6,7 @@ from markdown import markdown
 
 from .const import index_url_key
 from .index import get_item_by_path
-from .util import regexp_join
+from .util import regexp_join, get_articles_dir_abspath
 
 
 # markdown渲染
@@ -32,6 +32,7 @@ def render(text):
         'pymdownx.superfences',
         'pymdownx.tasklist',
         'pymdownx.tilde',
+        'pymdownx.snippets',
         'markdown.extensions.footnotes',
         'markdown.extensions.attr_list',
         'markdown.extensions.def_list',
@@ -83,6 +84,9 @@ def render(text):
                 'class': 'uml-sequence-diagram',
                 'format': pymdownx.superfences.fence_code_format
             }]
+        },
+        "pymdownx.snippets": {
+            "base_path": get_articles_dir_abspath()
         }
     }
     for ext in [clean_md, add_toc, inlink, table_increment, rate, steam, kindle]:
