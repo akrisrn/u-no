@@ -123,8 +123,9 @@ def get_unique_find_list(pattern, data):
     return set([group.group() for group in re.finditer(pattern, data)])
 
 
-def get_unique_find_dict(pattern, data):
-    return {group.group(): group.group(1) for group in re.finditer(pattern, data)}
+def get_unique_find_dict(pattern, data, num=1):
+    return {group.group(): group.group(1) if num == 1 else [group.group(i) for i in range(1, num + 1)]
+            for group in re.finditer(pattern, data)}
 
 
 # 获取本地包中文件url

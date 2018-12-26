@@ -6,7 +6,7 @@ from markdown import markdown
 
 from .const import index_url_key
 from .index import get_item_by_path
-from .util import regexp_join, get_articles_dir_abspath
+from .util import regexp_join, get_articles_dir_abspath, get_unique_find_dict
 
 
 # markdown渲染
@@ -113,9 +113,7 @@ def add_toc(text):
 
 # 匹配[]()+语法为站内链接，小括号里填入文件相对路径，查找替换为索引文件中对应的url
 def inlink(text):
-    # 利用字典生成去重的匹配项，提高重复匹配的替换效率
-    url_match_dict = {group.group(): [group.group(1), group.group(2)]
-                      for group in re.finditer(r"\[(.*?)\]\((.*?)\)\+", text)}
+    url_match_dict = get_unique_find_dict(r"\[(.*?)\]\((.*?)\)\+", text, 2)
     for match in url_match_dict:
         file_path = url_match_dict[match][1]
         # 根据文件相对路径从索引文件中取出url
@@ -141,8 +139,7 @@ def table_increment(text):
 
 # 匹配*[]语法为评分标签，方括号内匹配0-10
 def rate(text):
-    # 利用字典生成去重的匹配项，提高重复匹配的替换效率
-    rate_match_dict = {group.group(): group.group(1) for group in re.finditer(r"\*\[([0-9]|10)\]", text)}
+    rate_match_dict = get_unique_find_dict(r"\*\[([0-9]|10)\]", text)
     for match in rate_match_dict.keys():
         # 实际展示的评分为匹配数字的一半
         rate_num = int(rate_match_dict[match]) / 2
@@ -152,8 +149,7 @@ def rate(text):
 
 # 匹配steam[]语法为steam小部件，方括号内匹配游戏id
 def steam(text):
-    # 利用字典生成去重的匹配项，提高重复匹配的替换效率
-    id_match_dict = {group.group(): group.group(1) for group in re.finditer(r"steam\[(\d+)\]", text)}
+    id_match_dict = get_unique_find_dict(r"steam\[(\d+)\]", text)
     for match in id_match_dict.keys():
         text = re.sub(regexp_join("%s", match),
                       '<iframe class="steam-widget" src="https://store.steampowered.com/widget/%s/"></iframe>' %
@@ -163,8 +159,7 @@ def steam(text):
 
 # 匹配kindle[]语法为亚马逊电子书小部件，方括号内匹配书籍id
 def kindle(text):
-    # 利用字典生成去重的匹配项，提高重复匹配的替换效率
-    id_match_dict = {group.group(): group.group(1) for group in re.finditer(r"kindle\[(\w+)\]", text)}
+    id_match_dict = get_unique_find_dict(r"kindle\[(\w+)\]", text)
     for match in id_match_dict.keys():
         text = re.sub(regexp_join("%s", match),
                       '<iframe class="kindle-widget" src="https://read.amazon.cn/kp/card?asin=%s&preview=inline" '
