@@ -6,7 +6,7 @@ from datetime import datetime
 
 from flask import url_for, current_app
 
-from .const import lib_names, plugin_names, show_date_format
+from .const import lib_names, plugin_names, show_date_format, hash_length
 
 
 # 获取根目录绝对路径
@@ -34,7 +34,7 @@ def get_static_file_url(filename, have_version=True):
 
 
 def digest(data):
-    return hashlib.sha1(data).hexdigest()[:7]
+    return hashlib.sha1(data).hexdigest()[:hash_length]
 
 
 # 根据文件绝对路径计算哈希
@@ -116,7 +116,7 @@ def format_date(date, fmt):
 
 # 检查哈希值是否有效
 def is_valid_hash(hash_value):
-    return len(hash_value) == 7 and hash_value.isalnum()
+    return len(hash_value) == hash_length and hash_value.isalnum()
 
 
 # 获取本地包中文件url

@@ -30,6 +30,7 @@ flag_js = "js"
 flag_plugin = "plugin"
 
 show_date_format = "%y-%m-%d"
+hash_length = 7
 
 lib_names = [
     "vue",
