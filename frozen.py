@@ -52,7 +52,7 @@ if __name__ == '__main__':
             article_hash = article[index_url_key].split("/")[2]
             article_page_data = article_page(articles_url_name, article_hash)
             data_list[os.path.join(frozen_articles_dir_abspath, article_hash + ".html")] = article_page_data
-            page_urls[result_article.group()] = "/%s/%s" % (articles_url_name, article_title + ".html")
+            page_urls[result_article.group()] = "/%s/%s" % (articles_url_name, article_hash + ".html")
 
             for result_attach in re.finditer("/%s/[0-9a-z]{%s}" % (attachments_url_name, hash_length),
                                              article_page_data):
@@ -60,16 +60,19 @@ if __name__ == '__main__':
                 attach_path = attach[index_path_key]
                 attach_abspath = os.path.join(articles_dir_abspath, attach_path)
                 attach_filename = attach[index_title_key]
-                new_attach_abspath = os.path.join(frozen_attachments_dir_abspath, attach_filename)
+                attach_ext = os.path.splitext(attach_filename)[1]
+                attach_hash = attach[index_url_key].split("/")[2]
+                new_attach_filename = attach_hash + attach_ext
+                new_attach_abspath = os.path.join(frozen_attachments_dir_abspath, new_attach_filename)
                 shutil.copy(attach_abspath, new_attach_abspath)
-                page_urls[result_attach.group()] = "/%s/%s" % (attachments_url_name, attach_filename)
+                page_urls[result_attach.group()] = "/%s/%s" % (attachments_url_name, new_attach_filename)
 
             tags = article[index_tags_key]
             for tag in tags:
                 tag_abspath = os.path.join(frozen_tags_dir_abspath, tag + ".html")
                 if tag_abspath not in data_list:
                     data_list[tag_abspath] = tag_page(tag)
-                    page_urls["/%s/%s" % (tags_url_name, tag)] = "/%s/%s.html" % (tags_url_name, tags[tag])
+                    page_urls["/%s/%s" % (tags_url_name, tag)] = "/%s/%s.html" % (tags_url_name, tag)
 
 
     def replace_url(data, urls):
