@@ -41,6 +41,11 @@
     width: 100%;
 }
 
+.markdown-body .amazon-widget {
+    width: 336px;
+    height: 550px;
+}
+
 .markdown-body a:hover {
     text-decoration: none;
 }

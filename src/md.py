@@ -85,7 +85,7 @@ def render(text):
             }]
         }
     }
-    for ext in [clean_md, add_toc, inlink, table_increment, rate, steam]:
+    for ext in [clean_md, add_toc, inlink, table_increment, rate, steam, amazon]:
         text = ext(text)
     return markdown(text, extensions=extensions, extension_configs=extension_configs)
 
@@ -149,4 +149,15 @@ def steam(text):
         text = re.sub(regexp_join("%s", match),
                       '<iframe class="steam-widget" src="https://store.steampowered.com/widget/%s/"></iframe>' %
                       id_match_dict[match], text)
+    return text
+
+
+# 匹配a[]语法为亚马逊小部件，方括号内匹配书籍id
+def amazon(text):
+    # 利用字典生成去重的匹配项，提高重复匹配的替换效率
+    id_match_dict = {group.group(): group.group(1) for group in re.finditer(r"a\[(\w+)\]", text)}
+    for match in id_match_dict.keys():
+        text = re.sub(regexp_join("%s", match),
+                      '<iframe class="amazon-widget" src="https://read.amazon.cn/kp/card?asin=%s&preview=inline" '
+                      'frameborder="0" allowfullscreen></iframe>' % id_match_dict[match], text)
     return text
