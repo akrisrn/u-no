@@ -6,6 +6,10 @@
     color: #3b454e;
 }
 
+.markdown-body dl dd {
+    color: #7b7b7b;
+}
+
 .markdown-body, .markdown-body code, .markdown-body pre {
     font-family: 'Source Code Pro', SimSun, sans-serif;
 }
