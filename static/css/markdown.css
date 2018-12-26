@@ -6,6 +6,10 @@
     color: #3b454e;
 }
 
+.markdown-body p {
+    margin-bottom: 10px;
+}
+
 .markdown-body dl dd {
     color: #7b7b7b;
     font-size: 14px;
