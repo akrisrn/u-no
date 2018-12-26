@@ -37,7 +37,6 @@ def render(text):
         'markdown.extensions.attr_list',
         'markdown.extensions.def_list',
         'markdown.extensions.abbr',
-        'markdown.extensions.nl2br',
         'markdown.extensions.tables',
         'markdown.extensions.toc',
         'markdown.extensions.sane_lists',
