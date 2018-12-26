@@ -61,8 +61,7 @@
     text-decoration: none;
 }
 
-.markdown-body .highlight pre,
-.markdown-body pre {
+.markdown-body .highlight pre, .markdown-body pre {
     background-color: rgba(27, 31, 35, 0.1);
 }
 
