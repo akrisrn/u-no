@@ -3,7 +3,7 @@
     margin-bottom: 30px;
     line-height: 2;
     text-align: justify;
-    color: #3b454e;
+    color: #24292e;
 }
 
 .markdown-body p {
@@ -11,8 +11,9 @@
 }
 
 .markdown-body dl dd {
-    color: #7b7b7b;
+    color: #6a737d;
     font-size: 14px;
+    border-left: 0.25em solid #dfe2e5
 }
 
 .markdown-body details summary {

@@ -3,7 +3,7 @@
 }
 
 body {
-    color: #3b454e;
+    color: #24292e;
     font-size: 16px;
     margin: 0;
     padding: 0;
@@ -11,7 +11,7 @@ body {
 }
 
 a, a i, li i {
-    color: #3b454e;
+    color: #24292e;
     text-decoration: none;
     transition: all 0.5s;
     -moz-transition: all 0.5s;
@@ -20,7 +20,7 @@ a, a i, li i {
 }
 
 a:hover {
-    color: #7b7b7b;
+    color: #6a737d;
     text-decoration: none;
 }
 
@@ -87,22 +87,22 @@ a:hover i, li:hover > i:first-child {
 .date {
     float: right;
     display: inline;
-    color: #7b7b7b;
+    color: #6a737d;
 }
 
 .tag {
     display: inline-block;
     padding-right: 8px;
-    color: #7b7b7b;
+    color: #6a737d;
     font-size: small
 }
 
 .tag a {
-    color: #7b7b7b;
+    color: #6a737d;
 }
 
 .tag a:hover {
-    color: #3b454e;
+    color: #24292e;
     text-decoration: none;
 }
 

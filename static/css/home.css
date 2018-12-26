@@ -23,9 +23,9 @@
 }
 
 .markdown-body li > a {
-    color: #3b454e;
+    color: #24292e;
 }
 
 .markdown-body li > a:hover {
-    color: #7b7b7b;
+    color: #6a737d;
 }
