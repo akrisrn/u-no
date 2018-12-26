@@ -35,6 +35,12 @@
     font-size: x-small;
 }
 
+.markdown-body .steam-widget {
+    border: none;
+    height: 200px;
+    width: 100%;
+}
+
 .markdown-body a:hover {
     text-decoration: none;
 }
