@@ -34,6 +34,7 @@ def render(text):
         'pymdownx.tilde',
         'markdown.extensions.footnotes',
         'markdown.extensions.attr_list',
+        'markdown.extensions.nl2br',
         'markdown.extensions.def_list',
         'markdown.extensions.tables',
         'markdown.extensions.abbr',
