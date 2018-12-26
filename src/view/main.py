@@ -8,7 +8,7 @@ from ..const import index_notags_key, index_parent_key, index_path_key, index_ur
     index_tags_key, index_date_key, articles_url_name, attachments_url_name, tags_url_name, reindex_url_name
 from ..flag import get_custom_js_flag, get_custom_css_flag, get_plugin_flag
 from ..index import get_item_by_url, index_data_filter, get_fixed_articles, reindex
-from ..md import render
+from ..md import render, get_snippet
 from ..util import get_articles_dir_abspath, is_valid_hash, get_plugins_urls
 
 main = Blueprint("main", __name__)
@@ -71,6 +71,14 @@ def article_page(url_name, file_hash):
         css_urls = plugin_urls["css"] + get_custom_css_flag(data)
         # 识别文章中的自定义js文件，获取自定义js文件url列表
         js_urls = plugin_urls["js"] + get_custom_js_flag(data)
+        # 添加页眉页脚
+        snip_header = get_snippet(current_app.config["HEADER_FILE_NAME"])
+        snip_footer = get_snippet(current_app.config["FOOTER_FILE_NAME"])
+        if snip_header and not data.startswith("\n\n"):
+            snip_header += ("" if data.startswith("\n") else "\n") + "\n"
+        if snip_footer and not data.endswith("\n\n"):
+            snip_footer = ("" if data.endswith("\n") else "\n") + "\n" + snip_footer
+        data = "%s%s%s" % (snip_header, data, snip_footer)
         # markdown渲染
         data = render(data)
         # 去后缀

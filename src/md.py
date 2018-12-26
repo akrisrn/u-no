@@ -93,6 +93,12 @@ def render(text):
     return markdown(text, extensions=extensions, extension_configs=extension_configs)
 
 
+def get_snippet(file_name):
+    if file_name:
+        return '--8<-- "%s"' % file_name
+    return ""
+
+
 # 剔除\r和被<<>>包围的内容
 def clean_md(text):
     return re.sub("(\r|<<.*?>>)", "", text)
