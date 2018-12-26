@@ -34,11 +34,12 @@ def render(text):
         'pymdownx.tilde',
         'markdown.extensions.footnotes',
         'markdown.extensions.attr_list',
-        'markdown.extensions.nl2br',
         'markdown.extensions.def_list',
-        'markdown.extensions.tables',
         'markdown.extensions.abbr',
+        'markdown.extensions.nl2br',
+        'markdown.extensions.tables',
         'markdown.extensions.toc',
+        'markdown.extensions.sane_lists',
     ]
     # 扩展配置
     extension_configs = {
