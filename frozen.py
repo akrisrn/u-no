@@ -2,7 +2,7 @@ import os
 import re
 import shutil
 
-from src.const import index_path_key, index_url_key, index_tags_key, index_title_key
+from src.const import index_path_key, index_url_key, index_tags_key, index_title_key, hash_length
 from src.index import get_item_by_url
 from src.util import get_root_abspath
 from src.view.main import home_page, article_page, tag_page, articles_url_name, attachments_url_name, tags_url_name
@@ -45,15 +45,16 @@ if __name__ == '__main__':
     with app.app_context():
         index_page_data = home_page()
         data_list[os.path.join(frozen_dir_abspath, "index.html")] = index_page_data
-        for result_article in re.finditer("/%s/[0-9a-z]{40}" % articles_url_name, index_page_data):
+        for result_article in re.finditer("/%s/[0-9a-z]{%s}" % (articles_url_name, hash_length), index_page_data):
             article = get_item_by_url(result_article.group())
             article_title = os.path.splitext(article[index_title_key])[0]
             article_hash = article[index_url_key].split("/")[2]
             article_page_data = article_page(articles_url_name, article_hash)
-            data_list[os.path.join(frozen_articles_dir_abspath, article_title + ".html")] = article_page_data
+            data_list[os.path.join(frozen_articles_dir_abspath, article_hash + ".html")] = article_page_data
             page_urls[result_article.group()] = "/%s/%s" % (articles_url_name, article_title + ".html")
 
-            for result_attach in re.finditer("/%s/[0-9a-z]{40}" % attachments_url_name, article_page_data):
+            for result_attach in re.finditer("/%s/[0-9a-z]{%s}" % (attachments_url_name, hash_length),
+                                             article_page_data):
                 attach = get_item_by_url(result_attach.group())
                 attach_path = attach[index_path_key]
                 attach_abspath = os.path.join(articles_dir_abspath, attach_path)
@@ -64,15 +65,15 @@ if __name__ == '__main__':
 
             tags = article[index_tags_key]
             for tag in tags:
-                tag_abspath = os.path.join(frozen_tags_dir_abspath, tags[tag] + ".html")
+                tag_abspath = os.path.join(frozen_tags_dir_abspath, tag + ".html")
                 if tag_abspath not in data_list:
                     data_list[tag_abspath] = tag_page(tag)
                     page_urls["/%s/%s" % (tags_url_name, tag)] = "/%s/%s.html" % (tags_url_name, tags[tag])
 
 
     def replace_url(data, urls):
-        for result in re.finditer("/(%s|%s|%s)/[0-9a-z]{40}" %
-                                  (articles_url_name, attachments_url_name, tags_url_name), data):
+        for result in re.finditer("/(%s|%s|%s)/[0-9a-z]{%s}" %
+                                  (articles_url_name, attachments_url_name, tags_url_name, hash_length), data):
             data = re.sub(result.group(), urls[result.group()], data)
         return data.replace("http:///", "/")
 
