@@ -119,6 +119,14 @@ def is_valid_hash(hash_value):
     return len(hash_value) == hash_length and hash_value.isalnum()
 
 
+def get_unique_find_list(pattern, data):
+    return set([group.group() for group in re.finditer(pattern, data)])
+
+
+def get_unique_find_dict(pattern, data):
+    return {group.group(): group.group(1) for group in re.finditer(pattern, data)}
+
+
 # 获取本地包中文件url
 def get_module_file_url(filename, is_npm=True):
     dir_name = "node_modules" if is_npm else "bower_components"

@@ -4,7 +4,7 @@ import shutil
 
 from src.const import index_path_key, index_url_key, index_tags_key, index_title_key, hash_length
 from src.index import get_item_by_url, reindex
-from src.util import get_root_abspath
+from src.util import get_root_abspath, get_unique_find_list
 from src.view.main import home_page, article_page, tag_page, articles_url_name, attachments_url_name, tags_url_name
 from uno import app
 
@@ -46,17 +46,18 @@ if __name__ == '__main__':
         reindex()
         index_page_data = home_page()
         data_list[os.path.join(frozen_dir_abspath, "index.html")] = index_page_data
-        for result_article in re.finditer("/%s/[0-9a-z]{%s}" % (articles_url_name, hash_length), index_page_data):
-            article = get_item_by_url(result_article.group())
+        for result_article in get_unique_find_list("/%s/[0-9a-z]{%s}" % (articles_url_name, hash_length),
+                                                   index_page_data):
+            article = get_item_by_url(result_article)
             article_title = os.path.splitext(article[index_title_key])[0]
             article_hash = article[index_url_key].split("/")[2]
             article_page_data = article_page(articles_url_name, article_hash)
             data_list[os.path.join(frozen_articles_dir_abspath, article_hash + ".html")] = article_page_data
-            page_urls[result_article.group()] = "/%s/%s" % (articles_url_name, article_hash + ".html")
+            page_urls[result_article] = "/%s/%s" % (articles_url_name, article_hash + ".html")
 
-            for result_attach in re.finditer("/%s/[0-9a-z]{%s}" % (attachments_url_name, hash_length),
-                                             article_page_data):
-                attach = get_item_by_url(result_attach.group())
+            for result_attach in get_unique_find_list("/%s/[0-9a-z]{%s}" % (attachments_url_name, hash_length),
+                                                      article_page_data):
+                attach = get_item_by_url(result_attach)
                 attach_path = attach[index_path_key]
                 attach_abspath = os.path.join(articles_dir_abspath, attach_path)
                 attach_filename = attach[index_title_key]
@@ -65,7 +66,7 @@ if __name__ == '__main__':
                 new_attach_filename = attach_hash + attach_ext
                 new_attach_abspath = os.path.join(frozen_attachments_dir_abspath, new_attach_filename)
                 shutil.copy(attach_abspath, new_attach_abspath)
-                page_urls[result_attach.group()] = "/%s/%s" % (attachments_url_name, new_attach_filename)
+                page_urls[result_attach] = "/%s/%s" % (attachments_url_name, new_attach_filename)
 
             tags = article[index_tags_key]
             for tag in tags:
@@ -76,9 +77,9 @@ if __name__ == '__main__':
 
 
     def replace_url(data, urls):
-        for result in re.finditer("/(%s|%s|%s)/[0-9a-z]{%s}" %
-                                  (articles_url_name, attachments_url_name, tags_url_name, hash_length), data):
-            data = re.sub(result.group(), urls[result.group()], data)
+        for result in get_unique_find_list("/(%s|%s|%s)/[0-9a-z]{%s}" %
+                                           (articles_url_name, attachments_url_name, tags_url_name, hash_length), data):
+            data = re.sub(result, urls[result], data)
         return data.replace("http:///", "/")
 
 
