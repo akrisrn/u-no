@@ -3,7 +3,7 @@ import re
 import shutil
 
 from src.const import index_path_key, index_url_key, index_tags_key, index_title_key, hash_length
-from src.index import get_item_by_url
+from src.index import get_item_by_url, reindex
 from src.util import get_root_abspath
 from src.view.main import home_page, article_page, tag_page, articles_url_name, attachments_url_name, tags_url_name
 from uno import app
@@ -43,6 +43,7 @@ if __name__ == '__main__':
     data_list = {}
     page_urls = {}
     with app.app_context():
+        reindex()
         index_page_data = home_page()
         data_list[os.path.join(frozen_dir_abspath, "index.html")] = index_page_data
         for result_article in re.finditer("/%s/[0-9a-z]{%s}" % (articles_url_name, hash_length), index_page_data):
