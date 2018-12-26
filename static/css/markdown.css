@@ -10,6 +10,14 @@
     color: #7b7b7b;
 }
 
+.markdown-body details summary {
+    cursor: pointer;
+}
+
+.markdown-body details summary:focus {
+    outline: none;
+}
+
 .markdown-body img {
     background-color: transparent;
 }
