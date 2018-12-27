@@ -115,7 +115,7 @@ def add_toc(text):
 def inlink(text):
     url_match_dict = get_unique_find_dict(r"\[(.*?)\]\((.*?)\)\+", text, 2)
     for match in url_match_dict:
-        file_path = url_match_dict[match][1]
+        file_path = url_match_dict[match][1].replace("../", "")
         # 根据文件相对路径从索引文件中取出url
         item = get_item_by_path(file_path)
         if item:
