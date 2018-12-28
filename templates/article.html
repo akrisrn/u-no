@@ -18,7 +18,7 @@
     <vue-date date="{{ date }}"></vue-date>
     {%- if not notags -%}
         <vue-tag-icon></vue-tag-icon>
-        {% for key in tags | sort -%}
+        {%- for key in tags | sort -%}
             <vue-tag url="{{ url_for('main.tag_page', tag_hash=key) }}" name="{{ tags[key] }}"></vue-tag>
         {%- endfor -%}
     {%- endif -%}

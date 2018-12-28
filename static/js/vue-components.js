@@ -1,15 +1,13 @@
 Vue.component('vue-return-home', {
     template: `
-<a href="/">
-    <i style="margin-right: 10px" class="fas fa-angle-double-left"></i>~
-</a>`
+<a href="/"><i style="margin-right: 10px" class="fas fa-angle-double-left"></i>~</a>`
 });
 
 Vue.component('vue-tag', {
     props: ['url', 'name'],
     template: `
 <div class="tag">
-    <a v-bind:href="url"><i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ name }}</a>
+    <a v-bind:href="url"><i style="margin-right: 3px;margin-left: 8px" class="fas fa-hashtag"></i>{{ name }}</a>
 </div>`
 });
 
@@ -33,10 +31,7 @@ Vue.component('vue-home-li-icon', {
 Vue.component('vue-home-li', {
     props: ['url', 'name', 'highlight'],
     template: `
-<a v-bind:href="url" v-bind:class="{ 'article-hl': highlight }">
-    <i class="fas fa-star" v-if="highlight"></i>
-    {{ name }}
-</a>`
+<a v-bind:href="url" v-bind:class="{ 'article-hl': highlight }"><i style="margin-right: 8px;" class="fas fa-star" v-if="highlight"></i>{{ name }}</a>`
 });
 
 Vue.component('vue-login-form', {
