@@ -91,7 +91,9 @@ def render(text):
     for ext in [clean_md, add_toc, inlink, table_increment, rate, steam, kindle]:
         text = ext(text)
     html = markdown(text, extensions=extensions, extension_configs=extension_configs)
-    return trim_force_del_ins(html)
+    for ext in [trim_force_del_ins]:
+        html = ext(html)
+    return html
 
 
 def get_snippet(file_name):
