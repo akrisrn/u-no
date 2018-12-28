@@ -17,7 +17,11 @@
 .markdown-body dl dd {
     color: #6a737d;
     font-size: 90%;
-    border-left: 0.25em solid #dfe2e5
+    padding: 0;
+}
+
+.markdown-body dl dd:before {
+    content: ">> ";
 }
 
 .markdown-body details {
