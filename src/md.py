@@ -90,7 +90,8 @@ def render(text):
     }
     for ext in [clean_md, add_toc, inlink, table_increment, rate, steam, kindle]:
         text = ext(text)
-    return markdown(text, extensions=extensions, extension_configs=extension_configs)
+    html = markdown(text, extensions=extensions, extension_configs=extension_configs)
+    return trim_force_del_ins(html)
 
 
 def get_snippet(file_name):
@@ -165,3 +166,8 @@ def kindle(text):
                       '<iframe class="kindle-widget" src="https://read.amazon.cn/kp/card?asin=%s&preview=inline" '
                       'frameborder="0" allowfullscreen></iframe>' % id_match_dict[match], text)
     return text
+
+
+# 下划线/删除线语法跟在字后面时会转换成上标/下标，在开头标记一个+号来强制使用下划/删除
+def trim_force_del_ins(html):
+    return re.sub(r"\+(<del>|<ins>)", r"\g<1>", html)
