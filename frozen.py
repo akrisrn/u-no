@@ -92,9 +92,10 @@ if __name__ == '__main__':
     for root, dirs, files in os.walk(frozen_dir_abspath):
         for file in files:
             file_abspath = os.path.join(root, file)
-            if os.path.splitext(file)[1] == ".js":
-                process_single_js_file(file_abspath, overwrite=True)
-            if os.path.splitext(file)[1] == ".css":
-                process_single_css_file(file_abspath, overwrite=True)
-            if os.path.splitext(file)[1] == ".html":
+            file_ext = os.path.splitext(file)[1]
+            if file_ext == ".html":
                 process_single_html_file(file_abspath, overwrite=True)
+            elif file_ext == ".js":
+                process_single_js_file(file_abspath, overwrite=True)
+            elif file_ext == ".css":
+                process_single_css_file(file_abspath, overwrite=True)
