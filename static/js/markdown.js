@@ -99,4 +99,10 @@ $(function () {
         readOnly: true,
         starType: "i"
     });
+    $("li>details").each((i, d) => {
+        if (d.childElementCount === 1) {
+            const text = d.childNodes[1].textContent.trimLeft();
+            d.innerHTML = d.innerHTML.replace(text, `<p>${text}</p>`)
+        }
+    })
 });
