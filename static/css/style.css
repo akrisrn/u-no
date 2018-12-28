@@ -40,7 +40,6 @@ a:hover i, li:hover > i:first-child {
     float: left;
     box-sizing: border-box;
     width: 100%;
-    top: 30px;
     padding: 0 25px 20px;
     transition: all 0.5s;
     -moz-transition: all 0.5s;
