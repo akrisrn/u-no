@@ -9,7 +9,7 @@ Vue.component('vue-tag', {
     props: ['url', 'name'],
     template: `
 <div class="tag">
-    <a :href="url"><i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ name }}</a>
+    <a v-bind:href="url"><i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ name }}</a>
 </div>`
 });
 
@@ -33,7 +33,7 @@ Vue.component('vue-home-li-icon', {
 Vue.component('vue-home-li', {
     props: ['url', 'name', 'highlight'],
     template: `
-<a :href="url" :class="{ 'article-hl': highlight }">
+<a v-bind:href="url" v-bind:class="{ 'article-hl': highlight }">
     <i class="fas fa-star" v-if="highlight"></i>
     {{ name }}
 </a>`
@@ -43,13 +43,13 @@ Vue.component('vue-login-form', {
     props: ['error', 'referrer'],
     template: `
 <div class="center">
-    <h1 :class="{ 'pw-error': error }">* PASSWORD *</h1>
+    <h1 v-bind:class="{ 'pw-error': error }">* PASSWORD *</h1>
     <form method="post">
         <label>
             <input type="password" name="password" autofocus="autofocus"/>
         </label>
         <label>
-            <input name="referrer" :value="referrer" style="display: none">
+            <input name="referrer" v-bind:value="referrer" style="display: none">
         </label>
         <button type="submit" style="display: none">Submit</button>
     </form>
@@ -64,7 +64,7 @@ Vue.component('vue-error', {
 Vue.component('vue-index-tab-button', {
     props: ['name', 'id'],
     template: `
-<button class="tablinks" :id="id">
+<button class="tablinks" v-bind:id="id">
     <i style="margin-right: 10px" class="far fa-folder"></i>{{ name }}
 </button>`
 });
@@ -72,7 +72,7 @@ Vue.component('vue-index-tab-button', {
 Vue.component('vue-check', {
     props: ['checked'],
     template: `
-<i :class="['fas', checked ? 'fa-check' : 'fa-times', 'check']"></i>`
+<i v-bind:class="['fas', checked ? 'fa-check' : 'fa-times', 'check']"></i>`
 });
 
 new Vue({el: '#content'});
