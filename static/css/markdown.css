@@ -9,6 +9,11 @@
     margin-bottom: 10px;
 }
 
+.markdown-body dl dt {
+    font-style: normal;
+    font-weight: normal;
+}
+
 .markdown-body dl dd {
     color: #6a737d;
     font-size: 14px;
