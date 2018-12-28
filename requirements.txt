@@ -7,3 +7,4 @@ MarkupSafe==1.0
 Pygments==2.2.0
 pymdown-extensions==6.0
 Werkzeug==0.14.1
+css-html-js-minify==2.5.5

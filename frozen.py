@@ -2,6 +2,8 @@ import os
 import re
 import shutil
 
+from css_html_js_minify import process_single_css_file, process_single_html_file, process_single_js_file
+
 from src.const import index_path_key, index_url_key, index_tags_key, index_title_key, hash_length
 from src.index import get_item_by_url, reindex
 from src.util import get_root_abspath, get_unique_find_list
@@ -86,3 +88,13 @@ if __name__ == '__main__':
     for path in data_list:
         with open(path, "w", encoding="utf-8") as f:
             f.write(replace_url(data_list[path], page_urls))
+
+    for root, dirs, files in os.walk(frozen_dir_abspath):
+        for file in files:
+            file_abspath = os.path.join(root, file)
+            if os.path.splitext(file)[1] == ".js":
+                process_single_js_file(file_abspath, overwrite=True)
+            if os.path.splitext(file)[1] == ".css":
+                process_single_css_file(file_abspath, overwrite=True)
+            if os.path.splitext(file)[1] == ".html":
+                process_single_html_file(file_abspath, overwrite=True)
