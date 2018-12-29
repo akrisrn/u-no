@@ -1,6 +1,10 @@
 $(function () {
+    const textarea = $("#article-content")[0];
+    textarea.setSelectionRange(0, 0);
+    textarea.scrollTop = 0;
+
     $("#save").click(() => {
-        $.post(document.location.pathname, {data: $("#data").val()}, (result) => {
+        $.post(document.location.pathname, {data: $("#article-content").val()}, (result) => {
             if (result) {
                 url = result;
                 const message = $("#message");

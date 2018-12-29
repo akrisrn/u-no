@@ -1,10 +1,12 @@
-#data {
+#article-content {
     width: 100%;
-    margin-bottom: 5px;
-    padding: 0;
+    margin-bottom: 8px;
+    padding: 16px;
+    box-sizing: border-box;
+    resize: none;
 }
 
-.button-group, #message {
+#message, .button-group {
     float: right
 }
 
