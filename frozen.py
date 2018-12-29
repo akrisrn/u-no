@@ -104,6 +104,8 @@ if __name__ == '__main__':
             elif file_ext == ".css":
                 process_single_css_file(file_abspath, overwrite=True)
             elif file_ext in image_ext:
+                if root.startswith(frozen_static_dir_abspath):
+                    continue
                 img = Image.open(file_abspath)
                 img.save(os.path.join(root, file_name + ".webp"), "webp", quality=75)
                 os.remove(file_abspath)
