@@ -8,15 +8,21 @@
     margin-bottom: 10px;
 }
 
+.markdown-body dl {
+    margin-bottom: 10px;
+}
+
 .markdown-body dl dt {
     font-style: normal;
     font-weight: normal;
+    margin-top: 10px;
 }
 
 .markdown-body dl dd {
     color: #6a737d;
     font-size: 90%;
     padding: 0;
+    margin-bottom: 10px;
 }
 
 .markdown-body dl dd:before {
