@@ -1,6 +1,6 @@
 Vue.component('vue-return-home', {
     template: `
-<a href="/"><i style="margin-right: 10px" class="fas fa-angle-double-left"></i>~</a>`
+<a href="/"><i style="margin-right: 8px" class="fas fa-angle-double-left"></i>~</a>`
 });
 
 Vue.component('vue-tag', {
@@ -60,7 +60,7 @@ Vue.component('vue-index-tab-button', {
     props: ['name', 'id'],
     template: `
 <button class="tablinks" v-bind:id="id">
-    <i style="margin-right: 10px" class="far fa-folder"></i>{{ name }}
+    <i style="margin-right: 8px" class="far fa-folder"></i>{{ name }}
 </button>`
 });
 
