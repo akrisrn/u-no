@@ -4,6 +4,7 @@
 {%- endblock -%}
 {%- block extra_js_link -%}
     <script type="text/javascript" src="{{ get_static_file_url("js/edit.js") }}"></script>
+    <script>let url = "{{ url }}"</script>
 {%- endblock -%}
 {%- block extra_css_link -%}
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url("css/edit.css") }}">
