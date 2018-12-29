@@ -29,7 +29,7 @@ python reindex.py
 - 获得一份使用CDN的静态站点
 
 ```
-python frozen.py
+python freeze.py
 ```
 
 ## 部署（VirtualEnv + uWSGI + systemd + Nginx）
