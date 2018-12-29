@@ -101,5 +101,13 @@ $(function () {
     });
     $("ul>li:first-child>details, ol>li:first-child>details").each((i, e) => {
         e.innerHTML = e.innerHTML.replace(/<\/summary>\s/, "</summary><p>") + "</p>"
-    })
+    });
+    const details = $("<details>");
+    details.attr("open", "open");
+    details.addClass("note");
+    const summary = $("<summary>");
+    summary.text("目录");
+    const toc = $(".toc");
+    toc.wrap(details);
+    summary.insertBefore(toc)
 });
