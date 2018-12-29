@@ -3,6 +3,7 @@ import re
 import shutil
 
 from css_html_js_minify import process_single_css_file, process_single_html_file, process_single_js_file
+from PIL import Image
 
 from src.const import index_path_key, index_url_key, index_tags_key, index_title_key, hash_length
 from src.index import get_item_by_url, reindex
@@ -18,6 +19,7 @@ if __name__ == '__main__':
     app.config["USE_CDN"] = True
     app.config["DEBUG"] = False
 
+    image_ext = [".jpg", ".png"]
     root_abspath = get_root_abspath()
     static_dir_abspath = os.path.join(root_abspath, static_dir_name)
 
@@ -68,6 +70,8 @@ if __name__ == '__main__':
                 new_attach_filename = attach_hash + attach_ext
                 new_attach_abspath = os.path.join(frozen_attachments_dir_abspath, new_attach_filename)
                 shutil.copy(attach_abspath, new_attach_abspath)
+                if attach_ext in image_ext:
+                    new_attach_filename = attach_hash + ".webp"
                 page_urls[result_attach] = "/%s/%s" % (attachments_url_name, new_attach_filename)
 
             tags = article[index_tags_key]
@@ -92,10 +96,14 @@ if __name__ == '__main__':
     for root, dirs, files in os.walk(frozen_dir_abspath):
         for file in files:
             file_abspath = os.path.join(root, file)
-            file_ext = os.path.splitext(file)[1]
+            file_name, file_ext = os.path.splitext(file)
             if file_ext == ".html":
                 process_single_html_file(file_abspath, overwrite=True)
             elif file_ext == ".js":
                 process_single_js_file(file_abspath, overwrite=True)
             elif file_ext == ".css":
                 process_single_css_file(file_abspath, overwrite=True)
+            elif file_ext in image_ext:
+                img = Image.open(file_abspath)
+                img.save(os.path.join(root, file_name + ".webp"), "webp", quality=75)
+                os.remove(file_abspath)
