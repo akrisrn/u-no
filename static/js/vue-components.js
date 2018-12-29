@@ -1,6 +1,6 @@
 Vue.component('vue-return-home', {
     template: `
-<a href="/"><i style="margin-right: 8px" class="fas fa-angle-double-left"></i>~</a>`
+<a href="/"><i style="margin-right: 10px" class="fas fa-angle-double-left"></i>~</a>`
 });
 
 Vue.component('vue-tag', {
