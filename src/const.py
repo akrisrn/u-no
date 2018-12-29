@@ -48,9 +48,6 @@ lib_names = [
     "github-markdown-css",
     "@fortawesome/fontawesome-free",
     "source-code-pro",
-    "editor.md",
-    "editor.md|css",
-    "editor.md|lib"
 ]
 
 plugin_names = [
@@ -58,7 +55,6 @@ plugin_names = [
     "pace",             # 1
     "jquery",           # 1
     "markdown-style",   # 1
-    "markdown-editor",  # 1
     "fonts",            # 1
     "mathjax",          # 0
     "uml",              # 0

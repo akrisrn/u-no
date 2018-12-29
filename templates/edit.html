@@ -2,29 +2,16 @@
 {%- block title -%}
     * {{ title }} - {{ site_name }}
 {%- endblock -%}
-{%- set plugin_editor_urls = get_plugin_urls("markdown-editor") -%}
 {%- block extra_js_link -%}
-    {%- for js_url in plugin_editor_urls["js"] -%}
-        <script type="text/javascript" src="{{ js_url }}"></script>
-    {%- endfor -%}
     <script type="text/javascript" src="{{ get_static_file_url("js/edit.js") }}"></script>
-    <script>
-        const lib_path = "{{ get_static_lib_url("editor.md|lib") }}";
-        let url = "{{ url }}"
-    </script>
 {%- endblock -%}
 {%- block extra_css_link -%}
-    {%- for css_url in plugin_editor_urls["css"] -%}
-        <link rel="stylesheet" type="text/css" href="{{ css_url }}">
-    {%- endfor -%}
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url("css/edit.css") }}">
 {%- endblock -%}
 {%- block content -%}
     <h1>{{ title }}</h1>
     <hr>
-    <div id="editormd">
-        <textarea id="data">{{ data }}</textarea>
-    </div>
+    <label><textarea id="data" rows="30" autofocus>{{ data }}</textarea></label>
     <div class="button-group">
         <button id="view" class="button big">View</button>
         <button id="save" class="button big">Save</button>

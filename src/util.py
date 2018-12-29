@@ -242,20 +242,6 @@ def get_static_lib_url(name):
                 "remote": get_cdn_file_url(
                     "source-code-pro@%s/source-code-pro.min.css" % get_lib_version(lib_names[14]))
             },
-            lib_names[15]: {
-                "local": get_module_file_url("editor.md/editormd.min.js", False),
-                "remote": get_cdn_file_url("pandao/editor.md@%s/editormd.min.js" % get_lib_version(lib_names[15]),
-                                           False)
-            },
-            lib_names[16]: {
-                "local": get_module_file_url("editor.md/css/editormd.min.css", False),
-                "remote": get_cdn_file_url(
-                    "pandao/editor.md@%s/css/editormd.min.css" % get_lib_version(lib_names[16]), False)
-            },
-            lib_names[17]: {
-                "local": get_module_file_url("editor.md/lib/", False),
-                "remote": get_cdn_file_url("pandao/editor.md@%s/lib/" % get_lib_version(lib_names[17]), False)
-            },
         }
     return libs[name]["remote" if current_app.config["USE_CDN"] else "local"]
 
@@ -278,26 +264,22 @@ plugins = {
         "css": [lib_names[12]]
     },
     plugin_names[4]: {
-        "js": [lib_names[15]],
-        "css": [lib_names[16]]
-    },
-    plugin_names[5]: {
         "js": [],
         "css": [lib_names[13], lib_names[14]]
     },
-    plugin_names[6]: {
+    plugin_names[5]: {
         "js": [lib_names[3]],
         "css": []
     },
-    plugin_names[7]: {
+    plugin_names[6]: {
         "js": [lib_names[4], lib_names[5], lib_names[6], lib_names[7]],
         "css": []
     },
-    plugin_names[8]: {
+    plugin_names[7]: {
         "js": [lib_names[9]],
         "css": []
     },
-    plugin_names[9]: {
+    plugin_names[8]: {
         "js": [lib_names[10]],
         "css": [lib_names[11]]
     },
