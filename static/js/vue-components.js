@@ -1,6 +1,14 @@
 Vue.component('vue-return-home', {
+    props: {
+        url: {
+            default: "/"
+        },
+        name: {
+            default: "~"
+        }
+    },
     template: `
-<a href="/"><i style="margin-right: 10px" class="fas fa-angle-double-left"></i>~</a>`
+<a v-bind:href="url"><i style="margin-right: 10px" class="fas fa-angle-double-left"></i>{{ name }}</a>`
 });
 
 Vue.component('vue-tag', {
