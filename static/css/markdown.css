@@ -4,30 +4,15 @@
     color: #24292e;
 }
 
-.markdown-body p {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.markdown-body li > p {
-    margin-top: 10px;
-}
-
-.markdown-body dl {
-    margin-bottom: 10px;
-}
-
 .markdown-body dl dt {
     font-style: normal;
     font-weight: normal;
-    margin-top: 10px;
 }
 
 .markdown-body dl dd {
     color: #6a737d;
     font-size: 90%;
     padding: 0;
-    margin-bottom: 10px;
 }
 
 .markdown-body dl dd:before {
@@ -40,6 +25,10 @@
     padding: 0 1.2rem;
     overflow: auto;
     border-radius: 3px;
+}
+
+.markdown-body details p {
+    margin-top: 1em;
 }
 
 .markdown-body details.note > summary {
