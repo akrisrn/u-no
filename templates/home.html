@@ -44,7 +44,7 @@
                 </li>
             {%- endfor -%}
         </ul>
-        {%- set page_count = (fixed_articles | length / page_size) | round | int -%}
+        {%- set page_count = (fixed_articles | length / page_size) | round(0, 'ceil') | int -%}
         {%- if page_count > 1 -%}
             <div class="button-group">
                 <button class="button icon arrowleft">&nbsp;</button>
