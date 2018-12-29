@@ -104,7 +104,6 @@ $(function () {
     });
     const details = $("<details>");
     details.attr("open", "open");
-    details.addClass("note");
     const summary = $("<summary>");
     summary.append($("<strong>").text("目录"));
     const toc = $(".toc");
