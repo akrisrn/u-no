@@ -88,7 +88,7 @@ def render(text):
             "base_path": get_articles_dir_abspath()
         }
     }
-    for ext in [clean_md, add_toc, inlink, inline_quote, table_increment, rate, steam, kindle]:
+    for ext in [clean_md, inlink, inline_quote, table_increment, rate, steam, kindle]:
         text = ext(text)
     html = markdown(text, extensions=extensions, extension_configs=extension_configs)
     for ext in [trim_force_del_ins]:
@@ -105,13 +105,6 @@ def get_snippet(file_name):
 # 剔除\r和被<<>>包围的内容
 def clean_md(text):
     return re.sub("(\r|<<.*?>>)", "", text)
-
-
-# 如果标题数量在三个及三个以上，自动在开头加上目录
-def add_toc(text):
-    if len(re.findall(r"\n#+\s+.*", text)) >= 3:
-        text = "[TOC]\n\n" + text
-    return text
 
 
 # 匹配[]()+语法为站内链接，小括号里填入文件相对路径，查找替换为索引文件中对应的url
