@@ -15,7 +15,8 @@
 }
 
 .markdown-body dl dd:before {
-    content: ">> ";
+    content: ">>";
+    margin-right: 8px;
 }
 
 .markdown-body details {

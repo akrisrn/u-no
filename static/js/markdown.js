@@ -100,6 +100,6 @@ $(function () {
         starType: "i"
     });
     $("ul>li:first-child>details, ol>li:first-child>details").each((i, e) => {
-        e.innerHTML = e.innerHTML.replace("</summary>\n", "</summary><p>") + "</p>"
+        e.innerHTML = e.innerHTML.replace(/<\/summary>\s/, "</summary><p>") + "</p>"
     })
 });
