@@ -88,7 +88,7 @@ def render(text):
             "base_path": get_articles_dir_abspath()
         }
     }
-    for ext in [clean_md, add_toc, inlink, table_increment, rate, steam, kindle]:
+    for ext in [clean_md, add_toc, inlink, inline_quote, table_increment, rate, steam, kindle]:
         text = ext(text)
     html = markdown(text, extensions=extensions, extension_configs=extension_configs)
     for ext in [trim_force_del_ins]:
@@ -123,6 +123,14 @@ def inlink(text):
         item = get_item_by_path(file_path)
         if item:
             text = re.sub(regexp_join("%s", match), "[%s](%s)" % (url_match_dict[match][0], item[index_url_key]), text)
+    return text
+
+
+# 匹配____text____语法为行内引用
+def inline_quote(text):
+    text_match_dict = get_unique_find_dict(r"____(.+)____", text)
+    for match in text_match_dict.keys():
+        text = re.sub(regexp_join("%s", match), '*%s*{:.inline-quote}' % text_match_dict[match], text)
     return text
 
 
