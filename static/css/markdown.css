@@ -79,8 +79,26 @@
     font-family: 'Source Code Pro', SimSun, sans-serif;
 }
 
+
+.markdown-body .toc {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    margin: 1em 0;
+    padding: 1em 0;
+    border-radius: 3px;
+    border-left: 0.25em solid #83d4ff;
+}
+
 .markdown-body .toc:before {
     color: #0366d6;
+}
+
+.markdown-body .toc ul {
+    margin-bottom: 0;
+}
+
+.markdown-body .toc li {
+    margin-top: 0;
+    font-size: 90%;
 }
 
 .markdown-body .star {
