@@ -33,7 +33,7 @@
 }
 
 .markdown-body details.note > summary {
-    background-color: rgba(68, 138, 255, 0.3);
+    background-color: rgba(50, 150, 255, 0.3);
 }
 
 .markdown-body details.danger > summary {

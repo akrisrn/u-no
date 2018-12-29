@@ -106,7 +106,7 @@ $(function () {
     details.attr("open", "open");
     details.addClass("note");
     const summary = $("<summary>");
-    summary.text("目录");
+    summary.append($("<strong>").text("目录"));
     const toc = $(".toc");
     toc.wrap(details);
     summary.insertBefore(toc)
