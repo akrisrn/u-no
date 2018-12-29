@@ -42,23 +42,6 @@ Vue.component('vue-home-li', {
 <a v-bind:href="url" v-bind:class="{ 'article-hl': highlight }"><i style="margin-right: 8px;" class="fas fa-star" v-if="highlight"></i>{{ name }}</a>`
 });
 
-Vue.component('vue-login-form', {
-    props: ['error', 'referrer'],
-    template: `
-<div class="center">
-    <h1 v-bind:class="{ 'pw-error': error }">* PASSWORD *</h1>
-    <form method="post">
-        <label>
-            <input type="password" name="password" autofocus="autofocus"/>
-        </label>
-        <label>
-            <input name="referrer" v-bind:value="referrer" style="display: none">
-        </label>
-        <button type="submit" style="display: none">Submit</button>
-    </form>
-</div>`
-});
-
 Vue.component('vue-error', {
     props: ['title'],
     template: '<div class="center"><h1>{{ title }}</h1></div>'
