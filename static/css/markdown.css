@@ -11,7 +11,7 @@
 
 .markdown-body dl dd {
     color: #6a737d;
-    font-size: 90%;
+    font-size: 12px;
     padding: 0;
 }
 
@@ -89,7 +89,7 @@
 
 .markdown-body .toc li {
     margin-top: 0;
-    font-size: 90%;
+    font-size: 12px;
 }
 
 .markdown-body .star {
@@ -114,7 +114,7 @@
 
 .markdown-body .inline-quote {
     color: #6a737d;
-    font-size: 90%;
+    font-size: 12px;
 }
 
 /* Critic Markup Start */
