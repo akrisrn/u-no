@@ -39,8 +39,8 @@ def toggle_flag(item_path, flag, is_on, data=None, force_reindex=False, force_up
         else:
             if not force_update and not is_on:
                 return False
-            item_data += "%s{%s%s}" % ("" if item_data.endswith("\n") else "\n", flag,
-                                       "" if data is None or data == "" else " " + data)
+            item_data += "%s{{%s%s}}" % ("" if item_data.endswith("\n") else "\n", flag,
+                                         "" if data is None or data == "" else " " + data)
         with open(item_abspath, "w", encoding='utf-8') as item_file:
             item_file.write(item_data)
         return True
