@@ -80,7 +80,7 @@ def get_custom_css_flag(data, custom_type=flag_css):
     if not group:
         return []
     css_urls = []
-    for css_path in clean_text(group.group(2)).split(","):
+    for css_path in re.split("[,，]", clean_text(group.group(2))):
         if css_path:
             # 根据css文件相对路径从索引文件中取出url
             item = src.index.get_item_by_path(css_path)
@@ -99,4 +99,4 @@ def get_plugin_flag(data):
     group = re.search(get_flag_regexp(flag_plugin), data)
     if not group:
         return []
-    return [plugin_name for plugin_name in clean_text(group.group(2)).split(",") if plugin_name]
+    return [plugin_name for plugin_name in re.split("[,，]", clean_text(group.group(2))) if plugin_name]
