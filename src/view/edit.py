@@ -33,12 +33,14 @@ def toggle_flag(item_path, flag, is_on, data=None, force_reindex=False, force_up
             if data is not None:
                 if data == group.group(2):
                     return False
-                sub_text = "%s%s%s" % (group.group(1), data, group.group(3))
+                sub_text = "%s%s%s" % (group.group(1).rstrip(),
+                                       "" if data == "" else " " + data, group.group(3).lstrip())
             item_data = re.sub(flag_regexp, sub_text, item_data)
         else:
             if not force_update and not is_on:
                 return False
-            item_data += "%s<<%s(%s)>>" % ("" if item_data.endswith("\n") else "\n", flag, "" if data is None else data)
+            item_data += "%s{%s%s}" % ("" if item_data.endswith("\n") else "\n", flag,
+                                       "" if data is None or data == "" else " " + data)
         with open(item_abspath, "w", encoding='utf-8') as item_file:
             item_file.write(item_data)
         return True
