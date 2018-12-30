@@ -14,7 +14,7 @@ def get_flag_regexp(flag):
     return re.compile(r"(\s*{\s*%s\s*)(.*?)(\s*\})" % flag, re.I)
 
 
-# 获取文章里标记的标签列表，语法匹配<<tag()>>，如果没有则返回默认标签
+# 获取文章里标记的标签列表，语法匹配{tag}，如果没有则返回默认标签
 def get_tags_flag(data):
     default_tag = [current_app.config["DEFAULT_TAG"]]
     group = re.search(get_flag_regexp(flag_tag), data)
@@ -27,7 +27,7 @@ def get_tags_flag(data):
     return tags
 
 
-# 获取文章里标记的日期，语法匹配<<date(%y-%m-%d)>>，如果没有则返回空
+# 获取文章里标记的日期，语法匹配{date %y-%m-%d}，如果没有则返回空
 def get_date_flag(data):
     group = re.search(get_flag_regexp(flag_date), data)
     if not group:
@@ -44,37 +44,37 @@ def get_date_flag(data):
     return new_date
 
 
-# 获取文章里标记的不展示标签标识，语法匹配<<notags()>>
+# 获取文章里标记的不展示标签标识，语法匹配{notags}
 def get_notags_flag(data):
     return True if re.search(get_flag_regexp(flag_notags), data) else False
 
 
-# 获取文章里标记的固定索引标识，语法匹配<<fixed()>>
+# 获取文章里标记的固定索引标识，语法匹配{fixed}
 def get_fixed_flag(data):
     return True if re.search(get_flag_regexp(flag_fixed), data) else False
 
 
-# 获取文章里标记的置顶标识，语法匹配<<top()>>
+# 获取文章里标记的置顶标识，语法匹配{top}
 def get_top_flag(data):
     return True if re.search(get_flag_regexp(flag_top), data) else False
 
 
-# 获取文章里标记的高亮标识，语法匹配<<highlight()>>
+# 获取文章里标记的高亮标识，语法匹配{highlight}
 def get_highlight_flag(data):
     return True if re.search(get_flag_regexp(flag_highlight), data) else False
 
 
-# 获取文章里标记的忽略文件标识，语法匹配<<ignore()>>
+# 获取文章里标记的忽略文件标识，语法匹配{ignore}
 def get_ignore_flag(data):
     return True if re.search(get_flag_regexp(flag_ignore), data) else False
 
 
-# 获取文章里标记的取消忽略文件标识，语法匹配<<unignore()>>
+# 获取文章里标记的取消忽略文件标识，语法匹配{unignore}
 def get_unignore_flag(data):
     return True if re.search(get_flag_regexp(flag_unignore), data) else False
 
 
-# 获取文章里标记的自定义css文件列表，语法匹配<<css()>>，如果没有则返回空
+# 获取文章里标记的自定义css文件列表，语法匹配{css}，如果没有则返回空
 def get_custom_css_flag(data, custom_type=flag_css):
     group = re.search(get_flag_regexp(custom_type), data)
     if not group:
@@ -89,12 +89,12 @@ def get_custom_css_flag(data, custom_type=flag_css):
     return css_urls
 
 
-# 获取文章里标记的自定义js文件列表，语法匹配<<js()>>，如果没有则返回空
+# 获取文章里标记的自定义js文件列表，语法匹配{js}，如果没有则返回空
 def get_custom_js_flag(data):
     return get_custom_css_flag(data, flag_js)
 
 
-# 获取文章里标记的插件列表，语法匹配<<plugin()>>，如果没有则返回空
+# 获取文章里标记的插件列表，语法匹配{plugin}，如果没有则返回空
 def get_plugin_flag(data):
     group = re.search(get_flag_regexp(flag_plugin), data)
     if not group:
