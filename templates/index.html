@@ -178,7 +178,8 @@
                                     {%- set attachment = attachments[index] -%}
                                     <td align="right" width="20">{{ attachment[index_id_key] }}</td>
                                     <td>
-                                        <a href="{{ attachment[index_url_key] }}">{{ attachment[index_title_key] }}</a>
+                                        <a href="{{ attachment[index_url_key] }}"
+                                           target="_blank">{{ attachment[index_title_key] }}</a>
                                     </td>
                                 {%- endif -%}
                             {%- endfor -%}
