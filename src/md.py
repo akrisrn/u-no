@@ -4,6 +4,7 @@ import pymdownx.emoji
 import pymdownx.superfences
 from markdown import markdown
 
+from src.flag import get_flag_regexp
 from .const import index_url_key
 from .index import get_item_by_path
 from .util import regexp_join, get_articles_dir_abspath, get_unique_find_dict
@@ -102,9 +103,9 @@ def get_snippet(file_name):
     return ""
 
 
-# 剔除\r和被<<>>包围的内容
+# 剔除flag标记内容
 def clean_md(text):
-    return re.sub("(\r|<<.*?>>)", "", text)
+    return re.sub(get_flag_regexp(r"\w+"), "", text)
 
 
 # 匹配[]()+语法为站内链接，小括号里填入文件相对路径，查找替换为索引文件中对应的url
