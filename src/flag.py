@@ -32,7 +32,7 @@ def get_date_flag(data):
     group = re.search(get_flag_regexp(flag_date), data)
     if not group:
         return ""
-    date = str(clean_text(group.group(2)).split(",")[0])
+    date = str(re.split("[,，]", clean_text(group.group(2)))[0])
     new_date = ""
     date_formats = ["%Y-%m-%d", "%y-%m-%d"]
     for date_format in date_formats:
