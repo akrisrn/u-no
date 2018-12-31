@@ -15,17 +15,17 @@
   },
   "homepage": "https://github.com/akrisrn/u-no#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.4.1",
+    "@fortawesome/fontawesome-free": "^5.6.3",
     "flowchart.js": "^1.11.3",
     "github-markdown-css": "^2.10.0",
     "jquery": "^3.3.1",
     "mathjax": "^2.7.5",
     "pace-js": "^1.0.2",
     "raphael": "^2.2.7",
-    "raty-js": "^2.8.0",
+    "raty-js": "^2.9.0",
     "source-code-pro": "^2.30.1",
-    "tablesorter": "^2.31.0",
+    "tablesorter": "^2.31.1",
     "underscore": "^1.9.1",
-    "vue": "^2.5.17"
+    "vue": "^2.5.21"
   }
 }
