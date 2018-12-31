@@ -101,7 +101,7 @@
 }
 
 .markdown-body .toc {
-    margin: 10px 0;
+    margin: 16px 0;
 }
 
 .markdown-body .toc ul {
@@ -110,7 +110,7 @@
 
 .markdown-body .toc li {
     margin-top: 0;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .markdown-body .star {
