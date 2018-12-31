@@ -61,4 +61,7 @@ Vue.component('vue-check', {
 <i v-bind:class="['fas', checked ? 'fa-check' : 'fa-times', 'check']"></i>`
 });
 
-new Vue({el: '#content'});
+new Vue({
+    el: '#content',
+    delimiters: ['{|', '|}']
+});
