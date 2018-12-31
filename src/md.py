@@ -89,7 +89,7 @@ def render(text):
             "base_path": get_articles_dir_abspath()
         }
     }
-    for ext in [clean_md, inlink, inline_quote, table_increment, rate, steam, kindle]:
+    for ext in [clean_md, inlink, inline_quote, symbols, table_increment, rate, steam, kindle]:
         text = ext(text)
     html = markdown(text, extensions=extensions, extension_configs=extension_configs)
     for ext in [trim_force_del_ins]:
@@ -125,6 +125,18 @@ def inline_quote(text):
     text_match_dict = get_unique_find_dict(r"____(.+)____", text)
     for match in text_match_dict.keys():
         text = re.sub(regexp_join("%s", match), '*%s*{:.inline-quote}' % text_match_dict[match], text)
+    return text
+
+
+# 替换为相应符号
+def symbols(text):
+    sym = {
+        "<||>": "↕",
+        "||>": "↓",
+        "<||": "↑",
+    }
+    for k in sym:
+        text = text.replace(k, sym[k])
     return text
 
 
