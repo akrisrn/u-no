@@ -89,7 +89,7 @@
 }
 
 .markdown-body p + ul, .markdown-body p + ol {
-    margin-top: -10px;
+    margin-top: -5px;
 }
 
 .markdown-body a:hover {
