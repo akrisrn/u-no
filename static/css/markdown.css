@@ -57,6 +57,18 @@
     background-color: rgba(255, 145, 0, 0.3);
 }
 
+.markdown-body details.readonly > summary {
+    pointer-events: none;
+}
+
+.markdown-body details.readonly ::-webkit-details-marker {
+    display: none;
+}
+
+.markdown-body details.readonly ::-moz-list-bullet {
+    font-size: 0;
+}
+
 .markdown-body details > summary {
     margin: 0 -1.2rem;
     padding: 0.2rem 1.2rem;
