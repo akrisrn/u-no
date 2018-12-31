@@ -16,7 +16,8 @@
 }
 
 .markdown-body dl dd:before {
-    content: ">>";
+    content: "\f101";
+    font-family: FontAwesome, serif;
     margin-right: 8px;
 }
 
