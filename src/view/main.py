@@ -30,15 +30,18 @@ def index_page():
     search_index = [index_id_key, index_title_key, index_tags_key, index_date_key]
     # 传递非空搜索给过滤器筛选，并得到最大标签数量
     data = index_data_filter([[search_index[i], search[i]] for i in range(len(search)) if search[i]])
-    parents = {}
-    for item in data[0]:
-        parent = item[index_parent_key]
-        if parent not in parents:
-            parents[parent] = []
-        parents[parent].append(item)
+    parents = []
+    for each in [data[0], data[1]]:
+        parent = {}
+        for item in each:
+            parent_dir = item[index_parent_key]
+            if parent_dir not in parent:
+                parent[parent_dir] = []
+            parent[parent_dir].append(item)
+        parents.append(parent)
     ignore_files = current_app.config["IGNORE_FILE_LIST"]
     return render_template('index.html', title=index_url_name.upper(),
-                           data=[parents, sorted(data[1], key=itemgetter(index_id_key)), ignore_files],
+                           data=[parents, ignore_files],
                            article_url=articles_url_name, attach_url=attachments_url_name,
                            ignore_tab_name="ignore_file")
 

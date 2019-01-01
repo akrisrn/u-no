@@ -29,29 +29,31 @@
         </div>
     </div>
     <div class="markdown-body">
-        {%- set parents = data[0] -%}
-        {%- set attachments = data[1] -%}
-        {%- set ignore_files = data[2] -%}
+        {%- set article_parents = data[0][0] -%}
+        {%- set attachment_parents = data[0][1] -%}
+        {%- set ignore_files = data[1] -%}
         <div class="tab">
-            {%- if parents[''] -%}
+            {%- if article_parents[''] -%}
                 <vue-index-tab-button name="{{ article_url }}" id="defaultOpen"></vue-index-tab-button>
             {%- endif -%}
-            {%- for parent in parents | sort -%}
+            {%- for parent in article_parents | sort -%}
                 {%- if not parent -%}
                     {%- continue -%}
                 {%- endif -%}
                 <vue-index-tab-button name="{{ parent }}"
-                                      id="{{ "defaultOpen" if not parents[''] and loop.index == 1 else "" }}">
+                                      id="{{ "defaultOpen" if not article_parents[''] and loop.index == 1 else "" }}">
                 </vue-index-tab-button>
             {%- endfor -%}
-            {%- if attachments -%}
-                <vue-index-tab-button name="{{ attach_url }}" id="defaultOpen"></vue-index-tab-button>
-            {%- endif -%}
+            {%- for parent in attachment_parents | sort -%}
+                <vue-index-tab-button name="{{ parent }}"
+                                      id="{{ "defaultOpen" if loop.index == 1 else "" }}">
+                </vue-index-tab-button>
+            {%- endfor -%}
             {%- if ignore_files -%}
                 <vue-index-tab-button name="{{ ignore_tab_name }}"></vue-index-tab-button>
             {%- endif -%}
         </div>
-        {%- for parent in parents -%}
+        {%- for parent in article_parents -%}
             <div id="{{ parent if parent else article_url }}" class="tabcontent">
                 <table>
                     <thead>
@@ -69,7 +71,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {%- for article in parents[parent] -%}
+                    {%- for article in article_parents[parent] -%}
                         {%- set isFixed = article[index_fixed_key] -%}
                         {%- set isTop = article[index_top_key] -%}
                         {%- set isHighlight = article[index_highlight_key] -%}
@@ -175,8 +177,8 @@
                 </table>
             </div>
         {%- endfor -%}
-        {%- if attachments -%}
-            <div id="{{ attach_url }}" class="tabcontent">
+        {%- for parent in attachment_parents -%}
+            <div id="{{ parent }}" class="tabcontent">
                 <table>
                     <thead>
                     <tr>
@@ -186,7 +188,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {%- for attachment in attachments -%}
+                    {%- for attachment in attachment_parents[parent] -%}
                         <tr>
                             <td align="right" width="20">{{ attachment[index_id_key] }}</td>
                             <td>
@@ -209,7 +211,7 @@
                     </tbody>
                 </table>
             </div>
-        {%- endif -%}
+        {%- endfor -%}
         {%- if ignore_files -%}
             <div id="{{ ignore_tab_name }}" class="tabcontent">
                 <table>
