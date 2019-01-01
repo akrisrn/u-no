@@ -65,6 +65,7 @@
                         <th width="80">Highlight</th>
                         <th width="80">NoTags</th>
                         <th width="90">Edit</th>
+                        <th width="300">Be Referenced</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -157,6 +158,17 @@
                                     </a>
                                 </div>
                             </td>
+                            <td>
+                                {%- set ref_count = article[index_bereferenced_key] | length -%}
+                                <details{{ " class=readonly" if ref_count == 0 else "" }}>
+                                    <summary>Count: {{ ref_count }}</summary>
+                                    <ol>
+                                        {%- for ref in article[index_bereferenced_key] -%}
+                                            <li>{{ ref }}</li>
+                                        {%- endfor -%}
+                                    </ol>
+                                </details>
+                            </td>
                         </tr>
                     {%- endfor -%}
                     </tbody>
@@ -164,25 +176,34 @@
             </div>
         {%- endfor -%}
         {%- if attachments -%}
-            {%- set attch_len = attachments | length -%}
-            {%- set max_rows = 10 -%}
-            {%- set max_column = (attch_len / max_rows) | round(0, 'ceil') | int -%}
             <div id="{{ attach_url }}" class="tabcontent">
                 <table>
+                    <thead>
+                    <tr>
+                        <th width="20">ID</th>
+                        <th>Title</th>
+                        <th width="300">Be Referenced</th>
+                    </tr>
+                    </thead>
                     <tbody>
-                    {%- for i in range(attch_len if attch_len < max_rows else max_rows) -%}
+                    {%- for attachment in attachments -%}
                         <tr>
-                            {%- for j in range(max_column) -%}
-                                {%- set index = j * max_rows + i -%}
-                                {%- if index < attch_len -%}
-                                    {%- set attachment = attachments[index] -%}
-                                    <td align="right" width="20">{{ attachment[index_id_key] }}</td>
-                                    <td>
-                                        <a href="{{ attachment[index_url_key] }}"
-                                           target="_blank">{{ attachment[index_title_key] }}</a>
-                                    </td>
-                                {%- endif -%}
-                            {%- endfor -%}
+                            <td align="right" width="20">{{ attachment[index_id_key] }}</td>
+                            <td>
+                                <a href="{{ attachment[index_url_key] }}"
+                                   target="_blank">{{ attachment[index_title_key] }}</a>
+                            </td>
+                            <td>
+                                {%- set ref_count = attachment[index_bereferenced_key] | length -%}
+                                <details{{ " class=readonly" if ref_count == 0 else "" }}>
+                                    <summary>Count: {{ ref_count }}</summary>
+                                    <ol>
+                                        {%- for ref in attachment[index_bereferenced_key] -%}
+                                            <li>{{ ref }}</li>
+                                        {%- endfor -%}
+                                    </ol>
+                                </details>
+                            </td>
                         </tr>
                     {%- endfor -%}
                     </tbody>
