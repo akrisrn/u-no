@@ -16,6 +16,7 @@ index_fixed_key = "fixed"
 index_notags_key = "notags"
 index_top_key = "top"
 index_highlight_key = "highlight"
+index_bereferenced_key = "bereferenced"
 
 flag_tag = "tag"
 flag_date = "date"

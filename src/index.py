@@ -5,10 +5,11 @@ import re
 from flask import current_app
 
 import src.flag
+import src.md
 from .cache import get_file_cache
 from .const import index_url_key, index_title_key, index_parent_key, index_id_key, index_highlight_key, \
     index_top_key, index_notags_key, index_fixed_key, index_tags_key, index_date_key, index_path_key, \
-    articles_url_name, attachments_url_name
+    articles_url_name, attachments_url_name, index_bereferenced_key
 from .util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
     update_config_ignore_file_list
 
@@ -122,6 +123,7 @@ def reindex():
     articles_dir_abspath = get_articles_dir_abspath()
     articles_block = {}
     attachments_block = {}
+    reference_dict = {}
     # 遍历文章目录下所有文件和子目录
     for root, dirs, files in os.walk(articles_dir_abspath):
         # 截取相对路径
@@ -170,19 +172,33 @@ def reindex():
                     item = get_item_by_path(file_path)
                     if item:
                         url = "/%s/%s" % (articles_url_name, item[index_url_key].split("/")[-1])
+                reference_dict[file_path] = src.md.inlink(data, True)
                 # 组成一条文章索引
                 articles_block[file_path] = {index_id_key: index, index_parent_key: parent, index_title_key: title,
                                              index_path_key: file_path, index_url_key: url, index_date_key: date,
                                              index_tags_key: tags, index_fixed_key: fixed,
                                              index_notags_key: src.flag.get_notags_flag(data),
                                              index_top_key: src.flag.get_top_flag(data),
-                                             index_highlight_key: src.flag.get_highlight_flag(data)}
+                                             index_highlight_key: src.flag.get_highlight_flag(data),
+                                             index_bereferenced_key: []}
             else:
                 # 组成一条附件索引
                 url = "/%s/%s" % (attachments_url_name, compute_digest_by_abspath(file_abspath))
                 attachments_block[file_path] = {index_id_key: index, index_parent_key: parent, index_title_key: title,
-                                                index_path_key: file_path, index_url_key: url}
+                                                index_path_key: file_path, index_url_key: url,
+                                                index_bereferenced_key: []}
             index += 1
+    be_referenced_dict = {}
+    for key in reference_dict:
+        for value in reference_dict[key]:
+            if value not in be_referenced_dict:
+                be_referenced_dict[value] = []
+            be_referenced_dict[value].append(key)
+    for key in be_referenced_dict:
+        for block in [articles_block, attachments_block]:
+            if key in block:
+                block[key][index_bereferenced_key] = be_referenced_dict[key]
+                break
     # 写入索引文件
     index_data = json.dumps([articles_block, attachments_block], separators=(',', ':'))
     with open(os.path.join(articles_dir_abspath, current_app.config["INDEX_FILE_NAME"]), 'w',

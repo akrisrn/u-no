@@ -4,9 +4,9 @@ import pymdownx.emoji
 import pymdownx.superfences
 from markdown import markdown
 
-from src.flag import get_flag_regexp
+import src.flag
+import src.index
 from .const import index_url_key
-from .index import get_item_by_path
 from .util import regexp_join, get_articles_dir_abspath, get_unique_find_dict
 
 
@@ -105,19 +105,21 @@ def get_snippet(file_name):
 
 # 剔除flag标记内容
 def clean_md(text):
-    return re.sub(get_flag_regexp(r"\w+"), "", text)
+    return re.sub(src.flag.get_flag_regexp(r"\w+"), "", text)
 
 
 # 匹配[]()+语法为站内链接，小括号里填入文件相对路径，查找替换为索引文件中对应的url
-def inlink(text):
+def inlink(text, is_return_path=False):
+    file_path_list = []
     url_match_dict = get_unique_find_dict(r"\[(.*?)\]\((.*?)\)\+", text, 2)
     for match in url_match_dict:
         file_path = url_match_dict[match][1].replace("../", "")
         # 根据文件相对路径从索引文件中取出url
-        item = get_item_by_path(file_path)
+        item = src.index.get_item_by_path(file_path)
         if item:
             text = re.sub(regexp_join("%s", match), "[%s](%s)" % (url_match_dict[match][0], item[index_url_key]), text)
-    return text
+            file_path_list.append(file_path)
+    return text if not is_return_path else file_path_list
 
 
 # 匹配____text____语法为行内引用
