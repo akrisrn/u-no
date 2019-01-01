@@ -75,23 +75,25 @@ def get_unignore_flag(data):
 
 
 # 获取文章里标记的自定义css文件列表，语法匹配{{css}}，如果没有则返回空
-def get_custom_css_flag(data, custom_type=flag_css):
+def get_custom_css_flag(data, is_return_path=False, custom_type=flag_css):
     group = re.search(get_flag_regexp(custom_type), data)
     if not group:
         return []
     css_urls = []
+    css_path_list = []
     for css_path in re.split("[,，]", clean_text(group.group(2))):
         if css_path:
             # 根据css文件相对路径从索引文件中取出url
             item = src.index.get_item_by_path(css_path)
             if item:
                 css_urls.append(item[index_url_key])
-    return css_urls
+                css_path_list.append(css_path)
+    return css_urls if not is_return_path else css_path_list
 
 
 # 获取文章里标记的自定义js文件列表，语法匹配{{js}}，如果没有则返回空
-def get_custom_js_flag(data):
-    return get_custom_css_flag(data, flag_js)
+def get_custom_js_flag(data, is_return_path=False):
+    return get_custom_css_flag(data, is_return_path, flag_js)
 
 
 # 获取文章里标记的插件列表，语法匹配{{plugin}}，如果没有则返回空

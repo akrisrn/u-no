@@ -11,7 +11,7 @@ from .const import index_url_key, index_title_key, index_parent_key, index_id_ke
     index_top_key, index_notags_key, index_fixed_key, index_tags_key, index_date_key, index_path_key, \
     articles_url_name, attachments_url_name, index_bereferenced_key
 from .util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
-    update_config_ignore_file_list
+    update_config_ignore_file_list, get_unique_find_dict
 
 
 # 获取索引文件数据
@@ -172,7 +172,12 @@ def reindex():
                     item = get_item_by_path(file_path)
                     if item:
                         url = "/%s/%s" % (articles_url_name, item[index_url_key].split("/")[-1])
-                reference_dict[file_path] = src.md.inlink(data, True)
+                # 查找引用文件
+                reference_dict[file_path] = src.md.inlink(data, True) + src.flag.get_custom_css_flag(data, True) + \
+                                            src.flag.get_custom_js_flag(data, True)
+                for value in get_unique_find_dict("--8<-- \"(.*?)\"", data).values():
+                    if get_item_by_path(value):
+                        reference_dict[file_path].append(value)
                 # 组成一条文章索引
                 articles_block[file_path] = {index_id_key: index, index_parent_key: parent, index_title_key: title,
                                              index_path_key: file_path, index_url_key: url, index_date_key: date,
