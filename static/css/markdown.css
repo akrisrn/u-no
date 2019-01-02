@@ -4,6 +4,10 @@
     margin-top: 16px;
 }
 
+.markdown-body code {
+    margin: 0 5px;
+}
+
 .markdown-body dl dt {
     font-style: normal;
     font-weight: normal;
