@@ -16,8 +16,10 @@
 }
 
 .markdown-body dl dd:before {
+    font-family: "Font Awesome 5 Free", serif;
+    font-size: 12px;
+    font-weight: bold;
     content: "\f101";
-    font-family: FontAwesome, serif;
     margin-right: 8px;
 }
 
