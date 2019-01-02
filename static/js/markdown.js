@@ -103,10 +103,14 @@ $(function () {
         e.innerHTML = e.innerHTML.replace(/<\/summary>\s/, "</summary><p>") + "</p>"
     });
     const details = $("<details>");
-    details.attr("open", "open");
+    const toc = $(".toc");
+    if (toc.find("ul>li").length === 0) {
+        details.addClass("readonly");
+    } else {
+        details.attr("open", "open");
+    }
+    toc.wrap(details);
     const summary = $("<summary>");
     summary.append($("<strong>").text("目录"));
-    const toc = $(".toc");
-    toc.wrap(details);
     summary.insertBefore(toc)
 });
