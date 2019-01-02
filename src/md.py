@@ -125,7 +125,7 @@ def inlink(text, is_return_path=False):
 # 匹配____text____语法为行内引用
 def inline_quote(text):
     text_match_dict = get_unique_find_dict(r"____(.+)____", text)
-    for match in text_match_dict.keys():
+    for match in text_match_dict:
         text = re.sub(regexp_join("%s", match), '*%s*{:.inline-quote}' % text_match_dict[match], text)
     return text
 
@@ -147,7 +147,7 @@ def table_increment(text):
 # 匹配*[]语法为评分标签，方括号内匹配0-10
 def rate(text):
     rate_match_dict = get_unique_find_dict(r"\*\[([0-9]|10)\]", text)
-    for match in rate_match_dict.keys():
+    for match in rate_match_dict:
         # 实际展示的评分为匹配数字的一半
         rate_num = int(rate_match_dict[match]) / 2
         text = re.sub(regexp_join("%s", match), '<div class="star" data-score="%f"></div>' % rate_num, text)
@@ -157,7 +157,7 @@ def rate(text):
 # 匹配steam[]语法为steam小部件，方括号内匹配游戏id
 def steam(text):
     id_match_dict = get_unique_find_dict(r"steam\[(\d+)\]", text)
-    for match in id_match_dict.keys():
+    for match in id_match_dict:
         text = re.sub(regexp_join("%s", match),
                       '<iframe class="steam-widget" src="https://store.steampowered.com/widget/%s/"></iframe>' %
                       id_match_dict[match], text)
@@ -167,7 +167,7 @@ def steam(text):
 # 匹配kindle[]语法为亚马逊电子书小部件，方括号内匹配书籍id
 def kindle(text):
     id_match_dict = get_unique_find_dict(r"kindle\[(\w+)\]", text)
-    for match in id_match_dict.keys():
+    for match in id_match_dict:
         text = re.sub(regexp_join("%s", match),
                       '<iframe class="kindle-widget" src="https://read.amazon.cn/kp/card?asin=%s&preview=inline" '
                       'frameborder="0" allowfullscreen></iframe>' % id_match_dict[match], text)
