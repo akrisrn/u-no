@@ -84,6 +84,9 @@ function edit(_this, type) {
     showDiv.style.display = "none";
     let editDiv = document.createElement("div");
     editDiv.style.display = "inline";
+    if (type === "tag") {
+        editDiv.style.marginLeft = "10px";
+    }
     parent.insertBefore(editDiv, showDiv);
 
     if (type === "date") {
