@@ -23,6 +23,10 @@
     margin-right: 8px;
 }
 
+.markdown-body strong {
+    font-weight: bold;
+}
+
 .markdown-body details {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
     margin: 1em 0;
@@ -269,7 +273,7 @@
 .progress-label {
     position: absolute;
     text-align: center;
-    font-weight: 700;
+    font-weight: bold;
     width: 100%;
     margin: 0;
     line-height: 1.2rem;
