@@ -92,7 +92,7 @@ a:hover i, li:hover > i:first-child {
 .tag {
     display: inline-block;
     color: #6a737d;
-    font-size: small
+    font-size: 12px
 }
 
 .tag a {
