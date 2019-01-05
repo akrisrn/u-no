@@ -80,6 +80,10 @@
     font-size: 0;
 }
 
+.markdown-body details.toc {
+    max-width: 300px;
+}
+
 .markdown-body details > summary {
     margin: 0 -1.2rem;
     padding: 0.2rem 1.2rem;

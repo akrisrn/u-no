@@ -103,6 +103,7 @@ $(function () {
         e.innerHTML = e.innerHTML.replace(/<\/summary>\s/, "</summary><p>") + "</p>"
     });
     const details = $("<details>");
+    details.addClass("toc");
     const toc = $(".toc");
     if (toc.find("ul>li").length === 0) {
         details.addClass("readonly");
