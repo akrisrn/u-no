@@ -4,12 +4,9 @@
     margin-top: 16px;
 }
 
-.markdown-body code {
-    margin: 0 5px;
-}
-
 .markdown-body .linenodiv > pre {
-    padding-right: 0;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .markdown-body dl dt {
@@ -148,7 +145,7 @@
 }
 
 .markdown-body .highlight pre, .markdown-body pre {
-    background-color: rgba(27, 31, 35, 0.1);
+    background-color: rgba(27, 31, 35, 0.05);
 }
 
 .markdown-body .inline-quote {
