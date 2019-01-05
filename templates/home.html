@@ -29,15 +29,14 @@
                 <li class="page-{{ (loop.index - 1) // page_size + 1 }}">
                     <vue-home-li-icon></vue-home-li-icon>
                     <vue-date date="{{ fixed_article[index_date_key] }}"></vue-date>
-                    <vue-home-li url="{{ fixed_article[index_url_key] }}"
+                    <vue-home-li style="margin-right: 12px" url="{{ fixed_article[index_url_key] }}"
                                  name="{{ fixed_article[index_title_key].split(".")[0] }}"
                                  highlight="{{ "1" if fixed_article[index_highlight_key] else "" }}">
                     </vue-home-li>
                     {%- if not fixed_article[index_notags_key] -%}
-                        <vue-tag-icon style="margin: 0 8px"></vue-tag-icon>
                         {%- for tag in fixed_article[index_tags_key] | dictsort(by="value") -%}
-                            <vue-tag url="{{ url_for('main.tag_page', tag_hash=tag[0]) }}" name="{{ tag[1] }}">
-                            </vue-tag>
+                            <vue-tag url="{{ url_for('main.tag_page', tag_hash=tag[0]) }}"
+                                     name="{{ tag[1] }}"{{ " is_first" if loop.index == 1 else "" }}></vue-tag>
                         {%- endfor -%}
                     {%- endif -%}
                 </li>

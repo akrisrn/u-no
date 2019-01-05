@@ -12,9 +12,15 @@ Vue.component('vue-return-home', {
 });
 
 Vue.component('vue-tag', {
-    props: ['url', 'name'],
+    props: {
+        url: String, name: String, is_first: {
+            type: Boolean,
+            default: false
+        }
+    },
     template: `
 <div class="tag">
+    <vue-tag-icon v-if="is_first"></vue-tag-icon>
     <a v-bind:href="url"><i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ name }}</a>
 </div>`
 });

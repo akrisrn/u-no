@@ -17,9 +17,9 @@
     <vue-return-home></vue-return-home>
     <vue-date date="{{ date }}"></vue-date>
     {%- if not notags -%}
-        <vue-tag-icon style="margin-right: 8px"></vue-tag-icon>
         {%- for tag in tags | dictsort(by="value") -%}
-            <vue-tag url="{{ url_for('main.tag_page', tag_hash=tag[0]) }}" name="{{ tag[1] }}"></vue-tag>
+            <vue-tag url="{{ url_for('main.tag_page', tag_hash=tag[0]) }}"
+                     name="{{ tag[1] }}"{{ " is_first" if loop.index == 1 else "" }}></vue-tag>
         {%- endfor -%}
     {%- endif -%}
     <hr>
