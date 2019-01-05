@@ -14,14 +14,14 @@
 {%- endblock -%}
 {%- block content -%}
     {%- if tag_name -%}
-        <h2>
+        <h1>
             {#- @formatter:off -#}
             <vue-hashtag-icon style="margin-right: 8px"></vue-hashtag-icon>{{ tag_name }}
             {#- @formatter:on -#}
-        </h2>
+        </h1>
         <vue-return-home></vue-return-home>
     {%- else -%}
-        <h2>{{ site_name }}</h2>
+        <h1>{{ site_name }}</h1>
     {%- endif -%}
     <div class="markdown-body">
         <ul>
