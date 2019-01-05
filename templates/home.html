@@ -35,9 +35,8 @@
                     </vue-home-li>
                     {%- if not fixed_article[index_notags_key] -%}
                         <vue-tag-icon style="margin-left: 8px;"></vue-tag-icon>
-                        {%- for key in fixed_article[index_tags_key] | sort -%}
-                            <vue-tag url="{{ url_for('main.tag_page', tag_hash=key) }}"
-                                     name="{{ fixed_article[index_tags_key][key] }}">
+                        {%- for tag in fixed_article[index_tags_key] | dictsort(by="value") -%}
+                            <vue-tag url="{{ url_for('main.tag_page', tag_hash=tag[0]) }}" name="{{ tag[1] }}">
                             </vue-tag>
                         {%- endfor -%}
                     {%- endif -%}

@@ -85,9 +85,8 @@
                             </td>
                             <td>
                                 <div style="display: inline">
-                                    {%- for key in article[index_tags_key] | sort -%}
-                                        <vue-tag url="{{ "?t=" + article[index_tags_key][key] }}"
-                                                 name="{{ article[index_tags_key][key] }}">
+                                    {%- for tag in article[index_tags_key] | dictsort(by="value") -%}
+                                        <vue-tag url="{{ "?t=" + tag[1] }}" name="{{ tag[1] }}">
                                         </vue-tag>
                                     {%- endfor -%}
                                 </div>
