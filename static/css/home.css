@@ -17,9 +17,6 @@
 
 .markdown-body ul li {
     width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .markdown-body li > a {
