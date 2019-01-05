@@ -123,13 +123,23 @@
     margin: 16px 0;
 }
 
-.markdown-body .toc ul {
-    margin-bottom: 0;
+.markdown-body .toc > ol {
+    padding-left: 8px;
 }
 
-.markdown-body .toc li {
+.markdown-body .toc ol {
+    counter-reset: item;
+}
+
+.markdown-body .toc ol > li {
+    display: block;
     margin-top: 0;
     font-size: 14px;
+}
+
+.markdown-body .toc ol > li:before {
+    content: counters(item, ".") " ";
+    counter-increment: item;
 }
 
 .markdown-body .star {
