@@ -48,15 +48,12 @@ def render(text):
         "pymdownx.emoji": {
             "emoji_index": pymdownx.emoji.gemoji,
             "emoji_generator": pymdownx.emoji.to_png,
-            "alt": "short",
             "options": {
                 "attributes": {
                     "align": "absmiddle",
                     "height": "20px",
                     "width": "20px"
                 },
-                "image_path": "https://assets-cdn.github.com/images/icons/emoji/unicode/",
-                "non_standard_image_path": "https://assets-cdn.github.com/images/icons/emoji/"
             }
         },
         "pymdownx.escapeall": {
