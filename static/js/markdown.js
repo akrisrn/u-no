@@ -113,5 +113,8 @@ $(function () {
     toc.wrap(details);
     const summary = $("<summary>");
     summary.append($("<strong>").text("目录"));
-    summary.insertBefore(toc)
+    summary.insertBefore(toc);
+    $(toc.find('ul').get().reverse()).each(function () {
+        $(this).replaceWith($('<ol>' + $(this).html() + '</ol>'))
+    })
 });
