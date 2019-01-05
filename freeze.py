@@ -85,7 +85,7 @@ if __name__ == '__main__':
     def replace_url(data, urls):
         for result in get_unique_find_list("/(%s|%s|%s)/[0-9a-z]{%s}" %
                                            (articles_url_name, attachments_url_name, tags_url_name, hash_length), data):
-            data = re.sub(result, urls[result], data)
+            data = re.sub(result, urls[result] if result in urls else "", data)
         return data.replace("http:///", "/")
 
 
