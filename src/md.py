@@ -63,11 +63,6 @@ def render(text):
             "hardbreak": True,  # 转义换行符为<br>
             "nbsp": True  # 转义空格为&nbsp;
         },
-        # 代码高亮配置
-        "pymdownx.highlight": {
-            "noclasses": True,
-            "pygments_style": "pastie"
-        },
         # 自动链接配置
         "pymdownx.magiclink": {
             "repo_url_shortener": True,
