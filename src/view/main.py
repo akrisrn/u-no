@@ -1,5 +1,4 @@
 import os
-from operator import itemgetter
 
 from flask import send_from_directory, Blueprint, render_template, request, abort, url_for, redirect, current_app
 
