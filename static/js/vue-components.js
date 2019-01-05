@@ -15,7 +15,7 @@ Vue.component('vue-tag', {
     props: ['url', 'name'],
     template: `
 <div class="tag">
-    <a v-bind:href="url"><i style="margin-right: 3px;margin-left: 8px" class="fas fa-hashtag"></i>{{ name }}</a>
+    <a v-bind:href="url"><i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ name }}</a>
 </div>`
 });
 

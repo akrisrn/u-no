@@ -92,7 +92,8 @@ a:hover i, li:hover > i:first-child {
 .tag {
     display: inline-block;
     color: #6a737d;
-    font-size: 12px
+    font-size: 12px;
+    margin-right: 8px;
 }
 
 .tag a {

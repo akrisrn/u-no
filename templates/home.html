@@ -34,7 +34,7 @@
                                  highlight="{{ "1" if fixed_article[index_highlight_key] else "" }}">
                     </vue-home-li>
                     {%- if not fixed_article[index_notags_key] -%}
-                        <vue-tag-icon style="margin-left: 8px;"></vue-tag-icon>
+                        <vue-tag-icon style="margin: 0 8px"></vue-tag-icon>
                         {%- for tag in fixed_article[index_tags_key] | dictsort(by="value") -%}
                             <vue-tag url="{{ url_for('main.tag_page', tag_hash=tag[0]) }}" name="{{ tag[1] }}">
                             </vue-tag>
