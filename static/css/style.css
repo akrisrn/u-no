@@ -10,7 +10,7 @@ body {
     background-color: #f6f6f6;
 }
 
-a, a i, li i {
+a, a i, li i, .tag > i {
     color: #24292e;
     text-decoration: none;
     transition: all 0.5s;
