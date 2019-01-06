@@ -19,7 +19,7 @@ Vue.component('vue-tag', {
     },
     template: `
 <div class="tag">
-    <a v-bind:href="tags_url"><vue-tag-icon v-if="is_first" style="margin-right: 8px"></vue-tag-icon></a><a v-bind:href="url"><vue-hashtag-icon style="margin-right: 3px"></vue-hashtag-icon>{{ name }}</a>
+    <a v-if="is_first" v-bind:href="tags_url"><vue-tag-icon style="margin-right: 8px"></vue-tag-icon></a><a v-bind:href="url"><vue-hashtag-icon style="margin-right: 3px"></vue-hashtag-icon>{{ name }}</a>
 </div>`
 });
 
