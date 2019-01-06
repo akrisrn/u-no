@@ -11,7 +11,7 @@ from .const import index_url_key, index_title_key, index_parent_key, index_id_ke
     index_top_key, index_notags_key, index_fixed_key, index_tags_key, index_date_key, index_path_key, \
     articles_url_name, attachments_url_name, index_bereferenced_key
 from .util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
-    update_config_ignore_file_list, get_unique_find_dict
+    update_config_ignore_file_list, get_unique_find_dict, get_tag_parents
 
 
 # 获取索引文件数据
@@ -19,6 +19,10 @@ def get_index_data():
     # 组成索引文件绝对路径
     index_file_path = os.path.join(get_articles_dir_abspath(), current_app.config["INDEX_FILE_NAME"])
     return json.loads(get_file_cache(index_file_path))
+
+
+def get_tags_parents():
+    return get_index_data()[2]
 
 
 # 根据相对路径从索引文件中取出对应项目
@@ -124,6 +128,7 @@ def reindex():
     articles_block = {}
     attachments_block = {}
     reference_dict = {}
+    tag_parents = {}
     # 遍历文章目录下所有文件和子目录
     for root, dirs, files in os.walk(articles_dir_abspath):
         # 截取相对路径
@@ -161,6 +166,8 @@ def reindex():
             if not path.startswith(current_app.config["ATTACHMENTS_DIR_NAME"]):
                 # 获取标签并生成标签字典
                 tags = {compute_digest_by_data(tag): tag for tag in src.flag.get_tags_flag(data)}
+                tag_parents.update({compute_digest_by_data(tag_parent): tag_parent for key in tags
+                                    for tag_parent in get_tag_parents(tags[key])})
                 # 获取日期
                 date = src.flag.get_date_flag(data)
                 # 计算文章哈希组成url
@@ -205,7 +212,7 @@ def reindex():
                 block[key][index_bereferenced_key] = be_referenced_dict[key]
                 break
     # 写入索引文件
-    index_data = json.dumps([articles_block, attachments_block], separators=(',', ':'))
+    index_data = json.dumps([articles_block, attachments_block, tag_parents], separators=(',', ':'))
     with open(os.path.join(articles_dir_abspath, current_app.config["INDEX_FILE_NAME"]), 'w',
               encoding='utf-8') as index_file:
         index_file.write(index_data)

@@ -6,7 +6,7 @@ from ..cache import get_file_cache
 from ..const import index_notags_key, index_parent_key, index_path_key, index_url_name, index_title_key, index_id_key, \
     index_tags_key, index_date_key, articles_url_name, attachments_url_name, tags_url_name, reindex_url_name
 from ..flag import get_custom_js_flag, get_custom_css_flag, get_plugin_flag
-from ..index import get_item_by_url, index_data_filter, get_fixed_articles, reindex
+from ..index import get_item_by_url, index_data_filter, get_fixed_articles, reindex, get_tags_parents
 from ..md import render, get_snippet
 from ..util import get_articles_dir_abspath, is_valid_hash, get_plugins_urls, get_tag_parents
 
@@ -109,12 +109,20 @@ def tags_page():
             else:
                 tags_count[value] += 1
         tags.update(article[index_tags_key])
+    tags_parents = get_tags_parents()
+    for key in tags_parents:
+        value = tags_parents[key]
+        if value not in tags_count:
+            tags_count[value] = 0
+    tags.update(tags_parents)
     for article in get_fixed_articles():
+        tag_parents = []
         for key in article[index_tags_key]:
             value = article[index_tags_key][key]
-            for parent in get_tag_parents(value):
-                if parent in tags_count:
-                    tags_count[parent] += 1
+            tag_parents += get_tag_parents(value)
+        for parent in set(tag_parents):
+            if parent in tags_count:
+                tags_count[parent] += 1
     md_list = ""
     prev_slash_count = 0
     for tag in sorted(tags.items(), key=lambda kv: kv[1].lower()):
@@ -145,6 +153,14 @@ def tag_page(tag_hash):
                 break
         if break_outer:
             break
+    if not tag_name:
+        tags_parents = get_tags_parents()
+        for key in tags_parents:
+            if key == tag_hash:
+                tag_name = tags_parents[key]
+                break
+    if not tag_name:
+        abort(404)
     for article in fixed_articles:
         for key in article[index_tags_key]:
             value = article[index_tags_key][key]
