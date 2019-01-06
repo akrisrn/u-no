@@ -30,8 +30,7 @@
                     <vue-home-li-icon></vue-home-li-icon>
                     <vue-date date="{{ fixed_article[index_date_key] }}"></vue-date>
                     <vue-home-li style="margin-right: 12px" url="{{ fixed_article[index_url_key] }}"
-                                 name="{{ fixed_article[index_title_key].split(".")[0] }}"
-                                 highlight="{{ "1" if fixed_article[index_highlight_key] else "" }}">
+                                 name="{{ fixed_article[index_title_key].split(".")[0] }}"{{ " is_highlight" if fixed_article[index_highlight_key] else "" }}>
                     </vue-home-li>
                     {%- if not fixed_article[index_notags_key] -%}
                         {%- for tag in fixed_article[index_tags_key] | dictsort(by="value") -%}

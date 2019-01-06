@@ -20,7 +20,7 @@ Vue.component('vue-tag', {
     },
     template: `
 <div class="tag">
-    <a v-bind:href="tags_url"><vue-tag-icon v-if="is_first" style="margin-right: 8px"></vue-tag-icon></a><a v-bind:href="url"><i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ name }}</a>
+    <a v-bind:href="tags_url"><vue-tag-icon v-if="is_first" style="margin-right: 8px"></vue-tag-icon></a><a v-bind:href="url"><vue-hashtag-icon style="margin-right: 3px"></vue-hashtag-icon>{{ name }}</a>
 </div>`
 });
 
@@ -41,10 +41,19 @@ Vue.component('vue-home-li-icon', {
     template: '<i class="fas fa-angle-double-right"></i>'
 });
 
+Vue.component('vue-star-icon', {
+    template: '<i class="fas fa-star"></i>'
+});
+
 Vue.component('vue-home-li', {
-    props: ['url', 'name', 'highlight'],
+    props: {
+        url: String, name: String, is_highlight: {
+            type: Boolean,
+            default: false
+        }
+    },
     template: `
-<a v-bind:href="url" v-bind:class="{ 'article-hl': highlight }"><i style="margin-right: 8px;" class="fas fa-star" v-if="highlight"></i>{{ name }}</a>`
+<a v-bind:href="url" v-bind:class="{'article-hl': is_highlight}"><vue-star-icon style="margin-right: 8px;" v-if="is_highlight"></vue-star-icon>{{ name }}</a>`
 });
 
 Vue.component('vue-error', {
