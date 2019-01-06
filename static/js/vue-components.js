@@ -13,14 +13,14 @@ Vue.component('vue-return-home', {
 
 Vue.component('vue-tag', {
     props: {
-        url: String, name: String, is_first: {
+        tags_url: String, url: String, name: String, is_first: {
             type: Boolean,
             default: false
         }
     },
     template: `
 <div class="tag">
-    <vue-tag-icon v-if="is_first" style="margin-right: 8px"></vue-tag-icon><a v-bind:href="url"><i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ name }}</a>
+    <a v-bind:href="tags_url"><vue-tag-icon v-if="is_first" style="margin-right: 8px"></vue-tag-icon></a><a v-bind:href="url"><i style="margin-right: 3px" class="fas fa-hashtag"></i>{{ name }}</a>
 </div>`
 });
 
