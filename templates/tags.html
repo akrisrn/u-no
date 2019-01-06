@@ -1,0 +1,22 @@
+{%- extends "frame.html" -%}
+{%- block title -%}
+    ## {{ title }} - {{ site_name }}
+{%- endblock -%}
+{%- block content -%}
+    <h1>
+        {#- @formatter:off -#}
+        <vue-tag-icon style="margin-right: 8px"></vue-tag-icon>{{ title }}
+        {#- @formatter:on -#}
+    </h1>
+    <vue-return-home></vue-return-home>
+    <div class="markdown-body">
+        <ul>
+            {%- for tag in tags | dictsort(by="value") -%}
+                <li>
+                    <vue-tag url="{{ url_for('main.tag_page', tag_hash=tag[0]) }}" name="{{ tag[1] }}"></vue-tag>
+                    <div class="date">({{ tags_count[tag[0]] }})</div>
+                </li>
+            {%- endfor -%}
+        </ul>
+    </div>
+{%- endblock -%}

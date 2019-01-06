@@ -96,6 +96,21 @@ def article_page(url_name, file_hash):
         return send_from_directory(file_dir, file)
 
 
+# 标签汇总页
+@main.route('/%s/' % tags_url_name)
+def tags_page():
+    tags = {}
+    tags_count = {}
+    for article in get_fixed_articles():
+        for key in article[index_tags_key]:
+            if key not in tags_count:
+                tags_count[key] = 1
+            else:
+                tags_count[key] += 1
+        tags.update(article[index_tags_key])
+    return render_template('tags.html', title=tags_url_name.upper(), tags=tags, tags_count=tags_count)
+
+
 # 标签页
 @main.route('/%s/<tag_hash>/' % tags_url_name)
 def tag_page(tag_hash):
