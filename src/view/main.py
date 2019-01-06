@@ -20,7 +20,7 @@ def home_page():
 
 
 # 索引页，通过索引文件名访问，展示索引文件内容，可通过传输url参数搜索
-@main.route('/%s/' % index_url_name)
+@main.route('/%s' % index_url_name)
 def index_page():
     search = [request.args.get('i', '').strip(),  # 搜索编号
               request.args.get('n', '').strip(),  # 搜索标题
@@ -45,14 +45,14 @@ def index_page():
                            ignore_tab_name="ignore_file")
 
 
-@main.route('/%s/' % reindex_url_name)
+@main.route('/%s' % reindex_url_name)
 def reindex_page():
     reindex()
     return redirect(url_for(".index_page"))
 
 
 # 文章和附件页，通过对应的目录名和哈希值访问，文章展示markdown渲染结果，附件直接展示源文件
-@main.route('/<any("%s", "%s"):url_name>/<file_hash>/' % (articles_url_name, attachments_url_name))
+@main.route('/<any("%s", "%s"):url_name>/<file_hash>' % (articles_url_name, attachments_url_name))
 def article_page(url_name, file_hash):
     # 判断哈希格式
     if not is_valid_hash(file_hash):
@@ -97,7 +97,7 @@ def article_page(url_name, file_hash):
 
 
 # 标签汇总页
-@main.route('/%s/' % tags_url_name)
+@main.route('/%s' % tags_url_name)
 def tags_page():
     tags = {}
     tags_count = {}
@@ -112,7 +112,7 @@ def tags_page():
 
 
 # 标签页
-@main.route('/%s/<tag_hash>/' % tags_url_name)
+@main.route('/%s/<tag_hash>' % tags_url_name)
 def tag_page(tag_hash):
     # 判断哈希格式
     if not is_valid_hash(tag_hash):

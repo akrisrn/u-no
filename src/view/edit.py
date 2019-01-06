@@ -51,7 +51,7 @@ def toggle_flag(item_path, flag, is_on, data=None, force_reindex=False, force_up
     return is_reindex
 
 
-@edit.route('/%s/<path:item_path>/' % flag_ignore)
+@edit.route('/%s/<path:item_path>' % flag_ignore)
 def ignore(item_path, is_ignore=True):
     # 加入忽略列表
     update_config_ignore_file_list(item_path, is_ignore)
@@ -59,62 +59,62 @@ def ignore(item_path, is_ignore=True):
     return redirect(url_for('main.index_page'))
 
 
-@edit.route('/%s/<path:item_path>/' % flag_unignore)
+@edit.route('/%s/<path:item_path>' % flag_unignore)
 def unignore(item_path):
     return ignore(item_path, False)
 
 
-@edit.route('/%s/<path:item_path>/' % flag_fixed)
+@edit.route('/%s/<path:item_path>' % flag_fixed)
 def fixed(item_path, is_fixed=True):
     return jsonify(toggle_flag(item_path, flag_fixed, is_fixed))
 
 
-@edit.route('/un%s/<path:item_path>/' % flag_fixed)
+@edit.route('/un%s/<path:item_path>' % flag_fixed)
 def unfixed(item_path):
     return fixed(item_path, False)
 
 
-@edit.route('/%s/<path:item_path>/' % flag_top)
+@edit.route('/%s/<path:item_path>' % flag_top)
 def top(item_path, is_top=True):
     return jsonify(toggle_flag(item_path, flag_top, is_top))
 
 
-@edit.route('/un%s/<path:item_path>/' % flag_top)
+@edit.route('/un%s/<path:item_path>' % flag_top)
 def untop(item_path):
     return top(item_path, False)
 
 
-@edit.route('/%s/<path:item_path>/' % flag_highlight)
+@edit.route('/%s/<path:item_path>' % flag_highlight)
 def highlight(item_path, is_highlight=True):
     return jsonify(toggle_flag(item_path, flag_highlight, is_highlight))
 
 
-@edit.route('/un%s/<path:item_path>/' % flag_highlight)
+@edit.route('/un%s/<path:item_path>' % flag_highlight)
 def unhighlight(item_path):
     return highlight(item_path, False)
 
 
-@edit.route('/%s/<path:item_path>/' % flag_notags)
+@edit.route('/%s/<path:item_path>' % flag_notags)
 def notags(item_path, is_notags=True):
     return jsonify(toggle_flag(item_path, flag_notags, is_notags))
 
 
-@edit.route('/un%s/<path:item_path>/' % flag_notags)
+@edit.route('/un%s/<path:item_path>' % flag_notags)
 def unnotags(item_path):
     return notags(item_path, False)
 
 
-@edit.route('/%s/<path:item_path>/' % flag_tag)
+@edit.route('/%s/<path:item_path>' % flag_tag)
 def tag(item_path):
     return jsonify(toggle_flag(item_path, flag_tag, False, request.args.get("data", ""), False, True))
 
 
-@edit.route('/%s/<path:item_path>/' % flag_date)
+@edit.route('/%s/<path:item_path>' % flag_date)
 def date(item_path):
     return jsonify(toggle_flag(item_path, flag_date, False, request.args.get("data", ""), False, True))
 
 
-@edit.route('/article/<path:item_path>/', methods=["GET", "POST"])
+@edit.route('/article/<path:item_path>', methods=["GET", "POST"])
 def article(item_path):
     item = get_item_by_path(item_path)
     if not item:
