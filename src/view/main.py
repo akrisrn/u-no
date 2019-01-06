@@ -8,7 +8,7 @@ from ..const import index_notags_key, index_parent_key, index_path_key, index_ur
 from ..flag import get_custom_js_flag, get_custom_css_flag, get_plugin_flag
 from ..index import get_item_by_url, index_data_filter, get_fixed_articles, reindex
 from ..md import render, get_snippet
-from ..util import get_articles_dir_abspath, is_valid_hash, get_plugins_urls
+from ..util import get_articles_dir_abspath, is_valid_hash, get_plugins_urls, get_tag_parents
 
 main = Blueprint("main", __name__)
 
@@ -103,12 +103,28 @@ def tags_page():
     tags_count = {}
     for article in get_fixed_articles():
         for key in article[index_tags_key]:
-            if key not in tags_count:
-                tags_count[key] = 1
+            value = article[index_tags_key][key]
+            if value not in tags_count:
+                tags_count[value] = 1
             else:
-                tags_count[key] += 1
+                tags_count[value] += 1
         tags.update(article[index_tags_key])
-    return render_template('tags.html', title=tags_url_name.upper(), tags=tags, tags_count=tags_count)
+    for article in get_fixed_articles():
+        for key in article[index_tags_key]:
+            value = article[index_tags_key][key]
+            for parent in get_tag_parents(value):
+                if parent in tags_count:
+                    tags_count[parent] += 1
+    md_list = ""
+    prev_slash_count = 0
+    for tag in sorted(tags.items(), key=lambda kv: kv[1].lower()):
+        slash_count = len(tag[1].split("/")) - 1
+        if slash_count - prev_slash_count > 1:
+            slash_count = prev_slash_count + 1
+        md_list += "    " * slash_count + '- <vue-tag url="%s" name="%s"></vue-tag><div class="date">(%s)</div><hr>\n' \
+                   % (url_for('main.tag_page', tag_hash=tag[0]), tag[1], tags_count[tag[1]])
+        prev_slash_count = slash_count
+    return render_template('tags.html', title=tags_url_name.upper(), data=render(md_list))
 
 
 # 标签页
@@ -120,11 +136,19 @@ def tag_page(tag_hash):
     new_fixed_articles = []
     fixed_articles = get_fixed_articles()
     tag_name = ""
+    break_outer = False
     for article in fixed_articles:
         for key in article[index_tags_key]:
             if key == tag_hash:
-                if not tag_name:
-                    tag_name = article[index_tags_key][key]
+                tag_name = article[index_tags_key][key]
+                break_outer = True
+                break
+        if break_outer:
+            break
+    for article in fixed_articles:
+        for key in article[index_tags_key]:
+            value = article[index_tags_key][key]
+            if key == tag_hash or value.startswith(tag_name + "/"):
                 new_fixed_articles.append(article)
                 break
     if not new_fixed_articles:

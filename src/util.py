@@ -128,6 +128,18 @@ def get_unique_find_dict(pattern, data, num=1):
             for group in re.finditer(pattern, data)}
 
 
+def get_tag_parents(tag_name, parents=None):
+    if not parents:
+        parents = []
+    index = tag_name.rfind("/")
+    if index >= 0:
+        parent = tag_name[:index]
+        parents.append(parent)
+        return get_tag_parents(parent, parents)
+    else:
+        return parents
+
+
 # 获取本地包中文件url
 def get_module_file_url(filename, is_npm=True):
     dir_name = "node_modules" if is_npm else "bower_components"
