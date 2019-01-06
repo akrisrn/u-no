@@ -6,7 +6,7 @@ from PIL import Image
 from css_html_js_minify import process_single_css_file, process_single_html_file, process_single_js_file
 
 from src.const import index_path_key, index_url_key, index_tags_key, index_title_key, hash_length
-from src.index import get_item_by_url, reindex
+from src.index import get_item_by_url, reindex, get_tags_parents
 from src.util import get_root_abspath, get_unique_find_list
 from src.view.main import home_page, article_page, tag_page, articles_url_name, attachments_url_name, tags_url_name, \
     tags_page
@@ -51,6 +51,7 @@ if __name__ == '__main__':
         reindex()
         index_page_data = home_page()
         data_list[os.path.join(frozen_dir_abspath, "index.html")] = index_page_data
+        is_first = True
         for result_article in get_unique_find_list("/%s/[0-9a-z]{%s}" % (articles_url_name, hash_length),
                                                    index_page_data):
             article = get_item_by_url(result_article)
@@ -77,6 +78,9 @@ if __name__ == '__main__':
 
             data_list[os.path.join(frozen_tags_dir_abspath, "index.html")] = tags_page()
             tags = article[index_tags_key]
+            if is_first:
+                tags.update(get_tags_parents())
+                is_first = False
             for tag in tags:
                 tag_abspath = os.path.join(frozen_tags_dir_abspath, tag + ".html")
                 if tag_abspath not in data_list:
