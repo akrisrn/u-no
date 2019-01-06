@@ -8,7 +8,8 @@ from css_html_js_minify import process_single_css_file, process_single_html_file
 from src.const import index_path_key, index_url_key, index_tags_key, index_title_key, hash_length
 from src.index import get_item_by_url, reindex
 from src.util import get_root_abspath, get_unique_find_list
-from src.view.main import home_page, article_page, tag_page, articles_url_name, attachments_url_name, tags_url_name
+from src.view.main import home_page, article_page, tag_page, articles_url_name, attachments_url_name, tags_url_name, \
+    tags_page
 from uno import app
 
 if __name__ == '__main__':
@@ -74,6 +75,7 @@ if __name__ == '__main__':
                     new_attach_filename = attach_hash + ".webp"
                 page_urls[result_attach] = "/%s/%s" % (attachments_url_name, new_attach_filename)
 
+            data_list[os.path.join(frozen_tags_dir_abspath, "index.html")] = tags_page()
             tags = article[index_tags_key]
             for tag in tags:
                 tag_abspath = os.path.join(frozen_tags_dir_abspath, tag + ".html")
