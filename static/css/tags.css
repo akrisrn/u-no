@@ -1,3 +1,7 @@
 #content hr {
     margin: 0;
 }
+
+.markdown-body > ul {
+    margin-left: -12px;
+}
