@@ -4,7 +4,7 @@ $(function () {
     textarea.scrollTop = 0;
 
     $("#save").click(() => {
-        $.post(document.location.pathname, {data: $("#article-content").val()}, (result) => {
+        $.post(document.location.pathname, {data: textarea.value}, (result) => {
             if (result) {
                 url = result;
                 const message = $("#message");
@@ -15,6 +15,12 @@ $(function () {
     });
     $("#view").click(() => {
         open(url)
+    });
+    $("#clean").click(() => {
+        textarea.value = ""
+    });
+    $("#select").click(() => {
+        textarea.select()
     });
 
     $(window).bind("keydown", (event) => {
