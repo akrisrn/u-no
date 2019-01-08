@@ -28,6 +28,10 @@
     margin-right: 8px;
 }
 
+.markdown-body dd + dd {
+    margin-top: -16px;
+}
+
 .markdown-body strong {
     font-weight: bold;
 }
