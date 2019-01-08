@@ -84,7 +84,7 @@ def render(text):
     for ext in [clean_md, inlink, inline_quote, table_increment, rate, steam, kindle]:
         text = ext(text)
     html = markdown(text, extensions=extensions, extension_configs=extension_configs)
-    for ext in [trim_force_del_ins, symbols]:
+    for ext in [trim_force_del_ins, symbols, lazy_img]:
         html = ext(html)
     return html
 
@@ -179,3 +179,7 @@ def symbols(html):
     for k in sym:
         html = html.replace(k, sym[k])
     return html
+
+
+def lazy_img(html):
+    return re.sub(r'(<img.*?src=)(".*?")', r'\g<1>"" data-src=\g<2>', html)
