@@ -85,7 +85,14 @@
 }
 
 .markdown-body details.toc {
-    max-width: 300px;
+    box-shadow: none;
+    border-left: 0.25em solid #dfe2e5;
+    border-radius: 0;
+}
+
+.markdown-body details.toc > summary {
+    background-color: transparent;
+    max-width: 100px;
 }
 
 .markdown-body details > summary {
@@ -123,12 +130,9 @@
     font-family: 'Source Code Pro', SimSun, sans-serif;
 }
 
-.markdown-body .toc {
-    margin: 16px 0;
-}
-
 .markdown-body .toc > ol {
-    padding-left: 8px;
+    padding-left: 0;
+    margin-bottom: 0;
 }
 
 .markdown-body .toc ol {
