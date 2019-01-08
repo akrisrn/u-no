@@ -151,8 +151,7 @@ def steam(text):
     id_match_dict = get_unique_find_dict(r"steam\[(\d+)\]", text)
     for match in id_match_dict:
         text = re.sub(regexp_join("%s", match),
-                      '<iframe class="steam-widget" src="https://store.steampowered.com/widget/%s/"></iframe>' %
-                      id_match_dict[match], text)
+                      '<iframe class="steam-widget" data-id="%s"></iframe>' % id_match_dict[match], text)
     return text
 
 
@@ -161,8 +160,7 @@ def kindle(text):
     id_match_dict = get_unique_find_dict(r"kindle\[(\w+)\]", text)
     for match in id_match_dict:
         text = re.sub(regexp_join("%s", match),
-                      '<iframe class="kindle-widget" src="https://read.amazon.cn/kp/card?asin=%s&preview=inline" '
-                      'frameborder="0" allowfullscreen></iframe>' % id_match_dict[match], text)
+                      '<iframe class="kindle-widget" data-id="%s"></iframe>' % id_match_dict[match], text)
     return text
 
 
