@@ -99,8 +99,8 @@ $(function () {
         readOnly: true,
         starType: "i"
     });
-    $("ul>li:first-child>details, ol>li:first-child>details").each((i, e) => {
-        e.innerHTML = e.innerHTML.replace(/<\/summary>\s/, "</summary><p>") + "</p>"
+    $("ul>li:first-child>details, ol>li:first-child>details").each(function () {
+        this.innerHTML = this.innerHTML.replace(/<\/summary>\s/, "</summary><p>") + "</p>"
     });
     const details = $("<details>");
     details.addClass("toc");
