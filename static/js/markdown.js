@@ -95,13 +95,16 @@
 
 $(function () {
     $("#content").find("table").tablesorter({sortList: [[0, 0]]});
+
     $('.star').raty({
         readOnly: true,
         starType: "i"
     });
+
     $("ul>li:first-child>details, ol>li:first-child>details").each(function () {
         this.innerHTML = this.innerHTML.replace(/<\/summary>\s/, "</summary><p>") + "</p>"
     });
+
     const details = $("<details>");
     details.addClass("toc");
     const toc = $(".toc");
@@ -114,6 +117,7 @@ $(function () {
     const summary = $("<summary>");
     summary.append($("<strong>").text("目录"));
     summary.insertBefore(toc);
+
     $(toc.find('ul').get().reverse()).each(function () {
         $(this).replaceWith($('<ol>' + $(this).html() + '</ol>'))
     })
