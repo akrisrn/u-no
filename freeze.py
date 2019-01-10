@@ -4,6 +4,7 @@ import shutil
 
 from PIL import Image
 from css_html_js_minify import process_single_css_file, process_single_html_file, process_single_js_file
+from werkzeug.exceptions import NotFound
 
 from src.const import index_path_key, index_url_key, index_tags_key, index_title_key, hash_length
 from src.index import get_item_by_url, reindex, get_tags_parents
@@ -84,7 +85,10 @@ if __name__ == '__main__':
             for tag in tags:
                 tag_abspath = os.path.join(frozen_tags_dir_abspath, tag + ".html")
                 if tag_abspath not in data_list:
-                    data_list[tag_abspath] = tag_page(tag)
+                    try:
+                        data_list[tag_abspath] = tag_page(tag)
+                    except NotFound:
+                        continue
                     page_urls["/%s/%s" % (tags_url_name, tag)] = "/%s/%s.html" % (tags_url_name, tag)
 
 
