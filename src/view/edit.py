@@ -4,8 +4,8 @@ import re
 from flask import Blueprint, abort, request, jsonify, url_for, redirect, render_template
 
 from ..cache import get_file_cache
-from ..const import flag_notags, flag_highlight, flag_top, flag_fixed, flag_unignore, flag_ignore, flag_tag, flag_date, \
-    index_url_key
+from ..const import flag_notags, flag_highlight, flag_top, flag_fixed, flag_unignore, flag_ignore, flag_tag, \
+    flag_date, index_url_key
 from ..flag import get_flag_regexp
 from ..index import reindex, get_item_by_path
 from ..util import update_config_ignore_file_list, get_articles_dir_abspath
@@ -13,9 +13,9 @@ from ..util import update_config_ignore_file_list, get_articles_dir_abspath
 edit = Blueprint("edit", __name__)
 
 
-def toggle_flag(item_path, flag, is_on, data=None, force_reindex=False, force_update=False):
+def toggle_flag(item_path, flag, is_on, data=None, force_reindex=False, force_update=False, check_index=True):
     def toggle():
-        if not get_item_by_path(item_path):
+        if check_index and not get_item_by_path(item_path):
             abort(404)
         item_abspath = os.path.join(get_articles_dir_abspath(), item_path)
         if not os.path.exists(item_abspath):
@@ -55,7 +55,7 @@ def toggle_flag(item_path, flag, is_on, data=None, force_reindex=False, force_up
 def ignore(item_path, is_ignore=True):
     # 加入忽略列表
     update_config_ignore_file_list(item_path, is_ignore)
-    toggle_flag(item_path, flag_unignore if is_ignore else flag_ignore, False, None, True)
+    toggle_flag(item_path, flag_unignore if is_ignore else flag_ignore, False, None, True, False, False)
     return redirect(url_for('main.index_page'))
 
 

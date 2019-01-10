@@ -177,7 +177,7 @@ function toggle(_this, urls, state) {
     $.getJSON(flag_state[urls[0]] ? urls[1] : urls[0], "", (result) => {
         if (result) {
             flag_state[urls[0]] = !flag_state[urls[0]];
-            let classList = _this.parentElement.parentElement.children[0].classList;
+            let classList = _this.children[0].classList;
             classList.toggle("fa-times");
             classList.toggle("fa-check")
         }

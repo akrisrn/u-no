@@ -75,6 +75,10 @@ Vue.component('vue-folder-icon', {
     template: '<i class="far fa-folder"></i>'
 });
 
+Vue.component('vue-edit-icon', {
+    template: '<i class="fas fa-edit"></i>'
+});
+
 Vue.component('vue-check-icon', {
     props: ['checked'],
     template: `<i v-bind:class="['fas', checked ? 'fa-check' : 'fa-times', 'check']"></i>`

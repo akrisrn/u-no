@@ -15,7 +15,7 @@
     <h1>{{ title }}</h1>
     <vue-return-home></vue-return-home>
     <hr>
-    <div style="height: 30px;">
+    <div>
         <div class="search-input-group">
             <input id="idS" placeholder="Search ID">
             <input id="titleS" placeholder="Search Title">
@@ -66,7 +66,8 @@
                         <th width="80">Top</th>
                         <th width="80">Highlight</th>
                         <th width="80">NoTags</th>
-                        <th width="90">Edit</th>
+                        <th width="80">Edit</th>
+                        <th width="80">Ignore</th>
                         <th width="250">Be Referenced</th>
                     </tr>
                     </thead>
@@ -113,50 +114,55 @@
                                 </div>
                             </td>
                             <td align="center">
-                                <vue-check-icon :checked="{{ isFixed | lower }}"></vue-check-icon>
-                                <div class="button-group edit-group">
+                                <div class="button-group">
                                     {%- set fixed_urls = [url_for("edit.fixed", item_path=article_path), url_for("edit.unfixed", item_path=article_path)] -%}
                                     <button class="button" title="Toggle"
-                                            onclick='toggle(this, {{ fixed_urls | tojson }}, {{ isFixed | lower }})'>T
+                                            onclick='toggle(this, {{ fixed_urls | tojson }}, {{ isFixed | lower }})'>
+                                        <vue-check-icon :checked="{{ isFixed | lower }}"></vue-check-icon>
                                     </button>
                                 </div>
                             </td>
                             <td align="center">
-                                <vue-check-icon :checked="{{ isTop | lower }}"></vue-check-icon>
-                                <div class="button-group edit-group">
+                                <div class="button-group">
                                     {%- set top_urls = [url_for("edit.top", item_path=article_path), url_for("edit.untop", item_path=article_path)] -%}
                                     <button class="button" title="Toggle"
-                                            onclick='toggle(this, {{ top_urls | tojson }}, {{ isTop | lower }})'>T
+                                            onclick='toggle(this, {{ top_urls | tojson }}, {{ isTop | lower }})'>
+                                        <vue-check-icon :checked="{{ isTop | lower }}"></vue-check-icon>
                                     </button>
                                 </div>
                             </td>
                             <td align="center">
-                                <vue-check-icon :checked="{{ isHighlight | lower }}"></vue-check-icon>
-                                <div class="button-group edit-group">
+                                <div class="button-group">
                                     {%- set hl_urls = [url_for("edit.highlight", item_path=article_path), url_for("edit.unhighlight", item_path=article_path)] -%}
                                     <button class="button" title="Toggle"
-                                            onclick='toggle(this, {{ hl_urls | tojson }}, {{ isHighlight | lower }})'>T
+                                            onclick='toggle(this, {{ hl_urls | tojson }}, {{ isHighlight | lower }})'>
+                                        <vue-check-icon :checked="{{ isHighlight | lower }}"></vue-check-icon>
                                     </button>
                                 </div>
                             </td>
                             <td align="center">
-                                <vue-check-icon :checked="{{ isNotags | lower }}"></vue-check-icon>
-                                <div class="button-group edit-group">
+                                <div class="button-group">
                                     {%- set notags_urls = [url_for("edit.notags", item_path=article_path), url_for("edit.unnotags", item_path=article_path)] -%}
                                     <button class="button" title="Toggle"
-                                            onclick='toggle(this, {{ notags_urls | tojson }}, {{ isNotags | lower }})'>T
+                                            onclick='toggle(this, {{ notags_urls | tojson }}, {{ isNotags | lower }})'>
+                                        <vue-check-icon :checked="{{ isNotags | lower }}"></vue-check-icon>
                                     </button>
                                 </div>
                             </td>
-                            <td>
-                                <i class="fas fa-edit"></i>
-                                <div class="button-group edit-group">
-                                    <a href="{{ url_for("edit.article", item_path=article_path) }}" target="_blank"
-                                       class="button" title="Edit article">E
-                                    </a>
-                                    <a href="{{ url_for("edit.ignore", item_path=article_path) }}"
-                                       class="button danger" title="Ignore">I
-                                    </a>
+                            <td align="center">
+                                <div class="button-group">
+                                    <button class="button" title="Edit article"
+                                            onclick='window.open("{{ url_for("edit.article", item_path=article_path) }}")'>
+                                        <vue-edit-icon></vue-edit-icon>
+                                    </button>
+                                </div>
+                            </td>
+                            <td align="center">
+                                <div class="button-group">
+                                    <button class="button danger" title="Ignore"
+                                            onclick='window.location.href="{{ url_for("edit.ignore", item_path=article_path) }}"'>
+                                        <vue-check-icon :checked="false"></vue-check-icon>
+                                    </button>
                                 </div>
                             </td>
                             <td>
@@ -217,18 +223,19 @@
                     <thead>
                     <tr>
                         <th>Path</th>
-                        <th width="250">Edit</th>
+                        <th width="80">UnIgnore</th>
                     </tr>
                     </thead>
                     <tbody>
                     {%- for file_name in ignore_files -%}
                         <tr>
                             <td>{{ file_name }}</td>
-                            <td>
-                                <div class="button-group edit-group">
-                                    <a href="{{ url_for("edit.unignore", item_path=file_name) }}"
-                                       class="button" title="UnIgnore">UI
-                                    </a>
+                            <td align="center">
+                                <div class="button-group">
+                                    <button class="button" title="UnIgnore"
+                                            onclick='window.location.href="{{ url_for("edit.unignore", item_path=file_name) }}"'>
+                                        <vue-check-icon :checked="true"></vue-check-icon>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
