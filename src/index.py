@@ -27,7 +27,7 @@ def get_tags_parents():
 
 # 根据相对路径从索引文件中取出对应项目
 def get_item_by_path(path):
-    for block in get_index_data():
+    for block in get_index_data()[:2]:
         if path in block:
             return block[path]
     return {}
@@ -35,7 +35,7 @@ def get_item_by_path(path):
 
 # 根据url从索引文件中取出对应项目
 def get_item_by_url(url):
-    for block in get_index_data():
+    for block in get_index_data()[:2]:
         for item_path in block:
             item = block[item_path]
             if item[index_url_key] == url:
