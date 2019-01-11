@@ -255,6 +255,11 @@ def get_static_lib_url(name):
                 "local": get_module_file_url("typeface-noto-serif/index.css"),
                 "remote": get_cdn_file_url("typeface-noto-serif@%s/index.min.css" % get_lib_version(lib_names[14]))
             },
+            lib_names[15]: {
+                "local": get_module_file_url("source-code-pro/source-code-pro.css"),
+                "remote": get_cdn_file_url(
+                    "source-code-pro@%s/source-code-pro.min.css" % get_lib_version(lib_names[15]))
+            }
         }
     return libs[name]["remote" if current_app.config["USE_CDN"] else "local"]
 
@@ -278,7 +283,7 @@ plugins = {
     },
     plugin_names[4]: {
         "js": [],
-        "css": [lib_names[13], lib_names[14]]
+        "css": [lib_names[13], lib_names[14], lib_names[15]]
     },
     plugin_names[5]: {
         "js": [lib_names[3]],

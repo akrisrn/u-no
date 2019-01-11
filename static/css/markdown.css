@@ -139,8 +139,8 @@
     box-shadow: none;
 }
 
-.markdown-body, .markdown-body code, .markdown-body pre {
-    font-family: 'Noto Serif', SimSun, sans-serif;
+.markdown-body code *, .markdown-body pre * {
+    font-family: 'Source Code Pro', SimSun, sans-serif;
 }
 
 .markdown-body .toc > ol {

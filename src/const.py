@@ -49,6 +49,7 @@ lib_names = [
     "github-markdown-css",
     "@fortawesome/fontawesome-free",
     "typeface-noto-serif",
+    "source-code-pro",
 ]
 
 plugin_names = [
