@@ -174,7 +174,9 @@ def get_lib_version(name):
         bower_dep = bower_json_data["dependencies"]
         if name in bower_dep:
             version = bower_dep[name]
-    return version.split("^")[1]
+    if version.startswith("^"):
+        return version.split("^")[1]
+    return version
 
 
 libs = {}
@@ -250,9 +252,8 @@ def get_static_lib_url(name):
                     "@fortawesome/fontawesome-free@%s/css/all.min.css" % get_lib_version(lib_names[13]))
             },
             lib_names[14]: {
-                "local": get_module_file_url("source-code-pro/source-code-pro.css"),
-                "remote": get_cdn_file_url(
-                    "source-code-pro@%s/source-code-pro.min.css" % get_lib_version(lib_names[14]))
+                "local": get_module_file_url("typeface-noto-serif/index.css"),
+                "remote": get_cdn_file_url("typeface-noto-serif@%s/index.min.css" % get_lib_version(lib_names[14]))
             },
         }
     return libs[name]["remote" if current_app.config["USE_CDN"] else "local"]

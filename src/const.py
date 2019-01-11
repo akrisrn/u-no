@@ -48,7 +48,7 @@ lib_names = [
     "raty-js|css",
     "github-markdown-css",
     "@fortawesome/fontawesome-free",
-    "source-code-pro",
+    "typeface-noto-serif",
 ]
 
 plugin_names = [
