@@ -1,6 +1,7 @@
 @media screen and (max-width: 600px) {
     .date {
         float: none;
+        margin-left: 8px;
     }
 }
 

@@ -7,7 +7,7 @@ Vue.component('vue-return-home', {
             default: "~"
         }
     },
-    template: `<a v-bind:href="url"><vue-return-home-icon style="margin-right: 10px"></vue-return-home-icon>{{ name }}</a>`
+    template: `<a v-bind:href="url" style="margin-right: 8px"><vue-return-home-icon style="margin-right: 10px"></vue-return-home-icon>{{ name }}</a>`
 });
 
 Vue.component('vue-tag', {
@@ -35,7 +35,7 @@ Vue.component('vue-home-li', {
             default: false
         }
     },
-    template: `<a v-bind:href="url" v-bind:class="{'article-hl': is_highlight}"><vue-star-icon style="margin-right: 8px;" v-if="is_highlight"></vue-star-icon>{{ name }}</a>`
+    template: `<a v-bind:href="url" v-bind:class="{'article-hl': is_highlight}" style="margin: 0 8px"><vue-star-icon style="margin-right: 8px;" v-if="is_highlight"></vue-star-icon>{{ name }}</a>`
 });
 
 Vue.component('vue-error', {
