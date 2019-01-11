@@ -25,7 +25,7 @@ Vue.component('vue-tag', {
 
 Vue.component('vue-date', {
     props: ['date'],
-    template: '<div class="date">{{ date }}</div>'
+    template: '<div class="date" v-if="date">{{ date }}</div>'
 });
 
 Vue.component('vue-home-li', {
