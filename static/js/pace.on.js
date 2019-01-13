@@ -1,20 +1,19 @@
 Pace.on("done", function () {
     document.getElementById("content").style.opacity = "1";
+    const fillFrame = (e, src, width, height) => {
+        e.setAttribute("src", src.replace("%s", e.getAttribute("data-id")));
+        e.removeAttribute("data-id");
+        e.setAttribute("frameborder", "0");
+        e.style.maxWidth = "100%";
+        e.style.width = width;
+        e.style.height = height;
+    };
     $("iframe.steam-widget").each(function () {
-        this.setAttribute("src", `https:\/\/store.steampowered.com/widget/${this.getAttribute("data-id")}/`);
-        this.style.width = "100%";
-        this.style.height = "200px";
+        fillFrame(this, "https:\/\/store.steampowered.com/widget/%s/", "100%", "200px");
     });
     $("iframe.kindle-widget").each(function () {
-        this.setAttribute("src", `https:\/\/read.amazon.cn/kp/card?asin=${this.getAttribute("data-id")}&preview=inline`);
+        fillFrame(this, "https:\/\/read.amazon.cn/kp/card?asin=%s&preview=inline", "336px", "550px");
         this.setAttribute("allowfullscreen", "");
-        this.style.width = "336px";
-        this.style.height = "550px";
-    });
-    $("iframe.steam-widget, iframe.kindle-widget").each(function () {
-        this.removeAttribute("data-id");
-        this.setAttribute("frameborder", "0");
-        this.style.maxWidth = "100%";
     });
     $("img").each(function () {
         const imgSrc = this.getAttribute("data-src");
