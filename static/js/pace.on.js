@@ -15,8 +15,14 @@ Pace.on("done", function () {
         fillFrame(this, "https:\/\/read.amazon.cn/kp/card?asin=%s&preview=inline", "336px", "550px");
         this.setAttribute("allowfullscreen", "");
     });
-    $("iframe.music-widget").each(function () {
-        fillFrame(this, "https:\/\/music.163.com/outchain/player?type=2&id=%s&auto=0&height=66", "100%", "86px");
+    $("iframe.music-widget, iframe.music-list-widget").each(function () {
+        let type = 2;
+        let height = 66;
+        if (this.className === "music-list-widget") {
+            type = 1;
+            height = 430;
+        }
+        fillFrame(this, `https:\/\/music.163.com/outchain/player?type=${type}&id=%s&auto=0&height=${height}`, "100%", `${height + 20}px`);
         this.style.top = "12px";
         this.style.position = "relative";
     });
