@@ -81,7 +81,7 @@ def render(text):
             "base_path": get_articles_dir_abspath()
         }
     }
-    for ext in [clean_md, inlink, inline_quote, table_increment, rate, steam, kindle]:
+    for ext in [clean_md, inlink, inline_quote, table_increment, rate, steam, kindle, music]:
         text = ext(text)
     html = markdown(text, extensions=extensions, extension_configs=extension_configs)
     for ext in [trim_force_del_ins, symbols, lazy_img]:
@@ -161,6 +161,15 @@ def kindle(text):
     for match in id_match_dict:
         text = re.sub(regexp_join("%s", match),
                       '<iframe class="kindle-widget" data-id="%s"></iframe>' % id_match_dict[match], text)
+    return text
+
+
+# 匹配music[]语法为网易云音乐小部件，方括号内匹配音乐id
+def music(text):
+    id_match_dict = get_unique_find_dict(r"music\[(\d+)\]", text)
+    for match in id_match_dict:
+        text = re.sub(regexp_join("%s", match),
+                      '<iframe class="music-widget" data-id="%s"></iframe>' % id_match_dict[match], text)
     return text
 
 

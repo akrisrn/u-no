@@ -15,6 +15,11 @@ Pace.on("done", function () {
         fillFrame(this, "https:\/\/read.amazon.cn/kp/card?asin=%s&preview=inline", "336px", "550px");
         this.setAttribute("allowfullscreen", "");
     });
+    $("iframe.music-widget").each(function () {
+        fillFrame(this, "https:\/\/music.163.com/outchain/player?type=2&id=%s&auto=0&height=66", "100%", "86px");
+        this.style.top = "12px";
+        this.style.position = "relative";
+    });
     $("img").each(function () {
         const imgSrc = this.getAttribute("data-src");
         if (imgSrc !== null) {
