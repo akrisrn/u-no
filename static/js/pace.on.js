@@ -20,7 +20,7 @@ Pace.on("done", function () {
         let height = 66;
         if (this.className === "music-list-widget") {
             type = 1;
-            height = 430;
+            height = 452;
         }
         fillFrame(this, `https:\/\/music.163.com/outchain/player?type=${type}&id=%s&auto=0&height=${height}`, "100%", `${height + 20}px`);
         this.style.top = "12px";
