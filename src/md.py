@@ -173,7 +173,7 @@ def music(text):
     return text
 
 
-# 匹配music[]语法为网易云音乐歌单小部件，方括号内匹配歌单id
+# 匹配music_list[]语法为网易云音乐歌单小部件，方括号内匹配歌单id
 def music_list(text):
     id_match_dict = get_unique_find_dict(r"music_list\[(\d+)\]", text)
     for match in id_match_dict:
