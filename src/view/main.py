@@ -127,7 +127,15 @@ def tags_page():
                 tags_count[parent] += 1
     md_list = ""
     prev_slash_count = 0
-    for tag in sorted(tags.items(), key=lambda kv: kv[1].lower()):
+    sorted_tags = sorted(tags.items(), key=lambda kv: kv[1].lower())
+    one = []
+    another = []
+    for tag in sorted_tags:
+        if tag[1].startswith(articles_url_name):
+            another.append(tag)
+        else:
+            one.append(tag)
+    for tag in one + another:
         tag_count = tags_count[tag[1]]
         if tag_count > 0:
             slash_count = len(tag[1].split("/")) - 1
