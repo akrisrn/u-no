@@ -261,7 +261,8 @@ def get_static_lib_url(name):
             },
             lib_names[14]: {
                 "local": get_module_file_url("source-sans-pro/source-sans-pro.css"),
-                "remote": get_cdn_file_url("source-sans-pro@%s/source-sans-pro.min.css" % get_lib_version(lib_names[14]))
+                "remote": get_cdn_file_url(
+                    "source-sans-pro@%s/source-sans-pro.min.css" % get_lib_version(lib_names[14]))
             },
             lib_names[15]: {
                 "local": get_module_file_url("source-code-pro/source-code-pro.css"),

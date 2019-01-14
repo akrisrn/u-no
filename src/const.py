@@ -30,7 +30,7 @@ flag_css = "css"
 flag_js = "js"
 flag_plugin = "plugin"
 
-show_date_format = "%y-%m-%d"
+show_date_format = "%Y-%m-%d"
 hash_length = 7
 
 lib_names = [
