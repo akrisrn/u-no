@@ -29,6 +29,10 @@ $(function () {
                 event.preventDefault();
                 $("#save").click()
             }
+            if (String.fromCharCode(event.which).toLowerCase() === "q") {
+                event.preventDefault();
+                $("#view").click()
+            }
         }
     });
 });
