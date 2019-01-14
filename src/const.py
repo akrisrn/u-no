@@ -48,7 +48,7 @@ lib_names = [
     "raty-js|css",
     "github-markdown-css",
     "@fortawesome/fontawesome-free",
-    "typeface-noto-serif",
+    "source-sans-pro",
     "source-code-pro",
 ]
 
