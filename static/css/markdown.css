@@ -16,7 +16,7 @@
 
 .markdown-body dl dd {
     color: #6a737d;
-    font-size: 12px;
+    font-size: 80%;
     padding: 0;
 }
 
@@ -159,8 +159,9 @@
 }
 
 .markdown-body .toc ol > li:before {
-    content: counters(item, ".") " ";
+    content: counters(item, ".");
     counter-increment: item;
+    margin-right: 8px;
 }
 
 .markdown-body .star {
@@ -174,7 +175,7 @@
 
 .markdown-body .inline-quote {
     color: #6a737d;
-    font-size: 14px;
+    font-size: 80%;
 }
 
 /* Critic Markup Start */
