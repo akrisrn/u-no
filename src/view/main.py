@@ -8,7 +8,8 @@ from ..const import index_notags_key, index_parent_key, index_path_key, index_ur
 from ..flag import get_custom_js_flag, get_custom_css_flag, get_plugin_flag
 from ..index import get_item_by_url, index_data_filter, get_fixed_articles, reindex, get_tags_parents
 from ..md import render, get_snippet
-from ..util import get_articles_dir_abspath, is_valid_hash, get_plugins_urls, get_tag_parents
+from ..util import get_articles_dir_abspath, is_valid_hash, get_plugins_urls, get_tag_parents, get_date_parents, \
+    make_date_to_tag
 
 main = Blueprint("main", __name__)
 
@@ -120,6 +121,7 @@ def tags_page():
         for key in article[index_tags_key]:
             value = article[index_tags_key][key]
             tag_parents += get_tag_parents(value)
+        tag_parents += get_date_parents(article[index_date_key])
         for parent in set(tag_parents):
             if parent in tags_count:
                 tags_count[parent] += 1
@@ -144,7 +146,6 @@ def tag_page(tag_hash):
     # 判断哈希格式
     if not is_valid_hash(tag_hash):
         abort(404)
-    new_fixed_articles = []
     fixed_articles = get_fixed_articles()
     tag_name = ""
     break_outer = False
@@ -164,12 +165,18 @@ def tag_page(tag_hash):
                 break
     if not tag_name:
         abort(404)
-    for article in fixed_articles:
-        for key in article[index_tags_key]:
-            value = article[index_tags_key][key]
-            if key == tag_hash or value.startswith(tag_name + "/"):
+    new_fixed_articles = []
+    if tag_name.startswith(articles_url_name):
+        for article in fixed_articles:
+            if make_date_to_tag(article[index_date_key]).startswith(tag_name):
                 new_fixed_articles.append(article)
-                break
+    else:
+        for article in fixed_articles:
+            for key in article[index_tags_key]:
+                value = article[index_tags_key][key]
+                if key == tag_hash or value.startswith(tag_name + "/"):
+                    new_fixed_articles.append(article)
+                    break
     if not new_fixed_articles:
         abort(404)
     return render_template('home.html', fixed_articles=new_fixed_articles, tag_name=tag_name)

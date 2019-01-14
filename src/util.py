@@ -6,7 +6,7 @@ from datetime import datetime
 
 from flask import url_for, current_app
 
-from .const import lib_names, plugin_names, show_date_format, hash_length
+from .const import lib_names, plugin_names, show_date_format, hash_length, articles_url_name
 
 
 # 获取根目录绝对路径
@@ -138,6 +138,14 @@ def get_tag_parents(tag_name, parents=None):
         return get_tag_parents(parent, parents)
     else:
         return parents
+
+
+def make_date_to_tag(date):
+    return "%s/%s" % (articles_url_name, date.replace("-", "/"))
+
+
+def get_date_parents(date, parents=None):
+    return get_tag_parents(make_date_to_tag(date), parents)
 
 
 # 获取本地包中文件url

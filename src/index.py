@@ -11,7 +11,7 @@ from .const import index_url_key, index_title_key, index_parent_key, index_id_ke
     index_top_key, index_notags_key, index_fixed_key, index_tags_key, index_date_key, index_path_key, \
     articles_url_name, attachments_url_name, index_bereferenced_key
 from .util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
-    update_config_ignore_file_list, get_unique_find_dict, get_tag_parents
+    update_config_ignore_file_list, get_unique_find_dict, get_tag_parents, get_date_parents
 
 
 # 获取索引文件数据
@@ -170,6 +170,8 @@ def reindex():
                                     for tag_parent in get_tag_parents(tags[key])})
                 # 获取日期
                 date = src.flag.get_date_flag(data)
+                tag_parents.update({compute_digest_by_data(date_parent): date_parent
+                                    for date_parent in get_date_parents(date)})
                 # 计算文章哈希组成url
                 url = "/%s/%s" % (articles_url_name, compute_digest_by_data(data))
                 # 识别文章中固定索引标识，来判断是否更新哈希
