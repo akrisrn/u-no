@@ -95,6 +95,17 @@
     max-width: 100px;
 }
 
+.markdown-body details.attention > summary {
+    background-color: rgba(255, 23, 68, 0.3);
+}
+
+.markdown-body details.attention > summary:before {
+    font-family: "Font Awesome 5 Free", serif;
+    font-weight: bold;
+    content: "\f7ba";
+    margin-right: 8px;
+}
+
 .markdown-body details > summary {
     margin: 0 -1.2rem;
     padding: 0.2rem 1.2rem;
