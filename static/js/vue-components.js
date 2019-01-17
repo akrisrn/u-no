@@ -7,7 +7,7 @@ Vue.component('vue-return-home', {
             default: "~"
         }
     },
-    template: `<a v-bind:href="url" style="margin-right: 8px"><vue-return-home-icon style="margin-right: 10px"></vue-return-home-icon>{{ name }}</a>`
+    template: `<a v-bind:href="url" style="margin-right: 8px"><i style="margin-right: 10px" class="fas fa-angle-double-left"></i>{{ name }}</a>`
 });
 
 Vue.component('vue-tag', {
@@ -35,7 +35,7 @@ Vue.component('vue-home-li', {
             default: false
         }
     },
-    template: `<a v-bind:href="url" v-bind:class="{'article-hl': is_highlight}" style="margin: 0 8px"><vue-star-icon style="margin-right: 8px;" v-if="is_highlight"></vue-star-icon>{{ name }}</a>`
+    template: `<a v-bind:href="url" v-bind:class="{'article-hl': is_highlight}" style="margin: 0 8px"><i style="margin-right: 8px;" class="fas fa-star" v-if="is_highlight"></i>{{ name }}</a>`
 });
 
 Vue.component('vue-error', {
@@ -47,7 +47,7 @@ Vue.component('vue-index-tab-button', {
     props: ['name', 'id'],
     template: `
 <button class="tablinks" v-bind:id="id">
-    <vue-folder-icon style="margin-right: 8px"></vue-folder-icon>{{ name }}
+    <i style="margin-right: 8px" class="far fa-folder"></i>{{ name }}
 </button>`
 });
 
@@ -57,26 +57,6 @@ Vue.component('vue-tag-icon', {
 
 Vue.component('vue-hashtag-icon', {
     template: '<i class="fas fa-hashtag"></i>'
-});
-
-Vue.component('vue-home-li-icon', {
-    template: '<i class="fas fa-angle-double-right"></i>'
-});
-
-Vue.component('vue-return-home-icon', {
-    template: '<i class="fas fa-angle-double-left"></i>'
-});
-
-Vue.component('vue-star-icon', {
-    template: '<i class="fas fa-star"></i>'
-});
-
-Vue.component('vue-folder-icon', {
-    template: '<i class="far fa-folder"></i>'
-});
-
-Vue.component('vue-edit-icon', {
-    template: '<i class="fas fa-edit"></i>'
 });
 
 Vue.component('vue-check-icon', {
