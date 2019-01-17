@@ -18,6 +18,10 @@
     <script>
         const home_url = "{{ url_for('main.home_page') }}";
         const tags_url = "{{ url_for('main.tags_page') }}";
+        {%- if not is_freeze -%}
+            const index_url = "{{ url_for('main.index_page') }}";
+            const reindex_url = "{{ url_for('main.reindex_page') }}";
+        {%- endif -%}
         const inputBinds = {
             "common": {
                 "tags": () => {
@@ -28,6 +32,14 @@
                 }
             }
         };
+        {%- if not is_freeze -%}
+            inputBinds["common"]["index"] = () => {
+                window.location.href = index_url
+            };
+            inputBinds["common"]["reidx"] = () => {
+                window.location.href = reindex_url
+            };
+        {%- endif -%}
     </script>
     {%- block extra_js_link -%}
     {%- endblock -%}
