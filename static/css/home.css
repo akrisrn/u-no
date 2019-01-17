@@ -27,3 +27,7 @@
 .markdown-body li > a:hover {
     color: #6a737d;
 }
+
+.markdown-body .button {
+    border: none;
+}

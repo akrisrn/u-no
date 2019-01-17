@@ -48,11 +48,11 @@
         {%- set page_count = (fixed_articles | length / page_size) | round(0, 'ceil') | int -%}
         {%- if page_count > 1 -%}
             <div class="button-group">
-                <button class="button icon arrowleft">&nbsp;</button>
+                <button class="button"><i class="fas fa-arrow-left"></i></button>
                 {%- for i in range(1, page_count + 1) -%}
                     <button class="button">{{ i }}</button>
                 {%- endfor -%}
-                <button class="button icon arrowright">&nbsp;</button>
+                <button class="button"><i class="fas fa-arrow-right"></i></button>
             </div>
         {%- endif -%}
     </div>
