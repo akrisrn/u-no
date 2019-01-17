@@ -49,6 +49,8 @@ def render(text):
         'src.md.ext.kindle_widget',
         'src.md.ext.music_widget',
         'src.md.ext.music_list_widget',
+        'src.md.ext.rate',
+        'src.md.ext.inlink',
     ]
     # 扩展配置
     extension_configs = {
@@ -89,7 +91,7 @@ def render(text):
             "base_path": get_articles_dir_abspath()
         }
     }
-    for ext in [inlink, inline_quote, table_increment, rate]:
+    for ext in [inline_quote, table_increment]:
         text = ext(text)
     return markdown(text, extensions=extensions, extension_configs=extension_configs)
 
@@ -100,18 +102,15 @@ def get_snippet(file_name):
     return ""
 
 
-# 匹配[]()+语法为站内链接，小括号里填入文件相对路径，查找替换为索引文件中对应的url
-def inlink(text, is_return_path=False):
+def get_reference(text):
     file_path_list = []
     url_match_dict = get_unique_find_dict(r"\[(.*?)\]\((.*?)\)\+", text, 2)
     for match in url_match_dict:
         file_path = url_match_dict[match][1].replace("../", "")
         # 根据文件相对路径从索引文件中取出url
-        item = src.index.get_item_by_path(file_path)
-        if item:
-            text = re.sub(regexp_join("%s", match), "[%s](%s)" % (url_match_dict[match][0], item[index_url_key]), text)
+        if src.index.get_item_by_path(file_path):
             file_path_list.append(file_path)
-    return text if not is_return_path else file_path_list
+    return file_path_list
 
 
 # 匹配____text____语法为行内引用
@@ -133,14 +132,4 @@ def table_increment(text):
             # 仅替换第一次查找结果
             text = re.sub(regexp_join("%s", group.group()), "| %d %s" % (num, group.group(2)), text, 1)
             num += 1
-    return text
-
-
-# 匹配*[]语法为评分标签，方括号内匹配0-10
-def rate(text):
-    rate_match_dict = get_unique_find_dict(r"\*\[([0-9]|10)\]", text)
-    for match in rate_match_dict:
-        # 实际展示的评分为匹配数字的一半
-        rate_num = int(rate_match_dict[match]) / 2
-        text = re.sub(regexp_join("%s", match), '<div class="star" data-score="%f"></div>' % rate_num, text)
     return text
