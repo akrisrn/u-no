@@ -42,7 +42,9 @@ def render(text):
         'markdown.extensions.toc',
         'markdown.extensions.sane_lists',
         'src.md.ext.cleanup',
-        'src.md.ext.symbols_extend'
+        'src.md.ext.symbols_extend',
+        'src.md.ext.lazy_img',
+        'src.md.ext.force_del_ins'
     ]
     # 扩展配置
     extension_configs = {
@@ -85,10 +87,7 @@ def render(text):
     }
     for ext in [inlink, inline_quote, table_increment, rate, steam, kindle, music, music_list]:
         text = ext(text)
-    html = markdown(text, extensions=extensions, extension_configs=extension_configs)
-    for ext in [trim_force_del_ins, lazy_img]:
-        html = ext(html)
-    return html
+    return markdown(text, extensions=extensions, extension_configs=extension_configs)
 
 
 def get_snippet(file_name):
@@ -177,12 +176,3 @@ def music_list(text):
         text = re.sub(regexp_join("%s", match),
                       '<iframe class="music-list-widget" data-id="%s"></iframe>' % id_match_dict[match], text)
     return text
-
-
-# 下划线/删除线语法跟在字后面时会转换成上标/下标，在开头标记一个+号来强制使用下划/删除
-def trim_force_del_ins(html):
-    return re.sub(r"\+(<del>|<ins>)", r"\g<1>", html)
-
-
-def lazy_img(html):
-    return re.sub(r'(<img.*?src=)(".*?")', r'\g<1>"" data-src=\g<2>', html)
