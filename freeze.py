@@ -21,6 +21,7 @@ if __name__ == '__main__':
     app.config["USE_CDN"] = True
     app.config["DEBUG"] = False
     app.config["IS_FREEZE"] = True
+    app.jinja_env.globals["is_freeze"] = True
 
     image_ext = [".jpg", ".png"]
     root_abspath = get_root_abspath()
