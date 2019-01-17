@@ -5,7 +5,7 @@ import re
 from flask import current_app
 
 import src.flag
-import src.md
+import src.md.md
 from .cache import get_file_cache
 from .const import index_url_key, index_title_key, index_parent_key, index_id_key, index_highlight_key, \
     index_top_key, index_notags_key, index_fixed_key, index_tags_key, index_date_key, index_path_key, \
@@ -183,7 +183,7 @@ def reindex():
                     if item:
                         url = "/%s/%s" % (articles_url_name, item[index_url_key].split("/")[-1])
                 # 查找引用文件
-                reference_dict[file_path] = src.md.inlink(data, True) + src.flag.get_custom_css_flag(data, True) + \
+                reference_dict[file_path] = src.md.md.inlink(data, True) + src.flag.get_custom_css_flag(data, True) + \
                                             src.flag.get_custom_js_flag(data, True)
                 for value in get_unique_find_dict("--8<-- \"(.*?)\"", data).values():
                     if get_item_by_path(value):
