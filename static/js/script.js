@@ -8,9 +8,9 @@ $(function () {
     let keyInput = "";
     $(window).bind("keydown", (event) => {
         keyInput += event.key;
-        for (let key in inputBind) {
+        for (let key in inputBind["common"]) {
             if (keyInput.endsWith(key)) {
-                inputBind[key]();
+                inputBind["common"][key]();
                 break;
             }
         }
