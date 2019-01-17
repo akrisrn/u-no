@@ -28,6 +28,8 @@ $(function () {
         }
         scrollTo(0, 0);
         currentPageNum = num;
+
+        $("ul > li:visible:first").css("margin-top", "0");
     };
 
     const buttonGroup = $(".button-group");
@@ -54,14 +56,10 @@ $(function () {
     $(window).bind("keydown", (event) => {
         switch (event.key) {
             case "ArrowLeft":
-                if (prevButton.is(":visible")) {
-                    prevButton.click()
-                }
+                prevButton.click();
                 break;
             case "ArrowRight" :
-                if (nextButton.is(":visible")) {
-                    nextButton.click()
-                }
+                nextButton.click();
                 break;
         }
     });
