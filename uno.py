@@ -9,6 +9,7 @@ from src.view.main import main
 app = Flask(__name__)
 # 载入配置
 app.config.from_pyfile("config.py")
+app.config["IS_FREEZE"] = False
 # 指定静态文件目录
 app.static_folder = app.config["STATIC_DIR_NAME"]
 # 注册蓝图

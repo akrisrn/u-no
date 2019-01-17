@@ -20,6 +20,7 @@ if __name__ == '__main__':
     app.config["SERVER_NAME"] = ""
     app.config["USE_CDN"] = True
     app.config["DEBUG"] = False
+    app.config["IS_FREEZE"] = True
 
     image_ext = [".jpg", ".png"]
     root_abspath = get_root_abspath()
