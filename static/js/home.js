@@ -1,23 +1,24 @@
 let currentPageNum;
 
 $(function () {
-    const showArrow = (button, is_left) => {
+    const showArrow = (button, is_left, is_disable) => {
         button.find(">i").removeClass().addClass(`fas fa-arrow-${is_left ? "left" : "right"}`);
+        button.css("pointer-events", is_disable ? "none" : "auto");
     };
     const switchPage = (num) => {
         if (num < 1 || num > pageCount) {
             return;
         }
         $("ul > li").hide();
-        showArrow(prevButton);
-        showArrow(nextButton, true);
+        showArrow(prevButton, false, true);
+        showArrow(nextButton, true, true);
 
         $(`li.page-${num}`).fadeIn();
         if (num > 1) {
-            showArrow(prevButton, true);
+            showArrow(prevButton, true, false);
         }
         if (num < pageCount) {
-            showArrow(nextButton);
+            showArrow(nextButton, false, false);
         }
         for (let i = 0; i < pageCount; i++) {
             const pageButton = pageButtons[i];
