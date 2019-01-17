@@ -18,7 +18,7 @@
     <script>
         const home_url = "{{ url_for('main.home_page') }}";
         const tags_url = "{{ url_for('main.tags_page') }}";
-        const inputBind = {
+        const inputBinds = {
             "common": {
                 "tags": () => {
                     window.location.href = tags_url
