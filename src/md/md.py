@@ -6,8 +6,8 @@ from markdown import markdown
 
 import src.flag
 import src.index
-from .const import index_url_key
-from .util import regexp_join, get_articles_dir_abspath, get_unique_find_dict
+from ..const import index_url_key
+from ..util import regexp_join, get_articles_dir_abspath, get_unique_find_dict
 
 
 # markdown渲染

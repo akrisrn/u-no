@@ -7,7 +7,7 @@ from ..const import index_notags_key, index_parent_key, index_path_key, index_ur
     index_tags_key, index_date_key, articles_url_name, attachments_url_name, tags_url_name, reindex_url_name
 from ..flag import get_custom_js_flag, get_custom_css_flag, get_plugin_flag
 from ..index import get_item_by_url, index_data_filter, get_fixed_articles, reindex, get_tags_parents
-from ..md import render, get_snippet
+from ..md.md import render, get_snippet
 from ..util import get_articles_dir_abspath, is_valid_hash, get_plugins_urls, get_tag_parents, get_date_parents, \
     make_date_to_tag
 
