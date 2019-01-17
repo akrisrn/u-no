@@ -44,7 +44,11 @@ def render(text):
         'src.md.ext.cleanup',
         'src.md.ext.symbols_extend',
         'src.md.ext.lazy_img',
-        'src.md.ext.force_del_ins'
+        'src.md.ext.force_del_ins',
+        'src.md.ext.steam_widget',
+        'src.md.ext.kindle_widget',
+        'src.md.ext.music_widget',
+        'src.md.ext.music_list_widget',
     ]
     # 扩展配置
     extension_configs = {
@@ -85,7 +89,7 @@ def render(text):
             "base_path": get_articles_dir_abspath()
         }
     }
-    for ext in [inlink, inline_quote, table_increment, rate, steam, kindle, music, music_list]:
+    for ext in [inlink, inline_quote, table_increment, rate]:
         text = ext(text)
     return markdown(text, extensions=extensions, extension_configs=extension_configs)
 
@@ -139,40 +143,4 @@ def rate(text):
         # 实际展示的评分为匹配数字的一半
         rate_num = int(rate_match_dict[match]) / 2
         text = re.sub(regexp_join("%s", match), '<div class="star" data-score="%f"></div>' % rate_num, text)
-    return text
-
-
-# 匹配steam[]语法为steam小部件，方括号内匹配游戏id
-def steam(text):
-    id_match_dict = get_unique_find_dict(r"steam\[(\d+)\]", text)
-    for match in id_match_dict:
-        text = re.sub(regexp_join("%s", match),
-                      '<iframe class="steam-widget" data-id="%s"></iframe>' % id_match_dict[match], text)
-    return text
-
-
-# 匹配kindle[]语法为亚马逊电子书小部件，方括号内匹配书籍id
-def kindle(text):
-    id_match_dict = get_unique_find_dict(r"kindle\[(\w+)\]", text)
-    for match in id_match_dict:
-        text = re.sub(regexp_join("%s", match),
-                      '<iframe class="kindle-widget" data-id="%s"></iframe>' % id_match_dict[match], text)
-    return text
-
-
-# 匹配music[]语法为网易云音乐单曲小部件，方括号内匹配单曲id
-def music(text):
-    id_match_dict = get_unique_find_dict(r"music\[(\d+)\]", text)
-    for match in id_match_dict:
-        text = re.sub(regexp_join("%s", match),
-                      '<iframe class="music-widget" data-id="%s"></iframe>' % id_match_dict[match], text)
-    return text
-
-
-# 匹配music_list[]语法为网易云音乐歌单小部件，方括号内匹配歌单id
-def music_list(text):
-    id_match_dict = get_unique_find_dict(r"music_list\[(\d+)\]", text)
-    for match in id_match_dict:
-        text = re.sub(regexp_join("%s", match),
-                      '<iframe class="music-list-widget" data-id="%s"></iframe>' % id_match_dict[match], text)
     return text
