@@ -25,12 +25,15 @@ $(function () {
 
     $(window).bind("keydown", (event) => {
         if (event.ctrlKey || event.metaKey) {
-            if (String.fromCharCode(event.which).toLowerCase() === "s") {
-                event.preventDefault();
-                $("#save").click()
-            } else if (String.fromCharCode(event.which).toLowerCase() === "q") {
-                event.preventDefault();
-                $("#view").click()
+            switch (event.key) {
+                case "s":
+                    event.preventDefault();
+                    $("#save").click();
+                    break;
+                case "q":
+                    event.preventDefault();
+                    $("#view").click();
+                    break;
             }
         }
     });
