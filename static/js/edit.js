@@ -28,8 +28,7 @@ $(function () {
             if (String.fromCharCode(event.which).toLowerCase() === "s") {
                 event.preventDefault();
                 $("#save").click()
-            }
-            if (String.fromCharCode(event.which).toLowerCase() === "q") {
+            } else if (String.fromCharCode(event.which).toLowerCase() === "q") {
                 event.preventDefault();
                 $("#view").click()
             }

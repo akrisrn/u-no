@@ -44,4 +44,16 @@ $(function () {
     nextButton.click(() => {
         switchPage(currentPageNum + 1);
     });
+
+    $(window).bind("keydown", (event) => {
+        if (event.keyCode === 37) {
+            if (prevButton.is(":visible")) {
+                prevButton.click()
+            }
+        } else if (event.keyCode === 39) {
+            if (nextButton.is(":visible")) {
+                nextButton.click()
+            }
+        }
+    });
 });
