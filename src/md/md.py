@@ -41,6 +41,8 @@ def render(text):
         'markdown.extensions.tables',
         'markdown.extensions.toc',
         'markdown.extensions.sane_lists',
+        'src.md.ext.cleanup',
+        'src.md.ext.symbols_extend'
     ]
     # 扩展配置
     extension_configs = {
@@ -81,10 +83,10 @@ def render(text):
             "base_path": get_articles_dir_abspath()
         }
     }
-    for ext in [clean_md, inlink, inline_quote, table_increment, rate, steam, kindle, music, music_list]:
+    for ext in [inlink, inline_quote, table_increment, rate, steam, kindle, music, music_list]:
         text = ext(text)
     html = markdown(text, extensions=extensions, extension_configs=extension_configs)
-    for ext in [trim_force_del_ins, symbols, lazy_img]:
+    for ext in [trim_force_del_ins, lazy_img]:
         html = ext(html)
     return html
 
@@ -93,11 +95,6 @@ def get_snippet(file_name):
     if file_name:
         return '--8<-- "%s"' % file_name
     return ""
-
-
-# 剔除flag标记内容
-def clean_md(text):
-    return re.sub(src.flag.get_flag_regexp(r"\w+"), "", text)
 
 
 # 匹配[]()+语法为站内链接，小括号里填入文件相对路径，查找替换为索引文件中对应的url
@@ -185,18 +182,6 @@ def music_list(text):
 # 下划线/删除线语法跟在字后面时会转换成上标/下标，在开头标记一个+号来强制使用下划/删除
 def trim_force_del_ins(html):
     return re.sub(r"\+(<del>|<ins>)", r"\g<1>", html)
-
-
-# 替换为相应符号
-def symbols(html):
-    sym = {
-        "&lt;||&gt;": "↕",
-        "||&gt;": "↓",
-        "&lt;||": "↑",
-    }
-    for k in sym:
-        html = html.replace(k, sym[k])
-    return html
 
 
 def lazy_img(html):
