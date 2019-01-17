@@ -45,7 +45,12 @@ $(function () {
         switchPage(currentPageNum + 1);
     });
 
+    let keyInput = "";
     $(window).bind("keydown", (event) => {
+        keyInput += event.key;
+        if (keyInput.endsWith("tags")) {
+            open(tags_url)
+        }
         if (event.keyCode === 37) {
             if (prevButton.is(":visible")) {
                 prevButton.click()

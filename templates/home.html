@@ -8,6 +8,9 @@
 {%- endblock -%}
 {%- block extra_js_link -%}
     <script type="text/javascript" src="{{ get_static_file_url("js/home.js") }}"></script>
+    <script>
+        const tags_url = "{{ url_for('main.tags_page') }}";
+    </script>
 {%- endblock -%}
 {%- block extra_css_link -%}
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url("css/home.css") }}">
@@ -34,7 +37,7 @@
                     </vue-home-li>
                     {%- if not fixed_article[index_notags_key] -%}
                         {%- for tag in fixed_article[index_tags_key] | dictsort(by="value") -%}
-                            <vue-tag tags_url="{{ url_for('main.tags_page') }}"
+                            <vue-tag v-bind:tags_url="tags_url"
                                      url="{{ url_for('main.tag_page', tag_hash=tag[0]) }}"
                                      name="{{ tag[1] }}"{{ " is_first" if loop.index == 1 else "" }}></vue-tag>
                         {%- endfor -%}
