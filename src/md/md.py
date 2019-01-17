@@ -1,13 +1,10 @@
-import re
-
 import pymdownx.emoji
 import pymdownx.superfences
 from markdown import markdown
 
 import src.flag
 import src.index
-from ..const import index_url_key
-from ..util import regexp_join, get_articles_dir_abspath, get_unique_find_dict
+from ..util import get_articles_dir_abspath, get_unique_find_dict
 
 
 # markdown渲染
@@ -51,6 +48,8 @@ def render(text):
         'src.md.ext.music_list_widget',
         'src.md.ext.rate',
         'src.md.ext.inlink',
+        'src.md.ext.inline_quote',
+        'src.md.ext.table_increment',
     ]
     # 扩展配置
     extension_configs = {
@@ -91,8 +90,6 @@ def render(text):
             "base_path": get_articles_dir_abspath()
         }
     }
-    for ext in [inline_quote, table_increment]:
-        text = ext(text)
     return markdown(text, extensions=extensions, extension_configs=extension_configs)
 
 
@@ -111,25 +108,3 @@ def get_reference(text):
         if src.index.get_item_by_path(file_path):
             file_path_list.append(file_path)
     return file_path_list
-
-
-# 匹配____text____语法为行内引用
-def inline_quote(text):
-    text_match_dict = get_unique_find_dict(r"____(.+)____", text)
-    for match in text_match_dict:
-        text = re.sub(regexp_join("%s", match), '*%s*{:.inline-quote}' % text_match_dict[match], text)
-    return text
-
-
-# 匹配md表格语法中| 1. |部分为自增序列
-def table_increment(text):
-    num = 1
-    for group in re.finditer(r"\|\s*(:?-:?|1\.)\s*(.*)", text):
-        # 进入新表格后计数重置
-        if group.group(1).strip(":") == "-":
-            num = 1
-        else:
-            # 仅替换第一次查找结果
-            text = re.sub(regexp_join("%s", group.group()), "| %d %s" % (num, group.group(2)), text, 1)
-            num += 1
-    return text
