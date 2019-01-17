@@ -46,10 +46,18 @@ $(function () {
     });
 
     let keyInput = "";
+    const inputBind = {
+        "tags": () => {
+            open(tags_url)
+        }
+    };
     $(window).bind("keydown", (event) => {
         keyInput += event.key;
-        if (keyInput.endsWith("tags")) {
-            open(tags_url)
+        for (let key in inputBind) {
+            if (keyInput.endsWith(key)) {
+                inputBind[key]();
+                break
+            }
         }
         switch (event.key) {
             case "ArrowLeft":
