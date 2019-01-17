@@ -8,7 +8,7 @@ import src.flag
 
 class CleanupPreprocessor(Preprocessor):
     def run(self, lines):
-        return [re.sub(src.flag.get_flag_regexp(r"\w+"), "", line) for line in lines]
+        return [re.sub(src.flag.get_flag_regexp(r"[a-zA-Z]+"), "", line) for line in lines]
 
 
 # 剔除flag标记内容
