@@ -15,6 +15,9 @@
     {%- for custom in js_custom -%}
         <script type="text/javascript" src="{{ get_static_file_url(custom) }}"></script>
     {%- endfor -%}
+    <script>
+        const tags_url = "{{ url_for('main.tags_page') }}";
+    </script>
     {%- block extra_js_link -%}
     {%- endblock -%}
     {%- for css_url in default_plugin_urls["css"] -%}

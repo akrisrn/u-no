@@ -8,9 +8,6 @@
 {%- endblock -%}
 {%- block extra_js_link -%}
     <script type="text/javascript" src="{{ get_static_file_url("js/home.js") }}"></script>
-    <script>
-        const tags_url = "{{ url_for('main.tags_page') }}";
-    </script>
 {%- endblock -%}
 {%- block extra_css_link -%}
     <link rel="stylesheet" type="text/css" href="{{ get_static_file_url("css/home.css") }}">

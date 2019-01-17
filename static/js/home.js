@@ -45,20 +45,7 @@ $(function () {
         switchPage(currentPageNum + 1);
     });
 
-    let keyInput = "";
-    const inputBind = {
-        "tags": () => {
-            open(tags_url)
-        }
-    };
     $(window).bind("keydown", (event) => {
-        keyInput += event.key;
-        for (let key in inputBind) {
-            if (keyInput.endsWith(key)) {
-                inputBind[key]();
-                break
-            }
-        }
         switch (event.key) {
             case "ArrowLeft":
                 if (prevButton.is(":visible")) {
