@@ -16,7 +16,16 @@
         <script type="text/javascript" src="{{ get_static_file_url(custom) }}"></script>
     {%- endfor -%}
     <script>
+        const home_url = "{{ url_for('main.home_page') }}";
         const tags_url = "{{ url_for('main.tags_page') }}";
+        const inputBind = {
+            "tags": () => {
+                window.location.href = tags_url
+            },
+            "home": () => {
+                window.location.href = home_url
+            }
+        };
     </script>
     {%- block extra_js_link -%}
     {%- endblock -%}

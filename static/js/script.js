@@ -6,11 +6,6 @@ $(function () {
     });
 
     let keyInput = "";
-    const inputBind = {
-        "tags": () => {
-            open(tags_url)
-        }
-    };
     $(window).bind("keydown", (event) => {
         keyInput += event.key;
         for (let key in inputBind) {
