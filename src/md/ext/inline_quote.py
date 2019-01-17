@@ -3,7 +3,7 @@ from markdown.inlinepatterns import InlineProcessor
 from markdown.util import etree
 
 
-class InlineQuotePattern(InlineProcessor):
+class InlineQuoteInlineProcessor(InlineProcessor):
     def handleMatch(self, m, data):
         el = etree.Element('em')
         el.set('class', 'inline-quote')
@@ -18,7 +18,7 @@ class InlineQuoteExtension(Extension):
         self.regex = r'____(.+)____'
 
     def extendMarkdown(self, md):
-        md.inlinePatterns.register(InlineQuotePattern(self.regex), 'inline_quote', 175)
+        md.inlinePatterns.register(InlineQuoteInlineProcessor(self.regex), 'inline_quote', 175)
 
 
 def makeExtension(**kwargs):

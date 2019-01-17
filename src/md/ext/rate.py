@@ -3,7 +3,7 @@ from markdown.inlinepatterns import InlineProcessor
 from markdown.util import etree
 
 
-class RatePattern(InlineProcessor):
+class RateInlineProcessor(InlineProcessor):
     def handleMatch(self, m, data):
         el = etree.Element('div')
         el.set('class', 'star')
@@ -19,7 +19,7 @@ class RateExtension(Extension):
         self.regex = r'\*\[([0-9]|10)\]'
 
     def extendMarkdown(self, md):
-        md.inlinePatterns.register(RatePattern(self.regex), 'rate', 175)
+        md.inlinePatterns.register(RateInlineProcessor(self.regex), 'rate', 175)
 
 
 def makeExtension(**kwargs):

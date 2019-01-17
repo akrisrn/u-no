@@ -3,7 +3,7 @@ from markdown.inlinepatterns import InlineProcessor
 from markdown.util import etree
 
 
-class WidgetPattern(InlineProcessor):
+class WidgetInlineProcessor(InlineProcessor):
     def __init__(self, pattern, name):
         super().__init__(pattern)
         self.name = name
@@ -22,7 +22,7 @@ class WidgetExtension(Extension):
         self.regex = self.name + r'\[(\w+)\]'
 
     def extendMarkdown(self, md):
-        md.inlinePatterns.register(WidgetPattern(self.regex, self.name), self.name + '_widget', 175)
+        md.inlinePatterns.register(WidgetInlineProcessor(self.regex, self.name), self.name + '_widget', 175)
 
 
 def makeExtension(**kwargs):

@@ -2,7 +2,7 @@ from markdown.extensions import Extension
 from markdown.inlinepatterns import InlineProcessor
 
 
-class SymbolsExtendPattern(InlineProcessor):
+class SymbolsExtendInlineProcessor(InlineProcessor):
     def __init__(self, pattern):
         super().__init__(pattern)
         self.symbols = {
@@ -22,7 +22,7 @@ class SymbolsExtendExtension(Extension):
         self.regex = r'(\<\|{2}\>|\|{2}\>|\<\|{2})'
 
     def extendMarkdown(self, md):
-        md.inlinePatterns.register(SymbolsExtendPattern(self.regex), 'symbols_extend', 175)
+        md.inlinePatterns.register(SymbolsExtendInlineProcessor(self.regex), 'symbols_extend', 175)
 
 
 def makeExtension(**kwargs):
