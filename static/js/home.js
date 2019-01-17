@@ -1,17 +1,23 @@
 let currentPageNum;
 
 $(function () {
-    function switchPage(num) {
+    const showArrow = (button, is_left) => {
+        button.find(">i").removeClass().addClass(`fas fa-arrow-${is_left ? "left" : "right"}`);
+    };
+    const switchPage = (num) => {
+        if (num < 1 || num > pageCount) {
+            return;
+        }
         $("ul > li").hide();
-        prevButton.hide();
-        nextButton.hide();
+        showArrow(prevButton);
+        showArrow(nextButton, true);
 
         $(`li.page-${num}`).fadeIn();
         if (num > 1) {
-            prevButton.show();
+            showArrow(prevButton, true);
         }
         if (num < pageCount) {
-            nextButton.show();
+            showArrow(nextButton);
         }
         for (let i = 0; i < pageCount; i++) {
             const pageButton = pageButtons[i];
@@ -22,7 +28,7 @@ $(function () {
         }
         scrollTo(0, 0);
         currentPageNum = num;
-    }
+    };
 
     const buttonGroup = $(".button-group");
     const pageCount = buttonGroup.children().length - 2;
