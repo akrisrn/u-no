@@ -37,23 +37,23 @@ class MyTest(unittest.TestCase):
         self.assertEqual(get_result(get_tags_flag, data), tags)
 
     def test_get_date_flag_0(self):
-        date = "18-12-01"
+        date = "2018-12-01"
         data = "{{date %s}}" % date
         self.assertEqual(get_result(get_date_flag, data), date)
 
     def test_get_date_flag_1(self):
         date = "2018-12-1"
         data = "{{date %s}}" % date
-        self.assertEqual(get_result(get_date_flag, data), "18-12-01")
+        self.assertEqual(get_result(get_date_flag, data), "2018-12-01")
 
     def test_get_date_flag_2(self):
-        date = "18-12-01"
-        data = "{{date 20%s,18-01-01}}" % date
+        date = "2018-12-01"
+        data = "{{date %s,18-01-01}}" % date
         self.assertEqual(get_result(get_date_flag, data), date)
 
     def test_get_date_flag_3(self):
-        date = "18-12-01"
-        data = "{{date 20%s，1111}}" % date
+        date = "2018-12-01"
+        data = "{{date %s，1111}}" % date
         self.assertEqual(get_result(get_date_flag, data), date)
 
     def test_get_notags_flag_0(self):
