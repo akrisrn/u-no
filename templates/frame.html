@@ -29,6 +29,13 @@
                 },
                 "home": () => {
                     window.location.href = home_url
+                },
+                "gg": () => {
+                    $("#content")[0].scrollIntoView(true);
+                    keyInput += "_";
+                },
+                "G": () => {
+                    $("#content")[0].scrollIntoView(false);
                 }
             }
         };
