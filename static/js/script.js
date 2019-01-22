@@ -12,9 +12,10 @@ const bindInput = (binds) => {
 };
 
 $(function () {
-    $("a").each((index, element) => {
-        if (element.getAttribute("href").startsWith("http")) {
-            element.setAttribute("target", "_blank")
+    $("a").each(function () {
+        const href = this.getAttribute("href");
+        if (href && href.startsWith("http")) {
+            this.setAttribute("target", "_blank")
         }
     });
     bindInput(inputBinds["common"])
