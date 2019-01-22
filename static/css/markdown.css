@@ -102,12 +102,9 @@
     margin: 0;
 }
 
-.markdown-body > details.tags {
-    padding: 0 24px 0 0;
-}
-
 .markdown-body details.tags > summary {
     background-color: transparent;
+    border-bottom: 1px #6a737d solid;
 }
 
 .markdown-body details.tags > summary > .tag {
