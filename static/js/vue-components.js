@@ -65,6 +65,6 @@ Vue.component('vue-check-icon', {
 });
 
 new Vue({
-    el: '#content',
+    el: '#main',
     delimiters: ['{|', '|}']
 });
