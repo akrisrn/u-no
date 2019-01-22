@@ -95,6 +95,29 @@
     max-width: 100px;
 }
 
+.markdown-body details.tags {
+    box-shadow: none;
+    border-radius: 0;
+    float: left;
+    margin: 0;
+}
+
+.markdown-body > details.tags {
+    padding: 0 24px 0 0;
+}
+
+.markdown-body details.tags > summary {
+    background-color: transparent;
+}
+
+.markdown-body details.tags > summary > .tag {
+    font-size: 14px;
+}
+
+.markdown-body details.tags > summary > .date {
+    float: none;
+}
+
 .markdown-body details.attention > summary {
     background-color: rgba(255, 23, 68, 0.3);
 }

@@ -142,7 +142,7 @@ def tags_page():
             if slash_count - prev_slash_count > 1:
                 slash_count = prev_slash_count + 1
             md_list += "    " * slash_count + \
-                       '??? "<vue-tag url="%s" name="%s"></vue-tag><div class="date">(%s)</div>"\n' % \
+                       '???+ "<vue-tag url="%s" name="%s"></vue-tag><div class="date">(%s)</div>"\n' % \
                        (url_for('main.tag_page', tag_hash=tag[0]), tag[1], tag_count)
             prev_slash_count = slash_count
     return render_template('tags.html', title=tags_url_name.upper(), data=render(md_list))

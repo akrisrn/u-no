@@ -14,5 +14,6 @@ $(function () {
             summary.style.pointerEvents = "auto";
             summary.style.cursor = "default";
         }
+        this.classList.add("tags");
     })
 });
