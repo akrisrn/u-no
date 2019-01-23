@@ -23,27 +23,25 @@
             const reindex_url = "{{ url_for('main.reindex_page') }}";
         {%- endif -%}
         const inputBinds = {
-            "common": {
-                "tags": () => {
-                    window.location.href = tags_url
-                },
-                "home": () => {
-                    window.location.href = home_url
-                },
-                "gg": () => {
-                    $("#content")[0].scrollIntoView(true);
-                    keyInput += "_";
-                },
-                "G": () => {
-                    $("#content")[0].scrollIntoView(false);
-                }
+            "tags": () => {
+                window.location.href = tags_url
+            },
+            "home": () => {
+                window.location.href = home_url
+            },
+            "gg": () => {
+                $("#content")[0].scrollIntoView(true);
+                keyInput += "_";
+            },
+            "G": () => {
+                $("#content")[0].scrollIntoView(false);
             }
         };
         {%- if not is_freeze -%}
-            inputBinds["common"]["index"] = () => {
+            inputBinds["index"] = () => {
                 window.location.href = index_url
             };
-            inputBinds["common"]["reidx"] = () => {
+            inputBinds["reidx"] = () => {
                 window.location.href = reindex_url
             };
         {%- endif -%}

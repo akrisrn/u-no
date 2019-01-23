@@ -18,5 +18,5 @@ $(function () {
             this.setAttribute("target", "_blank")
         }
     });
-    bindInput(inputBinds["common"])
+    bindInput(inputBinds)
 });
