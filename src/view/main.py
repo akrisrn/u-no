@@ -49,6 +49,8 @@ def index_page():
 @main.route('/%s' % reindex_url_name)
 def reindex_page():
     reindex()
+    if request.referrer:
+        return redirect(request.referrer)
     return redirect(url_for(".index_page"))
 
 
