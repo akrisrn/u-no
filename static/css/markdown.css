@@ -4,6 +4,11 @@
     margin-top: 16px;
 }
 
+.markdown-body dl dd:before, .markdown-body details > summary::before, .markdown-body details > summary::after {
+    font-family: "Font Awesome 5 Free", serif;
+    font-weight: bold;
+}
+
 .markdown-body .linenodiv > pre {
     padding-left: 10px;
     padding-right: 10px;
@@ -21,10 +26,8 @@
 }
 
 .markdown-body dl dd:before {
-    font-family: "Font Awesome 5 Free", serif;
-    font-size: 12px;
-    font-weight: bold;
     content: "\f101";
+    font-size: 12px;
     margin-right: 8px;
 }
 
@@ -58,7 +61,7 @@
     margin-top: 1em;
 }
 
-.markdown-body details[open] > summary ~ * {
+.markdown-body details > summary ~ * {
     animation: fadeEffect 1s;
 }
 
@@ -71,12 +74,26 @@
     }
 }
 
+.markdown-body details > summary::before {
+    margin-right: 16px;
+}
+
+.markdown-body details > summary::after {
+    content: "\f106";
+    float: right;
+    color: rgba(0, 0, 0, 0.26);
+}
+
+.markdown-body details:not([open]) > summary::after {
+    content: "\f107";
+}
+
 .markdown-body details ::-webkit-details-marker {
-    margin-right: 8px;
+    display: none;
 }
 
 .markdown-body details ::-moz-list-bullet {
-    margin-right: 8px;
+    font-size: 0;
 }
 
 .markdown-body details p {
@@ -116,10 +133,7 @@
 }
 
 .markdown-body details.attention > summary:before {
-    font-family: "Font Awesome 5 Free", serif;
-    font-weight: bold;
     content: "\f7ba";
-    margin-right: 8px;
 }
 
 .markdown-body details.toc {
@@ -131,6 +145,11 @@
 .markdown-body details.toc > summary {
     border: none;
     background-color: transparent;
+}
+
+.markdown-body details.toc > summary::after {
+    float: none;
+    margin-left: 12px;
 }
 
 .markdown-body details.tags {
@@ -150,6 +169,11 @@
     background-color: transparent;
 }
 
+.markdown-body details.tags > summary::after {
+    float: none;
+    margin-left: 12px;
+}
+
 .markdown-body details.tags > summary > .date {
     float: none;
 }
@@ -158,12 +182,8 @@
     pointer-events: none;
 }
 
-.markdown-body details.readonly ::-webkit-details-marker {
-    display: none;
-}
-
-.markdown-body details.readonly ::-moz-list-bullet {
-    font-size: 0;
+.markdown-body details.readonly > summary::after {
+    content: none;
 }
 
 .markdown-body img {
