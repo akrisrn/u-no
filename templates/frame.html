@@ -35,6 +35,9 @@
             },
             "G": () => {
                 $("#content")[0].scrollIntoView(false);
+            },
+            "Backspace": () => {
+                keyInput = keyInput.substr(0, keyInput.length - 10)
             }
         };
         {%- if not is_freeze -%}
