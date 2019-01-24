@@ -9,7 +9,7 @@ import src.md.md
 from .cache import get_file_cache
 from .const import index_url_key, index_title_key, index_parent_key, index_id_key, index_highlight_key, \
     index_top_key, index_notags_key, index_fixed_key, index_tags_key, index_date_key, index_path_key, \
-    articles_url_name, attachments_url_name, index_bereferenced_key
+    articles_url_name, attachments_url_name, index_bereferenced_key, index_noheader_key, index_nofooter_key
 from .util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
     update_config_ignore_file_list, get_unique_find_dict, get_tag_parents, get_date_parents
 
@@ -195,7 +195,9 @@ def reindex():
                                              index_notags_key: src.flag.get_notags_flag(data),
                                              index_top_key: src.flag.get_top_flag(data),
                                              index_highlight_key: src.flag.get_highlight_flag(data),
-                                             index_bereferenced_key: []}
+                                             index_bereferenced_key: [],
+                                             index_noheader_key: src.flag.get_noheader_flag(data),
+                                             index_nofooter_key: src.flag.get_nofooter_flag(data)}
             else:
                 # 组成一条附件索引
                 url = "/%s/%s" % (attachments_url_name, compute_digest_by_abspath(file_abspath))

@@ -5,7 +5,7 @@ from flask import current_app
 
 import src.index
 from .const import index_url_key, flag_js, flag_css, flag_unignore, flag_ignore, flag_highlight, flag_top, \
-    flag_fixed, flag_notags, flag_tag, flag_date, flag_plugin, show_date_format
+    flag_fixed, flag_notags, flag_tag, flag_date, flag_plugin, show_date_format, flag_noheader, flag_nofooter
 from .util import clean_text
 
 
@@ -102,3 +102,13 @@ def get_plugin_flag(data):
     if not group:
         return []
     return [plugin_name for plugin_name in re.split("[,，]", clean_text(group.group(2))) if plugin_name]
+
+
+# 获取文章里标记的无头片段标签标识，语法匹配{{noheader}}
+def get_noheader_flag(data):
+    return True if re.search(get_flag_regexp(flag_noheader), data) else False
+
+
+# 获取文章里标记的无尾片段标签标识，语法匹配{{nofooter}}
+def get_nofooter_flag(data):
+    return True if re.search(get_flag_regexp(flag_nofooter), data) else False

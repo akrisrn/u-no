@@ -17,6 +17,8 @@ index_notags_key = "notags"
 index_top_key = "top"
 index_highlight_key = "highlight"
 index_bereferenced_key = "bereferenced"
+index_noheader_key = "noheader"
+index_nofooter_key = "nofooter"
 
 flag_tag = "tag"
 flag_date = "date"
@@ -29,6 +31,8 @@ flag_unignore = "unignore"
 flag_css = "css"
 flag_js = "js"
 flag_plugin = "plugin"
+flag_noheader = "noheader"
+flag_nofooter = "nofooter"
 
 show_date_format = "%Y-%m-%d"
 hash_length = 7

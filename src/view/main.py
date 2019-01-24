@@ -4,7 +4,8 @@ from flask import send_from_directory, Blueprint, render_template, request, abor
 
 from ..cache import get_file_cache
 from ..const import index_notags_key, index_parent_key, index_path_key, index_url_name, index_title_key, index_id_key, \
-    index_tags_key, index_date_key, articles_url_name, attachments_url_name, tags_url_name, reindex_url_name
+    index_tags_key, index_date_key, articles_url_name, attachments_url_name, tags_url_name, reindex_url_name, \
+    index_noheader_key, index_nofooter_key
 from ..flag import get_custom_js_flag, get_custom_css_flag, get_plugin_flag
 from ..index import get_item_by_url, index_data_filter, get_fixed_articles, reindex, get_tags_parents
 from ..md.md import render, get_snippet
@@ -77,8 +78,8 @@ def article_page(url_name, file_hash):
         # 识别文章中的自定义js文件，获取自定义js文件url列表
         js_urls = plugin_urls["js"] + get_custom_js_flag(data)
         # 添加页眉页脚
-        snip_header = get_snippet(current_app.config["HEADER_FILE_NAME"])
-        snip_footer = get_snippet(current_app.config["FOOTER_FILE_NAME"])
+        snip_header = "" if item[index_noheader_key] else get_snippet(current_app.config["HEADER_FILE_NAME"])
+        snip_footer = "" if item[index_nofooter_key] else get_snippet(current_app.config["FOOTER_FILE_NAME"])
         if snip_header and not data.startswith("\n\n"):
             snip_header += ("" if data.startswith("\n") else "\n") + "\n"
         if snip_footer and not data.endswith("\n\n"):
