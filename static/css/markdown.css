@@ -48,6 +48,10 @@
     border-radius: 3px;
 }
 
+.markdown-body details p {
+    margin-top: 1em;
+}
+
 .markdown-body details > summary {
     margin: 0 -1.2rem;
     padding: 0.2rem 1.2rem;
@@ -94,10 +98,6 @@
 
 .markdown-body details ::-moz-list-bullet {
     font-size: 0;
-}
-
-.markdown-body details p {
-    margin-top: 1em;
 }
 
 .markdown-body details.note {
@@ -185,13 +185,9 @@
     background-color: transparent;
 }
 
-.markdown-body details.tags > summary::after {
+.markdown-body details.tags > summary > .date,.markdown-body details.tags > summary::after {
     float: none;
-    margin-left: 12px;
-}
-
-.markdown-body details.tags > summary > .date {
-    float: none;
+    margin-left: 8px;
 }
 
 .markdown-body details.readonly > summary {
