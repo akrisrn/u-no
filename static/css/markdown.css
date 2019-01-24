@@ -108,12 +108,22 @@
     background-color: rgba(68, 138, 255, 0.1);
 }
 
-.markdown-body details.danger, .markdown-body details.attention {
+.markdown-body details.note > summary:before {
+    content: "\f304";
+    color: #448aff;
+}
+
+.markdown-body details.danger {
     border-left-color: #ff1744;
 }
 
-.markdown-body details.danger > summary, .markdown-body details.attention > summary {
+.markdown-body details.danger > summary {
     background-color: rgba(255, 23, 68, 0.1);
+}
+
+.markdown-body details.danger > summary:before {
+    content: "\f0e7";
+    color: #ff1744;
 }
 
 .markdown-body details.success {
@@ -124,6 +134,11 @@
     background-color: rgba(0, 200, 83, 0.1);
 }
 
+.markdown-body details.success > summary:before {
+    content: "\f00c";
+    color: #00c853;
+}
+
 .markdown-body details.warning {
     border-left-color: #ff9100;
 }
@@ -132,8 +147,9 @@
     background-color: rgba(255, 145, 0, 0.1);
 }
 
-.markdown-body details.attention > summary:before {
-    content: "\f7ba";
+.markdown-body details.warning > summary:before {
+    content: "\f071";
+    color: #ff9100;
 }
 
 .markdown-body details.toc {
