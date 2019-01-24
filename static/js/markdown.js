@@ -115,7 +115,7 @@ $(function () {
     }
     toc.wrap(details);
     const summary = $("<summary>");
-    summary.append($("<strong>").text("目录"));
+    summary.append($("<strong>").text("TOC"));
     summary.insertBefore(toc);
 
     $(toc.find('ul').get().reverse()).each(function () {
