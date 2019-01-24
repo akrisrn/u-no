@@ -13,10 +13,10 @@ body {
 a, a i, li i, .tag > i {
     color: #24292e;
     text-decoration: none;
-    transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -o-transition: all 0.5s
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s
 }
 
 a:hover {
@@ -41,10 +41,10 @@ a:hover i, li:hover > i:first-child {
     box-sizing: border-box;
     width: 100%;
     padding: 0 25px 25px;
-    transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -o-transition: all 0.5s
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s
 }
 
 #content hr {
@@ -69,10 +69,10 @@ a:hover i, li:hover > i:first-child {
 }
 
 #to-top, #to-top i {
-    transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -o-transition: all 0.5s;
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
 }
 
 #to-top:hover i {
