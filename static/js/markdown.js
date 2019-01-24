@@ -120,5 +120,11 @@ $(function () {
 
     $(toc.find('ul').get().reverse()).each(function () {
         $(this).replaceWith($('<ol>' + $(this).html() + '</ol>'))
-    })
+    });
+
+    $("summary").each(function () {
+        if (this.innerHTML === "") {
+            this.style.display = "none"
+        }
+    });
 });

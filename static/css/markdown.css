@@ -41,12 +41,14 @@
     margin: 1em 0;
     padding: 0 1.2rem;
     overflow: auto;
+    border-left: 0.4rem solid #8f9398;
     border-radius: 3px;
 }
 
 .markdown-body details > summary {
     margin: 0 -1.2rem;
     padding: 0.2rem 1.2rem;
+    border-bottom: 0.1rem solid rgba(68, 138, 255, 0.1);
     background-color: rgba(27, 31, 35, 0.1);
     outline: none;
     cursor: pointer;
@@ -70,31 +72,86 @@
 }
 
 .markdown-body details ::-webkit-details-marker {
-    margin-right: 10px;
+    margin-right: 8px;
 }
 
 .markdown-body details ::-moz-list-bullet {
-    margin-right: 10px;
+    margin-right: 8px;
 }
 
 .markdown-body details p {
     margin-top: 1em;
 }
 
-.markdown-body details.note > summary {
-    background-color: rgba(50, 150, 255, 0.3);
+.markdown-body details.note {
+    border-left-color: #448aff;
 }
 
-.markdown-body details.danger > summary {
-    background-color: rgba(255, 23, 68, 0.3);
+.markdown-body details.note > summary {
+    background-color: rgba(68, 138, 255, 0.1);
+}
+
+.markdown-body details.danger, .markdown-body details.attention {
+    border-left-color: #ff1744;
+}
+
+.markdown-body details.danger > summary, .markdown-body details.attention > summary {
+    background-color: rgba(255, 23, 68, 0.1);
+}
+
+.markdown-body details.success {
+    border-left-color: #00c853;
 }
 
 .markdown-body details.success > summary {
-    background-color: rgba(0, 200, 83, 0.3);
+    background-color: rgba(0, 200, 83, 0.1);
+}
+
+.markdown-body details.warning {
+    border-left-color: #ff9100;
 }
 
 .markdown-body details.warning > summary {
-    background-color: rgba(255, 145, 0, 0.3);
+    background-color: rgba(255, 145, 0, 0.1);
+}
+
+.markdown-body details.attention > summary:before {
+    font-family: "Font Awesome 5 Free", serif;
+    font-weight: bold;
+    content: "\f7ba";
+    margin-right: 8px;
+}
+
+.markdown-body details.toc {
+    box-shadow: none;
+    border-left: 0.25em solid #dfe2e5;
+    border-radius: 0;
+}
+
+.markdown-body details.toc > summary {
+    border: none;
+    background-color: transparent;
+}
+
+.markdown-body details.tags {
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    float: left;
+    margin: 0;
+}
+
+.markdown-body > details.tags {
+    padding: 0 24px 0 0;
+}
+
+.markdown-body details.tags > summary {
+    border: none;
+    background-color: transparent;
+}
+
+.markdown-body details.tags > summary > .date {
+    float: none;
 }
 
 .markdown-body details.readonly > summary {
@@ -107,51 +164,6 @@
 
 .markdown-body details.readonly ::-moz-list-bullet {
     font-size: 0;
-}
-
-.markdown-body details.toc {
-    box-shadow: none;
-    border-left: 0.25em solid #dfe2e5;
-    border-radius: 0;
-}
-
-.markdown-body details.toc > summary {
-    background-color: transparent;
-    max-width: 100px;
-}
-
-.markdown-body details.tags {
-    box-shadow: none;
-    border-radius: 0;
-    float: left;
-    margin: 0;
-}
-
-.markdown-body > details.tags {
-    padding: 0 24px 0 0;
-}
-
-.markdown-body details.tags > summary {
-    background-color: transparent;
-}
-
-.markdown-body details.tags > summary > .tag {
-    font-size: 14px;
-}
-
-.markdown-body details.tags > summary > .date {
-    float: none;
-}
-
-.markdown-body details.attention > summary {
-    background-color: rgba(255, 23, 68, 0.3);
-}
-
-.markdown-body details.attention > summary:before {
-    font-family: "Font Awesome 5 Free", serif;
-    font-weight: bold;
-    content: "\f7ba";
-    margin-right: 8px;
 }
 
 .markdown-body img {
