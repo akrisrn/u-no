@@ -44,6 +44,31 @@
     border-radius: 3px;
 }
 
+.markdown-body details > summary {
+    margin: 0 -1.2rem;
+    padding: 0.2rem 1.2rem;
+    background-color: rgba(27, 31, 35, 0.1);
+    outline: none;
+    cursor: pointer;
+}
+
+.markdown-body details > summary + ul, .markdown-body details > summary + ol {
+    margin-top: 1em;
+}
+
+.markdown-body details[open] > summary ~ * {
+    animation: fadeEffect 1s;
+}
+
+@keyframes fadeEffect {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .markdown-body details ::-webkit-details-marker {
     margin-right: 10px;
 }
@@ -127,31 +152,6 @@
     font-weight: bold;
     content: "\f7ba";
     margin-right: 8px;
-}
-
-.markdown-body details > summary {
-    margin: 0 -1.2rem;
-    padding: 0.2rem 1.2rem;
-    background-color: rgba(27, 31, 35, 0.1);
-    outline: none;
-    cursor: pointer;
-}
-
-.markdown-body details > summary + ul, .markdown-body details > summary + ol {
-    margin-top: 1em;
-}
-
-.markdown-body details[open] > summary ~ * {
-    animation: fadeEffect 1s;
-}
-
-@keyframes fadeEffect {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
 }
 
 .markdown-body img {
