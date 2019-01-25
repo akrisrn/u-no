@@ -9,11 +9,13 @@ $(function () {
     });
 
     $(window).bind("keydown", (event) => {
-        keyInput += event.key;
-        for (let key in inputBinds) {
-            if (keyInput.endsWith(key)) {
-                inputBinds[key]();
-                break;
+        if (!$("textarea, input").is(':focus')) {
+            keyInput += event.key;
+            for (let key in inputBinds) {
+                if (keyInput.endsWith(key)) {
+                    inputBinds[key]();
+                    break;
+                }
             }
         }
     });
