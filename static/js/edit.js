@@ -4,7 +4,7 @@ $(function () {
     textarea.scrollTop = 0;
 
     $("#save").click(() => {
-        $.post(document.location.pathname, {data: textarea.value}, (result) => {
+        $.post(window.location.href, {data: textarea.value}, (result) => {
             if (result) {
                 url = result;
                 const message = $("#message");
