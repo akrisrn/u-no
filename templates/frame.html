@@ -47,6 +47,11 @@
             inputBinds["reidx"] = () => {
                 window.location.href = reindex_url
             };
+            inputBinds["edit"] = () => {
+                if (window.location.pathname.startsWith("/{{ articles_url_name }}")) {
+                    window.location.href = edit_url;
+                }
+            };
         {%- endif -%}
     </script>
     {%- block extra_js_link -%}

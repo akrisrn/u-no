@@ -6,6 +6,11 @@
     {%- for js_url in js_urls -%}
         <script type="text/javascript" src="{{ js_url }}"></script>
     {%- endfor -%}
+    {%- if not is_freeze -%}
+        <script>
+            const edit_url = `{{ url_for("edit.article") }}?item_url=${encodeURIComponent(window.location.pathname)}`
+        </script>
+    {%- endif -%}
 {%- endblock -%}
 {%- block extra_css_link -%}
     {%- for css_url in css_urls -%}
@@ -21,6 +26,9 @@
             <vue-tag v-bind:tags_url="tags_url" url="{{ url_for('main.tag_page', tag_hash=tag[0]) }}"
                      name="{{ tag[1] }}"{{ " is_first" if loop.index == 1 else "" }}></vue-tag>
         {%- endfor -%}
+    {%- endif -%}
+    {%- if not is_freeze -%}
+        <vue-tag v-bind:url="edit_url" name="Edit"></vue-tag>
     {%- endif -%}
     <hr>
     <div class="markdown-body">{{ data | safe }}</div>
