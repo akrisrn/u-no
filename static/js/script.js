@@ -42,6 +42,41 @@ $(function () {
             if (getScrollTop() < 1) clearInterval(goTop);
         }, 10);
     });
+    const random = (min, max, round) => {
+        const result = Math.random() * (max - min) + min;
+        return round === true ? Math.round(result) : result;
+    };
+    toTopDiv[0].addEventListener('click', function () {
+        keyInput += "∨";
+        if (keyInput.endsWith("∨∨∨∨∨∨∨")) {
+            keyInput += "_";
+            for (let i = 0; i < 100; i++) {
+                const left = -100 - random(0, 200);
+                const top = random(-20, window.innerHeight);
+                const fontSize = random(12, 42);
+                const color = `rgb(${random(0, 255, true)}, ${random(0, 255, true)}, ${random(0, 255, true)})`;
+                const duration = random(1, 5);
+                const versionDiv = $("<div>").css({
+                    "left": left + `px`,
+                    "top": top + "px",
+                    "font-size": fontSize + "px",
+                    "color": color,
+                    "z-index": 100,
+                    "position": "fixed", "transition": `all cubic-bezier(0.46, 1.47, 0.91,-0.46) ${duration}s`,
+                    "-moz-transition": `all cubic-bezier(0.46, 1.47, 0.91,-0.46) ${duration}s`,
+                    "-webkit-transition": `all cubic-bezier(0.46, 1.47, 0.91,-0.46) ${duration}s`,
+                    "-o-transition": `all cubic-bezier(0.46, 1.47, 0.91,-0.46) ${duration}s`
+                }).text(version);
+                versionDiv[0].addEventListener("transitionend", function () {
+                    this.remove()
+                });
+                $("body").append(versionDiv);
+                setTimeout(() => {
+                    versionDiv.css("left", window.innerWidth + "px")
+                }, 1)
+            }
+        }
+    });
 
     Vue.component('vue-return-home', {
         props: {

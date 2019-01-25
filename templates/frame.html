@@ -16,6 +16,7 @@
         <script type="text/javascript" src="{{ get_static_file_url(custom) }}"></script>
     {%- endfor -%}
     <script>
+        const version = "{{ version }}";
         const home_url = "{{ url_for('main.home_page') }}";
         const tags_url = "{{ url_for('main.tags_page') }}";
         {%- if not is_freeze -%}
