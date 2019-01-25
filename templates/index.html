@@ -169,7 +169,7 @@
                                 {%- set ref_count = article[index_bereferenced_key] | length -%}
                                 <details{{ " class=readonly" if ref_count == 0 else "" }}>
                                     <summary>Count: {{ ref_count }}</summary>
-                                    <ol style="padding-left: 20px">
+                                    <ol style="padding-left: 12px">
                                         {%- for ref in article[index_bereferenced_key] -%}
                                             <li>{{ ref }}</li>
                                         {%- endfor -%}
@@ -204,7 +204,7 @@
                                 {%- set ref_count = attachment[index_bereferenced_key] | length -%}
                                 <details{{ " class=readonly" if ref_count == 0 else "" }}>
                                     <summary>Count: {{ ref_count }}</summary>
-                                    <ol style="padding-left: 20px">
+                                    <ol style="padding-left: 12px">
                                         {%- for ref in attachment[index_bereferenced_key] -%}
                                             <li>{{ ref }}</li>
                                         {%- endfor -%}
