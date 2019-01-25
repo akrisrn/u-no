@@ -83,6 +83,10 @@ def get_custom_css_flag(data, is_return_path=False, custom_type=flag_css):
     css_path_list = []
     for css_path in re.split("[,，]", clean_text(group.group(2))):
         if css_path:
+            # 匹配[](path)方便编辑器引用文件
+            match = re.match(r"\[\]\((.*?)\)", css_path)
+            if match:
+                css_path = match.group(1).replace("../", "")
             # 根据css文件相对路径从索引文件中取出url
             item = src.index.get_item_by_path(css_path)
             if item:

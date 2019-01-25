@@ -182,7 +182,7 @@ def reindex():
                     item = get_item_by_path(file_path)
                     if item:
                         url = "/%s/%s" % (articles_url_name, item[index_url_key].split("/")[-1])
-                # 查找引用文件
+                # 查找引用文件（文章图片内联、引入CSS和JS、片段链接）
                 reference_dict[file_path] = src.md.md.get_reference(data) + src.flag.get_custom_css_flag(data, True) + \
                                             src.flag.get_custom_js_flag(data, True)
                 for value in get_unique_find_dict("--8<-- \"(.*?)\"", data).values():

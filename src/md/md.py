@@ -104,7 +104,6 @@ def get_reference(text):
     url_match_dict = get_unique_find_dict(r"\[(.*?)\]\((.*?)\)\+", text, 2)
     for match in url_match_dict:
         file_path = url_match_dict[match][1].replace("../", "")
-        # 根据文件相对路径从索引文件中取出url
         if src.index.get_item_by_path(file_path):
             file_path_list.append(file_path)
     return file_path_list
