@@ -50,6 +50,7 @@ def render(text):
         'src.md.ext.inlink',
         'src.md.ext.inline_quote',
         'src.md.ext.table_increment',
+        'src.md.ext.snippets',
     ]
     # 扩展配置
     extension_configs = {
@@ -87,6 +88,9 @@ def render(text):
             }]
         },
         "pymdownx.snippets": {
+            "base_path": get_articles_dir_abspath()
+        },
+        "src.md.ext.snippets": {
             "base_path": get_articles_dir_abspath()
         }
     }
