@@ -75,8 +75,6 @@ if __name__ == '__main__':
                 new_attach_filename = attach_hash + attach_ext
                 new_attach_abspath = os.path.join(frozen_attachments_dir_abspath, new_attach_filename)
                 shutil.copy(attach_abspath, new_attach_abspath)
-                if attach_ext in image_ext:
-                    new_attach_filename = attach_hash + ".webp"
                 page_urls[result_attach] = "/%s/%s" % (attachments_url_name, new_attach_filename)
 
             data_list[os.path.join(frozen_tags_dir_abspath, "index.html")] = tags_page()
@@ -109,6 +107,7 @@ if __name__ == '__main__':
         for file in files:
             file_abspath = os.path.join(root, file)
             file_name, file_ext = os.path.splitext(file)
+            file_ext = file_ext.lower()
             if file_ext == ".html":
                 process_single_html_file(file_abspath, overwrite=True)
             elif file_ext == ".js":
@@ -119,5 +118,4 @@ if __name__ == '__main__':
                 if root.startswith(frozen_static_dir_abspath):
                     continue
                 img = Image.open(file_abspath)
-                img.save(os.path.join(root, file_name + ".webp"), "webp", quality=75)
-                os.remove(file_abspath)
+                img.save(file_abspath, "jpeg" if file_ext == ".jpg" else file_ext[1:], quality=75)
