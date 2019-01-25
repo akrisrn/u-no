@@ -119,7 +119,7 @@ $(function () {
     summary.insertBefore(toc);
 
     $(toc.find('ul').get().reverse()).each(function () {
-        $(this).replaceWith($('<ol>' + $(this).html() + '</ol>'))
+        $(this).replaceWith($('<ol class="number">' + $(this).html() + '</ol>'))
     });
 
     $("summary").each(function () {

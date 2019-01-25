@@ -4,15 +4,15 @@
     margin-top: 16px;
 }
 
-.markdown-body ol {
+.markdown-body ol.number {
     counter-reset: item;
 }
 
-.markdown-body ol > li {
+.markdown-body ol.number > li {
     display: block;
 }
 
-.markdown-body ol > li:before {
+.markdown-body ol.number > li:before {
     content: counters(item, ".") ".";
     counter-increment: item;
     margin-right: 8px;
