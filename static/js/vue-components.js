@@ -47,7 +47,7 @@ Vue.component('vue-index-tab-button', {
     props: ['name', 'id'],
     template: `
 <button class="tablinks" v-bind:id="id">
-    <i style="margin-right: 8px" class="far fa-folder"></i>{{ name }}
+    <i style="width: 14px; margin-right: 8px" class="far fa-folder"></i>{{ name }}
 </button>`
 });
 
