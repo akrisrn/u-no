@@ -14,11 +14,11 @@ $(function () {
         })
     });
     $("#view").click(() => {
-        open(url)
+        window.open(url)
     });
     $("#saveView").click(() => {
         $("#save").click();
-        location.href = url;
+        window.location.href = url;
     });
 
     $(window).bind("keydown", (event) => {
