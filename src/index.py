@@ -142,7 +142,7 @@ def reindex():
         if is_ignore:
             continue
         index = 1
-        for file in files:
+        for file in sorted(files):
             # 组成文件路径
             file_path = "/".join([path, file]).lstrip("/")
             file_abspath = os.path.join(root, file)
