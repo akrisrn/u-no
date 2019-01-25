@@ -24,6 +24,8 @@ ARTICLES_DIR_ABSPATH = ""
 ATTACHMENTS_DIR_NAME = ""
 # 索引文件名
 INDEX_FILE_NAME = ""
+# 索引缩进
+INDEX_PRETTY_PRINT = True
 # 页眉文件名
 HEADER_FILE_NAME = ""
 # 页脚文件名

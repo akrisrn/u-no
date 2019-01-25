@@ -220,7 +220,15 @@ def reindex():
                 block[key][index_bereferenced_key] = be_referenced_dict[key]
                 break
     # 写入索引文件
-    index_data = json.dumps([articles_block, attachments_block, tag_parents], separators=(',', ':'))
+    separators = (',', ':')
+    sort_keys = None
+    indent = None
+    if current_app.config["INDEX_PRETTY_PRINT"]:
+        separators = None
+        sort_keys = True
+        indent = 2
+    index_data = json.dumps([articles_block, attachments_block, tag_parents], separators=separators,
+                            sort_keys=sort_keys, indent=indent)
     with open(os.path.join(articles_dir_abspath, current_app.config["INDEX_FILE_NAME"]), 'w',
               encoding='utf-8') as index_file:
         index_file.write(index_data)
