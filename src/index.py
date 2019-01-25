@@ -186,6 +186,9 @@ def reindex():
                 reference_dict[file_path] = src.md.md.get_reference(data) + src.flag.get_custom_css_flag(data, True) + \
                                             src.flag.get_custom_js_flag(data, True)
                 for value in get_unique_find_dict("--8<-- \"(.*?)\"", data).values():
+                    match = re.match(r"\[\]\((.*?)\)", value)
+                    if match:
+                        value = match.group(1).replace("../", "")
                     if get_item_by_path(value):
                         reference_dict[file_path].append(value)
                 # 组成一条文章索引
