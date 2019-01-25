@@ -4,6 +4,7 @@
     padding: 16px;
     box-sizing: border-box;
     resize: none;
+    background-color: transparent;
 }
 
 #message, .button-group {
