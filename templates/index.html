@@ -78,11 +78,11 @@
                         {%- set isHighlight = article[index_highlight_key] -%}
                         {%- set isNotags = article[index_notags_key] -%}
                         {%- set article_path = article[index_path_key] -%}
+                        {%- set article_url = article[index_url_key] -%}
                         <tr>
                             <td align="right">{{ article[index_id_key] }}</td>
                             <td>
-                                <a href="{{ article[index_url_key] }}"
-                                   target="_blank">{{ article[index_title_key] }}</a>
+                                <a href="{{ article_url }}" target="_blank">{{ article[index_title_key] }}</a>
                             </td>
                             <td>
                                 <div style="display: inline">
@@ -152,7 +152,7 @@
                             <td align="center">
                                 <div class="button-group">
                                     <button class="button" title="Edit article"
-                                            onclick='window.open("{{ url_for("edit.article", item_path=article_path) }}")'>
+                                            onclick='window.open("{{ url_for("edit.article", item_url=article_url) }}")'>
                                         <i class="fas fa-edit"></i>
                                     </button>
                                 </div>
