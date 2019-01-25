@@ -228,7 +228,7 @@ def reindex():
         sort_keys = True
         indent = 2
     index_data = json.dumps([articles_block, attachments_block, tag_parents], separators=separators,
-                            sort_keys=sort_keys, indent=indent)
+                            sort_keys=sort_keys, indent=indent, ensure_ascii=False)
     with open(os.path.join(articles_dir_abspath, current_app.config["INDEX_FILE_NAME"]), 'w',
               encoding='utf-8') as index_file:
         index_file.write(index_data)
