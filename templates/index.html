@@ -34,7 +34,7 @@
         {%- set ignore_files = data[1] -%}
         <div class="tab">
             {%- if article_parents[''] -%}
-                <vue-index-tab-button name="{{ article_url }}" id="defaultOpen"></vue-index-tab-button>
+                <vue-index-tab-button name="{{ articles_url_name }}" id="defaultOpen"></vue-index-tab-button>
             {%- endif -%}
             {%- for parent in article_parents | sort -%}
                 {%- if not parent -%}
@@ -54,7 +54,7 @@
             {%- endif -%}
         </div>
         {%- for parent in article_parents -%}
-            <div id="{{ parent if parent else article_url }}" class="tabcontent">
+            <div id="{{ parent if parent else articles_url_name }}" class="tabcontent">
                 <table>
                     <thead>
                     <tr>

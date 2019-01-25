@@ -41,9 +41,7 @@ def index_page():
             parent[parent_dir].append(item)
         parents.append(parent)
     ignore_files = current_app.config["IGNORE_FILE_LIST"]
-    return render_template('index.html', title=index_url_name.upper(),
-                           data=[parents, ignore_files],
-                           article_url=articles_url_name, attach_url=attachments_url_name,
+    return render_template('index.html', title=index_url_name.upper(), data=[parents, ignore_files],
                            ignore_tab_name="ignore_file")
 
 
