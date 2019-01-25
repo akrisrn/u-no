@@ -3,22 +3,28 @@ $(function () {
     textarea.setSelectionRange(0, 0);
     textarea.scrollTop = 0;
 
-    $("#save").click(() => {
+    const postData = (func) => {
         $.post(window.location.href, {data: textarea.value}, (result) => {
             if (result) {
                 url = result;
                 const message = $("#message");
                 message.show();
                 message.fadeOut(1000);
+                if (func) func()
             }
         })
+    };
+
+    $("#save").click(() => {
+        postData()
     });
     $("#view").click(() => {
         window.open(url)
     });
     $("#saveView").click(() => {
-        $("#save").click();
-        window.location.href = url;
+        postData(() => {
+            window.location.href = url;
+        });
     });
 
     $(window).bind("keydown", (event) => {
