@@ -1,15 +1,4 @@
 let keyInput = "";
-const bindInput = (binds) => {
-    $(window).bind("keydown", (event) => {
-        keyInput += event.key;
-        for (let key in binds) {
-            if (keyInput.endsWith(key)) {
-                binds[key]();
-                break;
-            }
-        }
-    });
-};
 
 $(function () {
     $("a").each(function () {
@@ -18,7 +7,16 @@ $(function () {
             this.setAttribute("target", "_blank")
         }
     });
-    bindInput(inputBinds);
+
+    $(window).bind("keydown", (event) => {
+        keyInput += event.key;
+        for (let key in inputBinds) {
+            if (keyInput.endsWith(key)) {
+                inputBinds[key]();
+                break;
+            }
+        }
+    });
 
     const getScrollTop = () => {
         return document.documentElement.scrollTop + document.body.scrollTop;
