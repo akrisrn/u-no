@@ -16,11 +16,9 @@ $(function () {
     $("#view").click(() => {
         open(url)
     });
-    $("#clean").click(() => {
-        textarea.value = ""
-    });
-    $("#select").click(() => {
-        textarea.select()
+    $("#saveView").click(() => {
+        $("#save").click();
+        location.href = url;
     });
 
     $(window).bind("keydown", (event) => {
@@ -33,6 +31,10 @@ $(function () {
                 case "q":
                     event.preventDefault();
                     $("#view").click();
+                    break;
+                case "b":
+                    event.preventDefault();
+                    $("#saveView").click();
                     break;
             }
         }
