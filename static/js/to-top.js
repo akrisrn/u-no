@@ -1,26 +1,27 @@
-const obj = document.getElementById("to-top");
+$(function () {
+    const getScrollTop = () => {
+        return document.documentElement.scrollTop + document.body.scrollTop;
+    };
+    const setScrollTop = (value) => {
+        if (document.documentElement.scrollTop) {
+            document.documentElement.scrollTop = value;
+        } else {
+            document.body.scrollTop = value;
+        }
+    };
 
-function getScrollTop() {
-    return document.documentElement.scrollTop + document.body.scrollTop;
-}
-
-function setScrollTop(value) {
-    if (document.documentElement.scrollTop) {
-        document.documentElement.scrollTop = value;
-    } else {
-        document.body.scrollTop = value;
-    }
-}
-
-window.onscroll = function () {
-    getScrollTop() > 0 ? obj.style.opacity = "1" : obj.style.opacity = "";
-};
-
-obj.onclick = function () {
-    const goTop = setInterval(scrollMove, 10);
-
-    function scrollMove() {
-        setScrollTop(getScrollTop() / 1.1);
-        if (getScrollTop() < 1) clearInterval(goTop);
-    }
-};
+    const toTopDiv = $("#to-top");
+    $(window).scroll(() => {
+        if (getScrollTop() > 0) {
+            toTopDiv.css("opacity", "1")
+        } else {
+            toTopDiv.css("opacity", "");
+        }
+    });
+    toTopDiv.click(() => {
+        const goTop = setInterval(() => {
+            setScrollTop(getScrollTop() / 1.1);
+            if (getScrollTop() < 1) clearInterval(goTop);
+        }, 10);
+    });
+});
