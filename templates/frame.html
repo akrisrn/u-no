@@ -77,9 +77,5 @@
 <div id="to-top">
     <i class="fas fa-chevron-up fa-2x"></i>
 </div>
-{%- set js_custom = ["js/to-top.js", "js/vue-components.js"] -%}
-{%- for custom in js_custom -%}
-    <script type="text/javascript" src="{{ get_static_file_url(custom) }}"></script>
-{%- endfor -%}
 </body>
 </html>
