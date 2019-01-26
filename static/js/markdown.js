@@ -118,23 +118,22 @@ $(function () {
     $(toc.find('ul').get().reverse()).each(function () {
         $(this).replaceWith($('<ol class="number" style="margin-bottom: 8px">' + $(this).html() + '</ol>'))
     });
-    const minWidth = 1380;
     const headerHeight = 120;
-    const marginTop = 20;
     const changeTop = (tocDetails, scrollTop) => {
         const isFixed = tocDetails.css("position") === "fixed";
-        tocDetails.css("top", scrollTop > headerHeight ? (isFixed ? marginTop : scrollTop + marginTop) + "px" :
-            isFixed ? headerHeight + marginTop - scrollTop + "px" : "");
+        tocDetails.css("top", (scrollTop > headerHeight ? (isFixed ? 0 : scrollTop) :
+            (isFixed ? headerHeight - scrollTop : headerHeight)) + "px");
     };
     const changeSth = (tocDetails) => {
         tocDetails.css("max-height", window.innerHeight - 50 + "px");
-        if (window.innerWidth > minWidth) {
+        if (window.innerWidth > 1380) {
             tocDetails.attr("open", "")
         } else {
             tocDetails.removeAttr("open")
         }
     };
     tocDetails = $("details.toc");
+    tocDetails.appendTo($(".markdown-body"));
     changeSth(tocDetails);
     changeTop(tocDetails, getScrollTop());
     window.addEventListener("resize", function () {
