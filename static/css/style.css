@@ -61,7 +61,7 @@ a:hover i, li:hover > i:first-child {
     opacity: 0;
     position: fixed;
     padding: 10px 5px 10px 10px;
-    bottom: 20px;
+    bottom: 10px;
     cursor: pointer;
     right: 0;
     z-index: 10;
