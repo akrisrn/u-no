@@ -8,7 +8,7 @@
     {%- endfor -%}
     {%- if not is_freeze -%}
         <script>
-            const edit_url = `{{ url_for("edit.article") }}?item_url=${encodeURIComponent(window.location.pathname)}`
+            const edit_url = `{{ url_for("edit.article") }}?item_url=${window.location.pathname}`
         </script>
     {%- endif -%}
 {%- endblock -%}

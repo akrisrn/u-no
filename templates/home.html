@@ -39,6 +39,9 @@
                                      name="{{ tag[1] }}"{{ " is_first" if loop.index == 1 else "" }}></vue-tag>
                         {%- endfor -%}
                     {%- endif -%}
+                    {%- if not is_freeze -%}
+                        <vue-tag url="{{ url_for("edit.article") }}?item_url={{ fixed_article[index_url_key] }}" name="Edit"></vue-tag>
+                    {%- endif -%}
                 </li>
             {%- endfor -%}
         </ul>
