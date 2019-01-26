@@ -16,7 +16,7 @@
     {%- if tag_name -%}
         <h1>
             {#- @formatter:off -#}
-            <vue-hashtag-icon style="margin-right: 8px"></vue-hashtag-icon>{{ tag_name }}
+            <vue-hashtag-icon style="margin-right: 8px"></vue-hashtag-icon>{{ tag_name }} ({{ fixed_articles | length }})
             {#- @formatter:on -#}
         </h1>
         <vue-return-home></vue-return-home>
