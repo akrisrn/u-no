@@ -232,9 +232,13 @@
     background-color: transparent;
 }
 
-.markdown-body details.tags > summary > .date, .markdown-body details.tags > summary::after {
+.markdown-body details.tags > summary::after {
     float: none;
     margin-left: 8px;
+}
+
+.markdown-body details.tags > summary > .date {
+    float: none;
 }
 
 .markdown-body details.readonly > summary {
