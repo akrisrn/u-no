@@ -118,8 +118,8 @@ $(function () {
     $(toc.find('ul').get().reverse()).each(function () {
         $(this).replaceWith($('<ol class="number" style="margin-bottom: 8px">' + $(this).html() + '</ol>'))
     });
-    const headerHeight = 120;
     const changeTop = (tocDetails, scrollTop) => {
+        const headerHeight = $(".markdown-body").offset().top - 16;
         const isFixed = tocDetails.css("position") === "fixed";
         tocDetails.css("top", (scrollTop > headerHeight ? (isFixed ? 0 : scrollTop) :
             (isFixed ? headerHeight - scrollTop : headerHeight)) + "px");
@@ -132,10 +132,12 @@ $(function () {
             tocDetails.removeAttr("open")
         }
     };
-    tocDetails = $("details.toc");
-    tocDetails.appendTo($(".markdown-body"));
-    changeSth(tocDetails);
-    changeTop(tocDetails, getScrollTop());
+    setTimeout(() => {
+        tocDetails = $("details.toc");
+        tocDetails.appendTo($(".markdown-body"));
+        changeSth(tocDetails);
+        changeTop(tocDetails, getScrollTop());
+    }, 1);
     window.addEventListener("resize", function () {
         const tocDetails = $("details.toc");
         changeSth(tocDetails);
