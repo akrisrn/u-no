@@ -50,19 +50,21 @@ if __name__ == '__main__':
 
     data_list = {}
     page_urls = {}
+    is_first = True
     with app.app_context():
-        reindex()
-        index_page_data = home_page()
-        data_list[os.path.join(frozen_dir_abspath, "index.html")] = index_page_data
-        is_first = True
-        for result_article in get_unique_find_list("/%s/[0-9a-z]{%s}" % (articles_url_name, hash_length),
-                                                   index_page_data):
-            article = get_item_by_url(result_article)
-            article_title = os.path.splitext(article[index_title_key])[0]
+        def get_data(article_url):
+            article = get_item_by_url(article_url)
             article_hash = article[index_url_key].split("/")[2]
+            article_abspath = os.path.join(frozen_articles_dir_abspath, article_hash + ".html")
+            if article_abspath in data_list:
+                return
             article_page_data = article_page(articles_url_name, article_hash)
-            data_list[os.path.join(frozen_articles_dir_abspath, article_hash + ".html")] = article_page_data
-            page_urls[result_article] = "/%s/%s" % (articles_url_name, article_hash + ".html")
+            data_list[article_abspath] = article_page_data
+            page_urls[article_url] = "/%s/%s" % (articles_url_name, article_hash + ".html")
+
+            for result_inlink_article in get_unique_find_list("/%s/[0-9a-z]{%s}" % (articles_url_name, hash_length),
+                                                              article_page_data):
+                get_data(result_inlink_article)
 
             for result_attach in get_unique_find_list("/%s/[0-9a-z]{%s}" % (attachments_url_name, hash_length),
                                                       article_page_data):
@@ -74,22 +76,36 @@ if __name__ == '__main__':
                 attach_hash = attach[index_url_key].split("/")[2]
                 new_attach_filename = attach_hash + attach_ext
                 new_attach_abspath = os.path.join(frozen_attachments_dir_abspath, new_attach_filename)
-                shutil.copy(attach_abspath, new_attach_abspath)
-                page_urls[result_attach] = "/%s/%s" % (attachments_url_name, new_attach_filename)
+                if not os.path.exists(new_attach_abspath):
+                    shutil.copy(attach_abspath, new_attach_abspath)
+                    page_urls[result_attach] = "/%s/%s" % (attachments_url_name, new_attach_filename)
 
-            data_list[os.path.join(frozen_tags_dir_abspath, "index.html")] = tags_page()
+            tag_index_abspath = os.path.join(frozen_tags_dir_abspath, "index.html")
+            if tag_index_abspath not in data_list:
+                data_list[tag_index_abspath] = tags_page()
             tags = article[index_tags_key]
+            global is_first
             if is_first:
                 tags.update(get_tags_parents())
                 is_first = False
             for tag in tags:
                 tag_abspath = os.path.join(frozen_tags_dir_abspath, tag + ".html")
                 if tag_abspath not in data_list:
+                    tag_url = "/%s/%s" % (tags_url_name, tag)
                     try:
                         data_list[tag_abspath] = tag_page(tag)
                     except NotFound:
+                        page_urls[tag_url] = "/"
                         continue
-                    page_urls["/%s/%s" % (tags_url_name, tag)] = "/%s/%s.html" % (tags_url_name, tag)
+                    page_urls[tag_url] = "/%s/%s.html" % (tags_url_name, tag)
+
+
+        reindex()
+        index_page_data = home_page()
+        data_list[os.path.join(frozen_dir_abspath, "index.html")] = index_page_data
+        for result_article in get_unique_find_list("/%s/[0-9a-z]{%s}" % (articles_url_name, hash_length),
+                                                   index_page_data):
+            get_data(result_article)
 
 
     def replace_url(data, urls):
