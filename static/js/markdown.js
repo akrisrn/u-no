@@ -109,7 +109,7 @@ $(function () {
     tocDetails.addClass("toc");
     const toc = $(".toc");
     if (toc.find("ul>li").length === 0) {
-        tocDetails.addClass("readonly");
+        tocDetails.css("display", "none");
     }
     toc.wrap(tocDetails);
     const tocDetailsSummary = $("<summary>");
