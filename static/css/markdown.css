@@ -168,9 +168,41 @@
 }
 
 .markdown-body details.toc {
+    position: absolute;
+    right: -250px;
+    width: 250px;
     box-shadow: none;
-    border-left: 0.25em solid #dfe2e5;
+    border: 0.25em solid #dfe2e5;
+    border-right: none;
     border-radius: 0;
+    background-color: #f1f1f1;
+    z-index: 100;
+    transition: width 1s;
+    -moz-transition: width 1s;
+    -webkit-transition: width 1s;
+    -o-transition: width 1s;
+}
+
+@media screen and (max-width: 1380px) {
+    .markdown-body details.toc {
+        position: fixed;
+        right: 0;
+    }
+
+    .markdown-body details.toc:not([open]) {
+        width: 0;
+        padding-left: 12px;
+        padding-right: 6px;
+        overflow: hidden;
+    }
+
+    .markdown-body details.toc:not([open]) > summary {
+        padding-left: 12px;
+    }
+
+    .markdown-body details.toc:not([open]) > summary::after {
+        margin-left: 0;
+    }
 }
 
 .markdown-body details.toc > summary {

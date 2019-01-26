@@ -1,5 +1,16 @@
 let keyInput = "";
 
+const getScrollTop = () => {
+    return document.documentElement.scrollTop + document.body.scrollTop;
+};
+const setScrollTop = (value) => {
+    if (document.documentElement.scrollTop) {
+        document.documentElement.scrollTop = value;
+    } else {
+        document.body.scrollTop = value;
+    }
+};
+
 $(function () {
     $("a").each(function () {
         const href = this.getAttribute("href");
@@ -20,16 +31,6 @@ $(function () {
         }
     });
 
-    const getScrollTop = () => {
-        return document.documentElement.scrollTop + document.body.scrollTop;
-    };
-    const setScrollTop = (value) => {
-        if (document.documentElement.scrollTop) {
-            document.documentElement.scrollTop = value;
-        } else {
-            document.body.scrollTop = value;
-        }
-    };
     const toTopDiv = $("#to-top");
     $(window).scroll(() => {
         if (getScrollTop() > 0) {

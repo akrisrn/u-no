@@ -105,20 +105,45 @@ $(function () {
         this.innerHTML = this.innerHTML.replace(/<\/summary>\s/, "</summary><p>") + "</p>"
     });
 
-    const tocDetails = $("<details>");
+    let tocDetails = $("<details>");
     tocDetails.addClass("toc");
     const toc = $(".toc");
     if (toc.find("ul>li").length === 0) {
         tocDetails.addClass("readonly");
-    } else {
-        tocDetails.attr("open", "open");
     }
     toc.wrap(tocDetails);
     const tocDetailsSummary = $("<summary>");
     tocDetailsSummary.append($("<strong>").text("TOC"));
     tocDetailsSummary.insertBefore(toc);
     $(toc.find('ul').get().reverse()).each(function () {
-        $(this).replaceWith($('<ol class="number">' + $(this).html() + '</ol>'))
+        $(this).replaceWith($('<ol class="number" style="margin-bottom: 8px">' + $(this).html() + '</ol>'))
+    });
+    const minWidth = 1380;
+    const headerHeight = 120;
+    const marginTop = 20;
+    const changeTop = (tocDetails, scrollTop) => {
+        const isFixed = tocDetails.css("position") === "fixed";
+        tocDetails.css("top", scrollTop > headerHeight ? (isFixed ? marginTop : scrollTop + marginTop) + "px" :
+            isFixed ? headerHeight + marginTop - scrollTop + "px" : "");
+    };
+    const changeSth = (tocDetails) => {
+        tocDetails.css("max-height", window.innerHeight - 50 + "px");
+        if (window.innerWidth > minWidth) {
+            tocDetails.attr("open", "")
+        } else {
+            tocDetails.removeAttr("open")
+        }
+    };
+    tocDetails = $("details.toc");
+    changeSth(tocDetails);
+    changeTop(tocDetails, getScrollTop());
+    window.addEventListener("resize", function () {
+        const tocDetails = $("details.toc");
+        changeSth(tocDetails);
+        changeTop(tocDetails, getScrollTop());
+    });
+    document.addEventListener("scroll", function () {
+        changeTop($("details.toc"), getScrollTop());
     });
 
     $("summary").each(function () {
