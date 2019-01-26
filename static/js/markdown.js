@@ -105,19 +105,18 @@ $(function () {
         this.innerHTML = this.innerHTML.replace(/<\/summary>\s/, "</summary><p>") + "</p>"
     });
 
-    const details = $("<details>");
-    details.addClass("toc");
+    const tocDetails = $("<details>");
+    tocDetails.addClass("toc");
     const toc = $(".toc");
     if (toc.find("ul>li").length === 0) {
-        details.addClass("readonly");
+        tocDetails.addClass("readonly");
     } else {
-        details.attr("open", "open");
+        tocDetails.attr("open", "open");
     }
-    toc.wrap(details);
-    const summary = $("<summary>");
-    summary.append($("<strong>").text("TOC"));
-    summary.insertBefore(toc);
-
+    toc.wrap(tocDetails);
+    const tocDetailsSummary = $("<summary>");
+    tocDetailsSummary.append($("<strong>").text("TOC"));
+    tocDetailsSummary.insertBefore(toc);
     $(toc.find('ul').get().reverse()).each(function () {
         $(this).replaceWith($('<ol class="number">' + $(this).html() + '</ol>'))
     });
