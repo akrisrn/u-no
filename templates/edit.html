@@ -11,6 +11,7 @@
 {%- endblock -%}
 {%- block content -%}
     <h1>{{ title }}</h1>
+    <vue-return-home></vue-return-home>
     <vue-return-home url="{{ url_for('main.index_page') }}" name="INDEX"></vue-return-home>
     <hr>
     <label><textarea id="article-content" rows="35" spellcheck="false" autofocus>{{ data }}</textarea></label>
