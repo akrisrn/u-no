@@ -65,7 +65,8 @@ $(function () {
                     "font-size": fontSize + "px",
                     "color": color,
                     "z-index": 100,
-                    "position": "fixed", "transition": `all cubic-bezier(0.46, 1.47, 0.91,-0.46) ${duration}s`,
+                    "position": "fixed",
+                    "transition": `all cubic-bezier(0.46, 1.47, 0.91,-0.46) ${duration}s`,
                     "-moz-transition": `all cubic-bezier(0.46, 1.47, 0.91,-0.46) ${duration}s`,
                     "-webkit-transition": `all cubic-bezier(0.46, 1.47, 0.91,-0.46) ${duration}s`,
                     "-o-transition": `all cubic-bezier(0.46, 1.47, 0.91,-0.46) ${duration}s`
