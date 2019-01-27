@@ -49,7 +49,7 @@ $(function () {
         const result = Math.random() * (max - min) + min;
         return round === true ? Math.round(result) : result;
     };
-    toTopDiv[0].addEventListener('click', function () {
+    toTopDiv.click(() => {
         keyInput += "∨";
         if (keyInput.endsWith("∨∨∨∨∨∨∨")) {
             keyInput += "_";

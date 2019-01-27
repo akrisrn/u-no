@@ -138,12 +138,12 @@ $(function () {
         changeSth(tocDetails);
         changeTop(tocDetails, getScrollTop());
     }, 1);
-    window.addEventListener("resize", function () {
+    $(window).resize(() => {
         const tocDetails = $("details.toc");
         changeSth(tocDetails);
         changeTop(tocDetails, getScrollTop());
     });
-    document.addEventListener("scroll", function () {
+    $(window).scroll(() => {
         changeTop($("details.toc"), getScrollTop());
     });
 
