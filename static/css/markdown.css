@@ -4,6 +4,10 @@
     margin-top: 16px;
 }
 
+.markdown-body h1, .markdown-body h2 {
+    border-bottom-color: #dfe2e5;
+}
+
 .markdown-body ol.number {
     counter-reset: item;
 }
