@@ -32,12 +32,18 @@ $(function () {
     });
 
     const toTopDiv = $("#to-top");
-    $(window).scroll(() => {
+    const showToTop = () => {
         if (getScrollTop() > 0) {
-            toTopDiv.css("opacity", "1")
+            toTopDiv.css("opacity", "1");
+            toTopDiv.css("cursor", "pointer")
         } else {
             toTopDiv.css("opacity", "");
+            toTopDiv.css("cursor", "auto")
         }
+    };
+    showToTop();
+    $(window).scroll(() => {
+        showToTop()
     });
     toTopDiv.click(() => {
         const goTop = setInterval(() => {
