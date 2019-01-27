@@ -23,7 +23,7 @@
     <vue-date date="{{ date }}"></vue-date>
     {%- if not notags -%}
         {%- for tag in tags | dictsort(by="value") -%}
-            <vue-tag v-bind:tags_url="tags_url" url="{{ url_for('main.tag_page', tag_hash=tag[0]) }}"
+            <vue-tag tags_url="{{ url_for('main.tags_page') }}" url="{{ url_for('main.tag_page', tag_hash=tag[0]) }}"
                      name="{{ tag[1] }}"{{ " is_first" if loop.index == 1 else "" }}></vue-tag>
         {%- endfor -%}
     {%- endif -%}

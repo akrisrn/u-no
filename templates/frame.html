@@ -17,18 +17,12 @@
     {%- endfor -%}
     <script>
         const version = "{{ version }}";
-        const home_url = "{{ url_for('main.home_page') }}";
-        const tags_url = "{{ url_for('main.tags_page') }}";
-        {%- if not is_freeze -%}
-            const index_url = "{{ url_for('main.index_page') }}";
-            const reindex_url = "{{ url_for('main.reindex_page') }}";
-        {%- endif -%}
         const inputBinds = {
             "tags": () => {
-                window.location.href = tags_url
+                window.location.href = "{{ url_for('main.tags_page') }}"
             },
             "home": () => {
-                window.location.href = home_url
+                window.location.href = "{{ url_for('main.home_page') }}"
             },
             "gg": () => {
                 $("#content")[0].scrollIntoView(true);
@@ -43,10 +37,10 @@
         };
         {%- if not is_freeze -%}
             inputBinds["index"] = () => {
-                window.location.href = index_url
+                window.location.href = "{{ url_for('main.index_page') }}"
             };
             inputBinds["reidx"] = () => {
-                window.location.href = reindex_url
+                window.location.href = "{{ url_for('main.reindex_page') }}"
             };
             inputBinds["edit"] = () => {
                 if (window.location.pathname.startsWith("/{{ articles_url_name }}")) {
