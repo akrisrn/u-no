@@ -30,7 +30,6 @@ def render(text):
         'pymdownx.superfences',
         'pymdownx.tasklist',
         'pymdownx.tilde',
-        'pymdownx.snippets',
         'markdown.extensions.footnotes',
         'markdown.extensions.attr_list',
         'markdown.extensions.def_list',
@@ -50,7 +49,7 @@ def render(text):
         'src.md.ext.inlink',
         'src.md.ext.inline_quote',
         'src.md.ext.table_increment',
-        'src.md.ext.snippets',
+        'src.md.ext.template',
     ]
     # 扩展配置
     extension_configs = {
@@ -87,10 +86,7 @@ def render(text):
                 'format': pymdownx.superfences.fence_code_format
             }]
         },
-        "pymdownx.snippets": {
-            "base_path": get_articles_dir_abspath()
-        },
-        "src.md.ext.snippets": {
+        "src.md.ext.template": {
             "base_path": get_articles_dir_abspath()
         }
     }
