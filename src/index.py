@@ -11,7 +11,7 @@ from .const import index_url_key, index_title_key, index_parent_key, index_id_ke
     index_top_key, index_notags_key, index_fixed_key, index_tags_key, index_date_key, index_path_key, \
     articles_url_name, attachments_url_name, index_bereferenced_key, index_noheader_key, index_nofooter_key
 from .util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
-    update_config_ignore_file_list, get_unique_find_dict, get_tag_parents, get_date_parents
+    update_config_ignore_file_list, get_unique_find_dict, get_tag_parents, get_date_parents, clean_link
 
 
 # 获取索引文件数据
@@ -185,10 +185,8 @@ def reindex():
                 # 查找引用文件（文章图片内联、引入CSS和JS、片段链接）
                 reference_dict[file_path] = src.md.md.get_reference(data) + src.flag.get_custom_css_flag(data, True) + \
                                             src.flag.get_custom_js_flag(data, True)
-                for value in get_unique_find_dict("--8<-- \"(.*?)\"", data).values():
-                    match = re.match(r"\[\]\((.*?)\)", value)
-                    if match:
-                        value = match.group(1).replace("../", "")
+                for value in get_unique_find_dict(src.md.md.get_template("(.*?)"), data).values():
+                    value = clean_link(value)
                     if get_item_by_path(value):
                         reference_dict[file_path].append(value)
                 # 组成一条文章索引

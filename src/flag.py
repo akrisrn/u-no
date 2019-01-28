@@ -6,7 +6,7 @@ from flask import current_app
 import src.index
 from .const import index_url_key, flag_js, flag_css, flag_unignore, flag_ignore, flag_highlight, flag_top, \
     flag_fixed, flag_notags, flag_tag, flag_date, flag_plugin, show_date_format, flag_noheader, flag_nofooter
-from .util import clean_text
+from .util import clean_text, clean_link
 
 
 # 获取匹配flag的正则表达式，忽略大小写
@@ -84,9 +84,7 @@ def get_custom_css_flag(data, is_return_path=False, custom_type=flag_css):
     for css_path in re.split("[,，]", clean_text(group.group(2))):
         if css_path:
             # 匹配[](path)方便编辑器引用文件
-            match = re.match(r"\[\]\((.*?)\)", css_path)
-            if match:
-                css_path = match.group(1).replace("../", "")
+            css_path = clean_link(css_path)
             # 根据css文件相对路径从索引文件中取出url
             item = src.index.get_item_by_path(css_path)
             if item:

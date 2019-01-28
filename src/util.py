@@ -109,6 +109,13 @@ def clean_text(text):
     return re.sub(r"(\s|\"|\')", "", text)
 
 
+def clean_link(text):
+    match = re.match(r"\[\]\((?:\.\./)*(.*?)\)", text)
+    if match:
+        return match.group(1)
+    return text
+
+
 # 重新格式化日期字符串
 def format_date(date, fmt):
     return datetime.strptime(date, show_date_format).strftime(fmt) if date else ""
