@@ -4,6 +4,7 @@ import re
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
 
+from src.md.ext.eval_python import EvalPythonPreprocessor
 from src.util import clean_link
 
 
@@ -11,6 +12,7 @@ class TemplatePreprocessor(Preprocessor):
     def __init__(self, config, md):
         self.base_path = config.get("base_path")
         self.seen = []
+        self.evalPythonPreprocessor = EvalPythonPreprocessor()
         super().__init__(md)
 
     @staticmethod
@@ -53,8 +55,8 @@ class TemplatePreprocessor(Preprocessor):
                     if file_name:
                         self.seen.append(file_name)
                     with open(file_abspath, 'r', encoding="utf-8") as f:
-                        new_lines.extend([self.fill_params(param_dict, l2) for l2 in
-                                          self.parse_template([l.rstrip('\r\n') for l in f], file_path)])
+                        new_lines.extend([l for l in self.parse_template(self.evalPythonPreprocessor.run(
+                            [self.fill_params(param_dict, l.rstrip('\r\n')) for l in f]))])
                     if file_name:
                         self.seen.remove(file_name)
                     continue
