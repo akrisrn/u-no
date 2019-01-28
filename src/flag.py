@@ -98,12 +98,16 @@ def get_custom_js_flag(data, is_return_path=False):
     return get_custom_css_flag(data, is_return_path, flag_js)
 
 
-# 获取文章里标记的插件列表，语法匹配{{plugin}}，如果没有则返回空
-def get_plugin_flag(data):
-    group = re.search(get_flag_regexp(flag_plugin), data)
+def get_values(data, flag_name):
+    group = re.search(get_flag_regexp(flag_name), data)
     if not group:
         return []
-    return [plugin_name for plugin_name in re.split("[,，]", clean_text(group.group(2))) if plugin_name]
+    return [value for value in re.split("[,，]", clean_text(group.group(2))) if value]
+
+
+# 获取文章里标记的插件列表，语法匹配{{plugin}}，如果没有则返回空
+def get_plugin_flag(data):
+    return get_values(data, flag_plugin)
 
 
 # 获取文章里标记的无头片段标签标识，语法匹配{{noheader}}
