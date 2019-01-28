@@ -25,6 +25,7 @@ Pace.on("done", function () {
         fillFrame(this, `https:\/\/music.163.com/outchain/player?type=${type}&id=%s&auto=0&height=${height}`, "100%", `${height + 20}px`);
         this.style.top = "12px";
         this.style.position = "relative";
+        this.style.marginTop = "-16px";
     });
     $("img").each(function () {
         const imgSrc = this.getAttribute("data-src");
