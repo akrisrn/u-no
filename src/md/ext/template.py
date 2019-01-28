@@ -33,7 +33,9 @@ class TemplatePreprocessor(Preprocessor):
             new_line = line
             template_match = re.match(r"^{%\s*(.*?)\s*%}$", new_line)
             if template_match:
-                params = template_match.group(1).split("|")[1:]
+                file_path = clean_link(template_match.group(1)).split("|")
+                params = file_path[1:]
+                file_path = file_path[0]
                 param_dict = {}
                 i = 0
                 for param in params:
@@ -47,7 +49,6 @@ class TemplatePreprocessor(Preprocessor):
                         param_value = param
                     param_dict[param_index] = param_value
 
-                file_path = clean_link(template_match.group(1))
                 file_abspath = os.path.join(self.base_path, file_path)
                 if os.path.exists(file_abspath):
                     if file_path in self.seen:
