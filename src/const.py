@@ -31,6 +31,8 @@ flag_unignore = "unignore"
 flag_css = "css"
 flag_js = "js"
 flag_plugin = "plugin"
+flag_header = "header"
+flag_footer = "footer"
 flag_noheader = "noheader"
 flag_nofooter = "nofooter"
 

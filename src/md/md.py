@@ -94,9 +94,12 @@ def render(text):
     return markdown(text, extensions=extensions, extension_configs=extension_configs)
 
 
-def get_template(file_name):
+def get_template(file_name, params=None):
+    if params is None:
+        params = []
+    params.insert(0, "")
     if file_name:
-        return r'{%%%s%%}' % file_name
+        return r'{%% %s%s %%}' % (file_name, "|".join(params))
     return ""
 
 

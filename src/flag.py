@@ -5,7 +5,8 @@ from flask import current_app
 
 import src.index
 from .const import index_url_key, flag_js, flag_css, flag_unignore, flag_ignore, flag_highlight, flag_top, \
-    flag_fixed, flag_notags, flag_tag, flag_date, flag_plugin, show_date_format, flag_noheader, flag_nofooter
+    flag_fixed, flag_notags, flag_tag, flag_date, flag_plugin, show_date_format, flag_noheader, flag_nofooter, \
+    flag_header, flag_footer
 from .util import clean_text, clean_link
 
 
@@ -108,6 +109,14 @@ def get_values(data, flag_name):
 # 获取文章里标记的插件列表，语法匹配{{plugin}}，如果没有则返回空
 def get_plugin_flag(data):
     return get_values(data, flag_plugin)
+
+
+def get_header_flag(data):
+    return get_values(data, flag_header)
+
+
+def get_footer_flag(data):
+    return get_values(data, flag_footer)
 
 
 # 获取文章里标记的无头片段标签标识，语法匹配{{noheader}}
