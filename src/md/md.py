@@ -93,9 +93,9 @@ def render(text):
     return markdown(text, extensions=extensions, extension_configs=extension_configs)
 
 
-def get_snippet(file_name):
+def get_template(file_name):
     if file_name:
-        return '--8<-- "%s"' % file_name
+        return r'{%%%s%%}' % file_name
     return ""
 
 
