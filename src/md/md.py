@@ -50,6 +50,7 @@ def render(text):
         'src.md.ext.inline_quote',
         'src.md.ext.table_increment',
         'src.md.ext.template',
+        'src.md.ext.eval_python',
     ]
     # 扩展配置
     extension_configs = {
