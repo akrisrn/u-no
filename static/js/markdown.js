@@ -156,8 +156,6 @@ $(function () {
     });
 
     $("p>script").each(function () {
-        if (this.parentElement.childElementCount === 1) {
-            $(this).unwrap("p")
-        }
+        $(this).unwrap("p")
     })
 });
