@@ -179,8 +179,7 @@
     right: -250px;
     width: 250px;
     box-shadow: none;
-    border: 0.25em solid #dfe2e5;
-    border-right: none;
+    border: none;
     border-radius: 0;
     background-color: #f1f1f1;
     z-index: 100;
