@@ -4,7 +4,7 @@ $(function () {
         const summary = this.children[0];
         const aTag = $(summary).find(">.tag>a");
         if (parentText !== "") {
-            aTag.html(aTag.html().replace(new RegExp(`</i>${parentText} /`), "</i>"))
+            aTag.html(aTag.html().replace(new RegExp(`</i>${parentText}\\s/`), "</i>"))
         }
         let count = $(summary).find(">.date").text();
         count = count.substr(1, count.length - 2);
