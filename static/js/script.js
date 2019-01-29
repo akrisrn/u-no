@@ -19,6 +19,24 @@ $(function () {
         }
     });
 
+    Object.assign(inputBinds, {
+        "home": () => {
+            window.location.href = "/"
+        },
+        "tags": () => {
+            window.location.href = tags_url
+        },
+        "gg": () => {
+            $("#content")[0].scrollIntoView(true);
+            keyInput += "_";
+        },
+        "G": () => {
+            $("#content")[0].scrollIntoView(false);
+        },
+        "Backspace": () => {
+            keyInput = keyInput.substr(0, keyInput.length - 10)
+        }
+    });
     $(window).bind("keydown", (event) => {
         if (!$("textarea, input").is(':focus')) {
             keyInput += event.key;

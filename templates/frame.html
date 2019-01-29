@@ -17,36 +17,22 @@
     {%- endfor -%}
     <script>
         const version = "{{ version }}";
-        const inputBinds = {
-            "tags": () => {
-                window.location.href = "{{ url_for('main.tags_page') }}"
-            },
-            "home": () => {
-                window.location.href = "{{ url_for('main.home_page') }}"
-            },
-            "gg": () => {
-                $("#content")[0].scrollIntoView(true);
-                keyInput += "_";
-            },
-            "G": () => {
-                $("#content")[0].scrollIntoView(false);
-            },
-            "Backspace": () => {
-                keyInput = keyInput.substr(0, keyInput.length - 10)
-            }
-        };
+        const tags_url = "{{ url_for('main.tags_page') }}";
+        const inputBinds = {};
         {%- if not is_freeze -%}
-            inputBinds["index"] = () => {
-                window.location.href = "{{ url_for('main.index_page') }}"
-            };
-            inputBinds["reidx"] = () => {
-                window.location.href = "{{ url_for('main.reindex_page') }}"
-            };
-            inputBinds["edit"] = () => {
-                if (window.location.pathname.startsWith("/{{ articles_url_name }}")) {
-                    window.location.href = edit_url;
-                }
-            };
+            Object.assign(inputBinds, {
+                "index": () => {
+                    window.location.href = "{{ url_for('main.index_page') }}"
+                },
+                "reidx": () => {
+                    window.location.href = "{{ url_for('main.reindex_page') }}"
+                },
+                "edit": () => {
+                    if (window.location.pathname.startsWith("/{{ articles_url_name }}")) {
+                        window.location.href = edit_url;
+                    }
+                },
+            });
         {%- endif -%}
     </script>
     {%- block extra_js_link -%}
