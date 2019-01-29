@@ -154,4 +154,10 @@ $(function () {
             this.style.display = "none"
         }
     });
+
+    $("p>script").each(function () {
+        if (this.parentElement.childElementCount === 1) {
+            $(this).unwrap("p")
+        }
+    })
 });

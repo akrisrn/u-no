@@ -52,6 +52,7 @@ def render(text):
         'src.md.ext.template',
         'src.md.ext.eval_python',
         'src.md.ext.fontawesome',
+        'src.md.ext.script',
     ]
     # 扩展配置
     extension_configs = {
