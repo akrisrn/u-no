@@ -124,9 +124,9 @@ $(function () {
             const headerHeight = markdownBody.offset().top - 16;
             const bodyHeight = markdownBody.height() + markdownBody.offset().top;
             const isFixed = tocDetails.css("position") === "fixed";
-            if (scrollTop + tocDetails.height() + 16 > bodyHeight) {
-                tocDetails.css("top", isFixed ? bodyHeight - tocDetails.height() - 16 - scrollTop :
-                    bodyHeight - tocDetails.height() - 16)
+            if (scrollTop + tocDetails.height() + 32 > bodyHeight) {
+                tocDetails.css("top", isFixed ? bodyHeight - tocDetails.height() - 32 - scrollTop :
+                    bodyHeight - tocDetails.height() - 32)
             } else {
                 tocDetails.css("top", scrollTop > headerHeight ? (isFixed ? 0 : scrollTop) :
                     (isFixed ? headerHeight - scrollTop : headerHeight));
