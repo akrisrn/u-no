@@ -327,14 +327,23 @@
     font-family: 'Source Code Pro', SimSun, sans-serif;
 }
 
-.markdown-body .toc > ol {
+.markdown-body .toc ol {
     padding-left: 20px;
     margin-bottom: 0;
 }
 
-.markdown-body .toc > ol > li {
+.markdown-body .toc ol li {
     font-size: 14px;
     margin-top: 0;
+    transition: 0.5s;
+}
+
+.markdown-body .toc ol li a {
+    color: #6a737d;
+}
+
+.markdown-body .toc ol li a.active, .markdown-body .toc ol li a:hover {
+    color: #0366d6;
 }
 
 .markdown-body .star {

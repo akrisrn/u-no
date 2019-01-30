@@ -117,7 +117,7 @@ $(function () {
         tocDetailsSummary.append($("<strong>").text("TOC"));
         tocDetailsSummary.insertBefore(toc);
         $(toc.find('ul').get().reverse()).each(function () {
-            $(this).replaceWith($('<ol class="number" style="margin-bottom: 8px">' + $(this).html() + '</ol>'))
+            $(this).replaceWith($('<ol class="number">' + $(this).html() + '</ol>'))
         });
         const changeTop = (tocDetails, scrollTop) => {
             const markdownBody = $(".markdown-body");
@@ -140,11 +140,27 @@ $(function () {
                 tocDetails.removeAttr("open")
             }
         };
+        const setActive = (scrollTop) => {
+            for (const h of $(".markdown-body").find("h1,h2,h3,h4,h5.h6").get().reverse()) {
+                if (scrollTop + 20 > h.offsetTop) {
+                    $(".toc a").each(function () {
+                        if (this.getAttribute("href") === "#" + h.getAttribute("id")) {
+                            this.classList.add("active")
+                        } else {
+                            this.classList.remove("active")
+                        }
+                    });
+                    return
+                }
+            }
+        };
         setTimeout(() => {
+            const scrollTop = getScrollTop();
             tocDetails = $("details.toc");
             tocDetails.appendTo($(".markdown-body"));
             changeSth(tocDetails);
-            changeTop(tocDetails, getScrollTop());
+            changeTop(tocDetails, scrollTop);
+            setActive(scrollTop)
         }, 1);
         $(window).resize(() => {
             const tocDetails = $("details.toc");
@@ -152,7 +168,9 @@ $(function () {
             changeTop(tocDetails, getScrollTop());
         });
         $(window).scroll(() => {
-            changeTop($("details.toc"), getScrollTop());
+            const scrollTop = getScrollTop();
+            changeTop($("details.toc"), scrollTop);
+            setActive(scrollTop)
         });
     }
 
