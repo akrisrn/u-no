@@ -336,6 +336,9 @@
     font-size: 14px;
     margin-top: 0;
     transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s
 }
 
 .markdown-body .toc ol li a {
