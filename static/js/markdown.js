@@ -120,13 +120,20 @@ $(function () {
             $(this).replaceWith($('<ol class="number" style="margin-bottom: 8px">' + $(this).html() + '</ol>'))
         });
         const changeTop = (tocDetails, scrollTop) => {
-            const headerHeight = $(".markdown-body").offset().top - 16;
+            const markdownBody = $(".markdown-body");
+            const headerHeight = markdownBody.offset().top - 16;
+            const bodyHeight = markdownBody.height() + markdownBody.offset().top;
             const isFixed = tocDetails.css("position") === "fixed";
-            tocDetails.css("top", (scrollTop > headerHeight ? (isFixed ? 0 : scrollTop) :
-                (isFixed ? headerHeight - scrollTop : headerHeight)) + "px");
+            if (scrollTop + tocDetails.height() + 16 > bodyHeight) {
+                tocDetails.css("top", isFixed ? bodyHeight - tocDetails.height() - 16 - scrollTop :
+                    bodyHeight - tocDetails.height() - 16)
+            } else {
+                tocDetails.css("top", scrollTop > headerHeight ? (isFixed ? 0 : scrollTop) :
+                    (isFixed ? headerHeight - scrollTop : headerHeight));
+            }
         };
         const changeSth = (tocDetails) => {
-            tocDetails.css("max-height", window.innerHeight - 50 + "px");
+            tocDetails.css("max-height", window.innerHeight - 50);
             if (window.innerWidth > 1380) {
                 tocDetails.attr("open", "")
             } else {
