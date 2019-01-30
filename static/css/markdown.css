@@ -16,7 +16,20 @@
     margin-left: -22px;
     margin-right: 8px;
     font-size: 12px;
-    color: #6a737d;
+    color: #969faa;
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s
+}
+
+.markdown-body h1:hover:before,
+.markdown-body h2:hover:before,
+.markdown-body h3:hover:before,
+.markdown-body h4:hover:before,
+.markdown-body h5:hover:before,
+.markdown-body h6:hover:before {
+    color: #24292e;
 }
 
 .markdown-body h1:before {

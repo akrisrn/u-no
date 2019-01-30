@@ -157,5 +157,9 @@ $(function () {
 
     $("p>script").each(function () {
         $(this).unwrap("p")
-    })
+    });
+
+    $(".markdown-body").find("h1,h2,h3,h4,h5.h6").each(function () {
+        $(this).wrap($("<a style='color: #24292e'>").attr("href", "#" + $(this).attr("id")));
+    });
 });
