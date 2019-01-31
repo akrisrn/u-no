@@ -24,7 +24,7 @@
         <h1>{{ site_name }}</h1>
     {%- endif -%}
     <div class="markdown-body">
-        <ul>
+        <ul class="home">
             {%- for fixed_article in fixed_articles -%}
                 <li class="page-{{ (loop.index - 1) // page_size + 1 }}">
                     <i class="fas fa-angle-double-right"></i>

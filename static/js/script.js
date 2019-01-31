@@ -48,7 +48,7 @@ $(function () {
                 }
             } while (!isNaN(parseInt(char)) && (str = char + str));
             if (str) {
-                const links = $(".markdown-body li:visible>a");
+                const links = $(".home li:visible>a, .toc li>a");
                 if (links.length > 0) {
                     let num = parseInt(str);
                     if (num < 0) {
