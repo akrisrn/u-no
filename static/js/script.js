@@ -34,7 +34,7 @@ $(function () {
             $("#content")[0].scrollIntoView(false);
         },
         "zen": () => {
-            $("#main>h1~:not(.markdown-body), #content>:not(#main), .toc, #to-top").css("display", "none")
+            $("#main>h1~:not(.markdown-body), #content>:not(#main), .toc, #to-top").hide()
         },
         "Backspace": () => {
             keyInput = keyInput.substr(0, keyInput.length - 10)
