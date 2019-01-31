@@ -36,6 +36,30 @@ $(function () {
         "zen": () => {
             $("#main>h1~:not(.markdown-body), #content>:not(#main), .toc, #to-top").hide()
         },
+        "#": () => {
+            let i = 7;
+            let str = "";
+            let char;
+            do {
+                char = keyInput.substr(keyInput.length - i++, 1);
+                if (char === "-" && i > 8) {
+                    str = char + str;
+                    break
+                }
+            } while (!isNaN(parseInt(char)) && (str = char + str));
+            if (str) {
+                const links = $(".markdown-body li:visible>a");
+                if (links.length > 0) {
+                    let num = parseInt(str);
+                    if (num < 0) {
+                        num += links.length
+                    }
+                    if (num >= 0 && num < links.length) {
+                        links[num].click()
+                    }
+                }
+            }
+        },
         "Backspace": () => {
             keyInput = keyInput.substr(0, keyInput.length - 10)
         }
