@@ -238,6 +238,10 @@
     -o-transition: width 1s;
 }
 
+.markdown-body details.toc:not([open]) {
+    background-color: transparent;
+}
+
 @media screen and (max-width: 1380px) {
     .markdown-body details.toc {
         position: fixed;
@@ -245,7 +249,7 @@
     }
 
     .markdown-body details.toc:not([open]) {
-        width: 0;
+        width: 20px;
         padding-left: 12px;
         padding-right: 6px;
         overflow: hidden;
