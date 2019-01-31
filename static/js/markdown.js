@@ -141,9 +141,10 @@ $(function () {
             }
         };
         const setActive = (scrollTop) => {
+            const tocA = $(".toc a");
             for (const h of $(".markdown-body").find("h1,h2,h3,h4,h5.h6").get().reverse()) {
                 if (scrollTop + 20 > h.offsetTop) {
-                    $(".toc a").each(function () {
+                    tocA.each(function () {
                         if (this.getAttribute("href") === "#" + h.getAttribute("id")) {
                             this.classList.add("active")
                         } else {
@@ -153,6 +154,9 @@ $(function () {
                     return
                 }
             }
+            tocA.each(function () {
+                this.classList.remove("active")
+            });
         };
         setTimeout(() => {
             const scrollTop = getScrollTop();
