@@ -3,12 +3,32 @@
     margin-top: 16px;
 }
 
-.markdown-body a:hover {
-    color: #0366d6;
+.markdown-body a {
+    position: relative;
 }
 
-.markdown-body .tag a:hover {
-    color: #24292e;
+.markdown-body a:hover {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+.markdown-body a:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #0366d6;
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s
+}
+
+.markdown-body a:hover:before {
+    opacity: 1;
 }
 
 .markdown-body details + p > img, .markdown-body p + p > img, .markdown-body p + dl > dt > img {
@@ -51,6 +71,15 @@
 .markdown-body h5 > a:hover,
 .markdown-body h6 > a:hover {
     text-decoration: none;
+}
+
+.markdown-body h1 > a:before,
+.markdown-body h2 > a:before,
+.markdown-body h3 > a:before,
+.markdown-body h4 > a:before,
+.markdown-body h5 > a:before,
+.markdown-body h6 > a:before {
+    content: none;
 }
 
 .markdown-body h1:before {
@@ -350,6 +379,10 @@
 
 .markdown-body .toc a:hover {
     text-decoration: none;
+}
+
+.markdown-body .toc a:before {
+    content: none;
 }
 
 .markdown-body .toc ol {

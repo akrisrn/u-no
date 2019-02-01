@@ -29,6 +29,14 @@
     text-decoration: none;
 }
 
+.markdown-body a:before {
+    content: none;
+}
+
+.markdown-body .tag a:hover {
+    color: #24292e;
+}
+
 .markdown-body .button {
     border: none;
 }
