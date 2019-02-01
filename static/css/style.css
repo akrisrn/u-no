@@ -1,3 +1,13 @@
+/*
+    配色方案：
+    - #448ef6：蓝
+    - #24292e：黑
+    - #6a737d：灰1
+    - #8e98a2：灰2
+    - #dfe2e5：灰3
+    - #f1f1f1：灰4
+*/
+
 *, #content .button {
     font-family: 'Source Sans Pro', SimSun, sans-serif;
 }
