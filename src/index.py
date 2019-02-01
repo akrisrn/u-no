@@ -163,7 +163,7 @@ def reindex():
             if file_path in current_app.config["IGNORE_FILE_LIST"]:
                 continue
             parent, title = os.path.split(file_path.replace("+：", ":"))
-            title = title.replace("-", " ")
+            title = title.replace("-", " ").replace("+ ", "-")
             if not path.startswith(current_app.config["ATTACHMENTS_DIR_NAME"]):
                 # 获取标签并生成标签字典
                 tags = {compute_digest_by_data(tag): tag for tag in src.flag.get_tags_flag(data)}
