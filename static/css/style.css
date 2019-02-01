@@ -19,7 +19,7 @@ a, a i, li i, .tag > i {
 }
 
 a:hover {
-    color: #6a737d;
+    color: #8e98a2;
     text-decoration: none;
 }
 
@@ -83,18 +83,18 @@ a:hover i, li:hover > i:first-child {
 .date {
     float: right;
     display: inline;
-    color: #6a737d;
+    color: #8e98a2;
 }
 
 .tag {
     display: inline-block;
-    color: #6a737d;
+    color: #8e98a2;
     font-size: 12px;
     margin-right: 8px;
 }
 
 .tag a {
-    color: #6a737d;
+    color: #8e98a2;
 }
 
 .tag a:hover {

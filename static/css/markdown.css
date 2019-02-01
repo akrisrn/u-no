@@ -20,7 +20,7 @@
     margin-left: -22px;
     margin-right: 8px;
     font-size: 12px;
-    color: #969faa;
+    color: #8e98a2;
     transition: 0.5s;
     -moz-transition: 0.5s;
     -webkit-transition: 0.5s;
@@ -91,7 +91,7 @@
 }
 
 .markdown-body dl dd {
-    color: #6a737d;
+    color: #8e98a2;
     font-size: 80%;
     padding: 0;
 }
@@ -350,7 +350,7 @@
 }
 
 .markdown-body .toc ol li a {
-    color: #6a737d;
+    color: #8e98a2;
 }
 
 .markdown-body .toc ol li a.active, .markdown-body .toc ol li a:hover {
@@ -371,7 +371,7 @@
 }
 
 .markdown-body .inline-quote {
-    color: #6a737d;
+    color: #8e98a2;
     font-size: 80%;
 }
 
