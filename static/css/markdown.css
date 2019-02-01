@@ -20,7 +20,8 @@
     margin-left: -22px;
     margin-right: 8px;
     font-size: 12px;
-    color: #8e98a2;
+    color: #24292e;
+    opacity: 0;
     transition: 0.5s;
     -moz-transition: 0.5s;
     -webkit-transition: 0.5s;
@@ -33,7 +34,7 @@
 .markdown-body h4:hover:before,
 .markdown-body h5:hover:before,
 .markdown-body h6:hover:before {
-    color: #24292e;
+    opacity: 1;
 }
 
 .markdown-body h1:before {
