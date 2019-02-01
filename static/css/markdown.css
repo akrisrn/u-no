@@ -627,3 +627,7 @@ table.highlighttable td {
 }
 
 /*Highlight End*/
+
+.keys > span {
+    margin: 0 3px;
+}
