@@ -28,7 +28,8 @@
             {%- for fixed_article in fixed_articles -%}
                 <li class="page-{{ (loop.index - 1) // page_size + 1 }}">
                     <i class="fas fa-angle-double-right"></i>
-                    <vue-date date="{{ fixed_article[index_date_key] }}"></vue-date>
+                    {%- set date = fixed_article[index_update_key] if fixed_article[index_update_key] else fixed_article[index_date_key] -%}
+                    <vue-date date="{{ date }}"></vue-date>
                     <vue-home-li url="{{ fixed_article[index_url_key] }}"
                                  name="{{ fixed_article[index_title_key].split(".")[0] }}"{{ " is_highlight" if fixed_article[index_highlight_key] else "" }}>
                     </vue-home-li>

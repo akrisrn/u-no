@@ -2,7 +2,7 @@ from flask import Flask, render_template
 
 from src.const import index_url_key, index_title_key, index_id_key, index_tags_key, index_date_key, index_notags_key, \
     index_highlight_key, index_fixed_key, index_top_key, index_path_key, index_bereferenced_key, articles_url_name, \
-    attachments_url_name, tags_url_name
+    attachments_url_name, tags_url_name, index_update_key
 from src.util import get_static_file_url, get_static_lib_url, get_plugins_urls, get_plugin_urls, format_date
 from src.view.edit import edit
 from src.view.main import main
@@ -33,6 +33,7 @@ app.jinja_env.globals["index_title_key"] = index_title_key
 app.jinja_env.globals["index_path_key"] = index_path_key
 app.jinja_env.globals["index_url_key"] = index_url_key
 app.jinja_env.globals["index_date_key"] = index_date_key
+app.jinja_env.globals["index_update_key"] = index_update_key
 app.jinja_env.globals["index_tags_key"] = index_tags_key
 app.jinja_env.globals["index_notags_key"] = index_notags_key
 app.jinja_env.globals["index_highlight_key"] = index_highlight_key

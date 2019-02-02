@@ -61,8 +61,9 @@ def get_fixed_articles():
                 else:
                     fixed_articles.append(article)
         # 按照时间倒叙进行排序
-        fixed_articles.sort(key=lambda o: o[index_date_key], reverse=True)
-        top_articles.sort(key=lambda o: o[index_date_key], reverse=True)
+        fixed_articles.sort(key=lambda o: o[index_update_key] if o[index_update_key] else o[index_date_key],
+                            reverse=True)
+        top_articles.sort(key=lambda o: o[index_update_key] if o[index_update_key] else o[index_date_key], reverse=True)
         fixed_articles = top_articles + fixed_articles
     return fixed_articles
 
