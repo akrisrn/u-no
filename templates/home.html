@@ -41,7 +41,8 @@
                     {%- endif -%}
                     {%- if not is_freeze -%}
                         {%- if fixed_article[index_fixed_key] -%}
-                            <vue-tag url="javascript:void(0)" name="Fixed"></vue-tag>
+                            <vue-tag class="fixed" url="javascript:$('li').hide();$('.fixed').parent().fadeIn()"
+                                     name="Fixed"></vue-tag>
                         {%- endif -%}
                         <vue-tag url="{{ url_for("edit.article") }}?item_url={{ fixed_article[index_url_key] }}"
                                  name="Edit"></vue-tag>
