@@ -10,6 +10,10 @@ from .const import index_url_key, flag_js, flag_css, flag_unignore, flag_ignore,
 from .util import clean_text, clean_link
 
 
+def get_title_regexp():
+    return re.compile(r"^#\s+(.*)\s")
+
+
 # 获取匹配flag的正则表达式，忽略大小写
 def get_flag_regexp(flag):
     return re.compile(r"(\s*{{\s*%s\s*)(.*?)(\s*\}\})" % flag, re.I)

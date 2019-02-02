@@ -162,9 +162,11 @@ def reindex():
             # 排除忽略文件
             if file_path in current_app.config["IGNORE_FILE_LIST"]:
                 continue
-            parent, title = os.path.split(file_path.replace("+：", ":"))
-            title = title.replace("-", " ").replace("+ ", "-")
+            parent, title = os.path.split(file_path)
             if not path.startswith(current_app.config["ATTACHMENTS_DIR_NAME"]):
+                title_match = re.match(src.flag.get_title_regexp(), data)
+                if title_match:
+                    title = title_match.group(1)
                 # 获取标签并生成标签字典
                 tags = {compute_digest_by_data(tag): tag for tag in src.flag.get_tags_flag(data)}
                 tag_parents.update({compute_digest_by_data(tag_parent): tag_parent for key in tags
