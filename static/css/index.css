@@ -1,3 +1,11 @@
+.markdown-body .tag a:before {
+    content: none;
+}
+
+.markdown-body .tag a:hover {
+    color: #24292e;
+}
+
 .search-input-group {
     display: inline;
     position: relative;
