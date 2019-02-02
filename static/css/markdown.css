@@ -363,6 +363,10 @@
     background-color: transparent;
 }
 
+.markdown-body img.small {
+    width: 40px;
+}
+
 .markdown-body mark, .highlight .hll {
     border-radius: 3px;
     background-color: rgba(255, 235, 59, 0.5);
