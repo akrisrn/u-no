@@ -32,6 +32,12 @@
                         window.location.href = edit_url;
                     }
                 },
+                "fixed": () => {
+                    if (window.location.pathname === "/" || window.location.pathname.startsWith("/{{ tags_url_name }}")) {
+                        const firstFixed = $(".fixed:first > a")[0];
+                        if (firstFixed) firstFixed.click();
+                    }
+                }
             });
         {%- endif -%}
     </script>
