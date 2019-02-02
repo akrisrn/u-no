@@ -5,7 +5,7 @@ from flask import send_from_directory, Blueprint, render_template, request, abor
 from ..cache import get_file_cache
 from ..const import index_notags_key, index_parent_key, index_path_key, index_url_name, index_title_key, index_id_key, \
     index_tags_key, index_date_key, articles_url_name, attachments_url_name, tags_url_name, reindex_url_name, \
-    index_noheader_key, index_nofooter_key
+    index_noheader_key, index_nofooter_key, index_update_key
 from ..flag import get_custom_js_flag, get_custom_css_flag, get_plugin_flag, get_header_flag, get_footer_flag
 from ..index import get_item_by_url, index_data_filter, get_fixed_articles, reindex, get_tags_parents
 from ..md.md import render, get_template
@@ -90,10 +90,11 @@ def article_page(url_name, file_hash):
         # 去后缀
         title = os.path.splitext(item[index_title_key])[0]
         date = item[index_date_key]
+        update = item[index_update_key]
         tags = item[index_tags_key]
         notags = item[index_notags_key]
-        return render_template('article.html', title=title, data=data, date=date, tags=tags, css_urls=css_urls,
-                               js_urls=js_urls, notags=notags)
+        return render_template('article.html', title=title, data=data, date=date, update=update, tags=tags,
+                               css_urls=css_urls, js_urls=js_urls, notags=notags)
     else:
         # 定向到源文件
         file_dir, file = os.path.split(item_abspath)

@@ -6,7 +6,7 @@ from flask import current_app
 import src.index
 from .const import index_url_key, flag_js, flag_css, flag_unignore, flag_ignore, flag_highlight, flag_top, \
     flag_fixed, flag_notags, flag_tag, flag_date, flag_plugin, show_date_format, flag_noheader, flag_nofooter, \
-    flag_header, flag_footer
+    flag_header, flag_footer, flag_update
 from .util import clean_text, clean_link
 
 
@@ -33,8 +33,8 @@ def get_tags_flag(data):
 
 
 # 获取文章里标记的日期，语法匹配{{date %y-%m-%d}}，如果没有则返回空
-def get_date_flag(data):
-    group = re.search(get_flag_regexp(flag_date), data)
+def get_date_flag(data, flag_name=flag_date):
+    group = re.search(get_flag_regexp(flag_name), data)
     if not group:
         return ""
     date = str(re.split("[,，]", clean_text(group.group(2)))[0])
@@ -47,6 +47,10 @@ def get_date_flag(data):
         except ValueError:
             continue
     return new_date
+
+
+def get_update_flag(data):
+    return get_date_flag(data, flag_update)
 
 
 # 获取文章里标记的不展示标签标识，语法匹配{{notags}}
@@ -80,8 +84,8 @@ def get_unignore_flag(data):
 
 
 # 获取文章里标记的自定义css文件列表，语法匹配{{css}}，如果没有则返回空
-def get_custom_css_flag(data, is_return_path=False, custom_type=flag_css):
-    group = re.search(get_flag_regexp(custom_type), data)
+def get_custom_css_flag(data, is_return_path=False, flag_name=flag_css):
+    group = re.search(get_flag_regexp(flag_name), data)
     if not group:
         return []
     css_urls = []

@@ -18,7 +18,7 @@
 {%- block content -%}
     <h1>{{ title }}</h1>
     <vue-return-home></vue-return-home>
-    <vue-date date="{{ date }}"></vue-date>
+    <vue-date date="{{ date }}" update="{{ update }}"></vue-date>
     {%- if not notags -%}
         {%- for tag in tags | dictsort(by="value") -%}
             <vue-tag tags_url="{{ url_for('main.tags_page') }}" url="{{ url_for('main.tag_page', tag_hash=tag[0]) }}"

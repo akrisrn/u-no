@@ -121,8 +121,8 @@ $(function () {
 </div>`
     });
     Vue.component('vue-date', {
-        props: ['date'],
-        template: '<div class="date" v-if="date">{{ date }}</div>'
+        props: ['date', 'update'],
+        template: '<div class="date" v-if="date">{{ date }}<div class="update" v-if="update">Update: {{ update }}</div></div>'
     });
     Vue.component('vue-home-li', {
         props: {

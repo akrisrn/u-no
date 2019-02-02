@@ -9,7 +9,8 @@ import src.md.md
 from .cache import get_file_cache
 from .const import index_url_key, index_title_key, index_parent_key, index_id_key, index_highlight_key, \
     index_top_key, index_notags_key, index_fixed_key, index_tags_key, index_date_key, index_path_key, \
-    articles_url_name, attachments_url_name, index_bereferenced_key, index_noheader_key, index_nofooter_key
+    articles_url_name, attachments_url_name, index_bereferenced_key, index_noheader_key, index_nofooter_key, \
+    index_update_key
 from .util import regexp_join, get_articles_dir_abspath, compute_digest_by_abspath, compute_digest_by_data, \
     update_config_ignore_file_list, get_unique_find_dict, get_tag_parents, get_date_parents, clean_link
 
@@ -194,6 +195,7 @@ def reindex():
                 # 组成一条文章索引
                 articles_block[file_path] = {index_id_key: index, index_parent_key: parent, index_title_key: title,
                                              index_path_key: file_path, index_url_key: url, index_date_key: date,
+                                             index_update_key: src.flag.get_update_flag(data),
                                              index_tags_key: tags, index_fixed_key: fixed,
                                              index_notags_key: src.flag.get_notags_flag(data),
                                              index_top_key: src.flag.get_top_flag(data),

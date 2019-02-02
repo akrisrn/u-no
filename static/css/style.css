@@ -92,8 +92,14 @@ a:hover i, li:hover > i:first-child {
 
 .date {
     float: right;
+    text-align: right;
     display: inline;
     color: #8e98a2;
+}
+
+.update {
+    padding: 8px 0 0 8px;
+    background-color: #f1f1f1;
 }
 
 .tag {
