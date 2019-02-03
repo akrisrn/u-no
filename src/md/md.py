@@ -22,7 +22,6 @@ def render(text):
         'pymdownx.highlight',
         'pymdownx.inlinehilite',
         'pymdownx.keys',
-        'pymdownx.magiclink',
         'pymdownx.mark',
         'pymdownx.progressbar',
         'pymdownx.smartsymbols',
@@ -53,6 +52,7 @@ def render(text):
         'src.md.ext.eval_python',
         'src.md.ext.fontawesome',
         'src.md.ext.script',
+        'src.md.ext.magiclink',
     ]
     # 扩展配置
     extension_configs = {
@@ -72,12 +72,6 @@ def render(text):
             "hardbreak": True,  # 转义换行符为<br>
             "nbsp": True  # 转义空格为&nbsp;
         },
-        # 自动链接配置
-        "pymdownx.magiclink": {
-            "repo_url_shortener": True,
-            "repo_url_shorthand": True,
-            "social_url_shorthand": True,
-        },
         "pymdownx.superfences": {
             "custom_fences": [{
                 'name': 'flow',
@@ -91,7 +85,13 @@ def render(text):
         },
         "src.md.ext.template": {
             "base_path": get_articles_dir_abspath()
-        }
+        },
+        # 自动链接配置
+        "src.md.ext.magiclink": {
+            "repo_url_shortener": True,
+            "repo_url_shorthand": True,
+            "social_url_shorthand": True,
+        },
     }
     return markdown(text, extensions=extensions, extension_configs=extension_configs)
 
