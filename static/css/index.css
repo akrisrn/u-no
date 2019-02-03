@@ -1,4 +1,4 @@
-.markdown-body .tag a:before {
+.markdown-body .tag a:after {
     content: none;
 }
 

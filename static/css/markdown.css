@@ -12,7 +12,7 @@
     text-decoration: none;
 }
 
-.markdown-body a:before {
+.markdown-body a:after {
     content: "";
     position: absolute;
     width: 100%;
@@ -27,7 +27,7 @@
     -o-transition: 0.5s
 }
 
-.markdown-body a:hover:before {
+.markdown-body a:hover:after {
     opacity: 1;
 }
 
@@ -73,12 +73,12 @@
     text-decoration: none;
 }
 
-.markdown-body h1 > a:before,
-.markdown-body h2 > a:before,
-.markdown-body h3 > a:before,
-.markdown-body h4 > a:before,
-.markdown-body h5 > a:before,
-.markdown-body h6 > a:before {
+.markdown-body h1 > a:after,
+.markdown-body h2 > a:after,
+.markdown-body h3 > a:after,
+.markdown-body h4 > a:after,
+.markdown-body h5 > a:after,
+.markdown-body h6 > a:after {
     content: none;
 }
 
@@ -385,7 +385,7 @@
     text-decoration: none;
 }
 
-.markdown-body .toc a:before {
+.markdown-body .toc a:after {
     content: none;
 }
 
