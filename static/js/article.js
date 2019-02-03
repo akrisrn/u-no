@@ -1,3 +1,7 @@
+function getTextCount() {
+    return $(".markdown-body>*:not(.toc)").text().replace(/\s|·|~|@|%|-|\+|=|`|!|#|\$|\^|&|\*|\(|\)|_|\[|]|{|}|\\|\||;|:|"|'|,|\.|\/|<|>|\?|。|？|！|，|、|；|：|“|”|‘|’|（|）|《|》|〈|〉|【|】|『|』|「|」|﹃|﹄|〔|〕|…|—|～|﹏|￥/g, "").length;
+}
+
 $(function () {
     $("#content").find("table").tablesorter({sortList: [[0, 0]]});
 
