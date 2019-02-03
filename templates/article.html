@@ -3,6 +3,7 @@
     {{ title }} - {{ site_name }}
 {%- endblock -%}
 {%- block extra_js_link -%}
+    <script type="text/javascript" src="{{ get_static_file_url("js/article.js") }}"></script>
     {%- for js_url in js_urls -%}
         <script type="text/javascript" src="{{ js_url }}"></script>
     {%- endfor -%}
