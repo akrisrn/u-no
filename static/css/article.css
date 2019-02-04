@@ -1,0 +1,22 @@
+.date:before {
+    font-family: "Font Awesome 5 Free", serif;
+    font-weight: bold;
+    font-size: 14px;
+    content: "\f073";
+    color: #24292e;
+    margin-right: 8px;
+}
+
+.update:before {
+    content: "| Update:";
+    margin-right: 3px;
+}
+
+.count:before {
+    content: "Count:";
+    margin-right: 3px;
+}
+
+.date + .count:before, .update + .count:before {
+    content: "| Count:";
+}

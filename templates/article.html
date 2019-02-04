@@ -12,6 +12,7 @@
     {%- endif -%}
 {%- endblock -%}
 {%- block extra_css_link -%}
+    <link rel="stylesheet" type="text/css" href="{{ get_static_file_url("css/article.css") }}">
     {%- for css_url in css_urls -%}
         <link rel="stylesheet" type="text/css" href="{{ css_url }}">
     {%- endfor -%}
@@ -19,11 +20,13 @@
 {%- block content -%}
     <h1>{{ title }}</h1>
     <vue-return-home></vue-return-home>
-    <vue-date date="{{ date }}" update="{{ update }}" v-bind:count="getTextCount()"></vue-date>
+    <vue-date date="{{ date }}"></vue-date>
+    <vue-update date="{{ update }}"></vue-update>
+    <vue-count v-bind:count="getTextCount()"></vue-count>
     {%- if not notags -%}
         {%- for tag in tags | dictsort(by="value") -%}
             <vue-tag tags_url="{{ url_for('main.tags_page') }}" url="{{ url_for('main.tag_page', tag_hash=tag[0]) }}"
-                     name="{{ tag[1] }}"{{ " is_first" if loop.index == 1 else "" }}></vue-tag>
+                     name="{{ tag[1] }}"{{ " style='margin-left:8px' is_first" | safe if loop.index == 1 else "" }}></vue-tag>
         {%- endfor -%}
     {%- endif -%}
     {%- if not is_freeze -%}

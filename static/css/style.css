@@ -90,17 +90,9 @@ a:hover i, li:hover > i:first-child {
     text-align: center;
 }
 
-.date {
-    float: right;
-    text-align: right;
+.date, .update, .count {
     display: inline-block;
     color: #8e98a2;
-}
-
-.update {
-    display: inline-block;
-    padding: 8px 0 0 8px;
-    background-color: #f1f1f1;
 }
 
 .tag {
