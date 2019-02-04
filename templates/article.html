@@ -30,7 +30,8 @@
         {%- endfor -%}
     {%- endif -%}
     {%- if not is_freeze -%}
-        <vue-tag v-bind:url="edit_url" name="Edit"></vue-tag>
+        <vue-tag v-bind:url="edit_url"
+                 name="Edit"{{ " style='margin-left:8px' is_first" | safe if notags else "" }}></vue-tag>
     {%- endif -%}
     <hr>
     <div class="markdown-body">{{ data | safe }}</div>
