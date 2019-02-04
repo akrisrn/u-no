@@ -62,8 +62,6 @@ def render(text):
             "emoji_generator": pymdownx.emoji.to_png,
             "options": {
                 "attributes": {
-                    "align": "absmiddle",
-                    "height": "20px",
                     "width": "20px"
                 },
             }
