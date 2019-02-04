@@ -122,7 +122,7 @@ $(function () {
     });
     Vue.component('vue-date', {
         props: ['date', 'update', 'count'],
-        template: '<div class="date" v-if="date">{{ date }}<div><div class="update" v-if="count">Words: {{ count }}</div><div class="update" v-if="update"><div style="display: inline; margin-right: 8px">|</div>Update: {{ update }}</div></div></div><div class="date" v-else><span v-if="count">Words: {{ count }}<span></span></div>'
+        template: '<div class="date" v-if="date">{{ date }}<div><div class="update" v-if="count">Words: {{ count }}</div><div class="update" v-if="update"><div style="display: inline; margin-right: 8px">|</div>Update: {{ update }}</div></div></div><div class="date" v-else-if="count">Words: {{ count }}</div>'
     });
     Vue.component('vue-home-li', {
         props: {

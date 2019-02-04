@@ -93,7 +93,7 @@ a:hover i, li:hover > i:first-child {
 .date {
     float: right;
     text-align: right;
-    display: inline;
+    display: inline-block;
     color: #8e98a2;
 }
 
