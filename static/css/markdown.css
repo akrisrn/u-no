@@ -104,10 +104,6 @@
     content: "\f63f";
 }
 
-.markdown-body details + p > img, .markdown-body p + p > img, .markdown-body p + dl > dt > img {
-    margin-top: 8px;
-}
-
 .markdown-body h1, .markdown-body h2 {
     border-bottom-color: #dfe2e5;
 }
