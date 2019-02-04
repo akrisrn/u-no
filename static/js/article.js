@@ -1,5 +1,15 @@
 function getTextCount() {
-    return $(".markdown-body>*:not(.toc)").text().replace(/\s|·|~|@|%|-|\+|=|`|!|#|\$|\^|&|\*|\(|\)|_|\[|]|{|}|\\|\||;|:|"|'|,|\.|\/|<|>|\?|。|？|！|，|、|；|：|“|”|‘|’|（|）|《|》|〈|〉|【|】|『|』|「|」|﹃|﹄|〔|〕|…|—|～|﹏|￥/g, "").length;
+    const countStr = $(".markdown-body>*:not(.toc)").text().replace(/\s|·|~|@|%|-|\+|=|`|!|#|\$|\^|&|\*|\(|\)|_|\[|]|{|}|\\|\||;|:|"|'|,|\.|\/|<|>|\?|。|？|！|，|、|；|：|“|”|‘|’|（|）|《|》|〈|〉|【|】|『|』|「|」|﹃|﹄|〔|〕|…|—|～|﹏|￥/g, "").length.toString();
+    const sep = parseInt(countStr.length / 3);
+    const countList = [];
+    let start = 0;
+    for (let i = sep; i >= 0; i--) {
+        const end = countStr.length - i * 3;
+        if (end === 0) continue;
+        countList.push(countStr.substring(start, end));
+        start = end
+    }
+    return countList.join(",")
 }
 
 $(function () {
