@@ -153,7 +153,7 @@ $(function () {
 </button>`
     });
     Vue.component('vue-tag-icon', {
-        template: '<i class="fas fa-tags fa-xs"></i>'
+        template: '<i class="fas fa-tags"></i>'
     });
     Vue.component('vue-hashtag-icon', {
         template: '<i class="fas fa-hashtag"></i>'
