@@ -13,10 +13,10 @@
 }
 
 .count:before {
-    content: "Count:";
+    content: "Words:";
     margin-right: 3px;
 }
 
 .date + .count:before, .update + .count:before {
-    content: "| Count:";
+    content: "| Words:";
 }
