@@ -36,6 +36,10 @@
     margin-right: 3px;
 }
 
+.markdown-body a[href*=amazon\.cn]:before {
+    content: "\f270";
+}
+
 .markdown-body a[href*=bitbucket\.org]:before {
     content: "\f171";
 }
