@@ -13,7 +13,9 @@ function getTextCount() {
 }
 
 $(function () {
-    $("#content").find("table").tablesorter({sortList: [[0, 0]]});
+    const sortTd = $("table td.sort");
+    sortTd.parent().parent().parent().tablesorter({sortList: [[0, 0]]});
+    sortTd.parent().remove();
 
     $('.star').raty({
         readOnly: true,
