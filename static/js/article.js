@@ -16,6 +16,10 @@ $(function () {
     const sortTd = $("table td.sort");
     sortTd.parent().parent().parent().tablesorter({sortList: [[0, 0]]});
     sortTd.parent().remove();
+    const thead = $("thead");
+    if (thead.text().trim() === "") {
+        thead.remove()
+    }
 
     $('.star').raty({
         readOnly: true,
