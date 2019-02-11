@@ -59,7 +59,7 @@ $(function () {
         };
         const changeSth = (tocDetails) => {
             tocDetails.css("max-height", window.innerHeight - 50);
-            if (window.innerWidth > 1380) {
+            if (window.innerWidth > 1520) {
                 tocDetails.attr("open", "")
             } else {
                 tocDetails.removeAttr("open")

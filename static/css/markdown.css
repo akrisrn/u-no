@@ -352,7 +352,6 @@
     width: 250px;
     box-shadow: none;
     border-left: 3px #dfe2e5 solid;
-    padding-bottom: 8px;
     border-radius: 0;
     background-color: #f1f1f1;
     z-index: 100;
@@ -362,7 +361,7 @@
     -o-transition: width 1s;
 }
 
-@media screen and (max-width: 1380px) {
+@media screen and (max-width: 1520px) {
     .markdown-body details.toc {
         position: fixed;
         right: 0;
