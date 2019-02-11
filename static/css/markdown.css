@@ -351,7 +351,8 @@
     right: -250px;
     width: 250px;
     box-shadow: none;
-    border: none;
+    border-left: 3px #dfe2e5 solid;
+    padding-bottom: 8px;
     border-radius: 0;
     background-color: #f1f1f1;
     z-index: 100;
@@ -359,10 +360,6 @@
     -moz-transition: width 1s;
     -webkit-transition: width 1s;
     -o-transition: width 1s;
-}
-
-.markdown-body details.toc:not([open]) {
-    background-color: transparent;
 }
 
 @media screen and (max-width: 1380px) {
