@@ -5,7 +5,7 @@ from markdown.util import etree
 
 class RateInlineProcessor(InlineProcessor):
     def handleMatch(self, m, data):
-        el = etree.Element('div')
+        el = etree.Element('span')
         el.set('class', 'star')
         # 实际展示的评分为匹配数字的一半
         el.set('data-score', str(int(m.group(1)) / 2))

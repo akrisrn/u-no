@@ -477,7 +477,8 @@
 }
 
 .markdown-body .star {
-    font-size: 10px;
+    font-size: 8px;
+    color: #ffa400;
 }
 
 .markdown-body .code > .highlight, .markdown-body .linenodiv > pre {
