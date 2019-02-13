@@ -58,7 +58,7 @@ def render(text):
     extension_configs = {
         # 使用GitHub的emoji
         "pymdownx.emoji": {
-            "emoji_index": pymdownx.emoji.gemoji,
+            "emoji_index": pymdownx.emoji.emojione,
             "emoji_generator": pymdownx.emoji.to_png,
             "options": {
                 "attributes": {
