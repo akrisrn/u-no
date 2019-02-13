@@ -3,7 +3,7 @@
 }
 
 .markdown-body .tag a:hover {
-    color: #24292e;
+    color: #4a4a4a;
 }
 
 .search-input-group {
@@ -28,7 +28,7 @@
 
 .edit-group a, .edit-group button {
     padding: 3px 5px;
-    color: #24292e;
+    color: #4a4a4a;
     transition: none;
     -moz-transition: none;
     -webkit-transition: none;

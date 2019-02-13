@@ -1,7 +1,7 @@
 /*
     配色方案：
     - #448ef6：蓝
-    - #24292e：黑
+    - #4a4a4a：黑
     - #6a737d：灰1
     - #8e98a2：灰2
     - #dfe2e5：灰3
@@ -20,7 +20,7 @@ body {
 }
 
 a, a i, li i, .tag > i {
-    color: #24292e;
+    color: #4a4a4a;
     text-decoration: none;
     transition: 0.5s;
     -moz-transition: 0.5s;
@@ -107,7 +107,7 @@ a:hover i, li:hover > i:first-child {
 }
 
 .tag a:hover {
-    color: #24292e;
+    color: #4a4a4a;
     text-decoration: none;
 }
 
