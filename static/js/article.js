@@ -60,9 +60,11 @@ $(function () {
             const changeSth = (tocDetails) => {
                 tocDetails.css("max-height", window.innerHeight - 50);
                 if (window.innerWidth > 1520) {
-                    tocDetails.attr("open", "")
+                    tocDetails.attr("open", "");
+                    $("#content").css("left", -80);
                 } else {
-                    tocDetails.removeAttr("open")
+                    tocDetails.removeAttr("open");
+                    $("#content").css("left", 0);
                 }
             };
             const setActive = (scrollTop) => {
