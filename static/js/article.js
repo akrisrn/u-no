@@ -61,7 +61,7 @@ $(function () {
                 tocDetails.css("max-height", window.innerHeight - 50);
                 if (window.innerWidth > 1520) {
                     tocDetails.attr("open", "");
-                    $("#content").css("left", -80);
+                    $("#content").css("left", -100);
                 } else {
                     tocDetails.removeAttr("open");
                     $("#content").css("left", 0);
