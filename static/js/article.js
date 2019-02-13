@@ -32,75 +32,76 @@ $(function () {
 
     const toc = $(".toc");
     if (toc.length > 0) {
-        let tocDetails = $("<details>");
-        tocDetails.addClass("toc");
         if (toc.find("ul>li").length === 0) {
-            tocDetails.css("display", "none");
-        }
-        toc.wrap(tocDetails);
-        const tocDetailsSummary = $("<summary>");
-        tocDetailsSummary.append($("<strong>").text("TOC"));
-        tocDetailsSummary.insertBefore(toc);
-        $(toc.find('ul').get().reverse()).each(function () {
-            $(this).replaceWith($('<ol class="number">' + $(this).html() + '</ol>'))
-        });
-        const changeTop = (tocDetails, scrollTop) => {
-            const markdownBody = $(".markdown-body");
-            const headerHeight = markdownBody.offset().top - 16;
-            const bodyHeight = markdownBody.height() + markdownBody.offset().top;
-            const isFixed = tocDetails.css("position") === "fixed";
-            if (scrollTop + tocDetails.height() + 32 > bodyHeight) {
-                tocDetails.css("top", isFixed ? bodyHeight - tocDetails.height() - 32 - scrollTop :
-                    bodyHeight - tocDetails.height() - 32)
-            } else {
-                tocDetails.css("top", scrollTop > headerHeight ? (isFixed ? 0 : scrollTop) :
-                    (isFixed ? headerHeight - scrollTop : headerHeight));
-            }
-        };
-        const changeSth = (tocDetails) => {
-            tocDetails.css("max-height", window.innerHeight - 50);
-            if (window.innerWidth > 1520) {
-                tocDetails.attr("open", "")
-            } else {
-                tocDetails.removeAttr("open")
-            }
-        };
-        const setActive = (scrollTop) => {
-            const tocA = $(".toc a");
-            for (const h of $(".markdown-body").find("h1,h2,h3,h4,h5.h6").get().reverse()) {
-                if (scrollTop + 20 > h.offsetTop) {
-                    tocA.each(function () {
-                        if (this.getAttribute("href") === "#" + h.getAttribute("id")) {
-                            this.classList.add("active")
-                        } else {
-                            this.classList.remove("active")
-                        }
-                    });
-                    return
-                }
-            }
-            tocA.each(function () {
-                this.classList.remove("active")
+            toc.remove()
+        } else {
+            let tocDetails = $("<details>");
+            tocDetails.addClass("toc");
+            toc.wrap(tocDetails);
+            const tocDetailsSummary = $("<summary>");
+            tocDetailsSummary.append($("<strong>").text("TOC"));
+            tocDetailsSummary.insertBefore(toc);
+            $(toc.find('ul').get().reverse()).each(function () {
+                $(this).replaceWith($('<ol class="number">' + $(this).html() + '</ol>'))
             });
-        };
-        setTimeout(() => {
-            const scrollTop = getScrollTop();
-            tocDetails = $("details.toc");
-            tocDetails.appendTo($(".markdown-body"));
-            changeSth(tocDetails);
-            changeTop(tocDetails, scrollTop);
-            setActive(scrollTop)
-        }, 1);
-        $(window).resize(() => {
-            const tocDetails = $("details.toc");
-            changeSth(tocDetails);
-            changeTop(tocDetails, getScrollTop());
-        });
-        $(window).scroll(() => {
-            const scrollTop = getScrollTop();
-            changeTop($("details.toc"), scrollTop);
-            setActive(scrollTop)
-        });
+            const changeTop = (tocDetails, scrollTop) => {
+                const markdownBody = $(".markdown-body");
+                const headerHeight = markdownBody.offset().top - 16;
+                const bodyHeight = markdownBody.height() + markdownBody.offset().top;
+                const isFixed = tocDetails.css("position") === "fixed";
+                if (scrollTop + tocDetails.height() + 32 > bodyHeight) {
+                    tocDetails.css("top", isFixed ? bodyHeight - tocDetails.height() - 32 - scrollTop :
+                        bodyHeight - tocDetails.height() - 32)
+                } else {
+                    tocDetails.css("top", scrollTop > headerHeight ? (isFixed ? 0 : scrollTop) :
+                        (isFixed ? headerHeight - scrollTop : headerHeight));
+                }
+            };
+            const changeSth = (tocDetails) => {
+                tocDetails.css("max-height", window.innerHeight - 50);
+                if (window.innerWidth > 1520) {
+                    tocDetails.attr("open", "")
+                } else {
+                    tocDetails.removeAttr("open")
+                }
+            };
+            const setActive = (scrollTop) => {
+                const tocA = $(".toc a");
+                for (const h of $(".markdown-body").find("h1,h2,h3,h4,h5.h6").get().reverse()) {
+                    if (scrollTop + 20 > h.offsetTop) {
+                        tocA.each(function () {
+                            if (this.getAttribute("href") === "#" + h.getAttribute("id")) {
+                                this.classList.add("active")
+                            } else {
+                                this.classList.remove("active")
+                            }
+                        });
+                        return
+                    }
+                }
+                tocA.each(function () {
+                    this.classList.remove("active")
+                });
+            };
+            setTimeout(() => {
+                const scrollTop = getScrollTop();
+                tocDetails = $("details.toc");
+                tocDetails.appendTo($(".markdown-body"));
+                changeSth(tocDetails);
+                changeTop(tocDetails, scrollTop);
+                setActive(scrollTop)
+            }, 1);
+            $(window).resize(() => {
+                const tocDetails = $("details.toc");
+                changeSth(tocDetails);
+                changeTop(tocDetails, getScrollTop());
+            });
+            $(window).scroll(() => {
+                const scrollTop = getScrollTop();
+                changeTop($("details.toc"), scrollTop);
+                setActive(scrollTop)
+            });
+        }
     }
 
     $("summary").each(function () {
