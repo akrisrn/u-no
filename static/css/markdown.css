@@ -4,6 +4,10 @@
     color: #4a4a4a;
 }
 
+.markdown-body details + p > img {
+    margin-top: 8px;
+}
+
 .markdown-body a {
     position: relative;
 }
