@@ -138,12 +138,36 @@
     opacity: 1;
 }
 
+.markdown-body h1 > a,
+.markdown-body h2 > a,
+.markdown-body h3 > a,
+.markdown-body h4 > a,
+.markdown-body h5 > a,
+.markdown-body h6 > a {
+    border-left-color: #dfe2e5;
+    border-left-style: solid;
+    padding-left: 16px;
+}
+
+.markdown-body h1 > a,
+.markdown-body h2 > a {
+    border-left-width: 6px;
+}
+
+.markdown-body h3 > a,
+.markdown-body h4 > a,
+.markdown-body h5 > a,
+.markdown-body h6 > a {
+    border-left-width: 4px;
+}
+
 .markdown-body h1 > a:hover,
 .markdown-body h2 > a:hover,
 .markdown-body h3 > a:hover,
 .markdown-body h4 > a:hover,
 .markdown-body h5 > a:hover,
 .markdown-body h6 > a:hover {
+    border-left-color: #4a4a4a;
     text-decoration: none;
 }
 
@@ -154,30 +178,6 @@
 .markdown-body h5 > a:after,
 .markdown-body h6 > a:after {
     content: none;
-}
-
-.markdown-body h1:before {
-    content: "H1";
-}
-
-.markdown-body h2:before {
-    content: "H2";
-}
-
-.markdown-body h3:before {
-    content: "H3";
-}
-
-.markdown-body h4:before {
-    content: "H4";
-}
-
-.markdown-body h5:before {
-    content: "H5";
-}
-
-.markdown-body h6:before {
-    content: "H6";
 }
 
 .markdown-body ol.number {
