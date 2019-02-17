@@ -69,7 +69,7 @@ $(function () {
             };
             const setActive = (scrollTop) => {
                 const tocA = $(".toc a");
-                for (const h of $(".markdown-body").find("h1,h2,h3,h4,h5.h6").get().reverse()) {
+                for (const h of $(".markdown-body").find("h1,h2,h3,h4,h5,h6").get().reverse()) {
                     if (scrollTop + 20 > h.offsetTop) {
                         tocA.each(function () {
                             if (this.getAttribute("href") === "#" + h.getAttribute("id")) {
