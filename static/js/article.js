@@ -112,7 +112,7 @@ $(function () {
         }
     });
 
-    $(".markdown-body").find("h1,h2,h3,h4,h5.h6").each(function () {
+    $(".markdown-body").find("h1,h2,h3,h4,h5,h6").each(function () {
         $(this).html($("<a style='color: #4a4a4a'>").attr("href", "#" + $(this).attr("id")).html($(this).html()));
     });
 });
