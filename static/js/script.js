@@ -34,7 +34,8 @@ $(function () {
             $("#content")[0].scrollIntoView(false);
         },
         "zen": () => {
-            $("#main>h1~:not(.markdown-body), #content>:not(#main), .toc, #to-top").hide()
+            $("#main>h1~:not(.markdown-body), #content>:not(#main), .toc, #to-top").fadeOut();
+            $("#content").css("left", 0)
         },
         "#": () => {
             let i = 7;
