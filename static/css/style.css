@@ -50,10 +50,10 @@ a:hover i, li:hover > i:first-child {
     box-sizing: border-box;
     width: 100%;
     padding: 0 25px 25px;
-    transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-    -o-transition: 0.5s
+    transition: opacity 0.5s, left 0.5s;
+    -moz-transition: opacity 0.5s, left 0.5s;
+    -webkit-transition: opacity 0.5s, left 0.5s;
+    -o-transition: opacity 0.5s, left 0.5s
 }
 
 #content hr {
