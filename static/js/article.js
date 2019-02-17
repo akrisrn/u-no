@@ -68,7 +68,7 @@ $(function () {
                 }
             };
             const setActive = (scrollTop) => {
-                const tocA = $(".toc a");
+                const tocA = $(".toc a,h1>a,h2>a,h3>a,h4>a,h5>a,h6>a");
                 for (const h of $(".markdown-body").find("h1,h2,h3,h4,h5,h6").get().reverse()) {
                     if (scrollTop + 20 > h.offsetTop) {
                         tocA.each(function () {
