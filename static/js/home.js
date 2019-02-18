@@ -55,13 +55,15 @@ $(function () {
     });
 
     $(window).bind("keydown", (event) => {
-        switch (event.key) {
-            case "ArrowLeft":
-                prevButton.click();
-                break;
-            case "ArrowRight" :
-                nextButton.click();
-                break;
+        if (!$("textarea, input").is(':focus')) {
+            switch (event.key) {
+                case "ArrowLeft":
+                    prevButton.click();
+                    break;
+                case "ArrowRight" :
+                    nextButton.click();
+                    break;
+            }
         }
     });
 });
