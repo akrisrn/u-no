@@ -105,7 +105,7 @@ def get_template(file_name, params=None):
 
 def get_reference(text):
     file_path_list = []
-    url_match_dict = get_unique_find_dict(r"\[(.*?)\]\((.*?)\)\+", text, 2)
+    url_match_dict = get_unique_find_dict(r".*\[(.*?)\]\((.*?)\)\+", text, 2)
     for match in url_match_dict:
         file_path = url_match_dict[match][1].replace("../", "")
         if src.index.get_item_by_path(file_path):
