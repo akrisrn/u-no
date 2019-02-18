@@ -37,6 +37,7 @@
 .search .label {
     position: absolute;
     top: 8px;
+    left: 0;
     color: #8e98a2;
     transform-origin: 0 0;
     transition: 0.5s;
