@@ -71,8 +71,7 @@ $(function () {
         if (event.key === "Enter") {
             const text = this.value.trim().toLowerCase();
             if (text) {
-                $("ul > li").fadeOut();
-                $(".button-group").fadeOut();
+                $("ul > li,.button-group").fadeOut();
                 $.get("/").done((home) => {
                     $(home).find("vue-home-li").each(function () {
                         const url = this.getAttribute("url");
