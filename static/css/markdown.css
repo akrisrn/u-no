@@ -4,6 +4,10 @@
     color: #4a4a4a;
 }
 
+.markdown-body details + p > img {
+    margin-top: 8px;
+}
+
 .markdown-body a {
     position: relative;
 }
@@ -30,83 +34,6 @@
 
 .markdown-body a:hover:after {
     opacity: 1;
-}
-
-.markdown-body a:before {
-    font-family: "Font Awesome 5 Brands", serif;
-    margin-right: 3px;
-}
-
-.markdown-body a[href*=amazon\.cn]:before {
-    content: "\f270";
-}
-
-.markdown-body a[href*=bitbucket\.org]:before {
-    content: "\f171";
-}
-
-.markdown-body a[href*=github\.com]:before, .markdown-body a[href*=github\.io]:before {
-    content: "\f09b";
-}
-
-.markdown-body a[href*=gitlab\.com]:before {
-    content: "\f296";
-}
-
-.markdown-body a[href*=google\.com]:before {
-    content: "\f1a0";
-}
-
-.markdown-body a[href*=medium\.com]:before, .markdown-body a[href*=usejournal\.com]:before {
-    content: "\f23a";
-}
-
-.markdown-body a[href*=microsoft\.com]:before {
-    content: "\f3ca";
-}
-
-.markdown-body a[href*=qq\.com]:before, .markdown-body a[href*=tencent\.com]:before {
-    content: "\f1d6";
-}
-
-.markdown-body a[href*=quora\.com]:before {
-    content: "\f2c4";
-}
-
-.markdown-body a[href*=reddit\.com]:before {
-    content: "\f1a1";
-}
-
-.markdown-body a[href*=stackoverflow\.com]:before {
-    content: "\f16c";
-}
-
-.markdown-body a[href*=steampowered\.com]:before, .markdown-body a[href*=steamcommunity\.com]:before {
-    content: "\f1b6";
-}
-
-.markdown-body a[href*=twitter\.com]:before {
-    content: "\f099";
-}
-
-.markdown-body a[href*=weibo\.com]:before {
-    content: "\f18a";
-}
-
-.markdown-body a[href*=weixin\.qq\.com]:before {
-    content: "\f1d7";
-}
-
-.markdown-body a[href*=wikipedia\.org]:before {
-    content: "\f266";
-}
-
-.markdown-body a[href*=youtube\.com]:before {
-    content: "\f167";
-}
-
-.markdown-body a[href*=zhihu\.com]:before {
-    content: "\f63f";
 }
 
 .markdown-body h1, .markdown-body h2 {
@@ -138,12 +65,36 @@
     opacity: 1;
 }
 
-.markdown-body h1 > a:hover,
-.markdown-body h2 > a:hover,
-.markdown-body h3 > a:hover,
-.markdown-body h4 > a:hover,
-.markdown-body h5 > a:hover,
-.markdown-body h6 > a:hover {
+.markdown-body h1 > a,
+.markdown-body h2 > a,
+.markdown-body h3 > a,
+.markdown-body h4 > a,
+.markdown-body h5 > a,
+.markdown-body h6 > a {
+    border-left-color: #dfe2e5;
+    border-left-style: solid;
+    padding-left: 16px;
+}
+
+.markdown-body h1 > a,
+.markdown-body h2 > a {
+    border-left-width: 6px;
+}
+
+.markdown-body h3 > a,
+.markdown-body h4 > a,
+.markdown-body h5 > a,
+.markdown-body h6 > a {
+    border-left-width: 4px;
+}
+
+.markdown-body h1 > a:hover, .markdown-body h1 > a.active,
+.markdown-body h2 > a:hover, .markdown-body h2 > a.active,
+.markdown-body h3 > a:hover, .markdown-body h3 > a.active,
+.markdown-body h4 > a:hover, .markdown-body h4 > a.active,
+.markdown-body h5 > a:hover, .markdown-body h5 > a.active,
+.markdown-body h6 > a:hover, .markdown-body h6 > a.active {
+    border-left-color: #4a4a4a;
     text-decoration: none;
 }
 
@@ -154,30 +105,6 @@
 .markdown-body h5 > a:after,
 .markdown-body h6 > a:after {
     content: none;
-}
-
-.markdown-body h1:before {
-    content: "H1";
-}
-
-.markdown-body h2:before {
-    content: "H2";
-}
-
-.markdown-body h3:before {
-    content: "H3";
-}
-
-.markdown-body h4:before {
-    content: "H4";
-}
-
-.markdown-body h5:before {
-    content: "H5";
-}
-
-.markdown-body h6:before {
-    content: "H6";
 }
 
 .markdown-body ol.number {
