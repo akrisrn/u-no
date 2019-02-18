@@ -85,8 +85,7 @@ $(function () {
                                     $(`li>a[href="${url}"]`).parent().fadeIn()
                                 }
                                 if (++j === count) {
-                                    label.css("left", -8);
-                                    label.text("Finished");
+                                    label.text("Finish");
                                 } else {
                                     if (j % 6 === 0) {
                                         if (label.text().length === 3) {
