@@ -66,4 +66,26 @@ $(function () {
             }
         }
     });
+
+    $("#search-input").keydown(function (event) {
+        if (event.key === "Enter") {
+            const text = this.value.trim().toLowerCase();
+            if (text) {
+                $("ul > li").fadeOut();
+                $(".button-group").fadeOut();
+                $.get("/").done((home) => {
+                    $(home).find("vue-home-li").each(function () {
+                        const url = this.getAttribute("url");
+                        Pace.ignore(() => {
+                            $.get(url).done((article) => {
+                                if ($(article).find("#main").text().toLowerCase().includes(text)) {
+                                    $(`li>a[href="${url}"]`).parent().fadeIn()
+                                }
+                            })
+                        });
+                    })
+                });
+            }
+        }
+    });
 });

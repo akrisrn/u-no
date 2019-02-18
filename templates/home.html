@@ -21,6 +21,11 @@
         </h1>
         <vue-return-home></vue-return-home>
     {%- else -%}
+        <label for="search-input" class="search">
+            <input type="text" id="search-input" placeholder=" ">
+            <span class="label">Search</span>
+            <span class="border"></span>
+        </label>
         <h1>{{ site_name }}</h1>
     {%- endif -%}
     <div class="markdown-body">

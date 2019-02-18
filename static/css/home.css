@@ -2,6 +2,63 @@
     float: right;
 }
 
+.search {
+    position: relative;
+    float: right;
+    top: 32px;
+}
+
+.search input {
+    border: 0;
+    padding-top: 8px;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #dfe2e5;
+    color: #4a4a4a;
+    background: none;
+}
+
+.search input:not(:placeholder-shown) + span {
+    transform: translateX(-40px) translateY(1px) scale(0.75);
+}
+
+.search input:focus {
+    outline: none;
+}
+
+.search input:focus + span {
+    color: #448ef6;
+    transform: translateX(-40px) translateY(1px) scale(0.75);
+}
+
+.search input:focus + span + .border {
+    transform: scaleX(1);
+}
+
+.search .label {
+    position: absolute;
+    top: 8px;
+    color: #8e98a2;
+    transform-origin: 0 0;
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+}
+
+.search .border {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background: #448ef6;
+    transform: scaleX(0);
+    transform-origin: 0 0;
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+}
+
 @media screen and (max-width: 600px) {
     .date {
         float: none;
