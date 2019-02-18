@@ -13,7 +13,7 @@ $(function () {
         showArrow(prevButton, false, true);
         showArrow(nextButton, true, true);
 
-        $(`li.page-${num}`).fadeIn();
+        $(`.button-group,li.page-${num}`).fadeIn();
         if (num > 1) {
             showArrow(prevButton, true, false);
         }
