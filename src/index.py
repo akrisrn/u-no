@@ -190,7 +190,7 @@ def reindex():
                 reference_dict[file_path] = src.md.md.get_reference(data) + src.flag.get_custom_css_flag(data, True) + \
                                             src.flag.get_custom_js_flag(data, True)
                 for value in get_unique_find_dict(src.md.md.get_template("(.*?)"), data).values():
-                    value = clean_link(value)
+                    value = clean_link(value).split("|")[0]
                     if get_item_by_path(value):
                         reference_dict[file_path].append(value)
                 # 组成一条文章索引
