@@ -72,13 +72,29 @@ $(function () {
             const text = this.value.trim().toLowerCase();
             if (text) {
                 $("ul > li,.button-group").fadeOut();
+                const label = $($(this).siblings()[0]);
+                label.text("。");
+                const count = $("ul > li").length;
+                let j = 0;
                 $.get("/").done((home) => {
-                    $(home).find("vue-home-li").each(function () {
-                        const url = this.getAttribute("url");
+                    $(home).find("vue-home-li").each((i, item) => {
+                        const url = item.getAttribute("url");
                         Pace.ignore(() => {
                             $.get(url).done((article) => {
                                 if ($(article).find("#main").text().toLowerCase().includes(text)) {
                                     $(`li>a[href="${url}"]`).parent().fadeIn()
+                                }
+                                if (++j === count) {
+                                    label.css("left", -8);
+                                    label.text("Finished");
+                                } else {
+                                    if (j % 6 === 0) {
+                                        if (label.text().length === 3) {
+                                            label.text("。")
+                                        } else {
+                                            label.text(label.text() + "。");
+                                        }
+                                    }
                                 }
                             })
                         });
