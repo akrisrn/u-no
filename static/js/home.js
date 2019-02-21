@@ -81,7 +81,7 @@ $(function () {
                         const url = item.getAttribute("url");
                         Pace.ignore(() => {
                             $.get(url).done((article) => {
-                                if ($(article).find("#main").text().toLowerCase().includes(text)) {
+                                if ($(article).find("#main>h1,.markdown-body>*:not(.toc)").text().toLowerCase().includes(text)) {
                                     $(`li>a[href="${url}"]`).parent().fadeIn()
                                 }
                                 if (++j === count) {
