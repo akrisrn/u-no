@@ -74,6 +74,7 @@
     border-left-color: #dfe2e5;
     border-left-style: solid;
     padding-left: 16px;
+    color: #4a4a4a
 }
 
 .markdown-body h1 > a,
@@ -95,6 +96,7 @@
 .markdown-body h5 > a:hover, .markdown-body h5 > a.active,
 .markdown-body h6 > a:hover, .markdown-body h6 > a.active {
     border-left-color: #4a4a4a;
+    color: #24292e;
     text-decoration: none;
 }
 
