@@ -128,9 +128,9 @@ def home_page():
 
 @rss.route('/%s' % tags_url_name)
 def tags_page():
-    pass
+    return ""
 
 
 @rss.route('/%s/<tag_name>' % tags_url_name)
 def tag_page(tag_name):
-    pass
+    return tag_name

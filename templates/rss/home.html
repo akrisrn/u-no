@@ -27,7 +27,7 @@
                 <li>
                     <i class="fas fa-angle-double-right"></i>
                     <vue-date date="{{ rss_article[index_date_key] }}"></vue-date>
-                    <code>{{ rss_article[index_parent_key] }}</code>
+                    <a href="{{ url_for('rss.tag_page', tag_name=rss_article[index_parent_key]) }}"><code>{{ rss_article[index_parent_key] }}</code></a>
                     <vue-home-li url="{{ rss_article[index_url_key] }}"
                                  name="{{ rss_article[index_title_key] }}">
                     </vue-home-li>
