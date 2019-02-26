@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import datetime
+from threading import Thread
 
 import feedparser
 from flask import Blueprint, render_template, current_app
@@ -103,13 +104,24 @@ def home_page():
     rss_data = get_rss_data()
     articles = []
     feeds = rss_data[RSS.FEEDS_KEY.value]
-    for rss_url in feeds:
-        feed = feeds[rss_url]
+
+    def th(url):
+        feed = feeds[url]
         feed_name = feed[RSS.NAME_KEY.value]
         feed_tags = feed[RSS.TAGS_KEY.value]
         tags = {tag: tag for tag in feed_tags}
-        for entry in Feed(rss_url).get_entries():
+        for entry in Feed(url).get_entries():
             articles.append(convert_entry(entry, feed_name, tags))
+
+    thread = []
+    for rss_url in feeds:
+        t = Thread(target=th, args=(rss_url,))
+        thread.append(t)
+        t.setDaemon(True)
+        t.start()
+    for t in thread:
+        t.join()
+
     articles = sorted(articles, key=lambda k: k[index_date_key], reverse=True)
     return render_template('rss/home.html', rss_articles=articles)
 
