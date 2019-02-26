@@ -1,3 +1,5 @@
+from enum import Enum
+
 index_url_name = "index"
 articles_url_name = "articles"
 attachments_url_name = "uploads"
@@ -37,6 +39,36 @@ flag_header = "header"
 flag_footer = "footer"
 flag_noheader = "noheader"
 flag_nofooter = "nofooter"
+
+
+class RSS(Enum):
+    FEED = "feed"
+    FEED_TITLE = "title"
+    FEED_SUBTITLE = "subtitle"
+    FEED_LINK = "link"
+    FEED_LANGUAGE = "language"
+    FEED_PUBLISHED = "published"
+    FEED_UPDATED = "updated"
+    FEED_TTL = "ttl"
+    FEED_ENTRIES = "entries"
+    FEED_HREF = "href"
+    FEED_STATUS = "status"
+    FEED_ENCODING = "encoding"
+    FEED_VERSION = "version"
+    ENTRY_TITLE = "title"
+    ENTRY_AUTHOR = "author"
+    ENTRY_SUMMARY = "summary"
+    ENTRY_PUBLISHED = "published"
+    ENTRY_LINK = "link"
+    FEEDS_KEY = "feeds"
+    FILTER_KEY = "filter"
+    NAME_KEY = "name"
+    TAGS_KEY = "tags"
+    HISTORY_KEY = "history"
+    ENTRY_KEY = "entry"
+    READ_KEY = "read"
+    SAVED_KEY = "saved"
+
 
 show_date_format = "%Y-%m-%d"
 hash_length = 7

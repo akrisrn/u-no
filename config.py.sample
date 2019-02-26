@@ -30,6 +30,8 @@ INDEX_PRETTY_PRINT = True
 HEADER_FILE_NAME = ""
 # 页脚文件名
 FOOTER_FILE_NAME = ""
+# RSS源文件名
+RSS_FILE_NAME = ""
 
 # 忽略索引的文件名列表
 IGNORE_FILE_LIST = [INDEX_FILE_NAME]

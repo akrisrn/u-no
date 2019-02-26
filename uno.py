@@ -2,10 +2,11 @@ from flask import Flask, render_template
 
 from src.const import index_url_key, index_title_key, index_id_key, index_tags_key, index_date_key, index_notags_key, \
     index_highlight_key, index_fixed_key, index_top_key, index_path_key, index_bereferenced_key, articles_url_name, \
-    attachments_url_name, tags_url_name, index_update_key
+    attachments_url_name, tags_url_name, index_update_key, index_parent_key
 from src.util import get_static_file_url, get_static_lib_url, get_plugins_urls, get_plugin_urls, format_date
 from src.view.edit import edit
 from src.view.main import main
+from src.view.rss import rss
 
 app = Flask(__name__)
 # 载入配置
@@ -16,6 +17,7 @@ app.static_folder = app.config["STATIC_DIR_NAME"]
 # 注册蓝图
 app.register_blueprint(main)
 app.register_blueprint(edit, url_prefix="/edit")
+app.register_blueprint(rss, url_prefix="/rss")
 
 # 自动重载jinja环境
 app.jinja_env.auto_reload = True
@@ -40,6 +42,7 @@ app.jinja_env.globals["index_highlight_key"] = index_highlight_key
 app.jinja_env.globals["index_fixed_key"] = index_fixed_key
 app.jinja_env.globals["index_top_key"] = index_top_key
 app.jinja_env.globals["index_bereferenced_key"] = index_bereferenced_key
+app.jinja_env.globals["index_parent_key"] = index_parent_key
 # 绑定函数到jinja模板
 app.jinja_env.globals.update(format_date=format_date)
 app.jinja_env.globals.update(get_static_file_url=get_static_file_url)
