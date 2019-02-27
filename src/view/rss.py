@@ -144,9 +144,9 @@ def home_page():
     rss_filter = rss_data[RSS.FILTER_KEY.value]
     history = rss_data[RSS.HISTORY_KEY.value]
 
-    def th(url):
-        feed_data = feeds_data[url]
-        name = feed_data[RSS.NAME_KEY.value]
+    def th(n):
+        feed_data = feeds_data[n]
+        url = feed_data[RSS.URL_KEY.value]
         tags = {tag: tag for tag in feed_data[RSS.TAGS_KEY.value]}
         feed = Feed(url)
         for entry in feed.get_entries():
@@ -172,8 +172,8 @@ def home_page():
                     records[link][RSS.ENTRY_KEY.value] = record_entry
 
     thread = []
-    for rss_url in feeds_data:
-        t = Thread(target=th, args=(rss_url,))
+    for name in feeds_data:
+        t = Thread(target=th, args=(name,))
         thread.append(t)
         t.setDaemon(True)
         t.start()

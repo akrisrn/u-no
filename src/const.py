@@ -62,7 +62,7 @@ class RSS(Enum):
     ENTRY_LINK = "link"
     FEEDS_KEY = "feeds"
     FILTER_KEY = "filter"
-    NAME_KEY = "name"
+    URL_KEY = "url"
     TAGS_KEY = "tags"
     HISTORY_KEY = "history"
     ENTRY_KEY = "entry"
