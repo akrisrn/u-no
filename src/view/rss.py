@@ -104,14 +104,15 @@ class Feed:
 def home_page():
     rss_data = get_rss_data()
     articles = []
-    feeds = rss_data[RSS.FEEDS_KEY.value]
+    feeds_data = rss_data[RSS.FEEDS_KEY.value]
     rss_filter = rss_data[RSS.FILTER_KEY.value]
 
     def th(url):
-        feed = feeds[url]
-        name = feed[RSS.NAME_KEY.value]
-        tags = {tag: tag for tag in feed[RSS.TAGS_KEY.value]}
-        for entry in Feed(url).get_entries():
+        feed_data = feeds_data[url]
+        name = feed_data[RSS.NAME_KEY.value]
+        tags = {tag: tag for tag in feed_data[RSS.TAGS_KEY.value]}
+        feed = Feed(url)
+        for entry in feed.get_entries():
             is_filter = False
             for regex in rss_filter:
                 if re.match(".*?(%s)" % regex, entry.get_title()):
@@ -121,7 +122,7 @@ def home_page():
                 articles.append(convert_entry(entry, name, tags))
 
     thread = []
-    for rss_url in feeds:
+    for rss_url in feeds_data:
         t = Thread(target=th, args=(rss_url,))
         thread.append(t)
         t.setDaemon(True)
