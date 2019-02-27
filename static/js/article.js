@@ -21,6 +21,12 @@ $(function () {
         thead.remove()
     }
 
+    $("p").each(function () {
+        if (this.innerHTML === "") {
+            this.remove()
+        }
+    });
+
     $('.star').raty({
         readOnly: true,
         starType: "i"
