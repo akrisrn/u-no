@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from datetime import datetime
 from threading import Thread
 
@@ -104,6 +105,7 @@ def home_page():
     rss_data = get_rss_data()
     articles = []
     feeds = rss_data[RSS.FEEDS_KEY.value]
+    rss_filter = rss_data[RSS.FILTER_KEY.value]
 
     def th(url):
         feed = feeds[url]
@@ -111,7 +113,13 @@ def home_page():
         feed_tags = feed[RSS.TAGS_KEY.value]
         tags = {tag: tag for tag in feed_tags}
         for entry in Feed(url).get_entries():
-            articles.append(convert_entry(entry, feed_name, tags))
+            is_filter = False
+            for regex in rss_filter:
+                if re.match(".*?(%s)" % regex, entry.get_title()):
+                    is_filter = True
+                    break
+            if not is_filter:
+                articles.append(convert_entry(entry, feed_name, tags))
 
     thread = []
     for rss_url in feeds:
