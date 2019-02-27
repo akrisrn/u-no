@@ -157,9 +157,9 @@ def home_page():
                     break
             if not is_filter:
                 articles.append(convert_entry(entry, name, tags))
-                if url not in history:
-                    history[url] = {}
-                records = history[url]
+                if name not in history:
+                    history[name] = {}
+                records = history[name]
                 link = entry.get_link()
                 record_entry = get_record_entry(entry)
                 if link not in records:
