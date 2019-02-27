@@ -109,9 +109,8 @@ def home_page():
 
     def th(url):
         feed = feeds[url]
-        feed_name = feed[RSS.NAME_KEY.value]
-        feed_tags = feed[RSS.TAGS_KEY.value]
-        tags = {tag: tag for tag in feed_tags}
+        name = feed[RSS.NAME_KEY.value]
+        tags = {tag: tag for tag in feed[RSS.TAGS_KEY.value]}
         for entry in Feed(url).get_entries():
             is_filter = False
             for regex in rss_filter:
@@ -119,7 +118,7 @@ def home_page():
                     is_filter = True
                     break
             if not is_filter:
-                articles.append(convert_entry(entry, feed_name, tags))
+                articles.append(convert_entry(entry, name, tags))
 
     thread = []
     for rss_url in feeds:
