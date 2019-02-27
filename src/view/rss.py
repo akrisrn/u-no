@@ -36,6 +36,15 @@ def convert_entry(entry, name="", tags=None):
     }
 
 
+def get_record_entry(entry):
+    return {
+        RSS.ENTRY_TITLE.value: entry.get_title(),
+        RSS.ENTRY_AUTHOR.value: entry.get_author(),
+        RSS.ENTRY_SUMMARY.value: entry.get_summary(),
+        RSS.ENTRY_PUBLISHED.value: convert_time(entry.get_published())
+    }
+
+
 def handle_key_error(method):
     def wrapped(*args, **kwargs):
         try:
@@ -133,6 +142,7 @@ def home_page():
     articles = []
     feeds_data = rss_data[RSS.FEEDS_KEY.value]
     rss_filter = rss_data[RSS.FILTER_KEY.value]
+    history = rss_data[RSS.HISTORY_KEY.value]
 
     def th(url):
         feed_data = feeds_data[url]
@@ -147,6 +157,19 @@ def home_page():
                     break
             if not is_filter:
                 articles.append(convert_entry(entry, name, tags))
+                if url not in history:
+                    history[url] = {}
+                records = history[url]
+                link = entry.get_link()
+                record_entry = get_record_entry(entry)
+                if link not in records:
+                    records[link] = {
+                        RSS.ENTRY_KEY.value: record_entry,
+                        RSS.READ_KEY.value: False,
+                        RSS.SAVED_KEY.value: False,
+                    }
+                else:
+                    records[link][RSS.ENTRY_KEY.value] = record_entry
 
     thread = []
     for rss_url in feeds_data:
@@ -156,6 +179,10 @@ def home_page():
         t.start()
     for t in thread:
         t.join()
+
+    with open(os.path.join(get_articles_dir_abspath(), current_app.config["RSS_FILE_NAME"]), 'w',
+              encoding='utf-8') as rss_file:
+        rss_file.write(json.dumps(rss_data, separators=None, sort_keys=True, indent=2, ensure_ascii=False))
 
     articles = sorted(articles, key=lambda k: k[index_date_key], reverse=True)
     return render_template('rss/home.html', rss_articles=articles)
