@@ -36,22 +36,37 @@ def convert_entry(entry, name="", tags=None):
     }
 
 
+def handle_key_error(method):
+    def wrapped(*args, **kwargs):
+        try:
+            return method(*args, **kwargs)
+        except KeyError:
+            return ""
+
+    return wrapped
+
+
 class Entry:
     def __init__(self, entry):
         self.entry = entry
 
+    @handle_key_error
     def get_title(self):
         return self.entry[RSS.ENTRY_TITLE.value]
 
+    @handle_key_error
     def get_author(self):
         return self.entry[RSS.ENTRY_AUTHOR.value]
 
+    @handle_key_error
     def get_summary(self):
         return self.entry[RSS.ENTRY_SUMMARY.value]
 
+    @handle_key_error
     def get_published(self):
         return self.entry[RSS.ENTRY_PUBLISHED.value]
 
+    @handle_key_error
     def get_link(self):
         return self.entry[RSS.ENTRY_LINK.value]
 
@@ -60,42 +75,54 @@ class Feed:
     def __init__(self, rss_url):
         self.feed = feedparser.parse(rss_url)
 
+    @handle_key_error
     def get_title(self):
         return self.feed[RSS.FEED.value][RSS.FEED_TITLE.value]
 
+    @handle_key_error
     def get_subtitle(self):
         return self.feed[RSS.FEED.value][RSS.FEED_SUBTITLE.value]
 
+    @handle_key_error
     def get_link(self):
         return self.feed[RSS.FEED.value][RSS.FEED_LINK.value]
 
+    @handle_key_error
     def get_language(self):
         return self.feed[RSS.FEED.value][RSS.FEED_LANGUAGE.value]
 
+    @handle_key_error
     def get_published(self):
         return self.feed[RSS.FEED.value][RSS.FEED_PUBLISHED.value]
 
+    @handle_key_error
     def get_updated(self):
         return self.feed[RSS.FEED.value][RSS.FEED_UPDATED.value]
 
+    @handle_key_error
     def get_ttl(self):
         return self.feed[RSS.FEED.value][RSS.FEED_TTL.value]
 
+    @handle_key_error
     def get_entries(self):
         entries = []
         for entry in self.feed[RSS.FEED_ENTRIES.value]:
             entries.append(Entry(entry))
         return entries
 
+    @handle_key_error
     def get_href(self):
         return self.feed[RSS.FEED_HREF.value]
 
+    @handle_key_error
     def get_status(self):
         return self.feed[RSS.FEED_STATUS.value]
 
+    @handle_key_error
     def get_encoding(self):
         return self.feed[RSS.FEED_ENCODING.value]
 
+    @handle_key_error
     def get_version(self):
         return self.feed[RSS.FEED_VERSION.value]
 
