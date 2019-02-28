@@ -5,10 +5,10 @@ from datetime import datetime
 from threading import Thread
 
 import feedparser
-from flask import Blueprint, render_template, current_app
+from flask import Blueprint, render_template, current_app, abort
 
 from src.cache import get_file_cache
-from src.const import RSS, tags_url_name, index_parent_key
+from src.const import RSS, tags_url_name, index_parent_key, articles_url_name
 from src.const import index_date_key, index_url_key, index_title_key, index_tags_key, show_date_format
 from src.util import get_articles_dir_abspath
 
@@ -186,6 +186,20 @@ def home_page():
 
     articles = sorted(articles, key=lambda k: k[index_date_key], reverse=True)
     return render_template('rss/home.html', rss_articles=articles)
+
+
+@rss.route('/%s/<name>/<path:url>' % articles_url_name)
+def article_page(name, url):
+    rss_data = get_rss_data()
+    feeds_data = rss_data[RSS.FEEDS_KEY.value]
+    history = rss_data[RSS.HISTORY_KEY.value]
+    feed = history[name]
+    if url not in feed:
+        abort(404)
+    entry = feed[url][RSS.ENTRY_KEY.value]
+    return render_template('rss/article.html', title=entry[RSS.ENTRY_TITLE.value],
+                           data="<p>%s</p>" % entry[RSS.ENTRY_SUMMARY.value], date=entry[RSS.ENTRY_PUBLISHED.value],
+                           tags={tag: tag for tag in feeds_data[name][RSS.TAGS_KEY.value]})
 
 
 @rss.route('/%s' % tags_url_name)

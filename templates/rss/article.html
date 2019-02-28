@@ -1,0 +1,23 @@
+{%- extends "frame.html" -%}
+{%- set rss_suffix = "+{RSS}" -%}
+{%- block title -%}
+    {{ title }} - {{ site_name }}{{ rss_suffix }}
+{%- endblock -%}
+{%- block extra_js_link -%}
+    <script type="text/javascript" src="{{ get_static_file_url("js/article.js") }}"></script>
+{%- endblock -%}
+{%- block extra_css_link -%}
+    <link rel="stylesheet" type="text/css" href="{{ get_static_file_url("css/article.css") }}">
+{%- endblock -%}
+{%- block content -%}
+    <h1>{{ title }}</h1>
+    <vue-return-home url="{{ url_for('rss.home_page') }}"></vue-return-home>
+    <vue-date date="{{ date }}"></vue-date>
+    <vue-count v-bind:count="getTextCount()"></vue-count>
+    {%- for tag in tags | dictsort(by="value") -%}
+        <vue-tag tags_url="{{ url_for('main.tags_page') }}" url="{{ url_for('main.tag_page', tag_hash=tag[0]) }}"
+                 name="{{ tag[1] }}"{{ " style='margin-left:8px' is_first" | safe if loop.index == 1 else "" }}></vue-tag>
+    {%- endfor -%}
+    <hr>
+    <div class="markdown-body">{{ data | safe }}</div>
+{%- endblock -%}
