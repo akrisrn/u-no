@@ -6,7 +6,6 @@ from src.const import index_url_key, index_title_key, index_id_key, index_tags_k
 from src.util import get_static_file_url, get_static_lib_url, get_plugins_urls, get_plugin_urls, format_date
 from src.view.edit import edit
 from src.view.main import main
-from src.view.rss import rss
 
 app = Flask(__name__)
 # 载入配置
@@ -17,7 +16,6 @@ app.static_folder = app.config["STATIC_DIR_NAME"]
 # 注册蓝图
 app.register_blueprint(main)
 app.register_blueprint(edit, url_prefix="/edit")
-app.register_blueprint(rss, url_prefix="/rss")
 
 # 自动重载jinja环境
 app.jinja_env.auto_reload = True
