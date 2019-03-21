@@ -36,6 +36,37 @@
     opacity: 1;
 }
 
+.markdown-body a.footnote-ref:before {
+    content: "[";
+    font-size: 14px;
+}
+
+.markdown-body a.footnote-ref:after {
+    content: "]";
+    font-size: 14px;
+    position: relative;
+    opacity: 1;
+    height: 0;
+    bottom: 0;
+    background-color: transparent;
+}
+
+.markdown-body a.footnote-ref:hover {
+    text-decoration: underline;
+}
+
+.markdown-body a.footnote-backref {
+    color: #4a4a4a;
+}
+
+.markdown-body a.footnote-backref:hover {
+    color: #0366d6;
+}
+
+.markdown-body a.footnote-backref:after {
+    position: relative;
+}
+
 .markdown-body h1, .markdown-body h2 {
     border-bottom-color: #dfe2e5;
 }
