@@ -1,3 +1,7 @@
+$(function () {
+    document.getElementById("content").style.left = "0";
+});
+
 Pace.on("done", function () {
     document.getElementById("content").style.opacity = "1";
     const fillFrame = (e, src, width, height) => {

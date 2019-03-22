@@ -44,6 +44,7 @@ a:hover i, li:hover > i:first-child {
 
 #content {
     opacity: 0;
+    left: -9999px;
     position: relative;
     z-index: 5;
     float: left;
