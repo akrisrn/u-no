@@ -149,9 +149,7 @@
 }
 
 .markdown-body ol.number > li:before {
-    content: counters(item, ".") ".";
-    counter-increment: item;
-    margin-right: 8px;
+    content: "";
     margin-left: -20px;
 }
 
